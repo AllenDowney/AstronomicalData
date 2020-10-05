@@ -1,0 +1,51 @@
+axes.prop_cycle     : cycler('color', ['000000','CC6677','4477AA','DDCC77','117733','88CCEE','882255','44AA99','999933','AA4499', '661100',  'AA4466','4477AA'])
+
+
+figure.figsize       : 6.0, 3
+figure.subplot.bottom: 0.15
+figure.subplot.left  : 0.1
+figure.subplot.right : 0.95
+figure.subplot.top   : 0.95
+
+lines.markersize     : 5
+lines.markeredgewidth : 0.5
+lines.linewidth      : 1.5
+
+axes.linewidth       : 1.0 
+axes.labelsize       : 10.0
+axes.axisbelow       : False
+axes.titlesize      : 10.0 
+
+xtick.top            : True
+xtick.major.size     : 5.0
+xtick.minor.size     : 2.0
+xtick.major.width    : 1.0
+xtick.minor.width    : 0.5
+xtick.major.pad      : 8.0
+xtick.minor.pad      : 8.0
+xtick.direction      : in
+xtick.minor.visible  : True
+xtick.labelsize      : 10.0
+
+ytick.right          : True 
+ytick.major.size     : 5.0  
+ytick.minor.size     : 2.0  
+ytick.major.width    : 1.2  
+ytick.minor.width    : 0.6  
+ytick.major.pad      : 5.0  
+ytick.minor.pad      : 5.0  
+ytick.direction      : in   
+ytick.minor.visible  : True
+ytick.labelsize      : 10.0
+
+legend.fontsize      : 6.0
+legend.framealpha    : 0.7  
+legend.borderpad     : 0.55 
+legend.labelspacing  : 0.25 
+legend.handlelength  : 1.0  
+legend.handletextpad : 0.3  
+legend.borderaxespad : 1.1  
+
+savefig.pad_inches   : 0
+
+text.usetex        : true
