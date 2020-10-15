@@ -25,13 +25,16 @@ links below, you can read the notebooks on NBViewer or run them on Colab.  If yo
 want to run the notebooks in your own environment, you can download them from
 this repository and follow the instructions below to set up your environment.
 
-### Prerequisites
+This material is also available in the form of [Carpentries lessons](https://datacarpentry.github.io/astronomy-python), but you should be
+aware that these versions might diverge in the future.
+
+**Prerequisites**
 
 This material should be accessible to people familiar with basic Python, but not necessarily the libraries we will use, like Astropy or Pandas.  If you are familiar with Python lists and dictionaries, and you know how to write a function that takes parameters and returns a value, that should be enough.
 
 We assume that you are familiar with astronomy at the undergraduate level, but we will not assume specialized knowledge of the datasets or analysis methods we'll use.
 
-### Notebook 1
+**Notebook 1**
 
 This notebook demonstrates the following steps:
 
@@ -50,7 +53,7 @@ Press this button to run this notebook on Colab:
 [or click here to read it on NBViewer](https://nbviewer.jupyter.org/github/AllenDowney/AstronomicalData/blob/main/01_query.ipynb)
 
 
-### Notebook 2
+**Notebook 2**
 
 This notebook starts with an example that does a "cone search"; that is, it selects stars that appear in a circular region of the sky.
 
@@ -73,7 +76,7 @@ Press this button to run this notebook on Colab:
 [or click here to read it on NBViewer](https://nbviewer.jupyter.org/github/AllenDowney/AstronomicalData/blob/main/02_coords.ipynb)
 
 
-### Notebook 3
+**Notebook 3**
 
 Here are the steps in this notebook:
 
@@ -94,7 +97,7 @@ Press this button to run this notebook on Colab:
 [or click here to read it on NBViewer](https://nbviewer.jupyter.org/github/AllenDowney/AstronomicalData/blob/main/03_motion.ipynb)
 
 
-### Notebook 4
+**Notebook 4**
 
 Here are the steps in this notebook:
 
@@ -113,7 +116,7 @@ Press this button to run this notebook on Colab:
 [or click here to read it on NBViewer](https://nbviewer.jupyter.org/github/AllenDowney/AstronomicalData/blob/main/04_select.ipynb)
 
 
-### Notebook 5
+**Notebook 5**
 
 Here are the steps in this notebook:
 
@@ -130,7 +133,7 @@ Press this button to run this notebook on Colab:
 [or click here to read it on NBViewer](https://nbviewer.jupyter.org/github/AllenDowney/AstronomicalData/blob/main/05_join.ipynb)
 
 
-### Notebook 6
+**Notebook 6**
 
 Here are the steps in this notebook:
 
@@ -147,7 +150,7 @@ Press this button to run this notebook on Colab:
 [or click here to read it on NBViewer](https://nbviewer.jupyter.org/github/AllenDowney/AstronomicalData/blob/main/06_photo.ipynb)
 
 
-### Notebook 7
+**Notebook 7**
 
 Here are the steps in this notebook:
 
@@ -164,6 +167,6 @@ Press this button to run this notebook on Colab:
 [or click here to read it on NBViewer](https://nbviewer.jupyter.org/github/AllenDowney/AstronomicalData/blob/main/07_plot.ipynb)
 
 
-## Installation instructions
+**Installation instructions**
 
 Coming soon.
