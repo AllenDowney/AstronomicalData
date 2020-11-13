@@ -904,7 +904,7 @@ The coordinates in <code class="docutils literal notranslate"><span class="pre">
 <div class="section" id="plot-proper-motion">
 <h2>Plot proper motion<a class="headerlink" href="#plot-proper-motion" title="Permalink to this headline">¶</a></h2>
 <p>Now we are ready to replicate one of the panels in Figure 1 of the Price-Whelan and Bonaca paper, the one that shows the components of proper motion as a scatter plot:</p>
-<img width="300" src="https://github.com/datacarpentry/astronomy-python/raw/gh-pages/fig/gd1-1.png">
+<a class="reference internal image-reference" href="https://github.com/datacarpentry/astronomy-python/raw/gh-pages/fig/gd1-1.png"><img alt="https://github.com/datacarpentry/astronomy-python/raw/gh-pages/fig/gd1-1.png" src="https://github.com/datacarpentry/astronomy-python/raw/gh-pages/fig/gd1-1.png" style="width: 300px;" /></a>
 <p>In this figure, the shaded area is a high-density region of stars with the proper motion we expect for stars in GD-1.</p>
 <ul class="simple">
 <li><p>Due to the nature of tidal streams, we expect the proper motion for most stars to be along the axis of the stream; that is, we expect motion in the direction of <code class="docutils literal notranslate"><span class="pre">phi2</span></code> to be near 0.</p></li>
@@ -915,7 +915,7 @@ The coordinates in <code class="docutils literal notranslate"><span class="pre">
 <div class="section" id="selecting-the-centerline">
 <h2>Selecting the centerline<a class="headerlink" href="#selecting-the-centerline" title="Permalink to this headline">¶</a></h2>
 <p>As we can see in the following figure, many stars in GD-1 are less than 1 degree of declination from the line <code class="docutils literal notranslate"><span class="pre">phi2=0</span></code>.</p>
-<img src="https://github.com/datacarpentry/astronomy-python/raw/gh-pages/fig/gd1-4.png">
+<img alt="https://github.com/datacarpentry/astronomy-python/raw/gh-pages/fig/gd1-4.png" src="https://github.com/datacarpentry/astronomy-python/raw/gh-pages/fig/gd1-4.png" />
 <p>If we select stars near this line, they are more likely to be in GD-1.</p>
 <p>We’ll start by selecting the <code class="docutils literal notranslate"><span class="pre">phi2</span></code> column from the <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>:</p>
 <div class="cell docutils container">
@@ -1077,7 +1077,7 @@ Name: phi2, dtype: bool
 <h2>Filtering based on proper motion<a class="headerlink" href="#filtering-based-on-proper-motion" title="Permalink to this headline">¶</a></h2>
 <p>The next step is to select stars in the “overdense” region of proper motion, which are candidates to be in GD-1.</p>
 <p>In the original paper, Price-Whelan and Bonaca used a polygon to cover this region, as shown in this figure.</p>
-<img width="300" src="https://github.com/datacarpentry/astronomy-python/raw/gh-pages/fig/gd1-1.png">
+<a class="reference internal image-reference" href="https://github.com/datacarpentry/astronomy-python/raw/gh-pages/fig/gd1-1.png"><img alt="https://github.com/datacarpentry/astronomy-python/raw/gh-pages/fig/gd1-1.png" src="https://github.com/datacarpentry/astronomy-python/raw/gh-pages/fig/gd1-1.png" style="width: 300px;" /></a>
 <p>We’ll use a simple rectangle for now, but in a later lesson we’ll see how to select a polygonal region as well.</p>
 <p>Here are bounds on proper motion we chose by eye,</p>
 <div class="cell docutils container">
