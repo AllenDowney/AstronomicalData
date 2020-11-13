@@ -128,18 +128,8 @@
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="06_photo.html#outline">
-   Outline
-  </a>
- </li>
- <li class="toctree-l1">
   <a class="reference internal" href="07_plot.html">
    Chapter 7
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="07_plot.html#outline">
-   Outline
   </a>
  </li>
 </ul>
@@ -184,9 +174,9 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="_sources/01_query.ipynb"><button type="button"
+        <a class="dropdown-buttons" href="_sources/01_query.md"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.ipynb</button></a>
+                data-placement="left">.md</button></a>
         <!-- Download PDF via print -->
         <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
             onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
@@ -215,28 +205,6 @@
                     class="fas fa-expand"></i></button></a>
 
         <!-- Launch buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
-    <div class="dropdown-buttons">
-        
-        <a class="binder-button" href="https://mybinder.org/v2/gh/AllenDowney/AstronomyDataPython/master?urlpath=tree/01_query.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
-                data-placement="left"><img class="binder-button-logo"
-                    src="_static/images/logo_binder.svg"
-                    alt="Interact on binder">Binder</button></a>
-        
-        
-        
-        <a class="colab-button" href="https://colab.research.google.com/github/AllenDowney/AstronomyDataPython/blob/master/01_query.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
-                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
-                    src="_static/images/logo_colab.png"
-                    alt="Interact on Colab">Colab</button></a>
-        
-        
-    </div>
-</div>
 
     </div>
 
@@ -402,32 +370,24 @@ But you might find it easier to learn from <a class="reference external" href="h
 <p>If you are running this notebook on your own computer, you might have to install these libraries yourself.</p>
 <p>If you are using this notebook as part of a Carpentries workshop, you should have received setup instructions.</p>
 <p>TODO: Add a link to the instructions.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># If we&#39;re running on Colab, install libraries</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span># If we&#39;re running on Colab, install libraries
 
-<span class="kn">import</span> <span class="nn">sys</span>
-<span class="n">IN_COLAB</span> <span class="o">=</span> <span class="s1">&#39;google.colab&#39;</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span>
+import sys
+IN_COLAB = &#39;google.colab&#39; in sys.modules
 
-<span class="k">if</span> <span class="n">IN_COLAB</span><span class="p">:</span>
-    <span class="o">!</span>pip install astroquery astro-gala pyia
+if IN_COLAB:
+    !pip install astroquery astro-gala pyia
 </pre></div>
-</div>
-</div>
 </div>
 </div>
 <div class="section" id="connecting-to-gaia">
 <h2>Connecting to Gaia<a class="headerlink" href="#connecting-to-gaia" title="Permalink to this headline">¶</a></h2>
 <p>Astroquery provides <code class="docutils literal notranslate"><span class="pre">Gaia</span></code>, which is an <a class="reference external" href="https://astroquery.readthedocs.io/en/latest/gaia/gaia.html">object that represents a connection to the Gaia database</a>.</p>
 <p>We can connect to the Gaia database like this:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">astroquery.gaia</span> <span class="kn">import</span> <span class="n">Gaia</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">astroquery.gaia</span> <span class="kn">import</span> <span class="n">Gaia</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Created TAP+ (v1.2.1) - Connection:
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Created TAP+ (v1.2.1) - Connection:
 	Host: gea.esac.esa.int
 	Use HTTPS: True
 	Port: 443
@@ -439,12 +399,7 @@ Created TAP+ (v1.2.1) - Connection:
 	SSL Port: 443
 </pre></div>
 </div>
-</div>
-</div>
-<p><strong>Optional detail</strong></p>
-<blockquote>
-<div><p>Running this import statement has the effect of creating a <a class="reference external" href="http://www.ivoa.net/documents/TAP/">TAP+</a> connection; TAP stands for “Table Access Protocol”.  It is a network protocol for sending queries to the database and getting back the results.  We’re not sure why it seems to create two connections.</p>
-</div></blockquote>
+<p>Running this import statement has the effect of creating a <a class="reference external" href="http://www.ivoa.net/documents/TAP/">TAP+</a> connection; TAP stands for “Table Access Protocol”.  It is a network protocol for sending queries to the database and getting back the results.  We’re not sure why it seems to create two connections.</p>
 </div>
 <div class="section" id="databases-and-tables">
 <h2>Databases and Tables<a class="headerlink" href="#databases-and-tables" title="Permalink to this headline">¶</a></h2>
@@ -454,29 +409,19 @@ Created TAP+ (v1.2.1) - Connection:
 <li><p>Each table is a 2-D array with one or more named columns of data.</p></li>
 </ul>
 <p>We can use <code class="docutils literal notranslate"><span class="pre">Gaia.load_tables</span></code> to get the names of the tables in the Gaia database.  With the option <code class="docutils literal notranslate"><span class="pre">only_names=True</span></code>, it loads information about the tables, called the “metadata”, not the data itself.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tables</span> <span class="o">=</span> <span class="n">Gaia</span><span class="o">.</span><span class="n">load_tables</span><span class="p">(</span><span class="n">only_names</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">tables</span> <span class="o">=</span> <span class="n">Gaia</span><span class="o">.</span><span class="n">load_tables</span><span class="p">(</span><span class="n">only_names</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: Retrieving tables... [astroquery.utils.tap.core]
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>INFO: Retrieving tables... [astroquery.utils.tap.core]
 INFO: Parsing tables... [astroquery.utils.tap.core]
 INFO: Done. [astroquery.utils.tap.core]
 </pre></div>
 </div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">table</span> <span class="ow">in</span> <span class="p">(</span><span class="n">tables</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">table</span> <span class="ow">in</span> <span class="p">(</span><span class="n">tables</span><span class="p">):</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">get_qualified_name</span><span class="p">())</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>external.external.apassdr9
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>external.external.apassdr9
 external.external.gaiadr2_geometric_distance
 external.external.galex_ais
 external.external.ravedr5_com
@@ -573,8 +518,6 @@ gaiadr2.gaiadr2.gaia_source
 gaiadr2.gaiadr2.ruwe
 </pre></div>
 </div>
-</div>
-</div>
 <p>So that’s a lot of tables.  The ones we’ll use are:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">gaiadr2.gaia_source</span></code>, which contains Gaia data from <a class="reference external" href="https://www.cosmos.esa.int/web/gaia/data-release-2">data release 2</a>,</p></li>
@@ -582,34 +525,27 @@ gaiadr2.gaiadr2.ruwe
 <li><p><code class="docutils literal notranslate"><span class="pre">gaiadr2.panstarrs1_best_neighbour</span></code>, which we’ll use to cross-match each star observed by Gaia with the same star observed by PanSTARRS.</p></li>
 </ul>
 <p>We can use <code class="docutils literal notranslate"><span class="pre">load_table</span></code> (not <code class="docutils literal notranslate"><span class="pre">load_tables</span></code>) to get the metadata for a single table.  The name of this function is misleading, because it only downloads metadata.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">meta</span> <span class="o">=</span> <span class="n">Gaia</span><span class="o">.</span><span class="n">load_table</span><span class="p">(</span><span class="s1">&#39;gaiadr2.gaia_source&#39;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">meta</span> <span class="o">=</span> <span class="n">Gaia</span><span class="o">.</span><span class="n">load_table</span><span class="p">(</span><span class="s1">&#39;gaiadr2.gaia_source&#39;</span><span class="p">)</span>
 <span class="n">meta</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Retrieving table &#39;gaiadr2.gaia_source&#39;
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Retrieving table &#39;gaiadr2.gaia_source&#39;
 Parsing table &#39;gaiadr2.gaia_source&#39;...
 Done.
+
+
+
+
+
+&lt;astroquery.utils.tap.model.taptable.TapTableMeta at 0x7f922376e0a0&gt;
 </pre></div>
-</div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;astroquery.utils.tap.model.taptable.TapTableMeta at 0x7f922376e0a0&gt;
-</pre></div>
-</div>
-</div>
 </div>
 <p>Jupyter shows that the result is an object of type <code class="docutils literal notranslate"><span class="pre">TapTableMeta</span></code>, but it does not display the contents.</p>
 <p>To see the metadata, we have to print the object.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">meta</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">meta</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>TAP Table name: gaiadr2.gaiadr2.gaia_source
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>TAP Table name: gaiadr2.gaiadr2.gaia_source
 Description: This table has an entry for every Gaia observed source as listed in the
 Main Database accumulating catalogue version from which the catalogue
 release has been generated. It contains the basic source parameters,
@@ -617,8 +553,6 @@ that is only final data (no epoch data) and no spectra (neither final
 nor epoch).
 Num. columns: 96
 </pre></div>
-</div>
-</div>
 </div>
 <p>Notice one gotcha: in the list of table names, this table appears as <code class="docutils literal notranslate"><span class="pre">gaiadr2.gaiadr2.gaia_source</span></code>, but when we load the metadata, we refer to it as <code class="docutils literal notranslate"><span class="pre">gaiadr2.gaia_source</span></code>.</p>
 <p><strong>Exercise:</strong> Go back and try</p>
@@ -630,15 +564,11 @@ Num. columns: 96
 <div class="section" id="columns">
 <h2>Columns<a class="headerlink" href="#columns" title="Permalink to this headline">¶</a></h2>
 <p>The following loop prints the names of the columns in the table.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">meta</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">meta</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">column</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>solution_id
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>solution_id
 designation
 source_id
 random_index
@@ -736,24 +666,18 @@ datalink_url
 epoch_photometry_url
 </pre></div>
 </div>
-</div>
-</div>
 <p>You can probably guess what many of these columns are by looking at the names, but you should resist the temptation to guess.
 To find out what the columns mean, <a class="reference external" href="https://gea.esac.esa.int/archive/documentation/GDR2/Gaia_archive/chap_datamodel/sec_dm_main_tables/ssec_dm_gaia_source.html">read the documentation</a>.</p>
 <p>If you want to know what can go wrong when you don’t read the documentation, <a class="reference external" href="https://www.vox.com/future-perfect/2019/6/4/18650969/married-women-miserable-fake-paul-dolan-happiness">you might like this article</a>.</p>
 <p><strong>Exercise:</strong> One of the other tables we’ll use is <code class="docutils literal notranslate"><span class="pre">gaiadr2.gaiadr2.panstarrs1_original_valid</span></code>.  Use <code class="docutils literal notranslate"><span class="pre">load_table</span></code> to get the metadata for this table.  How many columns are there and what are their names?</p>
 <p>Hint: Remember the gotcha we mentioned earlier.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
 
 <span class="n">meta2</span> <span class="o">=</span> <span class="n">Gaia</span><span class="o">.</span><span class="n">load_table</span><span class="p">(</span><span class="s1">&#39;gaiadr2.panstarrs1_original_valid&#39;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">meta2</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Retrieving table &#39;gaiadr2.panstarrs1_original_valid&#39;
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Retrieving table &#39;gaiadr2.panstarrs1_original_valid&#39;
 Parsing table &#39;gaiadr2.panstarrs1_original_valid&#39;...
 Done.
 TAP Table name: gaiadr2.gaiadr2.panstarrs1_original_valid
@@ -825,19 +749,13 @@ https://www.ssdc.asi.it/
 Num. columns: 26
 </pre></div>
 </div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
 
 <span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">meta2</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">column</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>obj_name
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>obj_name
 obj_id
 ra
 dec
@@ -866,22 +784,16 @@ quality_flag
 </pre></div>
 </div>
 </div>
-</div>
-</div>
 <div class="section" id="writing-queries">
 <h2>Writing queries<a class="headerlink" href="#writing-queries" title="Permalink to this headline">¶</a></h2>
 <p>By now you might be wondering how we actually download the data.  With tables this big, you generally don’t.  Instead, you use queries to select only the data you want.</p>
 <p>A query is a string written in a query language like SQL; for the Gaia database, the query language is a dialect of SQL called ADQL.</p>
 <p>Here’s an example of an ADQL query.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">query1</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT </span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">query1</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT </span>
 <span class="s2">TOP 10</span>
 <span class="s2">source_id, ref_epoch, ra, dec, parallax </span>
 <span class="s2">FROM gaiadr2.gaia_source&quot;&quot;&quot;</span>
 </pre></div>
-</div>
-</div>
 </div>
 <p><strong>Python note:</strong> We use a <a class="reference external" href="https://docs.python.org/3/tutorial/introduction.html#strings">triple-quoted string</a> here so we can include line breaks in the query, which makes it easier to read.</p>
 <p>The words in uppercase are ADQL keywords:</p>
@@ -893,29 +805,19 @@ quality_flag
 <p>The third line is a list of column names, indicating which columns we want.</p>
 <p>In this example, the keywords are capitalized and the column names are lowercase.  This is a common style, but it is not required.  ADQL and SQL are not case-sensitive.</p>
 <p>To run this query, we use the <code class="docutils literal notranslate"><span class="pre">Gaia</span></code> object, which represents our connection to the Gaia database, and invoke <code class="docutils literal notranslate"><span class="pre">launch_job</span></code>:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">job1</span> <span class="o">=</span> <span class="n">Gaia</span><span class="o">.</span><span class="n">launch_job</span><span class="p">(</span><span class="n">query1</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">job1</span> <span class="o">=</span> <span class="n">Gaia</span><span class="o">.</span><span class="n">launch_job</span><span class="p">(</span><span class="n">query1</span><span class="p">)</span>
 <span class="n">job1</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;astroquery.utils.tap.model.job.Job at 0x7f9222e9cb20&gt;
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;astroquery.utils.tap.model.job.Job at 0x7f9222e9cb20&gt;
 </pre></div>
-</div>
-</div>
 </div>
 <p>The result is an object that represents the job running on a Gaia server.</p>
 <p>If you print it, it displays metadata for the forthcoming table.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">job1</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">job1</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Table length=10&gt;
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;Table length=10&gt;
    name    dtype  unit                            description                            
 --------- ------- ---- ------------------------------------------------------------------
 source_id   int64      Unique source identifier (unique within a particular Data Release)
@@ -930,22 +832,14 @@ Output file: sync_20201005090721.xml.gz
 Results: None
 </pre></div>
 </div>
-</div>
-</div>
 <p>Don’t worry about <code class="docutils literal notranslate"><span class="pre">Results:</span> <span class="pre">None</span></code>.  That does not actually mean there are no results.</p>
 <p>However, <code class="docutils literal notranslate"><span class="pre">Phase:</span> <span class="pre">COMPLETED</span></code> indicates that the job is complete, so we can get the results like this:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">results1</span> <span class="o">=</span> <span class="n">job1</span><span class="o">.</span><span class="n">get_results</span><span class="p">()</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">results1</span> <span class="o">=</span> <span class="n">job1</span><span class="o">.</span><span class="n">get_results</span><span class="p">()</span>
 <span class="nb">type</span><span class="p">(</span><span class="n">results1</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>astropy.table.table.Table
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>astropy.table.table.Table
 </pre></div>
-</div>
-</div>
 </div>
 <p><strong>Optional detail:</strong>  Why is <code class="docutils literal notranslate"><span class="pre">table</span></code> repeated three times?  The first is the name of the module, the second is the name of the submodule, and the third is the name of the class.  Most of the time we only care about the last one.  It’s like the Linnean name for gorilla, which is <em>Gorilla Gorilla Gorilla</em>.</p>
 <p>The result is an <a class="reference external" href="https://docs.astropy.org/en/stable/table/">Astropy Table</a>, which is similar to a table in an SQL database except:</p>
@@ -954,14 +848,10 @@ Results: None
 <li><p>SQL databases are designed to process queries.  An Astropy <code class="docutils literal notranslate"><span class="pre">Table</span></code> can perform some query-like operations, like selecting columns and rows.  But these operations use Python syntax, not SQL.</p></li>
 </ul>
 <p>Jupyter knows how to display the contents of a <code class="docutils literal notranslate"><span class="pre">Table</span></code>.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">results1</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">results1</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><i>Table length=10</i>
+<p><i>Table length=10</i></p>
 <table id="table140265627585264" class="table-striped table-bordered table-condensed">
 <thead><tr><th>source_id</th><th>ref_epoch</th><th>ra</th><th>dec</th><th>parallax</th></tr></thead>
 <thead><tr><th></th><th>yr</th><th>deg</th><th>deg</th><th>mas</th></tr></thead>
@@ -976,8 +866,7 @@ Results: None
 <tr><td>4530736364618539264</td><td>2015.5</td><td>281.4913475613274</td><td>20.346579041327693</td><td>0.3894019486060072</td></tr>
 <tr><td>4530735952305177728</td><td>2015.5</td><td>281.4085549165704</td><td>20.311030903719928</td><td>0.2041189982608354</td></tr>
 <tr><td>4530751281056022656</td><td>2015.5</td><td>281.0585328377638</td><td>20.460309556214753</td><td>0.10294642821734962</td></tr>
-</table></div></div>
-</div>
+</table>
 <p>Each column has a name, units, and a data type.</p>
 <p>For example, the units of <code class="docutils literal notranslate"><span class="pre">ra</span></code> and <code class="docutils literal notranslate"><span class="pre">dec</span></code> are degrees, and their data type is <code class="docutils literal notranslate"><span class="pre">float64</span></code>, which is a 64-bit floating-point number, used to store measurements with a fraction part.</p>
 <p>This information comes from the Gaia database, and has been stored in the Astropy <code class="docutils literal notranslate"><span class="pre">Table</span></code> by Astroquery.</p>
@@ -994,29 +883,21 @@ Results: None
 <li><p>It selects the first 3000 rows, so it is bigger than we should run synchronously.</p></li>
 <li><p>It uses a new keyword, <code class="docutils literal notranslate"><span class="pre">WHERE</span></code>.</p></li>
 </ul>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">query2</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT TOP 3000</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">query2</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT TOP 3000</span>
 <span class="s2">source_id, ref_epoch, ra, dec, parallax</span>
 <span class="s2">FROM gaiadr2.gaia_source</span>
 <span class="s2">WHERE parallax &lt; 1</span>
 <span class="s2">&quot;&quot;&quot;</span>
 </pre></div>
 </div>
-</div>
-</div>
 <p>A <code class="docutils literal notranslate"><span class="pre">WHERE</span></code> clause indicates which rows we want; in this case, the query selects only rows “where” <code class="docutils literal notranslate"><span class="pre">parallax</span></code> is less than 1.  This has the effect of selecting stars with relatively low parallax, which are farther away.  We’ll use this clause to exclude nearby stars that are unlikely to be part of GD-1.</p>
 <p><code class="docutils literal notranslate"><span class="pre">WHERE</span></code> is one of the most common clauses in ADQL/SQL, and one of the most useful, because it allows us to select only the rows we need from the database.</p>
 <p>We use <code class="docutils literal notranslate"><span class="pre">launch_job_async</span></code> to submit an asynchronous query.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">job2</span> <span class="o">=</span> <span class="n">Gaia</span><span class="o">.</span><span class="n">launch_job_async</span><span class="p">(</span><span class="n">query2</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">job2</span> <span class="o">=</span> <span class="n">Gaia</span><span class="o">.</span><span class="n">launch_job_async</span><span class="p">(</span><span class="n">query2</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">job2</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: Query finished. [astroquery.utils.tap.core]
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>INFO: Query finished. [astroquery.utils.tap.core]
 &lt;Table length=3000&gt;
    name    dtype  unit                            description                            
 --------- ------- ---- ------------------------------------------------------------------
@@ -1032,18 +913,12 @@ Output file: async_20201005090722.vot
 Results: None
 </pre></div>
 </div>
-</div>
-</div>
 <p>And here are the results.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">results2</span> <span class="o">=</span> <span class="n">job2</span><span class="o">.</span><span class="n">get_results</span><span class="p">()</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">results2</span> <span class="o">=</span> <span class="n">job2</span><span class="o">.</span><span class="n">get_results</span><span class="p">()</span>
 <span class="n">results2</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><i>Table length=3000</i>
+<p><i>Table length=3000</i></p>
 <table id="table140265625141056" class="table-striped table-bordered table-condensed">
 <thead><tr><th>source_id</th><th>ref_epoch</th><th>ra</th><th>dec</th><th>parallax</th></tr></thead>
 <thead><tr><th></th><th>yr</th><th>deg</th><th>deg</th><th>mas</th></tr></thead>
@@ -1068,8 +943,7 @@ Results: None
 <tr><td>4467732355491087744</td><td>2015.5</td><td>270.6730790702491</td><td>0.9197224705139885</td><td>-0.3464446494840354</td></tr>
 <tr><td>4467717099766944512</td><td>2015.5</td><td>270.57667173120825</td><td>0.726277659009568</td><td>0.05443955111134051</td></tr>
 <tr><td>4467719058265781248</td><td>2015.5</td><td>270.7248052971514</td><td>0.8205551921782785</td><td>0.3733943917490343</td></tr>
-</table></div></div>
-</div>
+</table>
 <p>You might notice that some values of <code class="docutils literal notranslate"><span class="pre">parallax</span></code> are negative.  As <a class="reference external" href="https://www.cosmos.esa.int/web/gaia/archive-tips#negative%20parallax">this FAQ explains</a>, “Negative parallaxes are caused by errors in the observations.”  Negative parallaxes have “no physical meaning,” but they can be a “useful diagnostic on the quality of the astrometric solution.”</p>
 <p>Later we will see an example where we use <code class="docutils literal notranslate"><span class="pre">parallax</span></code> and <code class="docutils literal notranslate"><span class="pre">parallax_error</span></code> to identify stars where the distance estimate is likely to be inaccurate.</p>
 <p><strong>Exercise:</strong> The clauses in a query have to be in the right order.  Go back and change the order of the clauses in <code class="docutils literal notranslate"><span class="pre">query2</span></code> and run it again.</p>
@@ -1122,9 +996,7 @@ Be careful to keep your Python out of your ADQL!</p>
 <p>Finally, you can use <code class="docutils literal notranslate"><span class="pre">NOT</span></code> to invert the result of a comparison.</p>
 <p><strong>Exercise:</strong> <a class="reference external" href="https://www.w3schools.com/sql/sql_operators.asp">Read about SQL operators here</a> and then modify the previous query to select rows where <code class="docutils literal notranslate"><span class="pre">bp_rp</span></code> is between <code class="docutils literal notranslate"><span class="pre">-0.75</span></code> and <code class="docutils literal notranslate"><span class="pre">2</span></code>.</p>
 <p>You can <a class="reference external" href="https://gea.esac.esa.int/archive/documentation/GDR2/Gaia_archive/chap_datamodel/sec_dm_main_tables/ssec_dm_gaia_source.html">read about this variable here</a>.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
 
 <span class="c1"># This is what most people will probably do</span>
 
@@ -1136,11 +1008,7 @@ Be careful to keep your Python out of your ADQL!</p>
 <span class="s2">&quot;&quot;&quot;</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
 
 <span class="c1"># But if someone notices the BETWEEN operator, </span>
 <span class="c1"># they might do this</span>
@@ -1153,38 +1021,24 @@ Be careful to keep your Python out of your ADQL!</p>
 <span class="s2">&quot;&quot;&quot;</span>
 </pre></div>
 </div>
-</div>
-</div>
 <p>This <a class="reference external" href="https://sci.esa.int/web/gaia/-/60198-gaia-hertzsprung-russell-diagram">Hertzsprung-Russell diagram</a> shows the BP-RP color and luminosity of stars in the Gaia catalog.</p>
 <p>Selecting stars with <code class="docutils literal notranslate"><span class="pre">bp-rp</span></code> less than 2 excludes many <a class="reference external" href="https://xkcd.com/2360/">class M dwarf stars</a>, which are low temperature, low luminosity.  A star like that at GD-1’s distance would be hard to detect, so if it is detected, it it more likely to be in the foreground.</p>
 </div>
 <div class="section" id="cleaning-up">
 <h2>Cleaning up<a class="headerlink" href="#cleaning-up" title="Permalink to this headline">¶</a></h2>
 <p>Asynchronous jobs have a <code class="docutils literal notranslate"><span class="pre">jobid</span></code>.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">job1</span><span class="o">.</span><span class="n">jobid</span><span class="p">,</span> <span class="n">job2</span><span class="o">.</span><span class="n">jobid</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">job1</span><span class="o">.</span><span class="n">jobid</span><span class="p">,</span> <span class="n">job2</span><span class="o">.</span><span class="n">jobid</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(None, &#39;1601903242219O&#39;)
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>(None, &#39;1601903242219O&#39;)
 </pre></div>
-</div>
-</div>
 </div>
 <p>Which you can use to remove the job from the server.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Gaia</span><span class="o">.</span><span class="n">remove_jobs</span><span class="p">([</span><span class="n">job2</span><span class="o">.</span><span class="n">jobid</span><span class="p">])</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Gaia</span><span class="o">.</span><span class="n">remove_jobs</span><span class="p">([</span><span class="n">job2</span><span class="o">.</span><span class="n">jobid</span><span class="p">])</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Removed jobs: &#39;[&#39;1601903242219O&#39;]&#39;.
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Removed jobs: &#39;[&#39;1601903242219O&#39;]&#39;.
 </pre></div>
-</div>
-</div>
 </div>
 <p>If you don’t remove it job from the server, it will be removed eventually, so don’t feel too bad if you don’t clean up after yourself.</p>
 </div>
@@ -1195,17 +1049,11 @@ But writing queries yourself can be slow, repetitive, and error-prone.</p>
 <p>It is often a good idea to write Python code that assembles a query for you.  One useful tool for that is the <a class="reference external" href="https://www.w3schools.com/python/ref_string_format.asp">string <code class="docutils literal notranslate"><span class="pre">format</span></code> method</a>.</p>
 <p>As an example, we’ll divide the previous query into two parts; a list of column names and a “base” for the query that contains everything except the column names.</p>
 <p>Here’s the list of columns we’ll select.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">columns</span> <span class="o">=</span> <span class="s1">&#39;source_id, ra, dec, pmra, pmdec, parallax, parallax_error, radial_velocity&#39;</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">columns</span> <span class="o">=</span> <span class="s1">&#39;source_id, ra, dec, pmra, pmdec, parallax, parallax_error, radial_velocity&#39;</span>
 </pre></div>
 </div>
-</div>
-</div>
 <p>And here’s the base; it’s a string that contains at least one format specifier in curly brackets (braces).</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">query3_base</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT TOP 10 </span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">query3_base</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT TOP 10 </span>
 <span class="si">{columns}</span><span class="s2"></span>
 <span class="s2">FROM gaiadr2.gaia_source</span>
 <span class="s2">WHERE parallax &lt; 1</span>
@@ -1213,58 +1061,36 @@ But writing queries yourself can be slow, repetitive, and error-prone.</p>
 <span class="s2">&quot;&quot;&quot;</span>
 </pre></div>
 </div>
-</div>
-</div>
 <p>This base query contains one format specifier, <code class="docutils literal notranslate"><span class="pre">{columns}</span></code>, which is a placeholder for the list of column names we will provide.</p>
 <p>To assemble the query, we invoke <code class="docutils literal notranslate"><span class="pre">format</span></code> on the base string and provide a keyword argument that assigns a value to <code class="docutils literal notranslate"><span class="pre">columns</span></code>.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">query3</span> <span class="o">=</span> <span class="n">query3_base</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">columns</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">query3</span> <span class="o">=</span> <span class="n">query3_base</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">columns</span><span class="p">)</span>
 </pre></div>
-</div>
-</div>
 </div>
 <p>The result is a string with line breaks.  If you display it, the line breaks appear as <code class="docutils literal notranslate"><span class="pre">\n</span></code>.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">query3</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">query3</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;SELECT TOP 10 \nsource_id, ra, dec, pmra, pmdec, parallax, parallax_error, radial_velocity\nFROM gaiadr2.gaia_source\nWHERE parallax &lt; 1\n  AND bp_rp BETWEEN -0.75 AND 2\n&#39;
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&#39;SELECT TOP 10 \nsource_id, ra, dec, pmra, pmdec, parallax, parallax_error, radial_velocity\nFROM gaiadr2.gaia_source\nWHERE parallax &lt; 1\n  AND bp_rp BETWEEN -0.75 AND 2\n&#39;
 </pre></div>
-</div>
-</div>
 </div>
 <p>But if you print it, the line breaks appear as… line breaks.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">query3</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">query3</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>SELECT TOP 10 
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>SELECT TOP 10 
 source_id, ra, dec, pmra, pmdec, parallax, parallax_error, radial_velocity
 FROM gaiadr2.gaia_source
 WHERE parallax &lt; 1
   AND bp_rp BETWEEN -0.75 AND 2
 </pre></div>
 </div>
-</div>
-</div>
 <p>Notice that the format specifier has been replaced with the value of <code class="docutils literal notranslate"><span class="pre">columns</span></code>.</p>
 <p>Let’s run it and see if it works:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">job3</span> <span class="o">=</span> <span class="n">Gaia</span><span class="o">.</span><span class="n">launch_job</span><span class="p">(</span><span class="n">query3</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">job3</span> <span class="o">=</span> <span class="n">Gaia</span><span class="o">.</span><span class="n">launch_job</span><span class="p">(</span><span class="n">query3</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">job3</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Table length=10&gt;
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;Table length=10&gt;
       name       dtype    unit                              description                             n_bad
 --------------- ------- -------- ------------------------------------------------------------------ -----
       source_id   int64          Unique source identifier (unique within a particular Data Release)     0
@@ -1282,17 +1108,11 @@ Output file: sync_20201005090726.xml.gz
 Results: None
 </pre></div>
 </div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">results3</span> <span class="o">=</span> <span class="n">job3</span><span class="o">.</span><span class="n">get_results</span><span class="p">()</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">results3</span> <span class="o">=</span> <span class="n">job3</span><span class="o">.</span><span class="n">get_results</span><span class="p">()</span>
 <span class="n">results3</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><i>Table length=10</i>
+<p><i>Table length=10</i></p>
 <table id="table140265627700432" class="table-striped table-bordered table-condensed">
 <thead><tr><th>source_id</th><th>ra</th><th>dec</th><th>pmra</th><th>pmdec</th><th>parallax</th><th>parallax_error</th><th>radial_velocity</th></tr></thead>
 <thead><tr><th></th><th>deg</th><th>deg</th><th>mas / yr</th><th>mas / yr</th><th>mas</th><th>mas</th><th>km / s</th></tr></thead>
@@ -1307,14 +1127,11 @@ Results: None
 <tr><td>4467717099766944512</td><td>270.57667173120825</td><td>0.726277659009568</td><td>-3.4598362614808367</td><td>-4.601426893365921</td><td>0.05443955111134051</td><td>0.8867339293525688</td><td>--</td></tr>
 <tr><td>4467719058265781248</td><td>270.7248052971514</td><td>0.8205551921782785</td><td>-3.255079498426542</td><td>-9.249285069111085</td><td>0.3733943917490343</td><td>0.390952370410666</td><td>--</td></tr>
 <tr><td>4467722326741572352</td><td>270.87431291888504</td><td>0.8595565975869158</td><td>0.10696398351859826</td><td>1.2035993780158853</td><td>-0.11850943432864373</td><td>0.1660452431882023</td><td>--</td></tr>
-</table></div></div>
-</div>
+</table>
 <p>Good so far.</p>
 <p><strong>Exercise:</strong> This query always selects sources with <code class="docutils literal notranslate"><span class="pre">parallax</span></code> less than 1.  But suppose you want to take that upper bound as an input.</p>
 <p>Modify <code class="docutils literal notranslate"><span class="pre">query3_base</span></code> to replace <code class="docutils literal notranslate"><span class="pre">1</span></code> with a format specifier like <code class="docutils literal notranslate"><span class="pre">{max_parallax}</span></code>.  Now, when you call <code class="docutils literal notranslate"><span class="pre">format</span></code>, add a keyword argument that assigns a value to <code class="docutils literal notranslate"><span class="pre">max_parallax</span></code>, and confirm that the format specifier gets replaced with the value you provide.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
 
 <span class="n">query4_base</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT TOP 10</span>
 <span class="si">{columns}</span><span class="s2"></span>
@@ -1324,27 +1141,19 @@ Results: None
 <span class="s2">&quot;&quot;&quot;</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
 
 <span class="n">query4</span> <span class="o">=</span> <span class="n">query4_base</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">columns</span><span class="p">,</span>
                           <span class="n">max_parallax</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>SELECT TOP 10
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>SELECT TOP 10
 source_id, ra, dec, pmra, pmdec, parallax, parallax_error, radial_velocity
 FROM gaiadr2.gaia_source
 WHERE parallax &lt; 0.5 AND 
 bp_rp BETWEEN -0.75 AND 2
 </pre></div>
-</div>
-</div>
 </div>
 <p><strong>Style note:</strong>  You might notice that the variable names in this notebook are numbered, like <code class="docutils literal notranslate"><span class="pre">query1</span></code>, <code class="docutils literal notranslate"><span class="pre">query2</span></code>, etc.</p>
 <p>The advantage of this style is that it isolates each section of the notebook from the others, so if you go back and run the cells out of order, it’s less likely that you will get unexpected interactions.</p>

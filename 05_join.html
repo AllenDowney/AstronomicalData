@@ -128,18 +128,8 @@
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="06_photo.html#outline">
-   Outline
-  </a>
- </li>
- <li class="toctree-l1">
   <a class="reference internal" href="07_plot.html">
    Chapter 7
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="07_plot.html#outline">
-   Outline
   </a>
  </li>
 </ul>
@@ -408,7 +398,7 @@
 <h2>Getting photometry data<a class="headerlink" href="#getting-photometry-data" title="Permalink to this headline">¶</a></h2>
 <p>The Gaia dataset contains some photometry data, including the variable <code class="docutils literal notranslate"><span class="pre">bp_rp</span></code>, which we used in the original query to select stars with BP - RP color between -0.75 and 2.</p>
 <p>Selecting stars with <code class="docutils literal notranslate"><span class="pre">bp-rp</span></code> less than 2 excludes many class M dwarf stars, which are low temperature, low luminosity.  A star like that at GD-1’s distance would be hard to detect, so if it is detected, it it more likely to be in the foreground.</p>
-<p>Now, to select stars with the age and metal richness we expect in GD-1, we will use <code class="docutils literal notranslate"><span class="pre">g</span> <span class="pre">−</span> <span class="pre">i</span></code> color and apparent <code class="docutils literal notranslate"><span class="pre">g</span></code>-band magnitude, which are available from the Pan-STARRS survey.</p>
+<p>Now, to select stars with the age and metal richness we expect in GD-1, we will use <code class="docutils literal notranslate"><span class="pre">g</span> <span class="pre">-</span> <span class="pre">i</span></code> color and apparent <code class="docutils literal notranslate"><span class="pre">g</span></code>-band magnitude, which are available from the Pan-STARRS survey.</p>
 <p>Conveniently, the Gaia server provides data from Pan-STARRS as a table in the same database we have been using, so we can access it by making ADQL queries.</p>
 <p>In general, looking up a star from the Gaia catalog and finding the corresponding star in the Pan-STARRS catalog is not easy.  This kind of cross matching is not always possible, because a star might appear in one catalog and not the other.  And even when both stars are present, there might not be a clear one-to-one relationship between stars in the two catalogs.</p>
 <p>Fortunately, smart people have worked on this problem, and the Gaia database includes cross-matching tables that suggest a best neighbor in the Pan-STARRS catalog for many stars in the Gaia catalog.</p>

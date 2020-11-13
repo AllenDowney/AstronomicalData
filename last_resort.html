@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Astronomical Data in Python &#8212; Astronomical Data in Python</title>
+    <title>The Notebook of Last Resort &#8212; Astronomical Data in Python</title>
     
   <link rel="stylesheet" href="_static/css/index.d431a4ee1c1efae0e38bdfebc22debff.css">
 
@@ -172,7 +172,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="_sources/test_setup.ipynb"><button type="button"
+        <a class="dropdown-buttons" href="_sources/last_resort.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
@@ -209,7 +209,7 @@
         aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
     <div class="dropdown-buttons">
         
-        <a class="binder-button" href="https://mybinder.org/v2/gh/AllenDowney/AstronomyDataPython/master?urlpath=tree/test_setup.ipynb"><button type="button"
+        <a class="binder-button" href="https://mybinder.org/v2/gh/AllenDowney/AstronomyDataPython/master?urlpath=tree/last_resort.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
                 data-placement="left"><img class="binder-button-logo"
                     src="_static/images/logo_binder.svg"
@@ -217,7 +217,7 @@
         
         
         
-        <a class="colab-button" href="https://colab.research.google.com/github/AllenDowney/AstronomyDataPython/blob/master/test_setup.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+        <a class="colab-button" href="https://colab.research.google.com/github/AllenDowney/AstronomyDataPython/blob/master/last_resort.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
                 title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
                     src="_static/images/logo_colab.png"
                     alt="Interact on Colab">Colab</button></a>
@@ -238,80 +238,24 @@
         
               <div>
                 
-  <div class="section" id="astronomical-data-in-python">
-<h1>Astronomical Data in Python<a class="headerlink" href="#astronomical-data-in-python" title="Permalink to this headline">¶</a></h1>
-<p>This notebook imports the libraries we need for the workshop.</p>
-<p>If any of them are missing, you’ll get an error message.</p>
-<p>If you don’t get any error messages, you are all set.</p>
-<div class="cell docutils container">
+  <div class="section" id="the-notebook-of-last-resort">
+<h1>The Notebook of Last Resort<a class="headerlink" href="#the-notebook-of-last-resort" title="Permalink to this headline">¶</a></h1>
+<p>If you are not able to get everything installed that we need for the workshop, you have the option of running this notebook on Colab.</p>
+<p>Before you get started, you probably want to press the Save button!</p>
+<div class="cell tag_hide-cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">wget</span> <span class="kn">import</span> <span class="n">download</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">from</span> <span class="nn">matplotlib.path</span> <span class="kn">import</span> <span class="n">Path</span>
-<span class="kn">from</span> <span class="nn">matplotlib.patches</span> <span class="kn">import</span> <span class="n">Polygon</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">astropy.coordinates</span> <span class="k">as</span> <span class="nn">coord</span>
-<span class="kn">import</span> <span class="nn">astropy.units</span> <span class="k">as</span> <span class="nn">u</span>
-<span class="kn">from</span> <span class="nn">astropy.table</span> <span class="kn">import</span> <span class="n">Table</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">gala.coordinates</span> <span class="k">as</span> <span class="nn">gc</span>
-<span class="kn">from</span> <span class="nn">pyia</span> <span class="kn">import</span> <span class="n">GaiaData</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Note: running this import statement opens a connection</span>
-<span class="c1"># to a Gaia server, so it will fail if you are not connected</span>
-<span class="c1"># to the internet.</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># If we&#39;re running on Colab, install libraries</span>
 
-<span class="kn">from</span> <span class="nn">astroquery.gaia</span> <span class="kn">import</span> <span class="n">Gaia</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Created TAP+ (v1.2.1) - Connection:
-	Host: gea.esac.esa.int
-	Use HTTPS: True
-	Port: 443
-	SSL Port: 443
-Created TAP+ (v1.2.1) - Connection:
-	Host: geadata.esac.esa.int
-	Use HTTPS: True
-	Port: 443
-	SSL Port: 443
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="n">IN_COLAB</span> <span class="o">=</span> <span class="s1">&#39;google.colab&#39;</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span>
+
+<span class="k">if</span> <span class="n">IN_COLAB</span><span class="p">:</span>
+    <span class="o">!</span>pip install astroquery astro-gala pyia
 </pre></div>
 </div>
 </div>
 </div>
-<p>During the workshop, we might put some code on Slack and ask you to cut and paste it into the notebook.</p>
-<p>If you are on a Mac, you might encounter a problem:</p>
+<p>That should be everything you need.  Now you can type code and run it in the following cells.</p>
 </div>
 
     <script type="text/x-thebe-config">
