@@ -1,0 +1,99 @@
+\select@language {english}
+\contentsline {chapter}{\numberline {1}Chapter 1}{5}{chapter.1}
+\contentsline {section}{\numberline {1.1}Data}{5}{section.1.1}
+\contentsline {section}{\numberline {1.2}Prerequisites}{6}{section.1.2}
+\contentsline {section}{\numberline {1.3}Outline}{6}{section.1.3}
+\contentsline {section}{\numberline {1.4}Query Language}{6}{section.1.4}
+\contentsline {section}{\numberline {1.5}Installing libraries}{7}{section.1.5}
+\contentsline {section}{\numberline {1.6}Connecting to Gaia}{7}{section.1.6}
+\contentsline {section}{\numberline {1.7}Databases and Tables}{7}{section.1.7}
+\contentsline {section}{\numberline {1.8}Columns}{10}{section.1.8}
+\contentsline {section}{\numberline {1.9}Writing queries}{13}{section.1.9}
+\contentsline {section}{\numberline {1.10}Asynchronous queries}{15}{section.1.10}
+\contentsline {section}{\numberline {1.11}Operators}{17}{section.1.11}
+\contentsline {section}{\numberline {1.12}Cleaning up}{18}{section.1.12}
+\contentsline {section}{\numberline {1.13}Formatting queries}{18}{section.1.13}
+\contentsline {section}{\numberline {1.14}Summary}{21}{section.1.14}
+\contentsline {section}{\numberline {1.15}Best practices}{21}{section.1.15}
+\contentsline {chapter}{\numberline {2}Chapter 2}{23}{chapter.2}
+\contentsline {section}{\numberline {2.1}Outline}{23}{section.2.1}
+\contentsline {section}{\numberline {2.2}Installing libraries}{23}{section.2.2}
+\contentsline {section}{\numberline {2.3}Selecting a region}{24}{section.2.3}
+\contentsline {section}{\numberline {2.4}Getting GD\sphinxhyphen {}1 Data}{25}{section.2.4}
+\contentsline {section}{\numberline {2.5}Working with coordinates}{25}{section.2.5}
+\contentsline {section}{\numberline {2.6}Selecting a rectangle}{44}{section.2.6}
+\contentsline {section}{\numberline {2.7}Selecting a polygon}{45}{section.2.7}
+\contentsline {section}{\numberline {2.8}Saving results}{47}{section.2.8}
+\contentsline {section}{\numberline {2.9}Summary}{48}{section.2.9}
+\contentsline {section}{\numberline {2.10}Best practices}{48}{section.2.10}
+\contentsline {chapter}{\numberline {3}Chapter 3}{49}{chapter.3}
+\contentsline {section}{\numberline {3.1}Outline}{49}{section.3.1}
+\contentsline {section}{\numberline {3.2}Installing libraries}{50}{section.3.2}
+\contentsline {section}{\numberline {3.3}Reload the data}{50}{section.3.3}
+\contentsline {section}{\numberline {3.4}Selecting rows and columns}{51}{section.3.4}
+\contentsline {section}{\numberline {3.5}Scatter plot}{53}{section.3.5}
+\contentsline {section}{\numberline {3.6}Transform back}{54}{section.3.6}
+\contentsline {section}{\numberline {3.7}Pandas DataFrame}{57}{section.3.7}
+\contentsline {section}{\numberline {3.8}Plot proper motion}{58}{section.3.8}
+\contentsline {section}{\numberline {3.9}Selecting the centerline}{58}{section.3.9}
+\contentsline {section}{\numberline {3.10}Filtering based on proper motion}{61}{section.3.10}
+\contentsline {section}{\numberline {3.11}Saving the DataFrame}{63}{section.3.11}
+\contentsline {section}{\numberline {3.12}Summary}{65}{section.3.12}
+\contentsline {section}{\numberline {3.13}Best practices}{65}{section.3.13}
+\contentsline {chapter}{\numberline {4}Chapter 4}{67}{chapter.4}
+\contentsline {section}{\numberline {4.1}Outline}{67}{section.4.1}
+\contentsline {section}{\numberline {4.2}Installing libraries}{67}{section.4.2}
+\contentsline {section}{\numberline {4.3}Reload the data}{68}{section.4.3}
+\contentsline {section}{\numberline {4.4}Selection by proper motion}{68}{section.4.4}
+\contentsline {section}{\numberline {4.5}Selecting the region}{73}{section.4.5}
+\contentsline {section}{\numberline {4.6}Assemble the query}{74}{section.4.6}
+\contentsline {section}{\numberline {4.7}Plotting one more time}{76}{section.4.7}
+\contentsline {section}{\numberline {4.8}Saving the DataFrame}{78}{section.4.8}
+\contentsline {section}{\numberline {4.9}CSV}{79}{section.4.9}
+\contentsline {section}{\numberline {4.10}Summary}{80}{section.4.10}
+\contentsline {section}{\numberline {4.11}Best practices}{80}{section.4.11}
+\contentsline {chapter}{\numberline {5}Chapter 5}{81}{chapter.5}
+\contentsline {section}{\numberline {5.1}Outline}{81}{section.5.1}
+\contentsline {section}{\numberline {5.2}Installing libraries}{81}{section.5.2}
+\contentsline {section}{\numberline {5.3}Reloading the data}{82}{section.5.3}
+\contentsline {section}{\numberline {5.4}Getting photometry data}{83}{section.5.4}
+\contentsline {section}{\numberline {5.5}Preparing a table for uploading}{84}{section.5.5}
+\contentsline {section}{\numberline {5.6}Uploading a table}{86}{section.5.6}
+\contentsline {section}{\numberline {5.7}Joining with an uploaded table}{87}{section.5.7}
+\contentsline {section}{\numberline {5.8}Getting the photometry data}{89}{section.5.8}
+\contentsline {section}{\numberline {5.9}Write the data}{92}{section.5.9}
+\contentsline {section}{\numberline {5.10}Summary}{92}{section.5.10}
+\contentsline {section}{\numberline {5.11}Best practice}{92}{section.5.11}
+\contentsline {chapter}{\numberline {6}Chapter 6}{93}{chapter.6}
+\contentsline {section}{\numberline {6.1}Outline}{93}{section.6.1}
+\contentsline {section}{\numberline {6.2}Installing libraries}{93}{section.6.2}
+\contentsline {section}{\numberline {6.3}Reload the data}{94}{section.6.3}
+\contentsline {section}{\numberline {6.4}Plotting photometry data}{94}{section.6.4}
+\contentsline {section}{\numberline {6.5}Drawing a polygon}{96}{section.6.5}
+\contentsline {section}{\numberline {6.6}Which points are in the polygon?}{98}{section.6.6}
+\contentsline {section}{\numberline {6.7}Reloading the data}{98}{section.6.7}
+\contentsline {section}{\numberline {6.8}Merging photometry data}{99}{section.6.8}
+\contentsline {section}{\numberline {6.9}Missing data}{101}{section.6.9}
+\contentsline {section}{\numberline {6.10}Selecting based on photometry}{101}{section.6.10}
+\contentsline {section}{\numberline {6.11}Write the data}{103}{section.6.11}
+\contentsline {section}{\numberline {6.12}Save the polygon}{104}{section.6.12}
+\contentsline {section}{\numberline {6.13}Summary}{104}{section.6.13}
+\contentsline {section}{\numberline {6.14}Best practices}{104}{section.6.14}
+\contentsline {chapter}{\numberline {7}Chapter 7}{107}{chapter.7}
+\contentsline {section}{\numberline {7.1}Outline}{107}{section.7.1}
+\contentsline {section}{\numberline {7.2}Installing libraries}{107}{section.7.2}
+\contentsline {section}{\numberline {7.3}Making Figures That Tell a Story}{108}{section.7.3}
+\contentsline {section}{\numberline {7.4}Plotting GD\sphinxhyphen {}1}{109}{section.7.4}
+\contentsline {section}{\numberline {7.5}Annotations}{110}{section.7.5}
+\contentsline {section}{\numberline {7.6}Customization}{110}{section.7.6}
+\contentsline {section}{\numberline {7.7}rcParams}{111}{section.7.7}
+\contentsline {section}{\numberline {7.8}Style sheets}{111}{section.7.8}
+\contentsline {section}{\numberline {7.9}LaTeX fonts}{113}{section.7.9}
+\contentsline {section}{\numberline {7.10}Multiple panels}{113}{section.7.10}
+\contentsline {section}{\numberline {7.11}Upper right}{114}{section.7.11}
+\contentsline {section}{\numberline {7.12}Upper left}{116}{section.7.12}
+\contentsline {section}{\numberline {7.13}Lower right}{117}{section.7.13}
+\contentsline {section}{\numberline {7.14}Subplots}{119}{section.7.14}
+\contentsline {section}{\numberline {7.15}Adjusting proportions}{120}{section.7.15}
+\contentsline {section}{\numberline {7.16}Summary}{121}{section.7.16}
+\contentsline {section}{\numberline {7.17}Best practices}{122}{section.7.17}
