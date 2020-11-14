@@ -13,3 +13,7 @@ repository:
   url: https://github.com/AllenDowney/AstronomyDataPython
 html:
   use_repository_button: true
+
+parse:
+  myst_extended_syntax: true
+  
