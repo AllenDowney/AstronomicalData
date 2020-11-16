@@ -318,7 +318,76 @@ aware that these versions might diverge in the future.</p>
 <p><a class="reference external" href="https://colab.research.google.com/github/AllenDowney/AstronomicalData/blob/main/07_plot.ipynb"><img src="run_on_colab_small.png"></a></p>
 <p><a class="reference external" href="https://nbviewer.jupyter.org/github/AllenDowney/AstronomicalData/blob/main/07_plot.ipynb">or click here to read it on NBViewer</a></p>
 <p><strong>Installation instructions</strong></p>
-<p>Coming soon.</p>
+<p>If you plan to run these notebooks on Colab, you don’t have to install anything; you can use the links in the
+previous section to open and run them.
+If you want to run the notebooks in your own environment, you might have to do some setup.</p>
+<p>You will need to install Python, Jupyter, and some additional libraries.
+If you don’t already have Jupyter, we recommend installing Anaconda, which is a Python distribution that
+contains everything you need to run the workshop code.  It is easy to install on Windows, Mac, and Linux,
+and because it does a user-level install, it will not interfere with other Python installations.</p>
+<p><a class="reference external" href="https://www.anaconda.com/distribution/">Information about installing Anaconda is here</a>.</p>
+<p>If you have the choice of Python 2 or 3, choose Python 3.</p>
+<p>Now, there are two ways to get the libraries you need:</p>
+<ul class="simple">
+<li><p>Option 1: You can install them in an existing Conda environment.</p></li>
+<li><p>Option 2: You can create a new Conda environment.</p></li>
+</ul>
+<p>Installing libraries in an existing environment is simpler, but if you use the same environment for many projects, it will get big, complicated, and prone to package conflicts.</p>
+<p><strong>Option 1:</strong> <em>Installing libraries in an existing Conda environment</em></p>
+<p>Most of the libraries we need can be installed using Conda, by running the following commands in a Terminal.
+If you are on a Mac or Linux machine, you should be able to use any Terminal.<br />
+If you are on Windows, you might have to use the Anaconda Prompt, which you can find under the Start menu.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">install</span> <span class="n">jupyter</span> <span class="n">numpy</span> <span class="n">scipy</span> <span class="n">pandas</span> <span class="n">matplotlib</span> <span class="n">seaborn</span> <span class="n">libopenblas</span>
+<span class="n">conda</span> <span class="n">install</span> <span class="o">-</span><span class="n">c</span> <span class="n">conda</span><span class="o">-</span><span class="n">forge</span> <span class="n">astropy</span> <span class="n">astroquery</span> <span class="n">astro</span><span class="o">-</span><span class="n">gala</span> <span class="n">python</span><span class="o">-</span><span class="n">wget</span>
+</pre></div>
+</div>
+<p>In addition, there’s one library we can’t install with Conda, so we have to use <code class="docutils literal notranslate"><span class="pre">pip</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">pyia</span>
+</pre></div>
+</div>
+<p><strong>Option 2:</strong> <em>Creating a new Conda environment</em></p>
+<p>To create a new Conda environment, you’ll need to download an environment file from our repository.  On Mac or Linux, you can download it using <code class="docutils literal notranslate"><span class="pre">wget</span></code> on the command line:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">wget</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">raw</span><span class="o">.</span><span class="n">githubusercontent</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">AllenDowney</span><span class="o">/</span><span class="n">AstronomicalData</span><span class="o">/</span><span class="n">main</span><span class="o">/</span><span class="n">environment</span><span class="o">.</span><span class="n">yml</span>
+</pre></div>
+</div>
+<p>Or you can <a class="reference external" href="https://raw.githubusercontent.com/AllenDowney/AstronomicalData/main/environment.yml">download it using this link</a>.</p>
+<p>In a Terminal or Jupyter Prompt, make sure you are in folder where <code class="docutils literal notranslate"><span class="pre">environment.yml</span></code> is stored, and run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">env</span> <span class="n">create</span> <span class="o">-</span><span class="n">f</span> <span class="n">environment</span><span class="o">.</span><span class="n">yml</span>
+</pre></div>
+</div>
+<p>Then, to activate the environment you just created, run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">activate</span> <span class="n">AstronomicalData</span>
+</pre></div>
+</div>
+<p><strong>Run Jupyter</strong></p>
+<p>If you are not familiar with Jupyter, you can <a class="reference external" href="https://jupyter.org/try">run a tutorial by clicking here</a>.
+Then select “Try Classic Notebook”.  It will open a notebook with instructions for getting started.
+Or you can run this <a class="reference external" href="https://colab.research.google.com/notebooks/intro.ipynb">introductory notebook on Colab</a>.</p>
+<p>Before you launch Jupyter, <a class="reference external" href="https://raw.githubusercontent.com/AllenDowney/AstronomicalData/main/test_setup.ipynb">download this notebook</a>, which contains code to test your environment.</p>
+<p>Or you can use <code class="docutils literal notranslate"><span class="pre">wget</span></code> to download it on the command line, like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">wget</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">raw</span><span class="o">.</span><span class="n">githubusercontent</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">AllenDowney</span><span class="o">/</span><span class="n">AstronomicalData</span><span class="o">/</span><span class="n">main</span><span class="o">/</span><span class="n">test_setup</span><span class="o">.</span><span class="n">ipynb</span>
+</pre></div>
+</div>
+<p>To start Jupyter, run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">jupyter</span> <span class="n">notebook</span>
+</pre></div>
+</div>
+<p>Jupyter should launch your default browser or open a tab in an existing browser window.
+If not, the Jupyter server should print a URL you can use.  For example, when I launch Jupyter, I get</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ jupyter notebook
+[I 10:03:20.115 NotebookApp] Serving notebooks from local directory: /home/username
+[I 10:03:20.115 NotebookApp] 0 active kernels
+[I 10:03:20.115 NotebookApp] The Jupyter Notebook is running at: http://localhost:8888/
+[I 10:03:20.115 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+</pre></div>
+</div>
+<p>In this case, the URL is <a class="reference external" href="http://localhost:8888">http://localhost:8888</a>.<br />
+When you start your server, you might get a different URL.
+Whatever it is, if you paste it into a browser, you should should see a home page with a list of directories.</p>
+<p>Now open the notebook you downloaded and run the cells that contain <code class="docutils literal notranslate"><span class="pre">import</span></code> statements.
+If they work and you get no error messages, <strong>you are all set</strong>.</p>
+<p>If you get error messages about missing packages, you can install the packages you need using Conda or <code class="docutils literal notranslate"><span class="pre">pip</span></code>.</p>
+<p>If you run into problems with these instructions, let us know and we will make corrections.  Good luck!</p>
 <div class="toctree-wrapper compound">
 </div>
 </div>

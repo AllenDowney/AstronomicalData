@@ -244,11 +244,6 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#installing-libraries">
-   Installing libraries
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#reload-the-data">
    Reload the data
   </a>
@@ -339,26 +334,6 @@
 <li><p>Make a Pandas <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> and use a Boolean <code class="docutils literal notranslate"><span class="pre">Series</span></code> to select rows.</p></li>
 <li><p>Save a <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> in an HDF5 file.</p></li>
 </ul>
-</div>
-<div class="section" id="installing-libraries">
-<h2>Installing libraries<a class="headerlink" href="#installing-libraries" title="Permalink to this headline">¶</a></h2>
-<p>If you are running this notebook on Colab, you can run the following cell to install Astroquery and a the other libraries we’ll use.</p>
-<p>If you are running this notebook on your own computer, you might have to install these libraries yourself.</p>
-<p>If you are using this notebook as part of a Carpentries workshop, you should have received setup instructions.</p>
-<p>TODO: Add a link to the instructions.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># If we&#39;re running on Colab, install libraries</span>
-
-<span class="kn">import</span> <span class="nn">sys</span>
-<span class="n">IN_COLAB</span> <span class="o">=</span> <span class="s1">&#39;google.colab&#39;</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span>
-
-<span class="k">if</span> <span class="n">IN_COLAB</span><span class="p">:</span>
-    <span class="o">!</span>pip install astroquery astro-gala pyia python-wget
-</pre></div>
-</div>
-</div>
-</div>
 </div>
 <div class="section" id="reload-the-data">
 <h2>Reload the data<a class="headerlink" href="#reload-the-data" title="Permalink to this headline">¶</a></h2>
