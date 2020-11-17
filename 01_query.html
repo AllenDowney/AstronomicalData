@@ -274,8 +274,18 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#exercise">
+   Exercise
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#writing-queries">
    Writing queries
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id1">
+   Exercise
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -284,8 +294,18 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id2">
+   Exercise
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#operators">
    Operators
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id3">
+   Exercise
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -296,6 +316,11 @@
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#formatting-queries">
    Formatting queries
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id4">
+   Exercise
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -432,107 +457,107 @@ INFO: Done. [astroquery.utils.tap.core]
 </div>
 <div class="cell tag_hide-output docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">table</span> <span class="ow">in</span> <span class="p">(</span><span class="n">tables</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">get_qualified_name</span><span class="p">())</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">table</span> <span class="ow">in</span> <span class="n">tables</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>external.external.apassdr9
-external.external.gaiadr2_geometric_distance
-external.external.galex_ais
-external.external.ravedr5_com
-external.external.ravedr5_dr5
-external.external.ravedr5_gra
-external.external.ravedr5_on
-external.external.sdssdr13_photoprimary
-external.external.skymapperdr1_master
-external.external.tmass_xsc
-public.public.hipparcos
-public.public.hipparcos_newreduction
-public.public.hubble_sc
-public.public.igsl_source
-public.public.igsl_source_catalog_ids
-public.public.tycho2
-public.public.dual
-tap_config.tap_config.coord_sys
-tap_config.tap_config.properties
-tap_schema.tap_schema.columns
-tap_schema.tap_schema.key_columns
-tap_schema.tap_schema.keys
-tap_schema.tap_schema.schemas
-tap_schema.tap_schema.tables
-gaiadr1.gaiadr1.aux_qso_icrf2_match
-gaiadr1.gaiadr1.ext_phot_zero_point
-gaiadr1.gaiadr1.allwise_best_neighbour
-gaiadr1.gaiadr1.allwise_neighbourhood
-gaiadr1.gaiadr1.gsc23_best_neighbour
-gaiadr1.gaiadr1.gsc23_neighbourhood
-gaiadr1.gaiadr1.ppmxl_best_neighbour
-gaiadr1.gaiadr1.ppmxl_neighbourhood
-gaiadr1.gaiadr1.sdss_dr9_best_neighbour
-gaiadr1.gaiadr1.sdss_dr9_neighbourhood
-gaiadr1.gaiadr1.tmass_best_neighbour
-gaiadr1.gaiadr1.tmass_neighbourhood
-gaiadr1.gaiadr1.ucac4_best_neighbour
-gaiadr1.gaiadr1.ucac4_neighbourhood
-gaiadr1.gaiadr1.urat1_best_neighbour
-gaiadr1.gaiadr1.urat1_neighbourhood
-gaiadr1.gaiadr1.cepheid
-gaiadr1.gaiadr1.phot_variable_time_series_gfov
-gaiadr1.gaiadr1.phot_variable_time_series_gfov_statistical_parameters
-gaiadr1.gaiadr1.rrlyrae
-gaiadr1.gaiadr1.variable_summary
-gaiadr1.gaiadr1.allwise_original_valid
-gaiadr1.gaiadr1.gsc23_original_valid
-gaiadr1.gaiadr1.ppmxl_original_valid
-gaiadr1.gaiadr1.sdssdr9_original_valid
-gaiadr1.gaiadr1.tmass_original_valid
-gaiadr1.gaiadr1.ucac4_original_valid
-gaiadr1.gaiadr1.urat1_original_valid
-gaiadr1.gaiadr1.gaia_source
-gaiadr1.gaiadr1.tgas_source
-gaiadr2.gaiadr2.aux_allwise_agn_gdr2_cross_id
-gaiadr2.gaiadr2.aux_iers_gdr2_cross_id
-gaiadr2.gaiadr2.aux_sso_orbit_residuals
-gaiadr2.gaiadr2.aux_sso_orbits
-gaiadr2.gaiadr2.dr1_neighbourhood
-gaiadr2.gaiadr2.allwise_best_neighbour
-gaiadr2.gaiadr2.allwise_neighbourhood
-gaiadr2.gaiadr2.apassdr9_best_neighbour
-gaiadr2.gaiadr2.apassdr9_neighbourhood
-gaiadr2.gaiadr2.gsc23_best_neighbour
-gaiadr2.gaiadr2.gsc23_neighbourhood
-gaiadr2.gaiadr2.hipparcos2_best_neighbour
-gaiadr2.gaiadr2.hipparcos2_neighbourhood
-gaiadr2.gaiadr2.panstarrs1_best_neighbour
-gaiadr2.gaiadr2.panstarrs1_neighbourhood
-gaiadr2.gaiadr2.ppmxl_best_neighbour
-gaiadr2.gaiadr2.ppmxl_neighbourhood
-gaiadr2.gaiadr2.ravedr5_best_neighbour
-gaiadr2.gaiadr2.ravedr5_neighbourhood
-gaiadr2.gaiadr2.sdssdr9_best_neighbour
-gaiadr2.gaiadr2.sdssdr9_neighbourhood
-gaiadr2.gaiadr2.tmass_best_neighbour
-gaiadr2.gaiadr2.tmass_neighbourhood
-gaiadr2.gaiadr2.tycho2_best_neighbour
-gaiadr2.gaiadr2.tycho2_neighbourhood
-gaiadr2.gaiadr2.urat1_best_neighbour
-gaiadr2.gaiadr2.urat1_neighbourhood
-gaiadr2.gaiadr2.sso_observation
-gaiadr2.gaiadr2.sso_source
-gaiadr2.gaiadr2.vari_cepheid
-gaiadr2.gaiadr2.vari_classifier_class_definition
-gaiadr2.gaiadr2.vari_classifier_definition
-gaiadr2.gaiadr2.vari_classifier_result
-gaiadr2.gaiadr2.vari_long_period_variable
-gaiadr2.gaiadr2.vari_rotation_modulation
-gaiadr2.gaiadr2.vari_rrlyrae
-gaiadr2.gaiadr2.vari_short_timescale
-gaiadr2.gaiadr2.vari_time_series_statistics
-gaiadr2.gaiadr2.panstarrs1_original_valid
-gaiadr2.gaiadr2.gaia_source
-gaiadr2.gaiadr2.ruwe
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>external.apassdr9
+external.gaiadr2_geometric_distance
+external.galex_ais
+external.ravedr5_com
+external.ravedr5_dr5
+external.ravedr5_gra
+external.ravedr5_on
+external.sdssdr13_photoprimary
+external.skymapperdr1_master
+external.tmass_xsc
+public.hipparcos
+public.hipparcos_newreduction
+public.hubble_sc
+public.igsl_source
+public.igsl_source_catalog_ids
+public.tycho2
+public.dual
+tap_config.coord_sys
+tap_config.properties
+tap_schema.columns
+tap_schema.key_columns
+tap_schema.keys
+tap_schema.schemas
+tap_schema.tables
+gaiadr1.aux_qso_icrf2_match
+gaiadr1.ext_phot_zero_point
+gaiadr1.allwise_best_neighbour
+gaiadr1.allwise_neighbourhood
+gaiadr1.gsc23_best_neighbour
+gaiadr1.gsc23_neighbourhood
+gaiadr1.ppmxl_best_neighbour
+gaiadr1.ppmxl_neighbourhood
+gaiadr1.sdss_dr9_best_neighbour
+gaiadr1.sdss_dr9_neighbourhood
+gaiadr1.tmass_best_neighbour
+gaiadr1.tmass_neighbourhood
+gaiadr1.ucac4_best_neighbour
+gaiadr1.ucac4_neighbourhood
+gaiadr1.urat1_best_neighbour
+gaiadr1.urat1_neighbourhood
+gaiadr1.cepheid
+gaiadr1.phot_variable_time_series_gfov
+gaiadr1.phot_variable_time_series_gfov_statistical_parameters
+gaiadr1.rrlyrae
+gaiadr1.variable_summary
+gaiadr1.allwise_original_valid
+gaiadr1.gsc23_original_valid
+gaiadr1.ppmxl_original_valid
+gaiadr1.sdssdr9_original_valid
+gaiadr1.tmass_original_valid
+gaiadr1.ucac4_original_valid
+gaiadr1.urat1_original_valid
+gaiadr1.gaia_source
+gaiadr1.tgas_source
+gaiadr2.aux_allwise_agn_gdr2_cross_id
+gaiadr2.aux_iers_gdr2_cross_id
+gaiadr2.aux_sso_orbit_residuals
+gaiadr2.aux_sso_orbits
+gaiadr2.dr1_neighbourhood
+gaiadr2.allwise_best_neighbour
+gaiadr2.allwise_neighbourhood
+gaiadr2.apassdr9_best_neighbour
+gaiadr2.apassdr9_neighbourhood
+gaiadr2.gsc23_best_neighbour
+gaiadr2.gsc23_neighbourhood
+gaiadr2.hipparcos2_best_neighbour
+gaiadr2.hipparcos2_neighbourhood
+gaiadr2.panstarrs1_best_neighbour
+gaiadr2.panstarrs1_neighbourhood
+gaiadr2.ppmxl_best_neighbour
+gaiadr2.ppmxl_neighbourhood
+gaiadr2.ravedr5_best_neighbour
+gaiadr2.ravedr5_neighbourhood
+gaiadr2.sdssdr9_best_neighbour
+gaiadr2.sdssdr9_neighbourhood
+gaiadr2.tmass_best_neighbour
+gaiadr2.tmass_neighbourhood
+gaiadr2.tycho2_best_neighbour
+gaiadr2.tycho2_neighbourhood
+gaiadr2.urat1_best_neighbour
+gaiadr2.urat1_neighbourhood
+gaiadr2.sso_observation
+gaiadr2.sso_source
+gaiadr2.vari_cepheid
+gaiadr2.vari_classifier_class_definition
+gaiadr2.vari_classifier_definition
+gaiadr2.vari_classifier_result
+gaiadr2.vari_long_period_variable
+gaiadr2.vari_rotation_modulation
+gaiadr2.vari_rrlyrae
+gaiadr2.vari_short_timescale
+gaiadr2.vari_time_series_statistics
+gaiadr2.panstarrs1_original_valid
+gaiadr2.gaia_source
+gaiadr2.ruwe
 </pre></div>
 </div>
 </div>
@@ -557,7 +582,7 @@ Parsing table &#39;gaiadr2.gaia_source&#39;...
 Done.
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;astroquery.utils.tap.model.taptable.TapTableMeta at 0x7fb565288520&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;astroquery.utils.tap.model.taptable.TapTableMeta at 0x7f10a2326820&gt;
 </pre></div>
 </div>
 </div>
@@ -582,12 +607,7 @@ Num. columns: 96
 </div>
 </div>
 </div>
-<p>Notice one gotcha: in the list of table names, this table appears as <code class="docutils literal notranslate"><span class="pre">gaiadr2.gaiadr2.gaia_source</span></code>, but when we load the metadata, we refer to it as <code class="docutils literal notranslate"><span class="pre">gaiadr2.gaia_source</span></code>.</p>
-<p><strong>Exercise:</strong> Go back and try</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">meta</span> <span class="o">=</span> <span class="n">Gaia</span><span class="o">.</span><span class="n">load_table</span><span class="p">(</span><span class="s1">&#39;gaiadr2.gaiadr2.gaia_source&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>What happens?  Is the error message helpful?  If you had not made this error deliberately, would you have been able to figure it out?</p>
+<p>In <code class="docutils literal notranslate"><span class="pre">meta</span></code>, the name of the table appears as <code class="docutils literal notranslate"><span class="pre">gaiadr2.gaiadr2.gaia_source</span></code>, which is the “qualified name”, but when we load the metadata, we refer to it as <code class="docutils literal notranslate"><span class="pre">gaiadr2.gaia_source</span></code>.</p>
 <div class="cell tag_hide-cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
@@ -722,8 +742,10 @@ epoch_photometry_url
 <p>You can probably guess what many of these columns are by looking at the names, but you should resist the temptation to guess.
 To find out what the columns mean, <a class="reference external" href="https://gea.esac.esa.int/archive/documentation/GDR2/Gaia_archive/chap_datamodel/sec_dm_main_tables/ssec_dm_gaia_source.html">read the documentation</a>.</p>
 <p>If you want to know what can go wrong when you don’t read the documentation, <a class="reference external" href="https://www.vox.com/future-perfect/2019/6/4/18650969/married-women-miserable-fake-paul-dolan-happiness">you might like this article</a>.</p>
-<p><strong>Exercise:</strong> One of the other tables we’ll use is <code class="docutils literal notranslate"><span class="pre">gaiadr2.gaiadr2.panstarrs1_original_valid</span></code>.  Use <code class="docutils literal notranslate"><span class="pre">load_table</span></code> to get the metadata for this table.  How many columns are there and what are their names?</p>
-<p>Hint: Remember the gotcha we mentioned earlier.</p>
+</div>
+<div class="section" id="exercise">
+<h2>Exercise<a class="headerlink" href="#exercise" title="Permalink to this headline">¶</a></h2>
+<p>One of the other tables we’ll use is <code class="docutils literal notranslate"><span class="pre">gaiadr2.panstarrs1_original_valid</span></code>.  Use <code class="docutils literal notranslate"><span class="pre">load_table</span></code> to get the metadata for this table.  How many columns are there and what are their names?</p>
 <div class="cell tag_hide-cell tag_remove-output docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
@@ -808,7 +830,7 @@ quality_flag
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;astroquery.utils.tap.model.job.Job at 0x7f9222e9cb20&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;astroquery.utils.tap.model.job.Job at 0x7f10a2344250&gt;
 </pre></div>
 </div>
 </div>
@@ -823,17 +845,17 @@ quality_flag
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Table length=10&gt;
-   name    dtype  unit                            description                            
---------- ------- ---- ------------------------------------------------------------------
-source_id   int64      Unique source identifier (unique within a particular Data Release)
-ref_epoch float64   yr                                                    Reference epoch
-       ra float64  deg                                                    Right ascension
-      dec float64  deg                                                        Declination
- parallax float64  mas                                                           Parallax
+   name    dtype  unit                            description                             n_bad
+--------- ------- ---- ------------------------------------------------------------------ -----
+source_id   int64      Unique source identifier (unique within a particular Data Release)     0
+ref_epoch float64   yr                                                    Reference epoch     0
+       ra float64  deg                                                    Right ascension     0
+      dec float64  deg                                                        Declination     0
+ parallax float64  mas                                                           Parallax     2
 Jobid: None
 Phase: COMPLETED
 Owner: None
-Output file: sync_20201005090721.xml.gz
+Output file: sync_20201117092213.xml.gz
 Results: None
 </pre></div>
 </div>
@@ -854,7 +876,7 @@ Results: None
 </div>
 </div>
 </div>
-<p><strong>Optional detail:</strong>  Why is <code class="docutils literal notranslate"><span class="pre">table</span></code> repeated three times?  The first is the name of the module, the second is the name of the submodule, and the third is the name of the class.  Most of the time we only care about the last one.  It’s like the Linnean name for gorilla, which is <em>Gorilla Gorilla Gorilla</em>.</p>
+<p><strong>Optional detail:</strong>  Why is <code class="docutils literal notranslate"><span class="pre">table</span></code> repeated three times?  The first is the name of the module, the second is the name of the submodule, and the third is the name of the class.  Most of the time we only care about the last one.  It’s like the Linnean name for gorilla, which is <em>Gorilla gorilla gorilla</em>.</p>
 <p>The result is an <a class="reference external" href="https://docs.astropy.org/en/stable/table/">Astropy Table</a>, which is similar to a table in an SQL database except:</p>
 <ul class="simple">
 <li><p>SQL databases are stored on disk drives, so they are persistent; that is, they “survive” even if you turn off the computer.  An Astropy <code class="docutils literal notranslate"><span class="pre">Table</span></code> is stored in memory; it disappears when you turn off the computer (or shut down this Jupyter notebook).</p></li>
@@ -869,26 +891,29 @@ Results: None
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html"><i>Table length=10</i>
-<table id="table140265627585264" class="table-striped table-bordered table-condensed">
+<table id="table139709417416256" class="table-striped table-bordered table-condensed">
 <thead><tr><th>source_id</th><th>ref_epoch</th><th>ra</th><th>dec</th><th>parallax</th></tr></thead>
 <thead><tr><th></th><th>yr</th><th>deg</th><th>deg</th><th>mas</th></tr></thead>
 <thead><tr><th>int64</th><th>float64</th><th>float64</th><th>float64</th><th>float64</th></tr></thead>
-<tr><td>4530738361793769600</td><td>2015.5</td><td>281.56725362448725</td><td>20.40682117430378</td><td>0.9785380604519425</td></tr>
-<tr><td>4530752651135081216</td><td>2015.5</td><td>281.0861565355257</td><td>20.523350496351846</td><td>0.2674800612552977</td></tr>
-<tr><td>4530743343951405568</td><td>2015.5</td><td>281.37114418299177</td><td>20.474147574053124</td><td>-0.43911323550176806</td></tr>
-<tr><td>4530755060627162368</td><td>2015.5</td><td>281.2676236268299</td><td>20.558523922346158</td><td>1.1422630184554958</td></tr>
-<tr><td>4530746844341315968</td><td>2015.5</td><td>281.1370431749541</td><td>20.377852388898184</td><td>1.0092247424630945</td></tr>
-<tr><td>4530768456615026432</td><td>2015.5</td><td>281.8720921436347</td><td>20.31829694530366</td><td>-0.06900136127674149</td></tr>
-<tr><td>4530763513119137280</td><td>2015.5</td><td>281.9211808864116</td><td>20.20956829578524</td><td>0.1266016679823622</td></tr>
-<tr><td>4530736364618539264</td><td>2015.5</td><td>281.4913475613274</td><td>20.346579041327693</td><td>0.3894019486060072</td></tr>
-<tr><td>4530735952305177728</td><td>2015.5</td><td>281.4085549165704</td><td>20.311030903719928</td><td>0.2041189982608354</td></tr>
-<tr><td>4530751281056022656</td><td>2015.5</td><td>281.0585328377638</td><td>20.460309556214753</td><td>0.10294642821734962</td></tr>
+<tr><td>2029534160912857984</td><td>2015.5</td><td>302.1221011162626</td><td>29.464242405581903</td><td>0.26719312673637957</td></tr>
+<tr><td>2029527563843522688</td><td>2015.5</td><td>301.76635488333477</td><td>29.297302003155878</td><td>-0.5339115955037064</td></tr>
+<tr><td>2029530175194496768</td><td>2015.5</td><td>301.84979907220344</td><td>29.424817571056252</td><td>0.4993858623581147</td></tr>
+<tr><td>2029552990056965376</td><td>2015.5</td><td>302.61233151638965</td><td>29.69609949341979</td><td>--</td></tr>
+<tr><td>2029559174807808512</td><td>2015.5</td><td>302.08554269720975</td><td>29.568937428891136</td><td>0.07378124688708597</td></tr>
+<tr><td>2029534126551565440</td><td>2015.5</td><td>302.1383595452346</td><td>29.4560049110412</td><td>--</td></tr>
+<tr><td>2029534023485750400</td><td>2015.5</td><td>302.06234099159894</td><td>29.463904128839516</td><td>-0.6248984748555095</td></tr>
+<tr><td>2029552990053470592</td><td>2015.5</td><td>302.61273920007653</td><td>29.701315238258985</td><td>-0.5113424569489686</td></tr>
+<tr><td>2029545430912236672</td><td>2015.5</td><td>302.2752745129967</td><td>29.482001000231968</td><td>0.049122831032945236</td></tr>
+<tr><td>2029534435790829568</td><td>2015.5</td><td>302.08962936217654</td><td>29.490016052993543</td><td>1.0104447723028214</td></tr>
 </table></div></div>
 </div>
 <p>Each column has a name, units, and a data type.</p>
 <p>For example, the units of <code class="docutils literal notranslate"><span class="pre">ra</span></code> and <code class="docutils literal notranslate"><span class="pre">dec</span></code> are degrees, and their data type is <code class="docutils literal notranslate"><span class="pre">float64</span></code>, which is a 64-bit floating-point number, used to store measurements with a fraction part.</p>
 <p>This information comes from the Gaia database, and has been stored in the Astropy <code class="docutils literal notranslate"><span class="pre">Table</span></code> by Astroquery.</p>
-<p><strong>Exercise:</strong> Read <a class="reference external" href="https://gea.esac.esa.int/archive/documentation/GDR2/Gaia_archive/chap_datamodel/sec_dm_main_tables/ssec_dm_gaia_source.html">the documentation of this table</a> and choose a column that looks interesting to you.  Add the column name to the query and run it again.  What are the units of the column you selected?  What is its data type?</p>
+</div>
+<div class="section" id="id1">
+<h2>Exercise<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>Read <a class="reference external" href="https://gea.esac.esa.int/archive/documentation/GDR2/Gaia_archive/chap_datamodel/sec_dm_main_tables/ssec_dm_gaia_source.html">the documentation of this table</a> and choose a column that looks interesting to you.  Add the column name to the query and run it again.  What are the units of the column you selected?  What is its data type?</p>
 </div>
 <div class="section" id="asynchronous-queries">
 <h2>Asynchronous queries<a class="headerlink" href="#asynchronous-queries" title="Permalink to this headline">¶</a></h2>
@@ -932,10 +957,10 @@ ref_epoch float64   yr                                                    Refere
        ra float64  deg                                                    Right ascension
       dec float64  deg                                                        Declination
  parallax float64  mas                                                           Parallax
-Jobid: 1601903242219O
+Jobid: 1605622934969O
 Phase: COMPLETED
 Owner: None
-Output file: async_20201005090722.vot
+Output file: async_20201117092215.vot
 Results: None
 </pre></div>
 </div>
@@ -951,35 +976,38 @@ Results: None
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html"><i>Table length=3000</i>
-<table id="table140265625141056" class="table-striped table-bordered table-condensed">
+<table id="table139709414533440" class="table-striped table-bordered table-condensed">
 <thead><tr><th>source_id</th><th>ref_epoch</th><th>ra</th><th>dec</th><th>parallax</th></tr></thead>
 <thead><tr><th></th><th>yr</th><th>deg</th><th>deg</th><th>mas</th></tr></thead>
 <thead><tr><th>int64</th><th>float64</th><th>float64</th><th>float64</th><th>float64</th></tr></thead>
-<tr><td>4530738361793769600</td><td>2015.5</td><td>281.56725362448725</td><td>20.40682117430378</td><td>0.9785380604519425</td></tr>
-<tr><td>4530752651135081216</td><td>2015.5</td><td>281.0861565355257</td><td>20.523350496351846</td><td>0.2674800612552977</td></tr>
-<tr><td>4530743343951405568</td><td>2015.5</td><td>281.37114418299177</td><td>20.474147574053124</td><td>-0.43911323550176806</td></tr>
-<tr><td>4530768456615026432</td><td>2015.5</td><td>281.8720921436347</td><td>20.31829694530366</td><td>-0.06900136127674149</td></tr>
-<tr><td>4530763513119137280</td><td>2015.5</td><td>281.9211808864116</td><td>20.20956829578524</td><td>0.1266016679823622</td></tr>
-<tr><td>4530736364618539264</td><td>2015.5</td><td>281.4913475613274</td><td>20.346579041327693</td><td>0.3894019486060072</td></tr>
-<tr><td>4530735952305177728</td><td>2015.5</td><td>281.4085549165704</td><td>20.311030903719928</td><td>0.2041189982608354</td></tr>
-<tr><td>4530751281056022656</td><td>2015.5</td><td>281.0585328377638</td><td>20.460309556214753</td><td>0.10294642821734962</td></tr>
-<tr><td>4530740938774409344</td><td>2015.5</td><td>281.3762569536416</td><td>20.436140058941206</td><td>0.9242670062090182</td></tr>
+<tr><td>2029534160912857984</td><td>2015.5</td><td>302.1221011162626</td><td>29.464242405581903</td><td>0.26719312673637957</td></tr>
+<tr><td>2029527563843522688</td><td>2015.5</td><td>301.76635488333477</td><td>29.297302003155878</td><td>-0.5339115955037064</td></tr>
+<tr><td>2029530175194496768</td><td>2015.5</td><td>301.84979907220344</td><td>29.424817571056252</td><td>0.4993858623581147</td></tr>
+<tr><td>2029559174807808512</td><td>2015.5</td><td>302.08554269720975</td><td>29.568937428891136</td><td>0.07378124688708597</td></tr>
+<tr><td>2029534023485750400</td><td>2015.5</td><td>302.06234099159894</td><td>29.463904128839516</td><td>-0.6248984748555095</td></tr>
+<tr><td>2029552990053470592</td><td>2015.5</td><td>302.61273920007653</td><td>29.701315238258985</td><td>-0.5113424569489686</td></tr>
+<tr><td>2029545430912236672</td><td>2015.5</td><td>302.2752745129967</td><td>29.482001000231968</td><td>0.049122831032945236</td></tr>
+<tr><td>2029551375154168192</td><td>2015.5</td><td>302.6322719484525</td><td>29.629231848937902</td><td>-0.4273623555622012</td></tr>
+<tr><td>2029537184581680000</td><td>2015.5</td><td>301.8270877829269</td><td>29.481945977423116</td><td>0.686631849492751</td></tr>
 <tr><td>...</td><td>...</td><td>...</td><td>...</td><td>...</td></tr>
-<tr><td>4467710915011802624</td><td>2015.5</td><td>269.9680969307347</td><td>1.1429085038160882</td><td>0.42361471245557913</td></tr>
-<tr><td>4467706551328679552</td><td>2015.5</td><td>270.033164589881</td><td>1.0565747323689927</td><td>0.922888231734588</td></tr>
-<tr><td>4467712255037300096</td><td>2015.5</td><td>270.7724717923047</td><td>0.6581664892880896</td><td>-2.669179465293931</td></tr>
-<tr><td>4467735001181761792</td><td>2015.5</td><td>270.3628606248308</td><td>0.8947079323599124</td><td>0.6117399163086398</td></tr>
-<tr><td>4467737101421916672</td><td>2015.5</td><td>270.5110834661444</td><td>0.9806225910160181</td><td>-0.39818224846127004</td></tr>
-<tr><td>4467707547757327488</td><td>2015.5</td><td>269.88746280594927</td><td>1.0212759940136962</td><td>0.7741412301054209</td></tr>
-<tr><td>4467732772094573056</td><td>2015.5</td><td>270.55997182760126</td><td>0.9037072088489417</td><td>-1.7920417800164183</td></tr>
-<tr><td>4467732355491087744</td><td>2015.5</td><td>270.6730790702491</td><td>0.9197224705139885</td><td>-0.3464446494840354</td></tr>
-<tr><td>4467717099766944512</td><td>2015.5</td><td>270.57667173120825</td><td>0.726277659009568</td><td>0.05443955111134051</td></tr>
-<tr><td>4467719058265781248</td><td>2015.5</td><td>270.7248052971514</td><td>0.8205551921782785</td><td>0.3733943917490343</td></tr>
+<tr><td>5351023617248935296</td><td>2015.5</td><td>163.20342713669297</td><td>-57.45843664435045</td><td>-0.12712245925716417</td></tr>
+<tr><td>5351013034403261056</td><td>2015.5</td><td>162.76029338894156</td><td>-57.57725086313733</td><td>-0.04737425207265826</td></tr>
+<tr><td>6230089722024056576</td><td>2015.5</td><td>221.13188844526658</td><td>-23.856129423698576</td><td>0.40215405335632315</td></tr>
+<tr><td>6229981248329591552</td><td>2015.5</td><td>219.5757477670797</td><td>-24.520741795344115</td><td>-0.1711128865194354</td></tr>
+<tr><td>6230163114425691904</td><td>2015.5</td><td>220.67263853794475</td><td>-23.502746567943603</td><td>-0.0983885985018888</td></tr>
+<tr><td>6229932491861252352</td><td>2015.5</td><td>220.73523627555818</td><td>-24.640708681077328</td><td>0.4328661904699682</td></tr>
+<tr><td>6230016879379130240</td><td>2015.5</td><td>219.83052324579677</td><td>-24.2061244892915</td><td>0.3925985611610745</td></tr>
+<tr><td>6230073366787772800</td><td>2015.5</td><td>221.47192783117885</td><td>-23.959139666294128</td><td>0.48625897986634425</td></tr>
+<tr><td>6230145075563001728</td><td>2015.5</td><td>221.03467394339305</td><td>-23.58099620047661</td><td>0.4002784743473182</td></tr>
+<tr><td>6230167031435813760</td><td>2015.5</td><td>220.7851856662174</td><td>-23.336372421616733</td><td>-0.8736321545140885</td></tr>
 </table></div></div>
 </div>
 <p>You might notice that some values of <code class="docutils literal notranslate"><span class="pre">parallax</span></code> are negative.  As <a class="reference external" href="https://www.cosmos.esa.int/web/gaia/archive-tips#negative%20parallax">this FAQ explains</a>, “Negative parallaxes are caused by errors in the observations.”  Negative parallaxes have “no physical meaning,” but they can be a “useful diagnostic on the quality of the astrometric solution.”</p>
 <p>Later we will see an example where we use <code class="docutils literal notranslate"><span class="pre">parallax</span></code> and <code class="docutils literal notranslate"><span class="pre">parallax_error</span></code> to identify stars where the distance estimate is likely to be inaccurate.</p>
-<p><strong>Exercise:</strong> The clauses in a query have to be in the right order.  Go back and change the order of the clauses in <code class="docutils literal notranslate"><span class="pre">query2</span></code> and run it again.</p>
+</div>
+<div class="section" id="id2">
+<h2>Exercise<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>The clauses in a query have to be in the right order.  Go back and change the order of the clauses in <code class="docutils literal notranslate"><span class="pre">query2</span></code> and run it again.</p>
 <p>The query should fail, but notice that you don’t get much useful debugging information.</p>
 <p>For this reason, developing and debugging ADQL queries can be really hard.  A few suggestions that might help:</p>
 <ul class="simple">
@@ -1027,7 +1055,10 @@ Be careful to keep your Python out of your ADQL!</p>
 <li><p>OR: true if either or both comparisons are true</p></li>
 </ul>
 <p>Finally, you can use <code class="docutils literal notranslate"><span class="pre">NOT</span></code> to invert the result of a comparison.</p>
-<p><strong>Exercise:</strong> <a class="reference external" href="https://www.w3schools.com/sql/sql_operators.asp">Read about SQL operators here</a> and then modify the previous query to select rows where <code class="docutils literal notranslate"><span class="pre">bp_rp</span></code> is between <code class="docutils literal notranslate"><span class="pre">-0.75</span></code> and <code class="docutils literal notranslate"><span class="pre">2</span></code>.</p>
+</div>
+<div class="section" id="id3">
+<h2>Exercise<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://www.w3schools.com/sql/sql_operators.asp">Read about SQL operators here</a> and then modify the previous query to select rows where <code class="docutils literal notranslate"><span class="pre">bp_rp</span></code> is between <code class="docutils literal notranslate"><span class="pre">-0.75</span></code> and <code class="docutils literal notranslate"><span class="pre">2</span></code>.</p>
 <p>You can <a class="reference external" href="https://gea.esac.esa.int/archive/documentation/GDR2/Gaia_archive/chap_datamodel/sec_dm_main_tables/ssec_dm_gaia_source.html">read about this variable here</a>.</p>
 <div class="cell tag_hide-cell docutils container">
 <div class="cell_input docutils container">
@@ -1075,7 +1106,7 @@ Be careful to keep your Python out of your ADQL!</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(None, &#39;1601903242219O&#39;)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(None, &#39;1605622934969O&#39;)
 </pre></div>
 </div>
 </div>
@@ -1088,7 +1119,7 @@ Be careful to keep your Python out of your ADQL!</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Removed jobs: &#39;[&#39;1601903242219O&#39;]&#39;.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Removed jobs: &#39;[&#39;1605622934969O&#39;]&#39;.
 </pre></div>
 </div>
 </div>
@@ -1185,7 +1216,7 @@ radial_velocity float64   km / s                                                
 Jobid: None
 Phase: COMPLETED
 Owner: None
-Output file: sync_20201005090726.xml.gz
+Output file: sync_20201117092220.xml.gz
 Results: None
 </pre></div>
 </div>
@@ -1200,24 +1231,27 @@ Results: None
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html"><i>Table length=10</i>
-<table id="table140265627700432" class="table-striped table-bordered table-condensed">
+<table id="table139709417540336" class="table-striped table-bordered table-condensed">
 <thead><tr><th>source_id</th><th>ra</th><th>dec</th><th>pmra</th><th>pmdec</th><th>parallax</th><th>parallax_error</th><th>radial_velocity</th></tr></thead>
 <thead><tr><th></th><th>deg</th><th>deg</th><th>mas / yr</th><th>mas / yr</th><th>mas</th><th>mas</th><th>km / s</th></tr></thead>
 <thead><tr><th>int64</th><th>float64</th><th>float64</th><th>float64</th><th>float64</th><th>float64</th><th>float64</th><th>float64</th></tr></thead>
-<tr><td>4467710915011802624</td><td>269.9680969307347</td><td>1.1429085038160882</td><td>2.0233280236600626</td><td>-2.5692427875510266</td><td>0.42361471245557913</td><td>0.470352406647465</td><td>--</td></tr>
-<tr><td>4467706551328679552</td><td>270.033164589881</td><td>1.0565747323689927</td><td>-3.414829591355289</td><td>-3.8437215857495737</td><td>0.922888231734588</td><td>0.927008559859825</td><td>--</td></tr>
-<tr><td>4467712255037300096</td><td>270.7724717923047</td><td>0.6581664892880896</td><td>-3.5620173752896025</td><td>-6.595792323153987</td><td>-2.669179465293931</td><td>0.9719742773203504</td><td>--</td></tr>
-<tr><td>4467735001181761792</td><td>270.3628606248308</td><td>0.8947079323599124</td><td>2.1307079926489205</td><td>0.8826727710910712</td><td>0.6117399163086398</td><td>0.509812721702093</td><td>--</td></tr>
-<tr><td>4467737101421916672</td><td>270.5110834661444</td><td>0.9806225910160181</td><td>0.17532366511560785</td><td>-5.113270239706202</td><td>-0.39818224846127004</td><td>0.7549581886719651</td><td>--</td></tr>
-<tr><td>4467707547757327488</td><td>269.88746280594927</td><td>1.0212759940136962</td><td>-2.6382230817672987</td><td>-3.707776532049287</td><td>0.7741412301054209</td><td>0.3022057897812064</td><td>--</td></tr>
-<tr><td>4467732355491087744</td><td>270.6730790702491</td><td>0.9197224705139885</td><td>-2.2735991502653037</td><td>-11.864952855984358</td><td>-0.3464446494840354</td><td>0.4937921513912002</td><td>--</td></tr>
-<tr><td>4467717099766944512</td><td>270.57667173120825</td><td>0.726277659009568</td><td>-3.4598362614808367</td><td>-4.601426893365921</td><td>0.05443955111134051</td><td>0.8867339293525688</td><td>--</td></tr>
-<tr><td>4467719058265781248</td><td>270.7248052971514</td><td>0.8205551921782785</td><td>-3.255079498426542</td><td>-9.249285069111085</td><td>0.3733943917490343</td><td>0.390952370410666</td><td>--</td></tr>
-<tr><td>4467722326741572352</td><td>270.87431291888504</td><td>0.8595565975869158</td><td>0.10696398351859826</td><td>1.2035993780158853</td><td>-0.11850943432864373</td><td>0.1660452431882023</td><td>--</td></tr>
+<tr><td>6230144152145537152</td><td>221.00484394613122</td><td>-23.650193344617016</td><td>-3.5074596301747727</td><td>-10.224921783269979</td><td>0.4472611806640159</td><td>0.1288335146382159</td><td>--</td></tr>
+<tr><td>6230171669999288192</td><td>222.11986606839224</td><td>-24.50411126495661</td><td>-3.5454562059199444</td><td>-4.5898956770256065</td><td>0.01235077758559544</td><td>0.6798312067588314</td><td>--</td></tr>
+<tr><td>6230030795072008832</td><td>220.6858032920676</td><td>-24.529155332809893</td><td>-7.395300108444131</td><td>-2.3509644395754723</td><td>0.9192193090012722</td><td>1.011426390802751</td><td>--</td></tr>
+<tr><td>6230121401702753664</td><td>220.2681390809788</td><td>-23.90595652859401</td><td>-0.9310688845911029</td><td>-4.850975141945376</td><td>0.7892660162616956</td><td>0.612231874239708</td><td>--</td></tr>
+<tr><td>6229987570521485440</td><td>219.69736802123325</td><td>-24.463333246855726</td><td>-1.2742408484284249</td><td>-3.404899385900498</td><td>0.2215366853699605</td><td>0.21596169286289862</td><td>--</td></tr>
+<tr><td>6230018425567339520</td><td>220.1035725206795</td><td>-24.23214642244001</td><td>3.5001851583023207</td><td>-7.522436158423504</td><td>0.10694586740680614</td><td>0.8296685650840913</td><td>--</td></tr>
+<tr><td>6230130266515510528</td><td>220.4226870525988</td><td>-23.73255151335769</td><td>-2.363789876365865</td><td>-4.703438038908609</td><td>0.3047725187302132</td><td>0.2970783741597157</td><td>--</td></tr>
+<tr><td>6230061757492831616</td><td>221.17289130564805</td><td>-24.25689151102804</td><td>-2.857319870871607</td><td>-3.3752756010215696</td><td>0.5718461700819417</td><td>0.08382745553667581</td><td>--</td></tr>
+<tr><td>2003409519814774528</td><td>339.93278128584706</td><td>54.693746629826066</td><td>-4.309526744320447</td><td>-4.179418290817069</td><td>-0.03422181968448189</td><td>0.16657261834688394</td><td>--</td></tr>
+<tr><td>2003390901139218816</td><td>338.7103475641665</td><td>54.842371081247144</td><td>0.9558208039434155</td><td>-3.918955387981184</td><td>0.7072974894588037</td><td>0.4296262772904238</td><td>--</td></tr>
 </table></div></div>
 </div>
 <p>Good so far.</p>
-<p><strong>Exercise:</strong> This query always selects sources with <code class="docutils literal notranslate"><span class="pre">parallax</span></code> less than 1.  But suppose you want to take that upper bound as an input.</p>
+</div>
+<div class="section" id="id4">
+<h2>Exercise<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>This query always selects sources with <code class="docutils literal notranslate"><span class="pre">parallax</span></code> less than 1.  But suppose you want to take that upper bound as an input.</p>
 <p>Modify <code class="docutils literal notranslate"><span class="pre">query3_base</span></code> to replace <code class="docutils literal notranslate"><span class="pre">1</span></code> with a format specifier like <code class="docutils literal notranslate"><span class="pre">{max_parallax}</span></code>.  Now, when you call <code class="docutils literal notranslate"><span class="pre">format</span></code>, add a keyword argument that assigns a value to <code class="docutils literal notranslate"><span class="pre">max_parallax</span></code>, and confirm that the format specifier gets replaced with the value you provide.</p>
 <div class="cell tag_hide-cell docutils container">
 <div class="cell_input docutils container">
@@ -1245,10 +1279,10 @@ Results: None
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>SELECT TOP 10
-source_id, ra, dec, pmra, pmdec, parallax, parallax_error, radial_velocity
+source_id, ref_epoch, ra, dec, parallax
 FROM gaiadr2.gaia_source
-WHERE parallax &lt; 0.5 AND 
-bp_rp BETWEEN -0.75 AND 2
+WHERE parallax &lt; 1 
+  AND bp_rp BETWEEN -0.75 AND 2
 </pre></div>
 </div>
 </div>

@@ -249,6 +249,11 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#exercise">
+   Exercise
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#getting-gd-1-data">
    Getting GD-1 Data
   </a>
@@ -369,7 +374,7 @@ Created TAP+ (v1.2.1) - Connection:
 </pre></div>
 </div>
 <div class="output text_html"><i>Table length=10</i>
-<table id="table139949838258672" class="table-striped table-bordered table-condensed">
+<table id="table140686245658336" class="table-striped table-bordered table-condensed">
 <thead><tr><th>source_id</th></tr></thead>
 <thead><tr><th>int64</th></tr></thead>
 <tr><td>4057468321929794432</td></tr>
@@ -384,7 +389,10 @@ Created TAP+ (v1.2.1) - Connection:
 <tr><td>4057470555320409600</td></tr>
 </table></div></div>
 </div>
-<p><strong>Exercise:</strong> When you are debugging queries like this, you can use <code class="docutils literal notranslate"><span class="pre">TOP</span></code> to limit the size of the results, but then you still don’t know how big the results will be.</p>
+</div>
+<div class="section" id="exercise">
+<h2>Exercise<a class="headerlink" href="#exercise" title="Permalink to this headline">¶</a></h2>
+<p>When you are debugging queries like this, you can use <code class="docutils literal notranslate"><span class="pre">TOP</span></code> to limit the size of the results, but then you still don’t know how big the results will be.</p>
 <p>An alternative is to use <code class="docutils literal notranslate"><span class="pre">COUNT</span></code>, which asks for the number of rows that would be selected, but it does not return them.</p>
 <p>In the previous query, replace <code class="docutils literal notranslate"><span class="pre">TOP</span> <span class="pre">10</span> <span class="pre">source_id</span></code> with <code class="docutils literal notranslate"><span class="pre">COUNT(source_id)</span></code> and run the query again.  How many stars has Gaia identified in the cone we searched?</p>
 </div>
@@ -1441,8 +1449,8 @@ Created TAP+ (v1.2.1) - Connection:
 <p>To create a quantity, we multiply a value by a unit.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">coord</span> <span class="o">=</span> <span class="mi">30</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">deg</span>
-<span class="nb">type</span><span class="p">(</span><span class="n">coord</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">coordinate</span> <span class="o">=</span> <span class="mi">30</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">deg</span>
+<span class="nb">type</span><span class="p">(</span><span class="n">coordinate</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1456,7 +1464,7 @@ Created TAP+ (v1.2.1) - Connection:
 <p>Jupyter knows how to display <code class="docutils literal notranslate"><span class="pre">Quantities</span></code> like this:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">coord</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">coordinate</span>
 </pre></div>
 </div>
 </div>
@@ -1719,10 +1727,10 @@ WHERE parallax &lt; 1
        parallax float64      mas                                                           Parallax      0
  parallax_error float64      mas                                         Standard error of parallax      0
 radial_velocity float64   km / s                                                    Radial velocity 139374
-Jobid: 1603114980658O
+Jobid: 1605624329053O
 Phase: COMPLETED
 Owner: None
-Output file: async_20201019094300.vot
+Output file: async_20201117094529.vot
 Results: None
 </pre></div>
 </div>
@@ -1767,7 +1775,7 @@ Results: None
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-rw-rw-r-- 1 downey downey 8.6M Oct 19 09:43 gd1_results.fits
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-rw-rw-r-- 1 downey downey 8.6M Nov 17 09:45 gd1_results.fits
 </pre></div>
 </div>
 </div>
