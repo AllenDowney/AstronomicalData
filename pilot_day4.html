@@ -188,7 +188,7 @@
         aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
     <div class="dropdown-buttons sourcebuttons">
         <a class="repository-button"
-            href="https://github.com/AllenDowney/AstronomyDataPython"><button type="button" class="btn btn-secondary topbarbtn"
+            href="https://github.com/AllenDowney/AstronomicalData"><button type="button" class="btn btn-secondary topbarbtn"
                 data-toggle="tooltip" data-placement="left" title="Source repository"><i
                     class="fab fa-github"></i>repository</button></a>
         
@@ -209,7 +209,7 @@
         aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
     <div class="dropdown-buttons">
         
-        <a class="binder-button" href="https://mybinder.org/v2/gh/AllenDowney/AstronomyDataPython/master?urlpath=tree/pilot_day4.ipynb"><button type="button"
+        <a class="binder-button" href="https://mybinder.org/v2/gh/AllenDowney/AstronomicalData/master?urlpath=tree/pilot_day4.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
                 data-placement="left"><img class="binder-button-logo"
                     src="_static/images/logo_binder.svg"
@@ -217,7 +217,7 @@
         
         
         
-        <a class="colab-button" href="https://colab.research.google.com/github/AllenDowney/AstronomyDataPython/blob/master/pilot_day4.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+        <a class="colab-button" href="https://colab.research.google.com/github/AllenDowney/AstronomicalData/blob/master/pilot_day4.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
                 title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
                     src="_static/images/logo_colab.png"
                     alt="Interact on Colab">Colab</button></a>
@@ -259,20 +259,164 @@
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">astropy.table</span> <span class="kn">import</span> <span class="n">Table</span>
 
-<span class="n">x</span> <span class="o">=</span> <span class="n">candidate_df</span><span class="p">[</span><span class="s1">&#39;phi1&#39;</span><span class="p">]</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">candidate_df</span><span class="p">[</span><span class="s1">&#39;phi2&#39;</span><span class="p">]</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">&#39;ko&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;ra (degree GD1)&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;dec (degree GD1)&#39;</span><span class="p">);</span>
+<span class="n">candidate_table</span> <span class="o">=</span> <span class="n">Table</span><span class="o">.</span><span class="n">from_pandas</span><span class="p">(</span><span class="n">candidate_df</span><span class="p">)</span>
+<span class="nb">type</span><span class="p">(</span><span class="n">candidate_table</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/pilot_day4_1_0.png" src="_images/pilot_day4_1_0.png" />
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>astropy.table.table.Table
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">table</span> <span class="o">=</span> <span class="n">candidate_table</span><span class="p">[[</span><span class="s1">&#39;source_id&#39;</span><span class="p">]]</span>
+<span class="n">table</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;candidate_df.xml&#39;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;votable&#39;</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT *</span>
+<span class="s2">FROM gaiadr2.panstarrs1_best_neighbour as best</span>
+<span class="s2">JOIN tap_upload.candidate_df as candidate_df</span>
+<span class="s2">ON best.source_id = candidate_df.source_id</span>
+<span class="s2">&quot;&quot;&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">astroquery.gaia</span> <span class="kn">import</span> <span class="n">Gaia</span>
+
+<span class="n">job</span> <span class="o">=</span> <span class="n">Gaia</span><span class="o">.</span><span class="n">launch_job_async</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="n">query</span><span class="p">,</span> 
+                            <span class="n">upload_resource</span><span class="o">=</span><span class="s1">&#39;candidate_df.xml&#39;</span><span class="p">,</span> 
+                            <span class="n">upload_table_name</span><span class="o">=</span><span class="s1">&#39;candidate_df&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: Query finished. [astroquery.utils.tap.core]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">results</span> <span class="o">=</span> <span class="n">job</span><span class="o">.</span><span class="n">get_results</span><span class="p">()</span>
+<span class="n">results</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><i>Table length=3724</i>
+<table id="table140617109298384" class="table-striped table-bordered table-condensed">
+<thead><tr><th>source_id</th><th>original_ext_source_id</th><th>angular_distance</th><th>number_of_neighbours</th><th>number_of_mates</th><th>best_neighbour_multiplicity</th><th>gaia_astrometric_params</th><th>source_id_2</th></tr></thead>
+<thead><tr><th></th><th></th><th>arcsec</th><th></th><th></th><th></th><th></th><th></th></tr></thead>
+<thead><tr><th>int64</th><th>int64</th><th>float64</th><th>int32</th><th>int16</th><th>int16</th><th>int16</th><th>int64</th></tr></thead>
+<tr><td>635860218726658176</td><td>130911385187671349</td><td>0.053667035895467084</td><td>1</td><td>0</td><td>1</td><td>5</td><td>635860218726658176</td></tr>
+<tr><td>635674126383965568</td><td>130831388428488720</td><td>0.038810268141577516</td><td>1</td><td>0</td><td>1</td><td>5</td><td>635674126383965568</td></tr>
+<tr><td>635535454774983040</td><td>130631378377657369</td><td>0.034323028828991076</td><td>1</td><td>0</td><td>1</td><td>5</td><td>635535454774983040</td></tr>
+<tr><td>635497276810313600</td><td>130811380445631930</td><td>0.04720255413250006</td><td>1</td><td>0</td><td>1</td><td>5</td><td>635497276810313600</td></tr>
+<tr><td>635614168640132864</td><td>130571395922140135</td><td>0.020304189709964143</td><td>1</td><td>0</td><td>1</td><td>5</td><td>635614168640132864</td></tr>
+<tr><td>635598607974369792</td><td>130341392091279513</td><td>0.036524626853403054</td><td>1</td><td>0</td><td>1</td><td>5</td><td>635598607974369792</td></tr>
+<tr><td>635737661835496576</td><td>131001399333502136</td><td>0.036626827820716606</td><td>1</td><td>0</td><td>1</td><td>5</td><td>635737661835496576</td></tr>
+<tr><td>635850945892748672</td><td>132011398654934147</td><td>0.021178742393378396</td><td>1</td><td>0</td><td>1</td><td>5</td><td>635850945892748672</td></tr>
+<tr><td>635600532119713664</td><td>130421392285893623</td><td>0.04518820915043015</td><td>1</td><td>0</td><td>1</td><td>5</td><td>635600532119713664</td></tr>
+<tr><td>...</td><td>...</td><td>...</td><td>...</td><td>...</td><td>...</td><td>...</td><td>...</td></tr>
+<tr><td>612241781249124608</td><td>129751343755995561</td><td>0.04235715830001815</td><td>1</td><td>0</td><td>1</td><td>5</td><td>612241781249124608</td></tr>
+<tr><td>612332147361443072</td><td>130141341458538777</td><td>0.02265249859012977</td><td>1</td><td>0</td><td>1</td><td>5</td><td>612332147361443072</td></tr>
+<tr><td>612426744016802432</td><td>130521346852465656</td><td>0.03247653009961843</td><td>1</td><td>0</td><td>1</td><td>5</td><td>612426744016802432</td></tr>
+<tr><td>612331739340341760</td><td>130111341217793839</td><td>0.036064240818025735</td><td>1</td><td>0</td><td>1</td><td>5</td><td>612331739340341760</td></tr>
+<tr><td>612282738058264960</td><td>129741340445933519</td><td>0.025293237353496898</td><td>1</td><td>0</td><td>1</td><td>5</td><td>612282738058264960</td></tr>
+<tr><td>612386332668697600</td><td>130351354570219774</td><td>0.02010316001403086</td><td>1</td><td>0</td><td>1</td><td>5</td><td>612386332668697600</td></tr>
+<tr><td>612296172717818624</td><td>129691338006168780</td><td>0.051264212025836205</td><td>1</td><td>0</td><td>1</td><td>5</td><td>612296172717818624</td></tr>
+<tr><td>612250375480101760</td><td>129741346475897464</td><td>0.031783740347530905</td><td>1</td><td>0</td><td>1</td><td>5</td><td>612250375480101760</td></tr>
+<tr><td>612394926899159168</td><td>130581355199751795</td><td>0.04019174830546698</td><td>1</td><td>0</td><td>1</td><td>5</td><td>612394926899159168</td></tr>
+<tr><td>612256418500423168</td><td>129931349075297310</td><td>0.009242789669513156</td><td>1</td><td>0</td><td>1</td><td>5</td><td>612256418500423168</td></tr>
+</table></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">table_ext</span> <span class="o">=</span> <span class="n">results</span><span class="p">[[</span><span class="s1">&#39;source_id&#39;</span><span class="p">,</span> <span class="s1">&#39;original_ext_source_id&#39;</span><span class="p">]]</span>
+<span class="n">table_ext</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;external.xml&#39;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;votable&#39;</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">query2</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT</span>
+<span class="s2">external.source_id, ps.g_mean_psf_mag, ps.i_mean_psf_mag</span>
+<span class="s2">FROM gaiadr2.panstarrs1_original_valid as ps</span>
+<span class="s2">JOIN tap_upload.external as external</span>
+<span class="s2">ON ps.obj_id = external.original_ext_source_id</span>
+<span class="s2">&quot;&quot;&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">job2</span> <span class="o">=</span> <span class="n">Gaia</span><span class="o">.</span><span class="n">launch_job_async</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="n">query2</span><span class="p">,</span> 
+                       <span class="n">upload_resource</span><span class="o">=</span><span class="s1">&#39;external.xml&#39;</span><span class="p">,</span> 
+                       <span class="n">upload_table_name</span><span class="o">=</span><span class="s1">&#39;external&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: Query finished. [astroquery.utils.tap.core]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">results2</span> <span class="o">=</span> <span class="n">job2</span><span class="o">.</span><span class="n">get_results</span><span class="p">()</span>
+<span class="n">results2</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><i>Table length=3724</i>
+<table id="table140617116979696" class="table-striped table-bordered table-condensed">
+<thead><tr><th>source_id</th><th>g_mean_psf_mag</th><th>i_mean_psf_mag</th></tr></thead>
+<thead><tr><th></th><th></th><th>mag</th></tr></thead>
+<thead><tr><th>int64</th><th>float64</th><th>float64</th></tr></thead>
+<tr><td>635860218726658176</td><td>17.8978004455566</td><td>17.5174007415771</td></tr>
+<tr><td>635674126383965568</td><td>19.2873001098633</td><td>17.6781005859375</td></tr>
+<tr><td>635535454774983040</td><td>16.9237995147705</td><td>16.478099822998</td></tr>
+<tr><td>635497276810313600</td><td>19.9242000579834</td><td>18.3339996337891</td></tr>
+<tr><td>635614168640132864</td><td>16.1515998840332</td><td>14.6662998199463</td></tr>
+<tr><td>635598607974369792</td><td>16.5223999023438</td><td>16.1375007629395</td></tr>
+<tr><td>635737661835496576</td><td>14.5032997131348</td><td>13.9849004745483</td></tr>
+<tr><td>635850945892748672</td><td>16.5174999237061</td><td>16.0450000762939</td></tr>
+<tr><td>635600532119713664</td><td>20.4505996704102</td><td>19.5177001953125</td></tr>
+<tr><td>...</td><td>...</td><td>...</td></tr>
+<tr><td>612241781249124608</td><td>20.2343997955322</td><td>18.6518001556396</td></tr>
+<tr><td>612332147361443072</td><td>21.3848991394043</td><td>20.3076000213623</td></tr>
+<tr><td>612426744016802432</td><td>17.8281002044678</td><td>17.4281005859375</td></tr>
+<tr><td>612331739340341760</td><td>21.8656997680664</td><td>19.5223007202148</td></tr>
+<tr><td>612282738058264960</td><td>22.5151996612549</td><td>19.9743995666504</td></tr>
+<tr><td>612386332668697600</td><td>19.3792991638184</td><td>17.9923000335693</td></tr>
+<tr><td>612296172717818624</td><td>17.4944000244141</td><td>16.926700592041</td></tr>
+<tr><td>612250375480101760</td><td>15.3330001831055</td><td>14.6280002593994</td></tr>
+<tr><td>612394926899159168</td><td>16.4414005279541</td><td>15.8212003707886</td></tr>
+<tr><td>612256418500423168</td><td>20.8715991973877</td><td>19.9612007141113</td></tr>
+</table></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;gd1_photo.fits&#39;</span>
+<span class="n">results2</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
 </div>
 </div>
 

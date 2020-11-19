@@ -190,7 +190,7 @@
         aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
     <div class="dropdown-buttons sourcebuttons">
         <a class="repository-button"
-            href="https://github.com/AllenDowney/AstronomyDataPython"><button type="button" class="btn btn-secondary topbarbtn"
+            href="https://github.com/AllenDowney/AstronomicalData"><button type="button" class="btn btn-secondary topbarbtn"
                 data-toggle="tooltip" data-placement="left" title="Source repository"><i
                     class="fab fa-github"></i>repository</button></a>
         
@@ -211,7 +211,7 @@
         aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
     <div class="dropdown-buttons">
         
-        <a class="binder-button" href="https://mybinder.org/v2/gh/AllenDowney/AstronomyDataPython/master?urlpath=tree/05_join.ipynb"><button type="button"
+        <a class="binder-button" href="https://mybinder.org/v2/gh/AllenDowney/AstronomicalData/master?urlpath=tree/05_join.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
                 data-placement="left"><img class="binder-button-logo"
                     src="_static/images/logo_binder.svg"
@@ -219,7 +219,7 @@
         
         
         
-        <a class="colab-button" href="https://colab.research.google.com/github/AllenDowney/AstronomyDataPython/blob/master/05_join.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+        <a class="colab-button" href="https://colab.research.google.com/github/AllenDowney/AstronomicalData/blob/master/05_join.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
                 title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
                     src="_static/images/logo_colab.png"
                     alt="Interact on Colab">Colab</button></a>
@@ -251,6 +251,11 @@
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#getting-photometry-data">
    Getting photometry data
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#joining-tables">
+   Joining tables
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -377,9 +382,11 @@
 <p>Conveniently, the Gaia server provides data from Pan-STARRS as a table in the same database we have been using, so we can access it by making ADQL queries.</p>
 <p>In general, looking up a star from the Gaia catalog and finding the corresponding star in the Pan-STARRS catalog is not easy.  This kind of cross matching is not always possible, because a star might appear in one catalog and not the other.  And even when both stars are present, there might not be a clear one-to-one relationship between stars in the two catalogs.</p>
 <p>Fortunately, smart people have worked on this problem, and the Gaia database includes cross-matching tables that suggest a best neighbor in the Pan-STARRS catalog for many stars in the Gaia catalog.</p>
-<p><a class="reference external" href="https://gea.esac.esa.int/archive/documentation/GDR2/Catalogue_consolidation/chap_cu9val_cu9val/ssec_cu9xma/sssec_cu9xma_extcat.html">This document describes the cross matching process</a>.  Briefly, it uses a cone search to find possible matches in approximately the right position, then uses attributes like color and magnitude to choose pairs of stars most likely to be identical.</p>
-<p>So the hard part of cross-matching has been done for us.  However, using the results is a little tricky.</p>
-<p>But, it is also an opportunity to learn about one of the most important tools for working with databases: “joining” tables.</p>
+<p><a class="reference external" href="https://gea.esac.esa.int/archive/documentation/GDR2/Catalogue_consolidation/chap_cu9val_cu9val/ssec_cu9xma/sssec_cu9xma_extcat.html">This document describes the cross matching process</a>.  Briefly, it uses a cone search to find possible matches in approximately the right position, then uses attributes like color and magnitude to choose pairs of observations most likely to be the same star.</p>
+</div>
+<div class="section" id="joining-tables">
+<h2>Joining tables<a class="headerlink" href="#joining-tables" title="Permalink to this headline">¶</a></h2>
+<p>So the hard part of cross-matching has been done for us.  Using the results is a little tricky, but it gives us a chance to learn about one of the most important tools for working with databases: “joining” tables.</p>
 <p>In general, a “join” is an operation where you match up records from one table with records from another table using as a “key” a piece of information that is common to both tables, usually some kind of ID code.</p>
 <p>In this example:</p>
 <ul class="simple">
@@ -425,8 +432,8 @@
 <p>To write the file, we can use <code class="docutils literal notranslate"><span class="pre">Table.write</span></code> with <code class="docutils literal notranslate"><span class="pre">format='votable'</span></code>, <a class="reference external" href="https://docs.astropy.org/en/stable/io/unified.html#vo-tables">as described here</a>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">table</span> <span class="o">=</span> <span class="n">candidate_table</span><span class="p">[[</span><span class="s1">&#39;source_id&#39;</span><span class="p">]]</span>
-<span class="n">table</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;candidate_df.xml&#39;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;votable&#39;</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">table_id</span> <span class="o">=</span> <span class="n">candidate_table</span><span class="p">[[</span><span class="s1">&#39;source_id&#39;</span><span class="p">]]</span>
+<span class="n">table_id</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;candidate_df.xml&#39;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;votable&#39;</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -481,8 +488,8 @@ The size of the file is about 750 KB, so that’s not too bad.</p>
 <p>Run these cells to find out.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">table</span> <span class="o">=</span> <span class="n">candidate_table</span><span class="p">[[</span><span class="s1">&#39;source_id&#39;</span><span class="p">]]</span>
-<span class="nb">type</span><span class="p">(</span><span class="n">table</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">table_id</span> <span class="o">=</span> <span class="n">candidate_table</span><span class="p">[[</span><span class="s1">&#39;source_id&#39;</span><span class="p">]]</span>
+<span class="nb">type</span><span class="p">(</span><span class="n">table_id</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -783,8 +790,8 @@ dtype: int64
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
 
-<span class="n">table</span> <span class="o">=</span> <span class="n">results1</span><span class="p">[[</span><span class="s1">&#39;source_id&#39;</span><span class="p">,</span> <span class="s1">&#39;original_ext_source_id&#39;</span><span class="p">]]</span>
-<span class="n">table</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;external.xml&#39;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;votable&#39;</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">table_ext</span> <span class="o">=</span> <span class="n">results1</span><span class="p">[[</span><span class="s1">&#39;source_id&#39;</span><span class="p">,</span> <span class="s1">&#39;original_ext_source_id&#39;</span><span class="p">]]</span>
+<span class="n">table_ext</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;external.xml&#39;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;votable&#39;</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
