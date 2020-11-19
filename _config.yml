@@ -10,7 +10,7 @@ execute:
   execute_notebooks: 'off'
 
 repository:
-  url: https://github.com/AllenDowney/AstronomyDataPython
+  url: https://github.com/AllenDowney/AstronomicalData
 html:
   use_repository_button: true
 
