@@ -434,9 +434,9 @@ Before calling <code class="docutils literal notranslate"><span class="pre">plt.
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
 
-<span class="k">if</span> <span class="n">IN_COLAB</span><span class="p">:</span>
-    <span class="n">coords</span> <span class="o">=</span> <span class="kc">None</span>
-<span class="k">else</span><span class="p">:</span>
+<span class="n">coords</span> <span class="o">=</span> <span class="kc">None</span>
+
+<span class="k">if</span> <span class="ow">not</span> <span class="n">IN_COLAB</span><span class="p">:</span>
     <span class="n">mpl</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;TkAgg&#39;</span><span class="p">)</span>
     <span class="n">plot_cmd</span><span class="p">(</span><span class="n">photo_table</span><span class="p">)</span>
     <span class="n">coords</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">ginput</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
@@ -454,16 +454,16 @@ Before calling <code class="docutils literal notranslate"><span class="pre">plt.
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[(0.2150537634408602, 17.548197203826344),
- (0.3897849462365591, 18.94628403237675),
- (0.5376344086021505, 19.902869757174393),
- (0.7034050179211468, 20.601913171449596),
- (0.8288530465949819, 21.300956585724798),
- (0.6630824372759856, 21.52170713760118),
- (0.4301075268817204, 20.785871964679913),
- (0.27329749103942647, 19.71891096394408),
- (0.17473118279569888, 18.688741721854306),
- (0.17473118279569888, 17.95290654893304)]
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[(0.2643369175627239, 17.84253127299485),
+ (0.3539426523297491, 18.799116997792495),
+ (0.47491039426523296, 19.682119205298015),
+ (0.6317204301075269, 20.454746136865342),
+ (0.7661290322580645, 20.785871964679913),
+ (0.8064516129032258, 21.41133186166299),
+ (0.5869175627240143, 21.300956585724798),
+ (0.39426523297491034, 20.565121412803535),
+ (0.22401433691756267, 19.240618101545255),
+ (0.19713261648745517, 18.02649006622517)]
 </pre></div>
 </div>
 </div>
@@ -493,10 +493,10 @@ Before calling <code class="docutils literal notranslate"><span class="pre">plt.
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(array([0.21505376, 0.38978495, 0.53763441, 0.70340502, 0.82885305,
-        0.66308244, 0.43010753, 0.27329749, 0.17473118, 0.17473118]),
- array([17.5481972 , 18.94628403, 19.90286976, 20.60191317, 21.30095659,
-        21.52170714, 20.78587196, 19.71891096, 18.68874172, 17.95290655]))
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(array([0.26433692, 0.35394265, 0.47491039, 0.63172043, 0.76612903,
+        0.80645161, 0.58691756, 0.39426523, 0.22401434, 0.19713262]),
+ array([17.84253127, 18.799117  , 19.68211921, 20.45474614, 20.78587196,
+        21.41133186, 21.30095659, 20.56512141, 19.2406181 , 18.02649007]))
 </pre></div>
 </div>
 </div>
@@ -531,16 +531,16 @@ Before calling <code class="docutils literal notranslate"><span class="pre">plt.
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Path(array([[ 0.21505376, 17.5481972 ],
-       [ 0.38978495, 18.94628403],
-       [ 0.53763441, 19.90286976],
-       [ 0.70340502, 20.60191317],
-       [ 0.82885305, 21.30095659],
-       [ 0.66308244, 21.52170714],
-       [ 0.43010753, 20.78587196],
-       [ 0.27329749, 19.71891096],
-       [ 0.17473118, 18.68874172],
-       [ 0.17473118, 17.95290655]]), None)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Path(array([[ 0.26433692, 17.84253127],
+       [ 0.35394265, 18.799117  ],
+       [ 0.47491039, 19.68211921],
+       [ 0.63172043, 20.45474614],
+       [ 0.76612903, 20.78587196],
+       [ 0.80645161, 21.41133186],
+       [ 0.58691756, 21.30095659],
+       [ 0.39426523, 20.56512141],
+       [ 0.22401434, 19.2406181 ],
+       [ 0.19713262, 18.02649007]]), None)
 </pre></div>
 </div>
 </div>
@@ -954,7 +954,7 @@ Name: color, Length: 7346, dtype: bool
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>496
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>481
 </pre></div>
 </div>
 </div>
@@ -962,7 +962,7 @@ Name: color, Length: 7346, dtype: bool
 <p>Now we can use <code class="docutils literal notranslate"><span class="pre">inside</span></code> as a mask to select stars that fall inside the polygon.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">selected</span> <span class="o">=</span> <span class="n">merged</span><span class="p">[</span><span class="n">inside</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">selected2</span> <span class="o">=</span> <span class="n">merged</span><span class="p">[</span><span class="n">inside</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
@@ -973,7 +973,7 @@ Name: color, Length: 7346, dtype: bool
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_cmd</span><span class="p">(</span><span class="n">photo_table</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">ys</span><span class="p">)</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">selected</span><span class="p">[</span><span class="s1">&#39;color&#39;</span><span class="p">],</span> <span class="n">selected</span><span class="p">[</span><span class="s1">&#39;mag&#39;</span><span class="p">],</span> <span class="s1">&#39;gx&#39;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">selected2</span><span class="p">[</span><span class="s1">&#39;color&#39;</span><span class="p">],</span> <span class="n">selected2</span><span class="p">[</span><span class="s1">&#39;mag&#39;</span><span class="p">],</span> <span class="s1">&#39;gx&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -987,8 +987,8 @@ Name: color, Length: 7346, dtype: bool
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mf">2.5</span><span class="p">))</span>
 
-<span class="n">x</span> <span class="o">=</span> <span class="n">selected</span><span class="p">[</span><span class="s1">&#39;phi1&#39;</span><span class="p">]</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">selected</span><span class="p">[</span><span class="s1">&#39;phi2&#39;</span><span class="p">]</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">selected2</span><span class="p">[</span><span class="s1">&#39;phi1&#39;</span><span class="p">]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">selected2</span><span class="p">[</span><span class="s1">&#39;phi2&#39;</span><span class="p">]</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">&#39;ko&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>
 
@@ -1018,7 +1018,7 @@ Name: color, Length: 7346, dtype: bool
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;gd1_merged.hdf5&#39;</span>
 
 <span class="n">merged</span><span class="o">.</span><span class="n">to_hdf</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;merged&#39;</span><span class="p">)</span>
-<span class="n">selected</span><span class="o">.</span><span class="n">to_hdf</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;selected&#39;</span><span class="p">)</span>
+<span class="n">selected2</span><span class="o">.</span><span class="n">to_hdf</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;selected2&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1030,7 +1030,7 @@ Name: color, Length: 7346, dtype: bool
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-rw-rw-r-- 1 downey downey 2.0M Oct 19 17:21 gd1_merged.hdf5
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-rw-rw-r-- 1 downey downey 2.0M Nov 18 19:28 gd1_merged.hdf5
 </pre></div>
 </div>
 </div>

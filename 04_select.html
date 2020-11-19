@@ -419,8 +419,8 @@
 <span class="n">pm2</span> <span class="o">=</span> <span class="n">selected</span><span class="p">[</span><span class="s1">&#39;pmdec&#39;</span><span class="p">]</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">pm1</span><span class="p">,</span> <span class="n">pm2</span><span class="p">,</span> <span class="s1">&#39;gx&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
     
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Proper motion phi1 (ICRS frame)&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Proper motion phi2 (ICRS frame)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Proper motion ra (ICRS frame)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Proper motion dec (ICRS frame)&#39;</span><span class="p">)</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">([</span><span class="o">-</span><span class="mi">20</span><span class="p">,</span> <span class="mi">5</span><span class="p">]);</span>
@@ -451,6 +451,11 @@ and use the polygon as a selection criterion in an ADQL query.</p>
 </div>
 </div>
 </div>
+<p>NOTE: If you are using an older version of Pandas, you might not have <code class="docutils literal notranslate"><span class="pre">to_numpy()</span></code>; you can use <code class="docutils literal notranslate"><span class="pre">values</span></code> instead, like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">points</span> <span class="o">=</span> <span class="n">selected</span><span class="p">[[</span><span class="s1">&#39;pmra&#39;</span><span class="p">,</span><span class="s1">&#39;pmdec&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span>
+
+</pre></div>
+</div>
 <p>We’ll pass the points to <code class="docutils literal notranslate"><span class="pre">ConvexHull</span></code>, which returns an object that contains the results.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -462,7 +467,7 @@ and use the polygon as a selection criterion in an ADQL query.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;scipy.spatial.qhull.ConvexHull at 0x7f446b1e8bb0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;scipy.spatial.qhull.ConvexHull at 0x7fd67bffd910&gt;
 </pre></div>
 </div>
 </div>
@@ -778,10 +783,10 @@ INFO: Query finished. [astroquery.utils.tap.core]
        parallax float64      mas                                                           Parallax     0
  parallax_error float64      mas                                         Standard error of parallax     0
 radial_velocity float64   km / s                                                    Radial velocity  7295
-Jobid: 1603132746237O
+Jobid: 1605744463707O
 Phase: COMPLETED
 Owner: None
-Output file: async_20201019143906.vot
+Output file: async_20201118190743.vot
 Results: None
 </pre></div>
 </div>
@@ -910,7 +915,7 @@ Results: None
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-rw-rw-r-- 1 downey downey 756K Oct 19 14:39 gd1_candidates.hdf5
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-rw-rw-r-- 1 downey downey 756K Nov 18 19:07 gd1_candidates.hdf5
 </pre></div>
 </div>
 </div>
@@ -943,7 +948,7 @@ Results: None
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-rw-rw-r-- 1 downey downey 1.6M Oct 19 14:39 gd1_candidates.csv
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-rw-rw-r-- 1 downey downey 1.6M Nov 18 19:07 gd1_candidates.csv
 </pre></div>
 </div>
 </div>
@@ -958,8 +963,8 @@ Results: None
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>,source_id,ra,dec,pmra,pmdec,parallax,parallax_error,radial_velocity,phi1,phi2,pm_phi1,pm_phi2
-0,635559124339440000,137.58671691646745,19.1965441084838,-3.770521900009566,-12.490481778113859,0.7913934419894347,0.2717538145759051,,-59.63048941944396,-1.21648525150429,-7.361362712556612,-0.5926328820420083
-1,635860218726658176,138.5187065217173,19.09233926905897,-5.941679495793577,-11.346409129876392,0.30745551377348623,0.19946557779138105,,-59.247329893833296,-2.0160784008206476,-7.527126084599517,1.7487794924398758
+0,635559124339440000,137.58671691646745,19.1965441084838,-3.770521900009566,-12.490481778113859,0.7913934419894347,0.2717538145759051,,-59.63048941944396,-1.21648525150429,-7.3613627125974945,-0.5926328820644919
+1,635860218726658176,138.5187065217173,19.09233926905897,-5.941679495793577,-11.346409129876392,0.30745551377348623,0.19946557779138105,,-59.247329893833296,-2.0160784008206476,-7.52712608464053,1.7487794924176672
 </pre></div>
 </div>
 </div>

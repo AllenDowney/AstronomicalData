@@ -481,7 +481,7 @@ radial_velocity float64   km / s                                                
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html"><i>Row index=0</i>
-<table id="table140510732444000">
+<table id="table139758619539344">
 <thead><tr><th>source_id</th><th>ra</th><th>dec</th><th>pmra</th><th>pmdec</th><th>parallax</th><th>parallax_error</th><th>radial_velocity</th></tr></thead>
 <thead><tr><th></th><th>deg</th><th>deg</th><th>mas / yr</th><th>mas / yr</th><th>mas</th><th>mas</th><th>km / s</th></tr></thead>
 <thead><tr><th>int64</th><th>float64</th><th>float64</th><th>float64</th><th>float64</th><th>float64</th><th>float64</th><th>float64</th></tr></thead>
@@ -971,8 +971,8 @@ Name: phi2, dtype: bool
 <p>A Boolean <code class="docutils literal notranslate"><span class="pre">Series</span></code> is sometimes called a “mask” because we can use it to mask out some of the rows in a <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> and select the rest, like this:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">selected</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span>
-<span class="nb">type</span><span class="p">(</span><span class="n">selected</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">subset</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span>
+<span class="nb">type</span><span class="p">(</span><span class="n">subset</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -982,7 +982,7 @@ Name: phi2, dtype: bool
 </div>
 </div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">selected</span></code> is a <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> that contains only the rows from <code class="docutils literal notranslate"><span class="pre">df</span></code> that correspond to <code class="docutils literal notranslate"><span class="pre">True</span></code> values in <code class="docutils literal notranslate"><span class="pre">mask</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">subset</span></code> is a <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> that contains only the rows from <code class="docutils literal notranslate"><span class="pre">df</span></code> that correspond to <code class="docutils literal notranslate"><span class="pre">True</span></code> values in <code class="docutils literal notranslate"><span class="pre">mask</span></code>.</p>
 <p>The previous mask selects all stars where <code class="docutils literal notranslate"><span class="pre">phi2</span></code> exceeds <code class="docutils literal notranslate"><span class="pre">phi2_min</span></code>; now we’ll select stars where <code class="docutils literal notranslate"><span class="pre">phi2</span></code> falls between <code class="docutils literal notranslate"><span class="pre">phi2_min</span></code> and <code class="docutils literal notranslate"><span class="pre">phi2_max</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1252,7 +1252,7 @@ Name: phi2, dtype: bool
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-rw-rw-r-- 1 downey downey 17M Oct 19 12:05 gd1_dataframe.hdf5
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-rw-rw-r-- 1 downey downey 17M Nov 18 19:06 gd1_dataframe.hdf5
 </pre></div>
 </div>
 </div>
