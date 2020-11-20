@@ -580,9 +580,10 @@
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">wget</span> <span class="kn">import</span> <span class="n">download</span>
 
 <span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;az-paper-twocol.mplstyle&#39;</span>
-<span class="n">path</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/AllenDowney/AstronomicalData/raw/main/data/&#39;</span>
+<span class="n">path</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/AllenDowney/AstronomicalData/raw/main/&#39;</span>
 
 <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">download</span><span class="p">(</span><span class="n">path</span><span class="o">+</span><span class="n">filename</span><span class="p">))</span>
@@ -871,16 +872,16 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 0.21505376, 17.5481972 ],
-       [ 0.38978495, 18.94628403],
-       [ 0.53763441, 19.90286976],
-       [ 0.70340502, 20.60191317],
-       [ 0.82885305, 21.30095659],
-       [ 0.66308244, 21.52170714],
-       [ 0.43010753, 20.78587196],
-       [ 0.27329749, 19.71891096],
-       [ 0.17473118, 18.68874172],
-       [ 0.17473118, 17.95290655]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 0.26433692, 17.84253127],
+       [ 0.35394265, 18.799117  ],
+       [ 0.47491039, 19.68211921],
+       [ 0.63172043, 20.45474614],
+       [ 0.76612903, 20.78587196],
+       [ 0.80645161, 21.41133186],
+       [ 0.58691756, 21.30095659],
+       [ 0.39426523, 20.56512141],
+       [ 0.22401434, 19.2406181 ],
+       [ 0.19713262, 18.02649007]])
 </pre></div>
 </div>
 </div>
