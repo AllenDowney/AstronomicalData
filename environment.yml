@@ -18,6 +18,4 @@ dependencies:
   - gsl
   - astro-gala
   - python-wget
-  - pip
-  - pip:
-    - pyia
+
