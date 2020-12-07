@@ -99,12 +99,12 @@
 <ul class="current nav sidenav_l1">
  <li class="toctree-l1">
   <a class="reference internal" href="01_query.html">
-   Chapter 1
+   Queries
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="02_coords.html">
-   Chapter 2
+   Coordinates and units
   </a>
  </li>
  <li class="toctree-l1">
@@ -251,6 +251,11 @@
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#plotting-photometry-data">
    Plotting photometry data
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#isochrone">
+   Isochrone
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -424,6 +429,321 @@
 <p>The authors of the original paper derive a detailed polygon that defines a boundary between stars that are likely to be in GD-1 or not.</p>
 <p>As a simplification, we’ll choose a boundary by eye that seems to contain the overdense region.</p>
 </div>
+<div class="section" id="isochrone">
+<h2>Isochrone<a class="headerlink" href="#isochrone" title="Permalink to this headline">¶</a></h2>
+<p>http://waps.cfa.harvard.edu/MIST/interp_isos.html</p>
+<p>MIST Version 1.2</p>
+<p>Rotation initial v/v_crit = 0.4</p>
+<p>Single age, log10 scale = 10.079</p>
+<p>Composition [Fe/H] = -1.35</p>
+<p>Synthetic Photometry, PanStarrs</p>
+<p>Extinction av = 0</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">log_age</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="mf">12e9</span><span class="p">)</span>
+<span class="n">log_age</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>10.079181246047625
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">log_age</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="mf">15e9</span><span class="p">)</span>
+<span class="n">log_age</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>10.176091259055681
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">wget</span> <span class="kn">import</span> <span class="n">download</span>
+
+<span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;read_mist_models.py&#39;</span>
+<span class="n">filepath</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/jieunchoi/MIST_codes/raw/master/scripts/&#39;</span>
+
+<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">download</span><span class="p">(</span><span class="n">filepath</span><span class="o">+</span><span class="n">filename</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">read_mist_models</span>
+
+<span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;mist_iso_12.0_-1.35.cmd&#39;</span>
+<span class="n">iso</span> <span class="o">=</span> <span class="n">read_mist_models</span><span class="o">.</span><span class="n">ISOCMD</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Reading in: mist_iso_12.0_-1.35.cmd
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">iso</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>read_mist_models.ISOCMD
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">iso</span><span class="o">.</span><span class="n">isocmds</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>list
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">iso</span><span class="o">.</span><span class="n">isocmds</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">iso</span><span class="o">.</span><span class="n">isocmds</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>numpy.ndarray
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">iso</span><span class="o">.</span><span class="n">isocmds</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">dtype</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>dtype([(&#39;EEP&#39;, &#39;&lt;i4&#39;), (&#39;log10_isochrone_age_yr&#39;, &#39;&lt;f8&#39;), (&#39;initial_mass&#39;, &#39;&lt;f8&#39;), (&#39;star_mass&#39;, &#39;&lt;f8&#39;), (&#39;log_Teff&#39;, &#39;&lt;f8&#39;), (&#39;log_g&#39;, &#39;&lt;f8&#39;), (&#39;log_L&#39;, &#39;&lt;f8&#39;), (&#39;[Fe/H]_init&#39;, &#39;&lt;f8&#39;), (&#39;[Fe/H]&#39;, &#39;&lt;f8&#39;), (&#39;PS_g&#39;, &#39;&lt;f8&#39;), (&#39;PS_r&#39;, &#39;&lt;f8&#39;), (&#39;PS_i&#39;, &#39;&lt;f8&#39;), (&#39;PS_z&#39;, &#39;&lt;f8&#39;), (&#39;PS_y&#39;, &#39;&lt;f8&#39;), (&#39;PS_w&#39;, &#39;&lt;f8&#39;), (&#39;PS_open&#39;, &#39;&lt;f8&#39;), (&#39;phase&#39;, &#39;&lt;f8&#39;)])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">astropy.table</span> <span class="kn">import</span> <span class="n">Table</span> 
+
+<span class="n">iso_table</span> <span class="o">=</span> <span class="n">Table</span><span class="p">(</span><span class="n">iso</span><span class="o">.</span><span class="n">isocmds</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">iso_table</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><i>Table length=5</i>
+<table id="table139627634205072" class="table-striped table-bordered table-condensed">
+<thead><tr><th>EEP</th><th>log10_isochrone_age_yr</th><th>initial_mass</th><th>star_mass</th><th>log_Teff</th><th>log_g</th><th>log_L</th><th>[Fe/H]_init</th><th>[Fe/H]</th><th>PS_g</th><th>PS_r</th><th>PS_i</th><th>PS_z</th><th>PS_y</th><th>PS_w</th><th>PS_open</th><th>phase</th></tr></thead>
+<thead><tr><th>int32</th><th>float64</th><th>float64</th><th>float64</th><th>float64</th><th>float64</th><th>float64</th><th>float64</th><th>float64</th><th>float64</th><th>float64</th><th>float64</th><th>float64</th><th>float64</th><th>float64</th><th>float64</th><th>float64</th></tr></thead>
+<tr><td>251</td><td>10.079</td><td>0.10587085010820896</td><td>0.10586970558936482</td><td>3.5403606829263956</td><td>5.321292252841703</td><td>-2.7463861921790302</td><td>-1.35</td><td>-1.309024</td><td>13.833278</td><td>12.395283</td><td>11.638535</td><td>11.286309</td><td>11.099877</td><td>12.304645</td><td>11.970072</td><td>0.0</td></tr>
+<tr><td>252</td><td>10.079</td><td>0.10880997479817517</td><td>0.10880875821722344</td><td>3.5425829062520973</td><td>5.312318300317242</td><td>-2.7181724188486394</td><td>-1.35</td><td>-1.308887</td><td>13.728065</td><td>12.302358</td><td>11.562305</td><td>11.216564</td><td>11.030572</td><td>12.220695</td><td>11.891695</td><td>0.0</td></tr>
+<tr><td>253</td><td>10.079</td><td>0.11265246844845123</td><td>0.11265115316268977</td><td>3.5455190149596207</td><td>5.300571015130943</td><td>-2.6811483213239216</td><td>-1.35</td><td>-1.3087</td><td>13.590113</td><td>12.180699</td><td>11.461113</td><td>11.124659</td><td>10.939051</td><td>12.110069</td><td>11.788712</td><td>0.0</td></tr>
+<tr><td>254</td><td>10.079</td><td>0.11642732871189566</td><td>0.11642590928591964</td><td>3.5484038428414566</td><td>5.288998772212527</td><td>-2.644742589781073</td><td>-1.35</td><td>-1.308527</td><td>13.454544</td><td>12.061398</td><td>11.361128</td><td>11.033194</td><td>10.848769</td><td>12.000729</td><td>11.686994</td><td>0.0</td></tr>
+<tr><td>255</td><td>10.079</td><td>0.12022239788961175</td><td>0.12022086648010438</td><td>3.551307877859248</td><td>5.277331450307816</td><td>-2.608093791390564</td><td>-1.35</td><td>-1.308285</td><td>13.31837</td><td>11.94182</td><td>11.260087</td><td>10.940106</td><td>10.757708</td><td>11.89031</td><td>11.584202</td><td>0.0</td></tr>
+</table></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">iso_table</span><span class="o">.</span><span class="n">colnames</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;EEP&#39;,
+ &#39;log10_isochrone_age_yr&#39;,
+ &#39;initial_mass&#39;,
+ &#39;star_mass&#39;,
+ &#39;log_Teff&#39;,
+ &#39;log_g&#39;,
+ &#39;log_L&#39;,
+ &#39;[Fe/H]_init&#39;,
+ &#39;[Fe/H]&#39;,
+ &#39;PS_g&#39;,
+ &#39;PS_r&#39;,
+ &#39;PS_i&#39;,
+ &#39;PS_z&#39;,
+ &#39;PS_y&#39;,
+ &#39;PS_w&#39;,
+ &#39;PS_open&#39;,
+ &#39;phase&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">astropy.coordinates</span> <span class="k">as</span> <span class="nn">coord</span>
+<span class="kn">import</span> <span class="nn">astropy.units</span> <span class="k">as</span> <span class="nn">u</span>
+
+<span class="n">distance</span> <span class="o">=</span> <span class="mf">7.8</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">kpc</span>
+<span class="n">dm</span> <span class="o">=</span> <span class="n">coord</span><span class="o">.</span><span class="n">Distance</span><span class="p">(</span><span class="n">distance</span><span class="p">)</span><span class="o">.</span><span class="n">distmod</span><span class="o">.</span><span class="n">value</span>
+<span class="n">dm</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>14.4604730134524
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">g</span> <span class="o">=</span> <span class="n">iso_table</span><span class="p">[</span><span class="s1">&#39;PS_g&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">dm</span>
+<span class="n">gi</span> <span class="o">=</span> <span class="n">iso_table</span><span class="p">[</span><span class="s1">&#39;PS_g&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">iso_table</span><span class="p">[</span><span class="s1">&#39;PS_i&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">plot_cmd</span><span class="p">(</span><span class="n">photo_table</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">gi</span><span class="p">,</span> <span class="n">g</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7efd97389fd0&gt;]
+</pre></div>
+</div>
+<img alt="_images/06_photo_28_1.png" src="_images/06_photo_28_1.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">read_and_clean_cmd</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">distance</span><span class="p">):</span>
+    <span class="n">iso</span> <span class="o">=</span> <span class="n">read_mist_models</span><span class="o">.</span><span class="n">ISOCMD</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+    <span class="n">iso_table</span> <span class="o">=</span> <span class="n">Table</span><span class="p">(</span><span class="n">iso</span><span class="o">.</span><span class="n">isocmds</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+    <span class="n">phase_mask</span> <span class="o">=</span> <span class="p">(</span><span class="n">iso_table</span><span class="p">[</span><span class="s1">&#39;phase&#39;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">iso_table</span><span class="p">[</span><span class="s1">&#39;phase&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">)</span>
+    <span class="n">table</span> <span class="o">=</span> <span class="n">iso_table</span><span class="p">[</span><span class="n">phase_mask</span><span class="p">]</span>
+    
+    <span class="n">dm</span> <span class="o">=</span> <span class="n">coord</span><span class="o">.</span><span class="n">Distance</span><span class="p">(</span><span class="n">distance</span><span class="p">)</span><span class="o">.</span><span class="n">distmod</span><span class="o">.</span><span class="n">value</span>
+    <span class="n">g</span> <span class="o">=</span> <span class="n">iso_table</span><span class="p">[</span><span class="s1">&#39;PS_g&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">dm</span>
+    <span class="n">gi</span> <span class="o">=</span> <span class="n">iso_table</span><span class="p">[</span><span class="s1">&#39;PS_g&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">iso_table</span><span class="p">[</span><span class="s1">&#39;PS_i&#39;</span><span class="p">]</span>
+    
+    <span class="k">return</span> <span class="n">gi</span><span class="p">,</span> <span class="n">g</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;mist_iso_12.0_-1.35.cmd&#39;</span>
+
+<span class="n">gi1</span><span class="p">,</span> <span class="n">g1</span> <span class="o">=</span> <span class="n">read_and_clean_cmd</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">distance</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Reading in: mist_iso_12.0_-1.35.cmd
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;mist_iso_15.0_-1.35.cmd&#39;</span>
+
+<span class="n">gi2</span><span class="p">,</span> <span class="n">g2</span> <span class="o">=</span> <span class="n">read_and_clean_cmd</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">distance</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Reading in: mist_iso_15.0_-1.35.cmd
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">plot_cmd</span><span class="p">(</span><span class="n">photo_table</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">gi1</span><span class="p">,</span> <span class="n">g1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">gi2</span><span class="p">,</span> <span class="n">g2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7efd9703c550&gt;]
+</pre></div>
+</div>
+<img alt="_images/06_photo_32_1.png" src="_images/06_photo_32_1.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">left_gi</span> <span class="o">=</span> <span class="n">gi</span> <span class="o">-</span> <span class="mf">0.5</span><span class="o">*</span><span class="p">(</span><span class="n">g</span><span class="o">/</span><span class="mi">28</span><span class="p">)</span><span class="o">**</span><span class="mi">5</span>
+<span class="n">right_gi</span> <span class="o">=</span> <span class="n">gi</span> <span class="o">+</span> <span class="mf">0.55</span><span class="o">*</span><span class="p">(</span><span class="n">g</span><span class="o">/</span><span class="mi">28</span><span class="p">)</span><span class="o">**</span><span class="mi">5</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">plot_cmd</span><span class="p">(</span><span class="n">photo_table</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">gi1</span><span class="p">,</span> <span class="n">g1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">gi2</span><span class="p">,</span> <span class="n">g2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7efd97a51b80&gt;]
+</pre></div>
+</div>
+<img alt="_images/06_photo_34_1.png" src="_images/06_photo_34_1.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO</span>
+<span class="c1"># ind = (poly[:,1]&lt;21.) &amp; (poly[:,1]&gt;17.8)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
 <div class="section" id="drawing-a-polygon">
 <h2>Drawing a polygon<a class="headerlink" href="#drawing-a-polygon" title="Permalink to this headline">¶</a></h2>
 <p>Matplotlib provides a function called <code class="docutils literal notranslate"><span class="pre">ginput</span></code> that lets us click on the figure and make a list of coordinates.</p>
@@ -510,7 +830,7 @@ Before calling <code class="docutils literal notranslate"><span class="pre">plt.
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/06_photo_23_0.png" src="_images/06_photo_23_0.png" />
+<img alt="_images/06_photo_45_0.png" src="_images/06_photo_45_0.png" />
 </div>
 </div>
 <p>If it looks like your polygon does a good job surrounding the overdense area, go on to the next section.  Otherwise you can try again.</p>
@@ -978,7 +1298,7 @@ Name: color, Length: 7346, dtype: bool
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/06_photo_61_0.png" src="_images/06_photo_61_0.png" />
+<img alt="_images/06_photo_83_0.png" src="_images/06_photo_83_0.png" />
 </div>
 </div>
 <p>It looks like the selected stars are, in fact, inside the polygon, which means they have photometry data consistent with GD-1.</p>
@@ -1000,7 +1320,7 @@ Name: color, Length: 7346, dtype: bool
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/06_photo_63_0.png" src="_images/06_photo_63_0.png" />
+<img alt="_images/06_photo_85_0.png" src="_images/06_photo_85_0.png" />
 </div>
 </div>
 <p>This example includes two new Matplotlib commands:</p>

@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Index &#8212; Astronomical Data in Python</title>
+    <title>Astronomical Data in Python &#8212; Astronomical Data in Python</title>
     
   <link rel="stylesheet" href="_static/css/index.d431a4ee1c1efae0e38bdfebc22debff.css">
 
@@ -55,7 +55,7 @@
         const thebe_selector_output = ".output"
     </script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
-    <link rel="index" title="Index" href="#" />
+    <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -168,6 +168,18 @@
             class="fas fa-download"></i></button>
 
     
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/introduction.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+    
 </div>
         <!-- Source interaction buttons -->
 
@@ -197,6 +209,30 @@
     <!-- Table of contents -->
     <div class="d-none d-md-block col-md-2 bd-toc show">
         
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#data">
+   Data
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#prerequisites">
+   Prerequisites
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#acknowledgements">
+   Acknowledgements
+  </a>
+ </li>
+</ul>
+
+        </nav>
+        
     </div>
 </div>
     <div id="main-content" class="row">
@@ -204,13 +240,70 @@
         
               <div>
                 
-
-<h1 id="index">Index</h1>
-
-<div class="genindex-jumpbox">
- 
+  <div class="section" id="astronomical-data-in-python">
+<h1>Astronomical Data in Python<a class="headerlink" href="#astronomical-data-in-python" title="Permalink to this headline">¶</a></h1>
+<p><em>Astronomical Data in Python</em> is an introduction to tools and practices for working with astronomical data.  Topics covered include:</p>
+<ul class="simple">
+<li><p>Writing queries that select and download data from a database.</p></li>
+<li><p>Using data stored in an Astropy <code class="docutils literal notranslate"><span class="pre">Table</span></code> or Pandas <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>.</p></li>
+<li><p>Working with coordinates and other quantities with units.</p></li>
+<li><p>Storing data in various formats.</p></li>
+<li><p>Performing database join operations that combine data from multiple tables.</p></li>
+<li><p>Visualizing data and preparing publication-quality figures.</p></li>
+</ul>
+<p>As a running example, we will replicate part of the analysis in a recent paper, “<a class="reference external" href="https://arxiv.org/abs/1805.00425">Off the beaten path: Gaia reveals GD-1 stars outside of the main stream</a>” by Adrian M. Price-Whelan and Ana Bonaca.</p>
+<p>As the abstract explains, “Using data from the Gaia second data release combined with Pan-STARRS photometry, we present a sample of highly-probable members of the longest cold stream in the Milky Way, GD-1.”</p>
+<p>GD-1 is a <a class="reference external" href="https://en.wikipedia.org/wiki/List_of_stellar_streams">stellar stream</a>, which is “an association of stars orbiting a galaxy that was once a globular cluster or dwarf galaxy that has now been torn apart and stretched out along its orbit by tidal forces.”</p>
+<p><a class="reference external" href="https://www.sciencemag.org/news/2018/10/streams-stars-reveal-galaxy-s-violent-history-and-perhaps-its-unseen-dark-matter">This article in <em>Science</em> magazine</a> explains some of the background, including the process that led to the paper and a discussion of the scientific implications:</p>
+<ul class="simple">
+<li><p>“The streams are particularly useful for … galactic archaeology — rewinding the cosmic clock to reconstruct the assembly of the Milky Way.”</p></li>
+<li><p>“They also are being used as exquisitely sensitive scales to measure the galaxy’s mass.”</p></li>
+<li><p>“… the streams are well-positioned to reveal the presence of dark matter … because the streams are so fragile, theorists say, collisions with marauding clumps of dark matter could leave telltale scars, potential clues to its nature.”</p></li>
+</ul>
+<div class="section" id="data">
+<h2>Data<a class="headerlink" href="#data" title="Permalink to this headline">¶</a></h2>
+<p>The datasets we will work with are:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/Gaia_(spacecraft)">Gaia</a>, which is “a space observatory of the European Space Agency (ESA), launched in 2013 … designed for astrometry: measuring the positions, distances and motions of stars with unprecedented precision”, and</p></li>
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/Pan-STARRS">Pan-STARRS</a>, The Panoramic Survey Telescope and Rapid Response System, which is a survey designed to monitor the sky for transient objects, producing a catalog with accurate astronometry and photometry of detected sources.</p></li>
+</ul>
+<p>Both of these datasets are very large, which can make them challenging to work with.  It might not be possible, or practical, to download the entire dataset.
+One of the goals of this workshop is to provide tools for working with large datasets.</p>
+</div>
+<div class="section" id="prerequisites">
+<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline">¶</a></h2>
+<p>These notebooks are meant for people who are familiar with basic Python, but not necessarily the libraries we will use, like Astropy or Pandas.  If you are familiar with Python lists and dictionaries, and you know how to write a function that takes parameters and returns a value, you know enough Python to get started.</p>
+<p>We assume that you have some familiarity with operating systems, like the ability to use a command-line interface.  But we don’t assume you have any prior experience with databases.</p>
+<p>We assume that you are familiar with astronomy at the undergraduate level, but we will not assume specialized knowledge of the datasets or analysis methods we’ll use.</p>
+</div>
+<div class="section" id="acknowledgements">
+<h2>Acknowledgements<a class="headerlink" href="#acknowledgements" title="Permalink to this headline">¶</a></h2>
+<p>This material was developed in collaboration with <a class="reference external" href="https://carpentries.org/">The Carpentries</a> and the Astronomy Curriculum Development Committee, and supported by funding from the American Institute of Physics through the American Astronomical Society.</p>
+<p>I am grateful for contributions from the members of the committee – Azalee Bostroem, Rodolfo Montez, and Phil Rosenfield – and from Erin Becker, Brett Morris and Adrian Price-Whelan.</p>
+<p>This material is also available in the form of <a class="reference external" href="https://datacarpentry.github.io/astronomy-python">Carpentries lessons</a>, but you should be
+aware that these versions might diverge in the future.</p>
+</div>
 </div>
 
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
 
               </div>
               

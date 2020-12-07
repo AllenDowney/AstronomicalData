@@ -58,7 +58,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Chapter 4" href="04_select.html" />
-    <link rel="prev" title="Chapter 2" href="02_coords.html" />
+    <link rel="prev" title="Coordinates and units" href="02_coords.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -99,12 +99,12 @@
 <ul class="current nav sidenav_l1">
  <li class="toctree-l1">
   <a class="reference internal" href="01_query.html">
-   Chapter 1
+   Queries
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="02_coords.html">
-   Chapter 2
+   Coordinates and units
   </a>
  </li>
  <li class="toctree-l1 current active">
@@ -274,6 +274,18 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#exploring-data">
+   Exploring data
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id1">
+     Exercise
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#plot-proper-motion">
    Plot proper motion
   </a>
@@ -294,7 +306,7 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id1">
+  <a class="reference internal nav-link" href="#id2">
    Exercise
   </a>
  </li>
@@ -481,7 +493,7 @@ radial_velocity float64   km / s                                                
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html"><i>Row index=0</i>
-<table id="table139758619539344">
+<table id="table140419756472688">
 <thead><tr><th>source_id</th><th>ra</th><th>dec</th><th>pmra</th><th>pmdec</th><th>parallax</th><th>parallax_error</th><th>radial_velocity</th></tr></thead>
 <thead><tr><th></th><th>deg</th><th>deg</th><th>mas / yr</th><th>mas / yr</th><th>mas</th><th>mas</th><th>km / s</th></tr></thead>
 <thead><tr><th>int64</th><th>float64</th><th>float64</th><th>float64</th><th>float64</th><th>float64</th><th>float64</th><th>float64</th></tr></thead>
@@ -584,36 +596,28 @@ radial_velocity float64   km / s                                                
 <p>Remember that we selected data from a rectangle of coordinates in the <code class="docutils literal notranslate"><span class="pre">GD1Koposov10</span></code> frame, then transformed them to ICRS when we constructed the query.
 The coordinates in <code class="docutils literal notranslate"><span class="pre">results</span></code> are in ICRS.</p>
 <p>To plot them, we will transform them back to the <code class="docutils literal notranslate"><span class="pre">GD1Koposov10</span></code> frame; that way, the axes of the figure are aligned with the GD-1, which will make it easy to select stars near the centerline of the stream.</p>
-<p>To do that, we’ll put the results into a <code class="docutils literal notranslate"><span class="pre">GaiaData</span></code> object, provided by the <a class="reference external" href="https://pyia.readthedocs.io/en/latest/api/pyia.GaiaData.html">pyia library</a>.</p>
-<p>TODO: Do we need pyia, or could we do this with astropy and gala?</p>
+<p>To do that, we’ll put the results into a <code class="docutils literal notranslate"><span class="pre">SkyCoord</span></code> object,
+which is an “interface for celestial coordinate representation, manipulation, and transformation between systems”, provided by Astropy.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyia</span> <span class="kn">import</span> <span class="n">GaiaData</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">astropy.coordinates</span> <span class="k">as</span> <span class="nn">coord</span>
+<span class="kn">import</span> <span class="nn">astropy.units</span> <span class="k">as</span> <span class="nn">u</span>
 
-<span class="n">gaia_data</span> <span class="o">=</span> <span class="n">GaiaData</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
-<span class="nb">type</span><span class="p">(</span><span class="n">gaia_data</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>pyia.data.GaiaData
-</pre></div>
-</div>
-</div>
-</div>
-<p>Now we can extract sky coordinates from the <code class="docutils literal notranslate"><span class="pre">GaiaData</span></code> object, like this:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">astropy.units</span> <span class="k">as</span> <span class="nn">u</span>
-
-<span class="n">skycoord</span> <span class="o">=</span> <span class="n">gaia_data</span><span class="o">.</span><span class="n">get_skycoord</span><span class="p">(</span>
-                <span class="n">distance</span><span class="o">=</span><span class="mi">8</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">kpc</span><span class="p">,</span> 
-                <span class="n">radial_velocity</span><span class="o">=</span><span class="mi">0</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">km</span><span class="o">/</span><span class="n">u</span><span class="o">.</span><span class="n">s</span><span class="p">)</span>
+<span class="n">skycoord</span> <span class="o">=</span> <span class="n">coord</span><span class="o">.</span><span class="n">SkyCoord</span><span class="p">(</span>
+               <span class="n">ra</span><span class="o">=</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;ra&#39;</span><span class="p">],</span> 
+               <span class="n">dec</span><span class="o">=</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;dec&#39;</span><span class="p">],</span>
+               <span class="n">pm_ra_cosdec</span><span class="o">=</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;pmra&#39;</span><span class="p">],</span>
+               <span class="n">pm_dec</span><span class="o">=</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;pmdec&#39;</span><span class="p">],</span> 
+               <span class="n">distance</span><span class="o">=</span><span class="mi">8</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">kpc</span><span class="p">,</span> 
+               <span class="n">radial_velocity</span><span class="o">=</span><span class="mi">0</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">km</span><span class="o">/</span><span class="n">u</span><span class="o">.</span><span class="n">s</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
+<p>Most of the arguments we send to <code class="docutils literal notranslate"><span class="pre">SkyCoord</span></code> come directly from <code class="docutils literal notranslate"><span class="pre">results</span></code>.</p>
 <p>We provide <code class="docutils literal notranslate"><span class="pre">distance</span></code> and <code class="docutils literal notranslate"><span class="pre">radial_velocity</span></code> to prepare the data for reflex correction, which we explain below.</p>
+<p>The result is a <code class="docutils literal notranslate"><span class="pre">SkyCoord</span></code> object (<a class="reference external" href="https://docs.astropy.org/en/stable/api/astropy.coordinates.SkyCoord.html#astropy.coordinates.SkyCoord">documentation here</a>).</p>
+<p>The result is an Astropy <code class="docutils literal notranslate"><span class="pre">SkyCoord</span></code> object.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">skycoord</span><span class="p">)</span>
@@ -626,7 +630,7 @@ The coordinates in <code class="docutils literal notranslate"><span class="pre">
 </div>
 </div>
 </div>
-<p>The result is an Astropy <code class="docutils literal notranslate"><span class="pre">SkyCoord</span></code> object (<a class="reference external" href="https://docs.astropy.org/en/stable/api/astropy.coordinates.SkyCoord.html#astropy.coordinates.SkyCoord">documentation here</a>), which provides <code class="docutils literal notranslate"><span class="pre">transform_to</span></code>, so we can transform the coordinates to other frames.</p>
+<p><code class="docutils literal notranslate"><span class="pre">SkyCoord</span></code> provides <code class="docutils literal notranslate"><span class="pre">transform_to</span></code>, so we can transform the coordinates to other frames.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">gala.coordinates</span> <span class="k">as</span> <span class="nn">gc</span>
@@ -692,14 +696,14 @@ The coordinates in <code class="docutils literal notranslate"><span class="pre">
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/03_motion_46_0.png" src="_images/03_motion_46_0.png" />
+<img alt="_images/03_motion_45_0.png" src="_images/03_motion_45_0.png" />
 </div>
 </div>
 <p>Remember that we started with a rectangle in GD-1 coordinates.  When transformed to ICRS, it’s a non-rectangular polygon.  Now that we have transformed back to GD-1 coordinates, it’s a rectangle again.</p>
 </div>
 <div class="section" id="pandas-dataframe">
 <h2>Pandas DataFrame<a class="headerlink" href="#pandas-dataframe" title="Permalink to this headline">¶</a></h2>
-<p>At this point we have three objects containing different subsets of the data.</p>
+<p>At this point we have two objects containing different subsets of the data.  <code class="docutils literal notranslate"><span class="pre">results</span></code> is the Astropy <code class="docutils literal notranslate"><span class="pre">Table</span></code> we downloaded from Gaia.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
@@ -712,18 +716,7 @@ The coordinates in <code class="docutils literal notranslate"><span class="pre">
 </div>
 </div>
 </div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">gaia_data</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>pyia.data.GaiaData
-</pre></div>
-</div>
-</div>
-</div>
+<p>And <code class="docutils literal notranslate"><span class="pre">gd1_coord</span></code> is a <code class="docutils literal notranslate"><span class="pre">SkyCoord</span></code> object that contains the transformed coordinates and proper motions.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">gd1_coord</span><span class="p">)</span>
@@ -736,7 +729,7 @@ The coordinates in <code class="docutils literal notranslate"><span class="pre">
 </div>
 </div>
 </div>
-<p>On one hand, this makes sense, since each object provides different capabilities.  But working with three different object types can be awkward.</p>
+<p>On one hand, this division of labor makes sense because each object provides different capabilities.  But working with multiple object types can be awkward.</p>
 <p>It will be more convenient to choose one object and get all of the data into it.  We’ll use a Pandas DataFrame, for two reasons:</p>
 <ol class="simple">
 <li><p>It provides capabilities that are pretty much a superset of the other data structures, so it’s the all-in-one solution.</p></li>
@@ -856,7 +849,7 @@ The coordinates in <code class="docutils literal notranslate"><span class="pre">
 </table>
 </div></div></div>
 </div>
-<p>Python detail: <code class="docutils literal notranslate"><span class="pre">shape</span></code> is an attribute, so we can display it’s value without calling it as a function; <code class="docutils literal notranslate"><span class="pre">head</span></code> is a function, so we need the parentheses.</p>
+<p>Python detail: <code class="docutils literal notranslate"><span class="pre">shape</span></code> is an attribute, so we display its value without calling it as a function; <code class="docutils literal notranslate"><span class="pre">head</span></code> is a function, so we need the parentheses.</p>
 <p>Now we can extract the columns we want from <code class="docutils literal notranslate"><span class="pre">gd1_coord</span></code> and add them as columns in the <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>.  <code class="docutils literal notranslate"><span class="pre">phi1</span></code> and <code class="docutils literal notranslate"><span class="pre">phi2</span></code> contain the transformed coordinates.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -867,7 +860,7 @@ The coordinates in <code class="docutils literal notranslate"><span class="pre">
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(140340, 10)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(140340, 12)
 </pre></div>
 </div>
 </div>
@@ -889,6 +882,201 @@ The coordinates in <code class="docutils literal notranslate"><span class="pre">
 </div>
 <p><strong>Detail:</strong> If you notice that <code class="docutils literal notranslate"><span class="pre">SkyCoord</span></code> has an attribute called <code class="docutils literal notranslate"><span class="pre">proper_motion</span></code>, you might wonder why we are not using it.</p>
 <p>We could have: <code class="docutils literal notranslate"><span class="pre">proper_motion</span></code> contains the same data as <code class="docutils literal notranslate"><span class="pre">pm_phi1_cosphi2</span></code> and <code class="docutils literal notranslate"><span class="pre">pm_phi2</span></code>, but in a different format.</p>
+</div>
+<div class="section" id="exploring-data">
+<h2>Exploring data<a class="headerlink" href="#exploring-data" title="Permalink to this headline">¶</a></h2>
+<p>One benefit of using Pandas is that it provides function for exploring the data and checking for problems.</p>
+<p>One of the most useful of these functions is <code class="docutils literal notranslate"><span class="pre">describe</span></code>, which computes summary statistics for each column.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>source_id</th>
+      <th>ra</th>
+      <th>dec</th>
+      <th>pmra</th>
+      <th>pmdec</th>
+      <th>parallax</th>
+      <th>parallax_error</th>
+      <th>radial_velocity</th>
+      <th>phi1</th>
+      <th>phi2</th>
+      <th>pm_phi1</th>
+      <th>pm_phi2</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>1.403400e+05</td>
+      <td>140340.000000</td>
+      <td>140340.000000</td>
+      <td>140340.000000</td>
+      <td>140340.000000</td>
+      <td>140340.000000</td>
+      <td>140340.000000</td>
+      <td>1.403400e+05</td>
+      <td>140340.000000</td>
+      <td>140340.000000</td>
+      <td>140340.000000</td>
+      <td>140340.000000</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>6.792378e+17</td>
+      <td>143.822971</td>
+      <td>26.780161</td>
+      <td>-2.484410</td>
+      <td>-6.100784</td>
+      <td>0.179474</td>
+      <td>0.518068</td>
+      <td>9.931167e+19</td>
+      <td>-50.091337</td>
+      <td>-1.803264</td>
+      <td>-0.868980</td>
+      <td>1.409215</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>3.792015e+16</td>
+      <td>3.697824</td>
+      <td>3.052639</td>
+      <td>5.913923</td>
+      <td>7.202013</td>
+      <td>0.759622</td>
+      <td>0.505558</td>
+      <td>8.267982e+18</td>
+      <td>2.892321</td>
+      <td>3.444439</td>
+      <td>6.657700</td>
+      <td>6.518573</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>6.214900e+17</td>
+      <td>135.425699</td>
+      <td>19.286617</td>
+      <td>-106.755260</td>
+      <td>-138.065163</td>
+      <td>-15.287602</td>
+      <td>0.020824</td>
+      <td>-1.792684e+02</td>
+      <td>-54.999989</td>
+      <td>-8.029159</td>
+      <td>-115.275637</td>
+      <td>-161.150142</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>6.443515e+17</td>
+      <td>140.967807</td>
+      <td>24.592348</td>
+      <td>-5.038746</td>
+      <td>-8.341641</td>
+      <td>-0.035983</td>
+      <td>0.141108</td>
+      <td>1.000000e+20</td>
+      <td>-52.603097</td>
+      <td>-4.750410</td>
+      <td>-2.948851</td>
+      <td>-1.107074</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>6.888056e+17</td>
+      <td>143.734183</td>
+      <td>26.746169</td>
+      <td>-1.834971</td>
+      <td>-4.689570</td>
+      <td>0.362705</td>
+      <td>0.336103</td>
+      <td>1.000000e+20</td>
+      <td>-50.147567</td>
+      <td>-1.671497</td>
+      <td>0.585038</td>
+      <td>1.987196</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>6.976578e+17</td>
+      <td>146.607180</td>
+      <td>28.990490</td>
+      <td>0.452995</td>
+      <td>-1.937833</td>
+      <td>0.657636</td>
+      <td>0.751171</td>
+      <td>1.000000e+20</td>
+      <td>-47.593466</td>
+      <td>1.160632</td>
+      <td>3.001761</td>
+      <td>4.628859</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>7.974418e+17</td>
+      <td>152.777393</td>
+      <td>34.285481</td>
+      <td>104.319923</td>
+      <td>20.981070</td>
+      <td>0.999957</td>
+      <td>4.171221</td>
+      <td>1.000000e+20</td>
+      <td>-45.000086</td>
+      <td>4.014794</td>
+      <td>39.802471</td>
+      <td>79.275199</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="section" id="id1">
+<h3>Exercise<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p>Review the summary statistics in this table.</p>
+<ul class="simple">
+<li><p>Do the values makes senses based on what you know about the context?</p></li>
+<li><p>Do you see any values that seem problematic, or evidence of other data issues?</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
+
+<span class="c1"># A few issues that are likely to come up:</span>
+
+<span class="c1"># 1. Why are some of the parallax values negative?</span>
+<span class="c1">#    Some parallax measurements are inaccurate, especially</span>
+<span class="c1">#    stars that are far away.</span>
+
+<span class="c1"># 2. Why are some of the radial velocities 1e20?</span>
+<span class="c1">#    It seems like this value is used to indicate invalid data.</span>
+<span class="c1">#    Notice that the 25th percentile is 1e20, which indicates</span>
+<span class="c1">#    that at least 75% of these values are invalid.</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div class="section" id="plot-proper-motion">
 <h2>Plot proper motion<a class="headerlink" href="#plot-proper-motion" title="Permalink to this headline">¶</a></h2>
@@ -1034,7 +1222,7 @@ Name: phi2, dtype: bool
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/03_motion_80_0.png" src="_images/03_motion_80_0.png" />
+<img alt="_images/03_motion_83_0.png" src="_images/03_motion_83_0.png" />
 </div>
 </div>
 <p>Looking at these results, we see a large cluster around (0, 0), and a smaller cluster near (0, -10).</p>
@@ -1055,7 +1243,7 @@ Name: phi2, dtype: bool
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/03_motion_82_0.png" src="_images/03_motion_82_0.png" />
+<img alt="_images/03_motion_85_0.png" src="_images/03_motion_85_0.png" />
 </div>
 </div>
 <p>Now we can see the smaller cluster more clearly.</p>
@@ -1068,7 +1256,7 @@ Name: phi2, dtype: bool
 <p>In the original paper, Price-Whelan and Bonaca used a polygon to cover this region, as shown in this figure.</p>
 <a class="reference internal image-reference" href="https://github.com/datacarpentry/astronomy-python/raw/gh-pages/fig/gd1-1.png"><img alt="https://github.com/datacarpentry/astronomy-python/raw/gh-pages/fig/gd1-1.png" src="https://github.com/datacarpentry/astronomy-python/raw/gh-pages/fig/gd1-1.png" style="width: 300px;" /></a>
 <p>We’ll use a simple rectangle for now, but in a later lesson we’ll see how to select a polygonal region as well.</p>
-<p>Here are bounds on proper motion we chose by eye,</p>
+<p>Here are bounds on proper motion we chose by eye:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pm1_min</span> <span class="o">=</span> <span class="o">-</span><span class="mf">8.9</span>
@@ -1103,7 +1291,7 @@ Name: phi2, dtype: bool
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/03_motion_89_0.png" src="_images/03_motion_89_0.png" />
+<img alt="_images/03_motion_92_0.png" src="_images/03_motion_92_0.png" />
 </div>
 </div>
 <p>To select rows that fall within these bounds, we’ll use the following function, which uses Pandas operators to make a mask that selects rows where <code class="docutils literal notranslate"><span class="pre">series</span></code> falls between <code class="docutils literal notranslate"><span class="pre">low</span></code> and <code class="docutils literal notranslate"><span class="pre">high</span></code>.</p>
@@ -1173,7 +1361,7 @@ Name: phi2, dtype: bool
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/03_motion_99_0.png" src="_images/03_motion_99_0.png" />
+<img alt="_images/03_motion_102_0.png" src="_images/03_motion_102_0.png" />
 </div>
 </div>
 <p>Now that’s starting to look like a tidal stream!</p>
@@ -1215,8 +1403,8 @@ Name: phi2, dtype: bool
 <p>Because an HDF5 file can contain more than one Dataset, we have to provide a name, or “key”, that identifies the Dataset in the file.</p>
 <p>We could use any string as the key, but in this example I use the variable name <code class="docutils literal notranslate"><span class="pre">df</span></code>.</p>
 </div>
-<div class="section" id="id1">
-<h2>Exercise<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id2">
+<h2>Exercise<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>We’re going to need <code class="docutils literal notranslate"><span class="pre">centerline</span></code> and <code class="docutils literal notranslate"><span class="pre">selected</span></code> later as well.  Write a line or two of code to add it as a second Dataset in the HDF5 file.</p>
 <div class="cell tag_hide-cell docutils container">
 <div class="cell_input docutils container">
@@ -1319,7 +1507,7 @@ Name: phi2, dtype: bool
     
     <div class='prev-next-bottom'>
         
-    <a class='left-prev' id="prev-link" href="02_coords.html" title="previous page">Chapter 2</a>
+    <a class='left-prev' id="prev-link" href="02_coords.html" title="previous page">Coordinates and units</a>
     <a class='right-next' id="next-link" href="04_select.html" title="next page">Chapter 4</a>
 
     </div>

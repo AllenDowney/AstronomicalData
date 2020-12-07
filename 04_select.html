@@ -99,12 +99,12 @@
 <ul class="current nav sidenav_l1">
  <li class="toctree-l1">
   <a class="reference internal" href="01_query.html">
-   Chapter 1
+   Queries
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="02_coords.html">
-   Chapter 2
+   Coordinates and units
   </a>
  </li>
  <li class="toctree-l1">
@@ -467,7 +467,7 @@ and use the polygon as a selection criterion in an ADQL query.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;scipy.spatial.qhull.ConvexHull at 0x7fd67bffd910&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;scipy.spatial.qhull.ConvexHull at 0x7f8dec2b8c10&gt;
 </pre></div>
 </div>
 </div>
@@ -771,23 +771,24 @@ Created TAP+ (v1.2.1) - Connection:
 	Use HTTPS: True
 	Port: 443
 	SSL Port: 443
-INFO: Query finished. [astroquery.utils.tap.core]
-&lt;Table length=7346&gt;
-      name       dtype    unit                              description                             n_bad
---------------- ------- -------- ------------------------------------------------------------------ -----
-      source_id   int64          Unique source identifier (unique within a particular Data Release)     0
-             ra float64      deg                                                    Right ascension     0
-            dec float64      deg                                                        Declination     0
-           pmra float64 mas / yr                         Proper motion in right ascension direction     0
-          pmdec float64 mas / yr                             Proper motion in declination direction     0
-       parallax float64      mas                                                           Parallax     0
- parallax_error float64      mas                                         Standard error of parallax     0
-radial_velocity float64   km / s                                                    Radial velocity  7295
-Jobid: 1605744463707O
-Phase: COMPLETED
-Owner: None
-Output file: async_20201118190743.vot
-Results: None
+</pre></div>
+</div>
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">HTTPError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">24</span><span class="o">-</span><span class="mi">05</span><span class="n">c718e32682</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">from</span> <span class="nn">astroquery.gaia</span> <span class="kn">import</span> <span class="n">Gaia</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> 
+<span class="ne">----&gt; </span><span class="mi">3</span> <span class="n">job</span> <span class="o">=</span> <span class="n">Gaia</span><span class="o">.</span><span class="n">launch_job_async</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="nb">print</span><span class="p">(</span><span class="n">job</span><span class="p">)</span>
+
+<span class="nn">~/anaconda3/envs/AstronomicalData/lib/python3.8/site-packages/astroquery/utils/tap/core.py</span> in <span class="ni">launch_job_async</span><span class="nt">(self, query, name, output_file, output_format, verbose, dump_to_file, background, upload_resource, upload_table_name, autorun)</span>
+<span class="g g-Whitespace">    </span><span class="mi">422</span>                 <span class="bp">self</span><span class="o">.</span><span class="n">__connHandler</span><span class="o">.</span><span class="n">dump_to_file</span><span class="p">(</span><span class="n">suitableOutputFile</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">423</span>                                                 <span class="n">response</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">424</span>             <span class="k">raise</span> <span class="n">requests</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">HTTPError</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">reason</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">425</span>         <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">426</span>             <span class="n">location</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__connHandler</span><span class="o">.</span><span class="n">find_header</span><span class="p">(</span>
+
+<span class="ne">HTTPError</span>: OK
 </pre></div>
 </div>
 </div>
@@ -797,11 +798,6 @@ Results: None
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">candidate_table</span> <span class="o">=</span> <span class="n">job</span><span class="o">.</span><span class="n">get_results</span><span class="p">()</span>
 <span class="nb">len</span><span class="p">(</span><span class="n">candidate_table</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>7346
 </pre></div>
 </div>
 </div>
@@ -821,35 +817,34 @@ Results: None
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="_images/04_select_51_0.png" src="_images/04_select_51_0.png" />
-</div>
 </div>
 <p>Here we can see why it was useful to transform these coordinates.  In ICRS, it is more difficult to identity the stars near the centerline of GD-1.</p>
 <p>So, before we move on to the next step, let’s collect the code we used to transform the coordinates and make a Pandas <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyia</span> <span class="kn">import</span> <span class="n">GaiaData</span>
-
-<span class="k">def</span> <span class="nf">make_dataframe</span><span class="p">(</span><span class="n">table</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">make_dataframe</span><span class="p">(</span><span class="n">table</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Transform coordinates from ICRS to GD-1 frame.</span>
 <span class="sd">    </span>
 <span class="sd">    table: Astropy Table</span>
 <span class="sd">    </span>
 <span class="sd">    returns: Pandas DataFrame</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">gaia_data</span> <span class="o">=</span> <span class="n">GaiaData</span><span class="p">(</span><span class="n">table</span><span class="p">)</span>
+    <span class="n">skycoord</span> <span class="o">=</span> <span class="n">coord</span><span class="o">.</span><span class="n">SkyCoord</span><span class="p">(</span>
+               <span class="n">ra</span><span class="o">=</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;ra&#39;</span><span class="p">],</span> 
+               <span class="n">dec</span><span class="o">=</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;dec&#39;</span><span class="p">],</span>
+               <span class="n">pm_ra_cosdec</span><span class="o">=</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;pmra&#39;</span><span class="p">],</span>
+               <span class="n">pm_dec</span><span class="o">=</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;pmdec&#39;</span><span class="p">],</span> 
+               <span class="n">distance</span><span class="o">=</span><span class="mi">8</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">kpc</span><span class="p">,</span> 
+               <span class="n">radial_velocity</span><span class="o">=</span><span class="mi">0</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">km</span><span class="o">/</span><span class="n">u</span><span class="o">.</span><span class="n">s</span><span class="p">)</span>
 
-    <span class="n">c_sky</span> <span class="o">=</span> <span class="n">gaia_data</span><span class="o">.</span><span class="n">get_skycoord</span><span class="p">(</span><span class="n">distance</span><span class="o">=</span><span class="mi">8</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">kpc</span><span class="p">,</span> 
-                                   <span class="n">radial_velocity</span><span class="o">=</span><span class="mi">0</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">km</span><span class="o">/</span><span class="n">u</span><span class="o">.</span><span class="n">s</span><span class="p">)</span>
-    <span class="n">c_gd1</span> <span class="o">=</span> <span class="n">gc</span><span class="o">.</span><span class="n">reflex_correct</span><span class="p">(</span>
-                <span class="n">c_sky</span><span class="o">.</span><span class="n">transform_to</span><span class="p">(</span><span class="n">gc</span><span class="o">.</span><span class="n">GD1Koposov10</span><span class="p">))</span>
+    <span class="n">transformed</span> <span class="o">=</span> <span class="n">skycoord</span><span class="o">.</span><span class="n">transform_to</span><span class="p">(</span><span class="n">gc</span><span class="o">.</span><span class="n">GD1Koposov10</span><span class="p">)</span>
+    <span class="n">gd1_coord</span> <span class="o">=</span> <span class="n">gc</span><span class="o">.</span><span class="n">reflex_correct</span><span class="p">(</span><span class="n">transformed</span><span class="p">)</span>
 
     <span class="n">df</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">to_pandas</span><span class="p">()</span>
-    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;phi1&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">c_gd1</span><span class="o">.</span><span class="n">phi1</span>
-    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;phi2&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">c_gd1</span><span class="o">.</span><span class="n">phi2</span>
-    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;pm_phi1&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">c_gd1</span><span class="o">.</span><span class="n">pm_phi1_cosphi2</span>
-    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;pm_phi2&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">c_gd1</span><span class="o">.</span><span class="n">pm_phi2</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;phi1&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">gd1_coord</span><span class="o">.</span><span class="n">phi1</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;phi2&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">gd1_coord</span><span class="o">.</span><span class="n">phi2</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;pm_phi1&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">gd1_coord</span><span class="o">.</span><span class="n">pm_phi1_cosphi2</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;pm_phi2&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">gd1_coord</span><span class="o">.</span><span class="n">pm_phi2</span>
     <span class="k">return</span> <span class="n">df</span>
 </pre></div>
 </div>
@@ -876,9 +871,6 @@ Results: None
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="_images/04_select_57_0.png" src="_images/04_select_57_0.png" />
-</div>
 </div>
 <p>We’re starting to see GD-1 more clearly.</p>
 <p>We can compare this figure with one of these panels in Figure 1 from the original paper:</p>
@@ -904,11 +896,6 @@ Results: None
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>ls -lh gd1_candidates.hdf5
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-rw-rw-r-- 1 downey downey 756K Nov 18 19:07 gd1_candidates.hdf5
 </pre></div>
 </div>
 </div>
@@ -940,24 +927,12 @@ Results: None
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-rw-rw-r-- 1 downey downey 1.6M Nov 18 19:07 gd1_candidates.csv
-</pre></div>
-</div>
-</div>
 </div>
 <p>The CSV file about 2 times bigger than the HDF5 file (so that’s not that bad, really).</p>
 <p>We can see the first few lines like this:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>head -3 gd1_candidates.csv
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>,source_id,ra,dec,pmra,pmdec,parallax,parallax_error,radial_velocity,phi1,phi2,pm_phi1,pm_phi2
-0,635559124339440000,137.58671691646745,19.1965441084838,-3.770521900009566,-12.490481778113859,0.7913934419894347,0.2717538145759051,,-59.63048941944396,-1.21648525150429,-7.3613627125974945,-0.5926328820644919
-1,635860218726658176,138.5187065217173,19.09233926905897,-5.941679495793577,-11.346409129876392,0.30745551377348623,0.19946557779138105,,-59.247329893833296,-2.0160784008206476,-7.52712608464053,1.7487794924176672
 </pre></div>
 </div>
 </div>
@@ -978,88 +953,6 @@ Results: None
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>source_id</th>
-      <th>ra</th>
-      <th>dec</th>
-      <th>pmra</th>
-      <th>pmdec</th>
-      <th>parallax</th>
-      <th>parallax_error</th>
-      <th>radial_velocity</th>
-      <th>phi1</th>
-      <th>phi2</th>
-      <th>pm_phi1</th>
-      <th>pm_phi2</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>635559124339440000</td>
-      <td>137.586717</td>
-      <td>19.196544</td>
-      <td>-3.770522</td>
-      <td>-12.490482</td>
-      <td>0.791393</td>
-      <td>0.271754</td>
-      <td>NaN</td>
-      <td>-59.630489</td>
-      <td>-1.216485</td>
-      <td>-7.361363</td>
-      <td>-0.592633</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>635860218726658176</td>
-      <td>138.518707</td>
-      <td>19.092339</td>
-      <td>-5.941679</td>
-      <td>-11.346409</td>
-      <td>0.307456</td>
-      <td>0.199466</td>
-      <td>NaN</td>
-      <td>-59.247330</td>
-      <td>-2.016078</td>
-      <td>-7.527126</td>
-      <td>1.748779</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>635674126383965568</td>
-      <td>138.842874</td>
-      <td>19.031798</td>
-      <td>-3.897001</td>
-      <td>-12.702780</td>
-      <td>0.779463</td>
-      <td>0.223692</td>
-      <td>NaN</td>
-      <td>-59.133391</td>
-      <td>-2.306901</td>
-      <td>-7.560608</td>
-      <td>-0.741800</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1067,92 +960,6 @@ Results: None
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Unnamed: 0</th>
-      <th>source_id</th>
-      <th>ra</th>
-      <th>dec</th>
-      <th>pmra</th>
-      <th>pmdec</th>
-      <th>parallax</th>
-      <th>parallax_error</th>
-      <th>radial_velocity</th>
-      <th>phi1</th>
-      <th>phi2</th>
-      <th>pm_phi1</th>
-      <th>pm_phi2</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>0</td>
-      <td>635559124339440000</td>
-      <td>137.586717</td>
-      <td>19.196544</td>
-      <td>-3.770522</td>
-      <td>-12.490482</td>
-      <td>0.791393</td>
-      <td>0.271754</td>
-      <td>NaN</td>
-      <td>-59.630489</td>
-      <td>-1.216485</td>
-      <td>-7.361363</td>
-      <td>-0.592633</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>1</td>
-      <td>635860218726658176</td>
-      <td>138.518707</td>
-      <td>19.092339</td>
-      <td>-5.941679</td>
-      <td>-11.346409</td>
-      <td>0.307456</td>
-      <td>0.199466</td>
-      <td>NaN</td>
-      <td>-59.247330</td>
-      <td>-2.016078</td>
-      <td>-7.527126</td>
-      <td>1.748779</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>2</td>
-      <td>635674126383965568</td>
-      <td>138.842874</td>
-      <td>19.031798</td>
-      <td>-3.897001</td>
-      <td>-12.702780</td>
-      <td>0.779463</td>
-      <td>0.223692</td>
-      <td>NaN</td>
-      <td>-59.133391</td>
-      <td>-2.306901</td>
-      <td>-7.560608</td>
-      <td>-0.741800</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
 </div>
 <p>Notice that the index in <code class="docutils literal notranslate"><span class="pre">candidate_df</span></code> has become an unnamed column in <code class="docutils literal notranslate"><span class="pre">read_back_csv</span></code>.  The Pandas functions for writing and reading CSV files provide options to avoid that problem, but this is an example of the kind of thing that can go wrong with CSV files.</p>
 </div>

@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Chapter 1 &#8212; Astronomical Data in Python</title>
+    <title>Queries &#8212; Astronomical Data in Python</title>
     
   <link rel="stylesheet" href="_static/css/index.d431a4ee1c1efae0e38bdfebc22debff.css">
 
@@ -57,7 +57,7 @@
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Chapter 2" href="02_coords.html" />
+    <link rel="next" title="Coordinates and units" href="02_coords.html" />
     <link rel="prev" title="Astronomical Data in Python" href="README.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -99,12 +99,12 @@
 <ul class="current nav sidenav_l1">
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   Chapter 1
+   Queries
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="02_coords.html">
-   Chapter 2
+   Coordinates and units
   </a>
  </li>
  <li class="toctree-l1">
@@ -239,16 +239,6 @@
         <nav id="bd-toc-nav">
             <ul class="nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#data">
-   Data
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#prerequisites">
-   Prerequisites
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#outline">
    Outline
   </a>
@@ -256,6 +246,11 @@
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#query-language">
    Query Language
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#using-jupyter">
+   Using Jupyter
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -272,41 +267,49 @@
   <a class="reference internal nav-link" href="#columns">
    Columns
   </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#exercise">
-   Exercise
-  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#exercise">
+     Exercise
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#writing-queries">
    Writing queries
   </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id1">
-   Exercise
-  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id1">
+     Exercise
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#asynchronous-queries">
    Asynchronous queries
   </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id2">
-   Exercise
-  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id2">
+     Exercise
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#operators">
    Operators
   </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id3">
-   Exercise
-  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id3">
+     Exercise
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#cleaning-up">
@@ -317,11 +320,13 @@
   <a class="reference internal nav-link" href="#formatting-queries">
    Formatting queries
   </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id4">
-   Exercise
-  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id4">
+     Exercise
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#summary">
@@ -344,58 +349,17 @@
         
               <div>
                 
-  <div class="section" id="chapter-1">
-<h1>Chapter 1<a class="headerlink" href="#chapter-1" title="Permalink to this headline">¶</a></h1>
-<p><em>Astronomical Data in Python</em> is an introduction to tools and practices for working with astronomical data.  Topics covered include:</p>
-<ul class="simple">
-<li><p>Writing queries that select and download data from a database.</p></li>
-<li><p>Using data stored in an Astropy <code class="docutils literal notranslate"><span class="pre">Table</span></code> or Pandas <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>.</p></li>
-<li><p>Working with coordinates and other quantities with units.</p></li>
-<li><p>Storing data in various formats.</p></li>
-<li><p>Performing database join operations that combine data from multiple tables.</p></li>
-<li><p>Visualizing data and preparing publication-quality figures.</p></li>
-</ul>
-<p>As a running example, we will replicate part of the analysis in a recent paper, “<a class="reference external" href="https://arxiv.org/abs/1805.00425">Off the beaten path: Gaia reveals GD-1 stars outside of the main stream</a>” by Adrian M. Price-Whelan and Ana Bonaca.</p>
-<p>As the abstract explains, “Using data from the Gaia second data release combined with Pan-STARRS photometry, we present a sample of highly-probable members of the longest cold stream in the Milky Way, GD-1.”</p>
-<p>GD-1 is a <a class="reference external" href="https://en.wikipedia.org/wiki/List_of_stellar_streams">stellar stream</a>, which is “an association of stars orbiting a galaxy that was once a globular cluster or dwarf galaxy that has now been torn apart and stretched out along its orbit by tidal forces.”</p>
-<p><a class="reference external" href="https://www.sciencemag.org/news/2018/10/streams-stars-reveal-galaxy-s-violent-history-and-perhaps-its-unseen-dark-matter">This article in <em>Science</em> magazine</a> explains some of the background, including the process that led to the paper and a discussion of the scientific implications:</p>
-<ul class="simple">
-<li><p>“The streams are particularly useful for … galactic archaeology — rewinding the cosmic clock to reconstruct the assembly of the Milky Way.”</p></li>
-<li><p>“They also are being used as exquisitely sensitive scales to measure the galaxy’s mass.”</p></li>
-<li><p>“… the streams are well-positioned to reveal the presence of dark matter … because the streams are so fragile, theorists say, collisions with marauding clumps of dark matter could leave telltale scars, potential clues to its nature.”</p></li>
-</ul>
-<div class="section" id="data">
-<h2>Data<a class="headerlink" href="#data" title="Permalink to this headline">¶</a></h2>
-<p>The datasets we will work with are:</p>
-<ul class="simple">
-<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/Gaia_(spacecraft)">Gaia</a>, which is “a space observatory of the European Space Agency (ESA), launched in 2013 … designed for astrometry: measuring the positions, distances and motions of stars with unprecedented precision”, and</p></li>
-<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/Pan-STARRS">Pan-STARRS</a>, The Panoramic Survey Telescope and Rapid Response System, which is a survey designed to monitor the sky for transient objects, producing a catalog with accurate astronometry and photometry of detected sources.</p></li>
-</ul>
-<p>Both of these datasets are very large, which can make them challenging to work with.  It might not be possible, or practical, to download the entire dataset.
-One of the goals of this workshop is to provide tools for working with large datasets.</p>
-</div>
-<div class="section" id="prerequisites">
-<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline">¶</a></h2>
-<p>These notebooks are meant for people who are familiar with basic Python, but not necessarily the libraries we will use, like Astropy or Pandas.  If you are familiar with Python lists and dictionaries, and you know how to write a function that takes parameters and returns a value, you know enough Python to get started.</p>
-<p>We assume that you have some familiarity with operating systems, like the ability to use a command-line interface.  But we don’t assume you have any prior experience with databases.</p>
-<p>We assume that you are familiar with astronomy at the undergraduate level, but we will not assume specialized knowledge of the datasets or analysis methods we’ll use.</p>
-</div>
+  <div class="section" id="queries">
+<h1>Queries<a class="headerlink" href="#queries" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="outline">
 <h2>Outline<a class="headerlink" href="#outline" title="Permalink to this headline">¶</a></h2>
-<p>The first lesson demonstrates the steps for selecting and downloading data from the Gaia Database:</p>
+<p>This lesson demonstrates the steps for selecting and downloading data from the Gaia Database:</p>
 <ol class="simple">
 <li><p>First we’ll make a connection to the Gaia server,</p></li>
 <li><p>We will explore information about the database and the tables it contains,</p></li>
 <li><p>We will write a query and send it to the server, and finally</p></li>
 <li><p>We will download the response from the server.</p></li>
 </ol>
-<p>After completing this lesson, you should be able to</p>
-<ul class="simple">
-<li><p>Compose a basic query in ADQL.</p></li>
-<li><p>Use queries to explore a database and its tables.</p></li>
-<li><p>Use queries to download data.</p></li>
-<li><p>Develop, test, and debug a query incrementally.</p></li>
-</ul>
 </div>
 <div class="section" id="query-language">
 <h2>Query Language<a class="headerlink" href="#query-language" title="Permalink to this headline">¶</a></h2>
@@ -405,10 +369,35 @@ The query language we’ll use is ADQL, which stands for “Astronomical Data Qu
 <p><a class="reference external" href="http://www.ivoa.net/documents/ADQL/20180112/PR-ADQL-2.1-20180112.html">The reference manual for ADQL is here</a>.
 But you might find it easier to learn from <a class="reference external" href="https://www.gaia.ac.uk/data/gaia-data-release-1/adql-cookbook">this ADQL Cookbook</a>.</p>
 </div>
+<div class="section" id="using-jupyter">
+<h2>Using Jupyter<a class="headerlink" href="#using-jupyter" title="Permalink to this headline">¶</a></h2>
+<p>If you have not worked with Jupyter notebooks before, you might start with <a class="reference external" href="https://jupyter.org/try">the tutorial on from Jupyter.org called “Try Classic Notebook”</a>, or <a class="reference external" href="https://www.dataquest.io/blog/jupyter-notebook-tutorial/">this tutorial from DataQuest</a>.</p>
+<p>There are two environments you can use to write and run notebooks:</p>
+<ul class="simple">
+<li><p>“Jupyter Notebook” is the original, and</p></li>
+<li><p>“Jupyter Lab” is a newer environment with more features.</p></li>
+</ul>
+<p>For these lessons, you can use either one.</p>
+<p>If you are too impatient for the tutorials, here’s are the most important things to know:</p>
+<ol class="simple">
+<li><p>Notebooks are made up of code cells and text cells (and a few other less common kinds).  Code cells contain code; text cells, like this one, contain explanatory text written in <a class="reference external" href="https://www.markdownguide.org/">Markdown</a>.</p></li>
+<li><p>To run a code cell, click the cell to select it and press Shift-Enter.  The output of the code should appear below the cell.</p></li>
+<li><p>In general, notebooks only run correctly if you run every code cell in order from top to bottom.  If you run cells out of order, you are likely to get errors.</p></li>
+<li><p>You can modify existing cells, but then you have to run them again to see the effect.</p></li>
+<li><p>You can add new cells, but again, you might have to be careful about the order you run them in.</p></li>
+<li><p>If you have added or modified cells and the behavior of the notebook seems strange, you can restart the “kernel”, which clears all of the variables and functions you have defined, and run the cells again from the beginning.</p></li>
+</ol>
+<ul class="simple">
+<li><p>If you are using Jupyter notebook, open the Kernel menu and select “Restart and Run All”.</p></li>
+<li><p>In Jupyter Lab…</p></li>
+<li><p>In Colab, open the Runtime menu and select “Restart and run all”</p></li>
+</ul>
+<p>Before you go on, you might want to explore the other menus and the toolbar to see what else you can do.</p>
+</div>
 <div class="section" id="connecting-to-gaia">
 <h2>Connecting to Gaia<a class="headerlink" href="#connecting-to-gaia" title="Permalink to this headline">¶</a></h2>
-<p>The library we’ll use to get Gaia data is <a class="reference external" href="https://astroquery.readthedocs.io/en/latest/">Astroquery</a>.</p>
-<p>Astroquery provides <code class="docutils literal notranslate"><span class="pre">Gaia</span></code>, which is an <a class="reference external" href="https://astroquery.readthedocs.io/en/latest/gaia/gaia.html">object that represents a connection to the Gaia database</a>.</p>
+<p>The library we’ll use to get Gaia data is <a class="reference external" href="https://astroquery.readthedocs.io/en/latest/">Astroquery</a>.
+Astroquery provides <code class="docutils literal notranslate"><span class="pre">Gaia</span></code>, which is an <a class="reference external" href="https://astroquery.readthedocs.io/en/latest/gaia/gaia.html">object that represents a connection to the Gaia database</a>.</p>
 <p>We can connect to the Gaia database like this:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -431,7 +420,7 @@ Created TAP+ (v1.2.1) - Connection:
 </div>
 </div>
 </div>
-<p>Running this import statement has the effect of creating a <a class="reference external" href="http://www.ivoa.net/documents/TAP/">TAP+</a> connection; TAP stands for “Table Access Protocol”.  It is a network protocol for sending queries to the database and getting back the results.  We’re not sure why it seems to create two connections.</p>
+<p>Running this import statement has the effect of creating a <a class="reference external" href="http://www.ivoa.net/documents/TAP/">TAP+</a> connection; TAP stands for “Table Access Protocol”, which is a network protocol for sending queries to the database and getting back the results.</p>
 </div>
 <div class="section" id="databases-and-tables">
 <h2>Databases and Tables<a class="headerlink" href="#databases-and-tables" title="Permalink to this headline">¶</a></h2>
@@ -440,7 +429,7 @@ Created TAP+ (v1.2.1) - Connection:
 <li><p>A database is a collection of one or more named tables.</p></li>
 <li><p>Each table is a 2-D array with one or more named columns of data.</p></li>
 </ul>
-<p>We can use <code class="docutils literal notranslate"><span class="pre">Gaia.load_tables</span></code> to get the names of the tables in the Gaia database.  With the option <code class="docutils literal notranslate"><span class="pre">only_names=True</span></code>, it loads information about the tables, called the “metadata”, not the data itself.</p>
+<p>We can use <code class="docutils literal notranslate"><span class="pre">Gaia.load_tables</span></code> to get the names of the tables in the Gaia database.  With the option <code class="docutils literal notranslate"><span class="pre">only_names=True</span></code>, it loads information about the tables, called “metadata”, not the data itself.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tables</span> <span class="o">=</span> <span class="n">Gaia</span><span class="o">.</span><span class="n">load_tables</span><span class="p">(</span><span class="n">only_names</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -455,7 +444,7 @@ INFO: Done. [astroquery.utils.tap.core]
 </div>
 </div>
 </div>
-<div class="cell tag_hide-output docutils container">
+<div class="cell tag_hide-output tag_truncate-output docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">table</span> <span class="ow">in</span> <span class="n">tables</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
@@ -472,6 +461,7 @@ external.ravedr5_gra
 external.ravedr5_on
 external.sdssdr13_photoprimary
 external.skymapperdr1_master
+external.skymapperdr2_master
 external.tmass_xsc
 public.hipparcos
 public.hipparcos_newreduction
@@ -487,6 +477,29 @@ tap_schema.key_columns
 tap_schema.keys
 tap_schema.schemas
 tap_schema.tables
+gaiaedr3.gaia_source
+gaiaedr3.agn_cross_id
+gaiaedr3.commanded_scan_law
+gaiaedr3.dr2_neighbourhood
+gaiaedr3.frame_rotator_source
+gaiaedr3.hipparcos2_best_neighbour
+gaiaedr3.hipparcos2_neighbourhood
+gaiaedr3.panstarrs1_best_neighbour
+gaiaedr3.panstarrs1_join
+gaiaedr3.panstarrs1_neighbourhood
+gaiaedr3.sdssdr13_best_neighbour
+gaiaedr3.sdssdr13_join
+gaiaedr3.sdssdr13_neighbourhood
+gaiaedr3.skymapperdr2_best_neighbour
+gaiaedr3.skymapperdr2_join
+gaiaedr3.skymapperdr2_neighbourhood
+gaiaedr3.tycho2tdsc_merge_best_neighbour
+gaiaedr3.tycho2tdsc_merge_neighbourhood
+gaiaedr3.urat1_best_neighbour
+gaiaedr3.urat1_neighbourhood
+gaiaedr3.gaia_source_simulation
+gaiaedr3.gaia_universe_model
+gaiaedr3.tycho2tdsc_merge
 gaiadr1.aux_qso_icrf2_match
 gaiadr1.ext_phot_zero_point
 gaiadr1.allwise_best_neighbour
@@ -568,7 +581,7 @@ gaiadr2.ruwe
 <li><p><code class="docutils literal notranslate"><span class="pre">gaiadr2.panstarrs1_original_valid</span></code>, which contains the photometry data we’ll use from PanSTARRS, and</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">gaiadr2.panstarrs1_best_neighbour</span></code>, which we’ll use to cross-match each star observed by Gaia with the same star observed by PanSTARRS.</p></li>
 </ul>
-<p>We can use <code class="docutils literal notranslate"><span class="pre">load_table</span></code> (not <code class="docutils literal notranslate"><span class="pre">load_tables</span></code>) to get the metadata for a single table.  The name of this function is misleading, because it only downloads metadata.</p>
+<p>We can use <code class="docutils literal notranslate"><span class="pre">load_table</span></code> (not <code class="docutils literal notranslate"><span class="pre">load_tables</span></code>) to get the metadata for a single table.  The name of this function is misleading, because it only downloads metadata, not the contents of the table.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">meta</span> <span class="o">=</span> <span class="n">Gaia</span><span class="o">.</span><span class="n">load_table</span><span class="p">(</span><span class="s1">&#39;gaiadr2.gaia_source&#39;</span><span class="p">)</span>
@@ -582,7 +595,7 @@ Parsing table &#39;gaiadr2.gaia_source&#39;...
 Done.
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;astroquery.utils.tap.model.taptable.TapTableMeta at 0x7fbbf0d60a60&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;astroquery.utils.tap.model.taptable.TapTableMeta at 0x7eff7a9d80a0&gt;
 </pre></div>
 </div>
 </div>
@@ -607,31 +620,11 @@ Num. columns: 96
 </div>
 </div>
 </div>
-<p>In <code class="docutils literal notranslate"><span class="pre">meta</span></code>, the name of the table appears as <code class="docutils literal notranslate"><span class="pre">gaiadr2.gaiadr2.gaia_source</span></code>, which is the “qualified name”, but when we load the metadata, we refer to it as <code class="docutils literal notranslate"><span class="pre">gaiadr2.gaia_source</span></code>.</p>
-<div class="cell tag_hide-cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
-
-<span class="c1"># The error message, last time we tried, was</span>
-
-<span class="c1"># Retrieving table &#39;gaiadr2.gaiadr2.gaia_source&#39;</span>
-<span class="c1"># 500 Error 500:</span>
-<span class="c1"># esavo.tap.TAPException: esavo.tap.TAPException: Schema cannot be null</span>
-
-<span class="c1"># Which is not remotely helpful.</span>
-
-<span class="c1"># The point of this exercise is to alert the participants to the difficulty</span>
-<span class="c1"># of debugging queries with VERY limited feedback.  So developing and testing</span>
-<span class="c1"># incrementally is very important.</span>
-</pre></div>
-</div>
-</div>
-</div>
 </div>
 <div class="section" id="columns">
 <h2>Columns<a class="headerlink" href="#columns" title="Permalink to this headline">¶</a></h2>
 <p>The following loop prints the names of the columns in the table.</p>
-<div class="cell tag_hide-output docutils container">
+<div class="cell tag_hide-output tag_truncate-output docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">meta</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">column</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
@@ -742,23 +735,15 @@ epoch_photometry_url
 <p>You can probably guess what many of these columns are by looking at the names, but you should resist the temptation to guess.
 To find out what the columns mean, <a class="reference external" href="https://gea.esac.esa.int/archive/documentation/GDR2/Gaia_archive/chap_datamodel/sec_dm_main_tables/ssec_dm_gaia_source.html">read the documentation</a>.</p>
 <p>If you want to know what can go wrong when you don’t read the documentation, <a class="reference external" href="https://www.vox.com/future-perfect/2019/6/4/18650969/married-women-miserable-fake-paul-dolan-happiness">you might like this article</a>.</p>
-</div>
 <div class="section" id="exercise">
-<h2>Exercise<a class="headerlink" href="#exercise" title="Permalink to this headline">¶</a></h2>
+<h3>Exercise<a class="headerlink" href="#exercise" title="Permalink to this headline">¶</a></h3>
 <p>One of the other tables we’ll use is <code class="docutils literal notranslate"><span class="pre">gaiadr2.panstarrs1_original_valid</span></code>.  Use <code class="docutils literal notranslate"><span class="pre">load_table</span></code> to get the metadata for this table.  How many columns are there and what are their names?</p>
-<div class="cell tag_hide-cell tag_remove-output docutils container">
+<div class="cell tag_hide-cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
 
 <span class="n">meta2</span> <span class="o">=</span> <span class="n">Gaia</span><span class="o">.</span><span class="n">load_table</span><span class="p">(</span><span class="s1">&#39;gaiadr2.panstarrs1_original_valid&#39;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">meta2</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell tag_hide-cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
 
 <span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">meta2</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">column</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
@@ -797,9 +782,10 @@ quality_flag
 </div>
 </div>
 </div>
+</div>
 <div class="section" id="writing-queries">
 <h2>Writing queries<a class="headerlink" href="#writing-queries" title="Permalink to this headline">¶</a></h2>
-<p>By now you might be wondering how we actually download the data.  With tables this big, you generally don’t.  Instead, you use queries to select only the data you want.</p>
+<p>By now you might be wondering how we download the actual data.  With tables this big, you generally don’t.  Instead, you use queries to select only the data you want.</p>
 <p>A query is a string written in a query language like SQL; for the Gaia database, the query language is a dialect of SQL called ADQL.</p>
 <p>Here’s an example of an ADQL query.</p>
 <div class="cell docutils container">
@@ -830,7 +816,7 @@ quality_flag
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;astroquery.utils.tap.model.job.Job at 0x7fbbf0d8f5b0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;astroquery.utils.tap.model.job.Job at 0x7eff7aa87d00&gt;
 </pre></div>
 </div>
 </div>
@@ -851,11 +837,11 @@ source_id   int64      Unique source identifier (unique within a particular Data
 ref_epoch float64   yr                                                    Reference epoch     0
        ra float64  deg                                                    Right ascension     0
       dec float64  deg                                                        Declination     0
- parallax float64  mas                                                           Parallax     3
+ parallax float64  mas                                                           Parallax     5
 Jobid: None
 Phase: COMPLETED
 Owner: None
-Output file: sync_20201117154748.xml.gz
+Output file: sync_20201203154608.xml.gz
 Results: None
 </pre></div>
 </div>
@@ -891,29 +877,29 @@ Results: None
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html"><i>Table length=10</i>
-<table id="table140445176362752" class="table-striped table-bordered table-condensed">
+<table id="table139635743203392" class="table-striped table-bordered table-condensed">
 <thead><tr><th>source_id</th><th>ref_epoch</th><th>ra</th><th>dec</th><th>parallax</th></tr></thead>
 <thead><tr><th></th><th>yr</th><th>deg</th><th>deg</th><th>mas</th></tr></thead>
 <thead><tr><th>int64</th><th>float64</th><th>float64</th><th>float64</th><th>float64</th></tr></thead>
-<tr><td>5849745869473487488</td><td>2015.5</td><td>219.73560389985096</td><td>-65.20710341703752</td><td>0.5482007725782427</td></tr>
-<tr><td>5849746938973887488</td><td>2015.5</td><td>219.60817792260227</td><td>-65.1665758810783</td><td>--</td></tr>
-<tr><td>5849749412871953152</td><td>2015.5</td><td>219.47762991904543</td><td>-65.19549094160195</td><td>0.8018859767657315</td></tr>
-<tr><td>5849756177391089408</td><td>2015.5</td><td>221.04673046937168</td><td>-65.57259338863145</td><td>0.2470355479426332</td></tr>
-<tr><td>5849740479338016512</td><td>2015.5</td><td>219.48034924849668</td><td>-65.248465161243</td><td>0.7498253475529492</td></tr>
-<tr><td>5849755150954806784</td><td>2015.5</td><td>220.7783390948865</td><td>-65.59812207307075</td><td>-0.17531203854271796</td></tr>
-<tr><td>5849742231683753344</td><td>2015.5</td><td>219.12014600682343</td><td>-65.30003719122678</td><td>0.2758280660620302</td></tr>
-<tr><td>5849741853727882752</td><td>2015.5</td><td>219.08570521942724</td><td>-65.3172714882006</td><td>1.4628766254219059</td></tr>
-<tr><td>5849749138009127680</td><td>2015.5</td><td>219.7980142071744</td><td>-65.08195659745067</td><td>--</td></tr>
-<tr><td>5849741716288860672</td><td>2015.5</td><td>219.0424551498036</td><td>-65.33572466059165</td><td>--</td></tr>
+<tr><td>5958819901197208576</td><td>2015.5</td><td>261.7857283398199</td><td>-42.03004488213482</td><td>-0.5002044267802102</td></tr>
+<tr><td>5958821378666779136</td><td>2015.5</td><td>261.62657416766683</td><td>-42.0248496385989</td><td>--</td></tr>
+<tr><td>5958828525443694976</td><td>2015.5</td><td>264.1345018277737</td><td>-43.16302120806172</td><td>--</td></tr>
+<tr><td>5958821103796633472</td><td>2015.5</td><td>261.6583640022332</td><td>-42.036988110447425</td><td>--</td></tr>
+<tr><td>5958823886946980352</td><td>2015.5</td><td>261.65568041401264</td><td>-41.922401166547274</td><td>--</td></tr>
+<tr><td>5958822890506247552</td><td>2015.5</td><td>261.55820707086946</td><td>-41.95720763183602</td><td>--</td></tr>
+<tr><td>5958825944161775616</td><td>2015.5</td><td>264.1886024158743</td><td>-43.322283668549964</td><td>0.3111803012975799</td></tr>
+<tr><td>5958839726713099904</td><td>2015.5</td><td>263.94936860247236</td><td>-42.99642220007396</td><td>0.34188414063767153</td></tr>
+<tr><td>5958828559794975744</td><td>2015.5</td><td>264.1060944261551</td><td>-43.24271464140307</td><td>0.19982119290900674</td></tr>
+<tr><td>5958831720947299072</td><td>2015.5</td><td>263.9019720829655</td><td>-43.154506897707854</td><td>0.7055097280886358</td></tr>
 </table></div></div>
 </div>
 <p>Each column has a name, units, and a data type.</p>
 <p>For example, the units of <code class="docutils literal notranslate"><span class="pre">ra</span></code> and <code class="docutils literal notranslate"><span class="pre">dec</span></code> are degrees, and their data type is <code class="docutils literal notranslate"><span class="pre">float64</span></code>, which is a 64-bit floating-point number, used to store measurements with a fraction part.</p>
 <p>This information comes from the Gaia database, and has been stored in the Astropy <code class="docutils literal notranslate"><span class="pre">Table</span></code> by Astroquery.</p>
-</div>
 <div class="section" id="id1">
-<h2>Exercise<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<h3>Exercise<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
 <p>Read <a class="reference external" href="https://gea.esac.esa.int/archive/documentation/GDR2/Gaia_archive/chap_datamodel/sec_dm_main_tables/ssec_dm_gaia_source.html">the documentation of this table</a> and choose a column that looks interesting to you.  Add the column name to the query and run it again.  What are the units of the column you selected?  What is its data type?</p>
+</div>
 </div>
 <div class="section" id="asynchronous-queries">
 <h2>Asynchronous queries<a class="headerlink" href="#asynchronous-queries" title="Permalink to this headline">¶</a></h2>
@@ -957,10 +943,10 @@ ref_epoch float64   yr                                                    Refere
        ra float64  deg                                                    Right ascension
       dec float64  deg                                                        Declination
  parallax float64  mas                                                           Parallax
-Jobid: 1605646069281O
+Jobid: 1607028117072O
 Phase: COMPLETED
 Owner: None
-Output file: async_20201117154749.vot
+Output file: async_20201203154157.vot
 Results: None
 </pre></div>
 </div>
@@ -976,46 +962,45 @@ Results: None
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html"><i>Table length=3000</i>
-<table id="table140445173361824" class="table-striped table-bordered table-condensed">
+<table id="table139635740092688" class="table-striped table-bordered table-condensed">
 <thead><tr><th>source_id</th><th>ref_epoch</th><th>ra</th><th>dec</th><th>parallax</th></tr></thead>
 <thead><tr><th></th><th>yr</th><th>deg</th><th>deg</th><th>mas</th></tr></thead>
 <thead><tr><th>int64</th><th>float64</th><th>float64</th><th>float64</th><th>float64</th></tr></thead>
-<tr><td>5849745869473487488</td><td>2015.5</td><td>219.73560389985096</td><td>-65.20710341703752</td><td>0.5482007725782427</td></tr>
-<tr><td>5849749412871953152</td><td>2015.5</td><td>219.47762991904543</td><td>-65.19549094160195</td><td>0.8018859767657315</td></tr>
-<tr><td>5849756177391089408</td><td>2015.5</td><td>221.04673046937168</td><td>-65.57259338863145</td><td>0.2470355479426332</td></tr>
-<tr><td>5849740479338016512</td><td>2015.5</td><td>219.48034924849668</td><td>-65.248465161243</td><td>0.7498253475529492</td></tr>
-<tr><td>5849755150954806784</td><td>2015.5</td><td>220.7783390948865</td><td>-65.59812207307075</td><td>-0.17531203854271796</td></tr>
-<tr><td>5849742231683753344</td><td>2015.5</td><td>219.12014600682343</td><td>-65.30003719122678</td><td>0.2758280660620302</td></tr>
-<tr><td>5849756594002789504</td><td>2015.5</td><td>221.2361295175457</td><td>-65.52974480682217</td><td>0.29058299600659726</td></tr>
-<tr><td>5849758208912099200</td><td>2015.5</td><td>220.75442873671042</td><td>-65.56715622350804</td><td>-0.1685867513524159</td></tr>
-<tr><td>5849754768662465920</td><td>2015.5</td><td>221.0112032878186</td><td>-65.5732299894003</td><td>0.14826104583068447</td></tr>
+<tr><td>6101968476761520256</td><td>2015.5</td><td>222.97412023194306</td><td>-40.712359294192744</td><td>0.9580315447630948</td></tr>
+<tr><td>6102006203756731136</td><td>2015.5</td><td>223.3837572031525</td><td>-40.18295977800455</td><td>0.4654078698855609</td></tr>
+<tr><td>6101999537971250816</td><td>2015.5</td><td>223.39452656831827</td><td>-40.38078271831785</td><td>0.6324535932708285</td></tr>
+<tr><td>6101989230045046912</td><td>2015.5</td><td>222.9349537562596</td><td>-40.30216757702745</td><td>-0.1120282976060022</td></tr>
+<tr><td>6102019432256470144</td><td>2015.5</td><td>223.2987634951956</td><td>-40.07122353409279</td><td>0.4252570435065329</td></tr>
+<tr><td>6101990020319424768</td><td>2015.5</td><td>222.89497451675032</td><td>-40.29644668414232</td><td>-0.5473391189616934</td></tr>
+<tr><td>6102009914608095744</td><td>2015.5</td><td>223.08065715961308</td><td>-40.2690582632144</td><td>-0.37215204032841775</td></tr>
+<tr><td>6101991463427276160</td><td>2015.5</td><td>223.29761379788724</td><td>-40.50754907738312</td><td>0.845560802664492</td></tr>
+<tr><td>6102028571944992000</td><td>2015.5</td><td>222.70417749659205</td><td>-40.42670615599747</td><td>-0.6195307007338599</td></tr>
 <tr><td>...</td><td>...</td><td>...</td><td>...</td><td>...</td></tr>
-<tr><td>4687418695774232192</td><td>2015.5</td><td>16.869927634756948</td><td>-72.68242362167037</td><td>-0.48502626489731665</td></tr>
-<tr><td>4687422891933697920</td><td>2015.5</td><td>15.901327641112253</td><td>-72.80447466138797</td><td>0.2995397868127374</td></tr>
-<tr><td>4687420723006033280</td><td>2015.5</td><td>15.47314164379284</td><td>-72.89011101634064</td><td>-0.9978112875699006</td></tr>
-<tr><td>4687422715871646976</td><td>2015.5</td><td>15.99138434019087</td><td>-72.82313785245728</td><td>-2.942541578796724</td></tr>
-<tr><td>4687423815384413184</td><td>2015.5</td><td>15.944465951055934</td><td>-72.77907061819404</td><td>0.551112050315771</td></tr>
-<tr><td>4687423098092057728</td><td>2015.5</td><td>16.011069579363397</td><td>-72.77136072133104</td><td>0.5275024949652448</td></tr>
-<tr><td>4687420894804720512</td><td>2015.5</td><td>15.645744782387933</td><td>-72.86243763758765</td><td>-0.3893691578003666</td></tr>
-<tr><td>4110043733924819712</td><td>2015.5</td><td>261.33786534447233</td><td>-25.232978342149263</td><td>0.16336768694395531</td></tr>
-<tr><td>4110047449052774912</td><td>2015.5</td><td>261.1262641088297</td><td>-25.31967337502969</td><td>0.126451056290413</td></tr>
-<tr><td>4110049437580528640</td><td>2015.5</td><td>260.94992109082744</td><td>-25.32242018581512</td><td>-0.025095711306698878</td></tr>
+<tr><td>2266125732937920640</td><td>2015.5</td><td>282.3511779667985</td><td>72.58152826290214</td><td>0.611248163129301</td></tr>
+<tr><td>2266098932341998336</td><td>2015.5</td><td>282.4753368202474</td><td>72.42703933645112</td><td>-0.07096965217830103</td></tr>
+<tr><td>5844916131519471872</td><td>2015.5</td><td>192.9660362377181</td><td>-69.57840395657252</td><td>0.3439372751682742</td></tr>
+<tr><td>5844905857953792768</td><td>2015.5</td><td>193.68288866724032</td><td>-69.49181695753501</td><td>0.07481443392415044</td></tr>
+<tr><td>5844885242102786688</td><td>2015.5</td><td>194.6557957952714</td><td>-69.47882731331919</td><td>0.34993373247988196</td></tr>
+<tr><td>5844898882924614272</td><td>2015.5</td><td>193.25908185345685</td><td>-69.73387320199522</td><td>0.8081386490572667</td></tr>
+<tr><td>5844868680708131712</td><td>2015.5</td><td>194.68567535488484</td><td>-69.6114926600852</td><td>0.8402524443841332</td></tr>
+<tr><td>5844898814205127552</td><td>2015.5</td><td>193.29020065769623</td><td>-69.74069115214805</td><td>0.10499541379687834</td></tr>
+<tr><td>5844874728027086336</td><td>2015.5</td><td>195.95342635179594</td><td>-69.43994738640447</td><td>-0.8998207133359908</td></tr>
+<tr><td>5844875174699986048</td><td>2015.5</td><td>195.7213758541214</td><td>-69.45438843217347</td><td>0.04510342308702224</td></tr>
 </table></div></div>
 </div>
 <p>You might notice that some values of <code class="docutils literal notranslate"><span class="pre">parallax</span></code> are negative.  As <a class="reference external" href="https://www.cosmos.esa.int/web/gaia/archive-tips#negative%20parallax">this FAQ explains</a>, “Negative parallaxes are caused by errors in the observations.”  Negative parallaxes have “no physical meaning,” but they can be a “useful diagnostic on the quality of the astrometric solution.”</p>
-<p>Later we will see an example where we use <code class="docutils literal notranslate"><span class="pre">parallax</span></code> and <code class="docutils literal notranslate"><span class="pre">parallax_error</span></code> to identify stars where the distance estimate is likely to be inaccurate.</p>
-</div>
 <div class="section" id="id2">
-<h2>Exercise<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<h3>Exercise<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
 <p>The clauses in a query have to be in the right order.  Go back and change the order of the clauses in <code class="docutils literal notranslate"><span class="pre">query2</span></code> and run it again.</p>
 <p>The query should fail, but notice that you don’t get much useful debugging information.</p>
 <p>For this reason, developing and debugging ADQL queries can be really hard.  A few suggestions that might help:</p>
 <ul class="simple">
 <li><p>Whenever possible, start with a working query, either an example you find online or a query you have used in the past.</p></li>
 <li><p>Make small changes and test each change before you continue.</p></li>
-<li><p>While you are debugging, use <code class="docutils literal notranslate"><span class="pre">TOP</span></code> to limit the number of rows in the result.  That will make each attempt run faster, which reduces your testing time.</p></li>
+<li><p>While you are debugging, use <code class="docutils literal notranslate"><span class="pre">TOP</span></code> to limit the number of rows in the result.  That will make each test run faster, which reduces your development time.</p></li>
 <li><p>Launching test queries synchronously might make them start faster, too.</p></li>
 </ul>
+</div>
 </div>
 <div class="section" id="operators">
 <h2>Operators<a class="headerlink" href="#operators" title="Permalink to this headline">¶</a></h2>
@@ -1055,16 +1040,15 @@ Be careful to keep your Python out of your ADQL!</p>
 <li><p>OR: true if either or both comparisons are true</p></li>
 </ul>
 <p>Finally, you can use <code class="docutils literal notranslate"><span class="pre">NOT</span></code> to invert the result of a comparison.</p>
-</div>
 <div class="section" id="id3">
-<h2>Exercise<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<h3>Exercise<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
 <p><a class="reference external" href="https://www.w3schools.com/sql/sql_operators.asp">Read about SQL operators here</a> and then modify the previous query to select rows where <code class="docutils literal notranslate"><span class="pre">bp_rp</span></code> is between <code class="docutils literal notranslate"><span class="pre">-0.75</span></code> and <code class="docutils literal notranslate"><span class="pre">2</span></code>.</p>
 <p>You can <a class="reference external" href="https://gea.esac.esa.int/archive/documentation/GDR2/Gaia_archive/chap_datamodel/sec_dm_main_tables/ssec_dm_gaia_source.html">read about this variable here</a>.</p>
 <div class="cell tag_hide-cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
 
-<span class="c1"># This is what most people will probably do</span>
+<span class="c1"># Here&#39;s a solution using &gt; and &lt; operators</span>
 
 <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT TOP 10</span>
 <span class="s2">source_id, ref_epoch, ra, dec, parallax</span>
@@ -1072,16 +1056,8 @@ Be careful to keep your Python out of your ADQL!</p>
 <span class="s2">WHERE parallax &lt; 1 </span>
 <span class="s2">  AND bp_rp &gt; -0.75 AND bp_rp &lt; 2</span>
 <span class="s2">&quot;&quot;&quot;</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell tag_hide-cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
 
-<span class="c1"># But if someone notices the BETWEEN operator, </span>
-<span class="c1"># they might do this</span>
+<span class="c1"># And here&#39;s a solution using the BETWEEN operator</span>
 
 <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT TOP 10</span>
 <span class="s2">source_id, ref_epoch, ra, dec, parallax</span>
@@ -1093,8 +1069,10 @@ Be careful to keep your Python out of your ADQL!</p>
 </div>
 </div>
 </div>
-<p>This <a class="reference external" href="https://sci.esa.int/web/gaia/-/60198-gaia-hertzsprung-russell-diagram">Hertzsprung-Russell diagram</a> shows the BP-RP color and luminosity of stars in the Gaia catalog.</p>
+<p>This <a class="reference external" href="https://sci.esa.int/web/gaia/-/60198-gaia-hertzsprung-russell-diagram">Hertzsprung-Russell diagram</a> shows the BP-RP color and luminosity of stars in the Gaia catalog (Copyright: ESA/Gaia/DPAC, CC BY-SA 3.0 IGO).</p>
+<a class="reference internal image-reference" href="https://github.com/AllenDowney/AstronomicalData/raw/main/images/1567214809100-ESA_Gaia_DR2_HRD_Gaia_625.jpg"><img alt="https://github.com/AllenDowney/AstronomicalData/raw/main/images/1567214809100-ESA_Gaia_DR2_HRD_Gaia_625.jpg" src="https://github.com/AllenDowney/AstronomicalData/raw/main/images/1567214809100-ESA_Gaia_DR2_HRD_Gaia_625.jpg" style="width: 300px;" /></a>
 <p>Selecting stars with <code class="docutils literal notranslate"><span class="pre">bp-rp</span></code> less than 2 excludes many <a class="reference external" href="https://xkcd.com/2360/">class M dwarf stars</a>, which are low temperature, low luminosity.  A star like that at GD-1’s distance would be hard to detect, so if it is detected, it it more likely to be in the foreground.</p>
+</div>
 </div>
 <div class="section" id="cleaning-up">
 <h2>Cleaning up<a class="headerlink" href="#cleaning-up" title="Permalink to this headline">¶</a></h2>
@@ -1106,7 +1084,7 @@ Be careful to keep your Python out of your ADQL!</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(None, &#39;1605646069281O&#39;)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(None, &#39;1607028117072O&#39;)
 </pre></div>
 </div>
 </div>
@@ -1119,7 +1097,7 @@ Be careful to keep your Python out of your ADQL!</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Removed jobs: &#39;[&#39;1605646069281O&#39;]&#39;.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Removed jobs: &#39;[&#39;1607028117072O&#39;]&#39;.
 </pre></div>
 </div>
 </div>
@@ -1135,7 +1113,7 @@ But writing queries yourself can be slow, repetitive, and error-prone.</p>
 <p>Here’s the list of columns we’ll select.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">columns</span> <span class="o">=</span> <span class="s1">&#39;source_id, ra, dec, pmra, pmdec, parallax, parallax_error, radial_velocity&#39;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">columns</span> <span class="o">=</span> <span class="s1">&#39;source_id, ra, dec, pmra, pmdec, parallax, radial_velocity&#39;</span>
 </pre></div>
 </div>
 </div>
@@ -1170,7 +1148,7 @@ But writing queries yourself can be slow, repetitive, and error-prone.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;SELECT TOP 10 \nsource_id, ra, dec, pmra, pmdec, parallax, parallax_error, radial_velocity\nFROM gaiadr2.gaia_source\nWHERE parallax &lt; 1\n  AND bp_rp BETWEEN -0.75 AND 2\n&#39;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;SELECT TOP 10 \nsource_id, ra, dec, pmra, pmdec, parallax, radial_velocity\nFROM gaiadr2.gaia_source\nWHERE parallax &lt; 1\n  AND bp_rp BETWEEN -0.75 AND 2\n&#39;
 </pre></div>
 </div>
 </div>
@@ -1184,7 +1162,7 @@ But writing queries yourself can be slow, repetitive, and error-prone.</p>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>SELECT TOP 10 
-source_id, ra, dec, pmra, pmdec, parallax, parallax_error, radial_velocity
+source_id, ra, dec, pmra, pmdec, parallax, radial_velocity
 FROM gaiadr2.gaia_source
 WHERE parallax &lt; 1
   AND bp_rp BETWEEN -0.75 AND 2
@@ -1211,12 +1189,11 @@ WHERE parallax &lt; 1
            pmra float64 mas / yr                         Proper motion in right ascension direction     0
           pmdec float64 mas / yr                             Proper motion in declination direction     0
        parallax float64      mas                                                           Parallax     0
- parallax_error float64      mas                                         Standard error of parallax     0
-radial_velocity float64   km / s                                                    Radial velocity    10
+radial_velocity float64   km / s                                                    Radial velocity     9
 Jobid: None
 Phase: COMPLETED
 Owner: None
-Output file: sync_20201117154752.xml.gz
+Output file: sync_20201203155727.xml.gz
 Results: None
 </pre></div>
 </div>
@@ -1231,26 +1208,25 @@ Results: None
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html"><i>Table length=10</i>
-<table id="table140445173436528" class="table-striped table-bordered table-condensed">
-<thead><tr><th>source_id</th><th>ra</th><th>dec</th><th>pmra</th><th>pmdec</th><th>parallax</th><th>parallax_error</th><th>radial_velocity</th></tr></thead>
-<thead><tr><th></th><th>deg</th><th>deg</th><th>mas / yr</th><th>mas / yr</th><th>mas</th><th>mas</th><th>km / s</th></tr></thead>
-<thead><tr><th>int64</th><th>float64</th><th>float64</th><th>float64</th><th>float64</th><th>float64</th><th>float64</th><th>float64</th></tr></thead>
-<tr><td>4687420551207336960</td><td>15.645304428598138</td><td>-72.89167644508707</td><td>1.2391150617590077</td><td>-0.44283475442839</td><td>-0.6198096756639259</td><td>0.2807306692481813</td><td>--</td></tr>
-<tr><td>4687420345043286528</td><td>17.02520966291366</td><td>-72.58813710995527</td><td>0.5942325468950411</td><td>-0.9226900184931504</td><td>0.14195864820393828</td><td>0.2762606040704309</td><td>--</td></tr>
-<tr><td>4687423403067577856</td><td>16.093293953294165</td><td>-72.76190688901534</td><td>4.282221460096154</td><td>-1.151311128485597</td><td>-2.35198675239641</td><td>0.8824042279602063</td><td>--</td></tr>
-<tr><td>4687418695774232192</td><td>16.869927634756948</td><td>-72.68242362167037</td><td>3.757251484808558</td><td>-0.27830874302625963</td><td>-0.48502626489731665</td><td>0.5173500081780815</td><td>--</td></tr>
-<tr><td>4687422891933697920</td><td>15.901327641112253</td><td>-72.80447466138797</td><td>1.620291207312266</td><td>-0.7541576089819368</td><td>0.2995397868127374</td><td>0.2764244386276099</td><td>--</td></tr>
-<tr><td>4687422715871646976</td><td>15.99138434019087</td><td>-72.82313785245728</td><td>2.8954637100285368</td><td>4.214822457223685</td><td>-2.942541578796724</td><td>0.847035789335997</td><td>--</td></tr>
-<tr><td>4687423815384413184</td><td>15.944465951055934</td><td>-72.77907061819404</td><td>4.313074669192134</td><td>-1.460344295147088</td><td>0.551112050315771</td><td>0.7664351946147043</td><td>--</td></tr>
-<tr><td>4687423098092057728</td><td>16.011069579363397</td><td>-72.77136072133104</td><td>1.7413320910807104</td><td>-1.814893105748193</td><td>0.5275024949652448</td><td>0.3616348905813909</td><td>--</td></tr>
-<tr><td>4687420894804720512</td><td>15.645744782387933</td><td>-72.86243763758765</td><td>0.40415899559873986</td><td>-2.0036523797855805</td><td>-0.3893691578003666</td><td>0.35767437939443886</td><td>--</td></tr>
-<tr><td>4110047449052774912</td><td>261.1262641088297</td><td>-25.31967337502969</td><td>-2.4098547436119064</td><td>-1.301609808236016</td><td>0.126451056290413</td><td>0.7276250597861622</td><td>--</td></tr>
+<table id="table139635739621120" class="table-striped table-bordered table-condensed">
+<thead><tr><th>source_id</th><th>ra</th><th>dec</th><th>pmra</th><th>pmdec</th><th>parallax</th><th>radial_velocity</th></tr></thead>
+<thead><tr><th></th><th>deg</th><th>deg</th><th>mas / yr</th><th>mas / yr</th><th>mas</th><th>km / s</th></tr></thead>
+<thead><tr><th>int64</th><th>float64</th><th>float64</th><th>float64</th><th>float64</th><th>float64</th><th>float64</th></tr></thead>
+<tr><td>5933096203842096896</td><td>243.78205426182762</td><td>-53.059795438840304</td><td>-2.424817873751699</td><td>-4.466522248547865</td><td>0.5068567863750518</td><td>-42.33885843170957</td></tr>
+<tr><td>5933101877528899712</td><td>243.97057838444422</td><td>-52.986714478669484</td><td>-2.1222196983029993</td><td>-3.0754927489169264</td><td>0.23373208336686707</td><td>--</td></tr>
+<tr><td>5933092909682644736</td><td>243.79077939157932</td><td>-53.210873915640164</td><td>-3.247331739283727</td><td>-3.0721472876242912</td><td>0.22141430054832106</td><td>--</td></tr>
+<tr><td>5933099403674089344</td><td>244.10992316666963</td><td>-52.99682662964451</td><td>-7.42237468704238</td><td>0.9808177052973058</td><td>-0.5694816136281146</td><td>--</td></tr>
+<tr><td>5933099712864927488</td><td>244.14352482183628</td><td>-53.00718804864607</td><td>-1.8469803654970902</td><td>-2.061311622119096</td><td>-0.15119359534047053</td><td>--</td></tr>
+<tr><td>5933100430094343296</td><td>244.05583528078185</td><td>-52.97056623530601</td><td>-2.4175778689836607</td><td>-1.7741006184538501</td><td>0.6126293653016116</td><td>--</td></tr>
+<tr><td>5933090195214793088</td><td>244.0040474187424</td><td>-53.2398318316935</td><td>-1.9355723547012178</td><td>-3.2456307745304516</td><td>-0.5994721050902905</td><td>--</td></tr>
+<tr><td>5933092359874146816</td><td>243.77339485386585</td><td>-53.25788614096572</td><td>1.205055772227777</td><td>-3.1082961813495587</td><td>-1.5130414932866274</td><td>--</td></tr>
+<tr><td>5933093974783111808</td><td>243.7622231489827</td><td>-53.164944966614065</td><td>-4.665032988958056</td><td>-1.8667474849003503</td><td>-0.0273302633914116</td><td>--</td></tr>
+<tr><td>4118427651760743808</td><td>264.39377925009563</td><td>-20.39238597203732</td><td>2.5862935758007417</td><td>-1.7887209864551123</td><td>0.4865048585491827</td><td>--</td></tr>
 </table></div></div>
 </div>
 <p>Good so far.</p>
-</div>
 <div class="section" id="id4">
-<h2>Exercise<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<h3>Exercise<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <p>This query always selects sources with <code class="docutils literal notranslate"><span class="pre">parallax</span></code> less than 1.  But suppose you want to take that upper bound as an input.</p>
 <p>Modify <code class="docutils literal notranslate"><span class="pre">query3_base</span></code> to replace <code class="docutils literal notranslate"><span class="pre">1</span></code> with a format specifier like <code class="docutils literal notranslate"><span class="pre">{max_parallax}</span></code>.  Now, when you call <code class="docutils literal notranslate"><span class="pre">format</span></code>, add a keyword argument that assigns a value to <code class="docutils literal notranslate"><span class="pre">max_parallax</span></code>, and confirm that the format specifier gets replaced with the value you provide.</p>
 <div class="cell tag_hide-cell docutils container">
@@ -1263,34 +1239,15 @@ Results: None
 <span class="s2">WHERE parallax &lt; </span><span class="si">{max_parallax}</span><span class="s2"> AND </span>
 <span class="s2">bp_rp BETWEEN -0.75 AND 2</span>
 <span class="s2">&quot;&quot;&quot;</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell tag_hide-cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
 
 <span class="n">query4</span> <span class="o">=</span> <span class="n">query4_base</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">columns</span><span class="p">,</span>
-                          <span class="n">max_parallax</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+                            <span class="n">max_parallax</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>SELECT TOP 10
-source_id, ref_epoch, ra, dec, parallax
-FROM gaiadr2.gaia_source
-WHERE parallax &lt; 1 
-  AND bp_rp BETWEEN -0.75 AND 2
-</pre></div>
 </div>
 </div>
-</div>
-<p><strong>Style note:</strong>  You might notice that the variable names in this notebook are numbered, like <code class="docutils literal notranslate"><span class="pre">query1</span></code>, <code class="docutils literal notranslate"><span class="pre">query2</span></code>, etc.</p>
-<p>The advantage of this style is that it isolates each section of the notebook from the others, so if you go back and run the cells out of order, it’s less likely that you will get unexpected interactions.</p>
-<p>A drawback of this style is that it can be a nuisance to update the notebook if you add, remove, or reorder a section.</p>
-<p>What do you think of this choice?  Are there alternatives you prefer?</p>
 </div>
 <div class="section" id="summary">
 <h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
@@ -1301,6 +1258,7 @@ WHERE parallax &lt; 1
 <li><p>Writing a query and sending it to the server, and finally</p></li>
 <li><p>Downloading the response from the server as an Astropy <code class="docutils literal notranslate"><span class="pre">Table</span></code>.</p></li>
 </ol>
+<p>In the next lesson we will extend these queries to select a particular region of the sky.</p>
 </div>
 <div class="section" id="best-practices">
 <h2>Best practices<a class="headerlink" href="#best-practices" title="Permalink to this headline">¶</a></h2>
@@ -1351,7 +1309,7 @@ WHERE parallax &lt; 1
     <div class='prev-next-bottom'>
         
     <a class='left-prev' id="prev-link" href="README.html" title="previous page">Astronomical Data in Python</a>
-    <a class='right-next' id="next-link" href="02_coords.html" title="next page">Chapter 2</a>
+    <a class='right-next' id="next-link" href="02_coords.html" title="next page">Coordinates and units</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">
