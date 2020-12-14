@@ -97,12 +97,12 @@
 <ul class="nav sidenav_l1">
  <li class="toctree-l1">
   <a class="reference internal" href="01_query.html">
-   Chapter 1
+   Queries
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="02_coords.html">
-   Chapter 2
+   Coordinates and units
   </a>
  </li>
  <li class="toctree-l1">
@@ -241,7 +241,7 @@
   <div class="section" id="the-notebook-of-last-resort">
 <h1>The Notebook of Last Resort<a class="headerlink" href="#the-notebook-of-last-resort" title="Permalink to this headline">¶</a></h1>
 <p>If you are not able to get everything installed that we need for the workshop, you have the option of running this notebook on Colab.</p>
-<p>Before you get started, you probably want to press the Save button!</p>
+<p>The following cell installs the libraries we need that are not already in the Colab runtime environment.</p>
 <div class="cell tag_hide-cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># If we&#39;re running on Colab, install libraries</span>
@@ -250,12 +250,16 @@
 <span class="n">IN_COLAB</span> <span class="o">=</span> <span class="s1">&#39;google.colab&#39;</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span>
 
 <span class="k">if</span> <span class="n">IN_COLAB</span><span class="p">:</span>
-    <span class="o">!</span>pip install astroquery astro-gala pyia
+    <span class="o">!</span>pip install astroquery astro-gala
 </pre></div>
 </div>
 </div>
 </div>
-<p>That should be everything you need.  Now you can type code and run it in the following cells.</p>
+<p>That should be everything you need.</p>
+<p>Before you get started, you probably want to press the Save button!
+That will allow you to save your copy of this notebook in your Google Drive.</p>
+<p>If you don’t save this notebook, any changes you make will be lost if you close the browser window or leave it idle too long.</p>
+<p>Now you can type code and run it in the following cells.</p>
 </div>
 
     <script type="text/x-thebe-config">

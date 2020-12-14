@@ -576,7 +576,7 @@ radial_velocity float64   km / s                                                
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/03_motion_28_0.png" src="_images/03_motion_28_0.png" />
+<img alt="_images/03_motion_29_0.png" src="_images/03_motion_29_0.png" />
 </div>
 </div>
 <p>The arguments to <code class="docutils literal notranslate"><span class="pre">plt.plot</span></code> are <code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code>, and a string that specifies the style.  In this case, the letters <code class="docutils literal notranslate"><span class="pre">ko</span></code> indicate that we want a black, round marker (<code class="docutils literal notranslate"><span class="pre">k</span></code> is for black because <code class="docutils literal notranslate"><span class="pre">b</span></code> is for blue).</p>
@@ -696,7 +696,7 @@ which is an “interface for celestial coordinate representation, manipulation, 
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/03_motion_45_0.png" src="_images/03_motion_45_0.png" />
+<img alt="_images/03_motion_46_0.png" src="_images/03_motion_46_0.png" />
 </div>
 </div>
 <p>Remember that we started with a rectangle in GD-1 coordinates.  When transformed to ICRS, it’s a non-rectangular polygon.  Now that we have transformed back to GD-1 coordinates, it’s a rectangle again.</p>
@@ -885,7 +885,7 @@ which is an “interface for celestial coordinate representation, manipulation, 
 </div>
 <div class="section" id="exploring-data">
 <h2>Exploring data<a class="headerlink" href="#exploring-data" title="Permalink to this headline">¶</a></h2>
-<p>One benefit of using Pandas is that it provides function for exploring the data and checking for problems.</p>
+<p>One benefit of using Pandas is that it provides functions for exploring the data and checking for problems.</p>
 <p>One of the most useful of these functions is <code class="docutils literal notranslate"><span class="pre">describe</span></code>, which computes summary statistics for each column.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1222,7 +1222,7 @@ Name: phi2, dtype: bool
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/03_motion_83_0.png" src="_images/03_motion_83_0.png" />
+<img alt="_images/03_motion_84_0.png" src="_images/03_motion_84_0.png" />
 </div>
 </div>
 <p>Looking at these results, we see a large cluster around (0, 0), and a smaller cluster near (0, -10).</p>
@@ -1243,7 +1243,7 @@ Name: phi2, dtype: bool
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/03_motion_85_0.png" src="_images/03_motion_85_0.png" />
+<img alt="_images/03_motion_86_0.png" src="_images/03_motion_86_0.png" />
 </div>
 </div>
 <p>Now we can see the smaller cluster more clearly.</p>
@@ -1291,7 +1291,7 @@ Name: phi2, dtype: bool
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/03_motion_92_0.png" src="_images/03_motion_92_0.png" />
+<img alt="_images/03_motion_93_0.png" src="_images/03_motion_93_0.png" />
 </div>
 </div>
 <p>To select rows that fall within these bounds, we’ll use the following function, which uses Pandas operators to make a mask that selects rows where <code class="docutils literal notranslate"><span class="pre">series</span></code> falls between <code class="docutils literal notranslate"><span class="pre">low</span></code> and <code class="docutils literal notranslate"><span class="pre">high</span></code>.</p>
@@ -1361,7 +1361,7 @@ Name: phi2, dtype: bool
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/03_motion_102_0.png" src="_images/03_motion_102_0.png" />
+<img alt="_images/03_motion_103_0.png" src="_images/03_motion_103_0.png" />
 </div>
 </div>
 <p>Now that’s starting to look like a tidal stream!</p>

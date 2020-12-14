@@ -231,6 +231,42 @@
     <!-- Table of contents -->
     <div class="d-none d-md-block col-md-2 bd-toc show">
         
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#introduction-to-jupyter">
+   Introduction to Jupyter
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#selecting-and-running-cells">
+     Selecting and running cells
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#adding-and-removing-cells">
+     Adding and removing cells
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#check-your-installation">
+   Check your installation
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#check-for-code-pasting-problems">
+   Check for code-pasting problems
+  </a>
+ </li>
+</ul>
+
+        </nav>
+        
     </div>
 </div>
     <div id="main-content" class="row">
@@ -240,8 +276,68 @@
                 
   <div class="section" id="data-carpentry-astronomy-workshop">
 <h1>Data Carpentry Astronomy Workshop<a class="headerlink" href="#data-carpentry-astronomy-workshop" title="Permalink to this headline">¶</a></h1>
-<p>This notebook imports the libraries we need for the workshop.</p>
-<p>If any of them are missing, you’ll get an error message.</p>
+<p>Please run this notebook before the workshop.  There are three sections:</p>
+<ol class="simple">
+<li><p>A short introduction to Jupyter, with pointers to more resources.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">import</span></code> statements to check whether you have everything installed that we need.</p></li>
+<li><p>A cell where you will paste a line of code you copy from Slack, to check for a potential problem with “smart” quotes.</p></li>
+</ol>
+<div class="section" id="introduction-to-jupyter">
+<h2>Introduction to Jupyter<a class="headerlink" href="#introduction-to-jupyter" title="Permalink to this headline">¶</a></h2>
+<p>This is a Jupyter notebook, which is a computational document that contains text, code, and results.</p>
+<p>There are several development environments you can use to work with notebooks.  Currently the two most common are:</p>
+<ul class="simple">
+<li><p>Jupyter Classic Notebook, and</p></li>
+<li><p>JupyterLab, which is a newer environment with some improved features, but also some limitations.</p></li>
+</ul>
+<p>During the workshop, we will use the Classic Notebook environment.  If you are new to Jupyter, we suggest you should, too.</p>
+<p>If you are familiar with JupyterLab and you would rather use it for the workshop, that’s fine.  Just be aware that there will be differences between your environment and ours.</p>
+<p>If you are new to Jupyter, you can <a class="reference external" href="https://jupyter.org/try">read about it here</a> and follow the tutorial called “Try Classic Notebook”.</p>
+<p>You also might like <a class="reference external" href="https://www.dataquest.io/blog/jupyter-notebook-tutorial/">this tutorial from DataQuest</a>.</p>
+<p>The following sections introduce the features you will need for the workshop.</p>
+<div class="section" id="selecting-and-running-cells">
+<h3>Selecting and running cells<a class="headerlink" href="#selecting-and-running-cells" title="Permalink to this headline">¶</a></h3>
+<p>Notebooks are divided into cells that contain either text or code.</p>
+<p>This cell is text; the following cell is code:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Hello&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>To select a cell, click in the left margin next to the cell. You should see a blue frame surrounding the selected cell.</p>
+<p>To edit a code cell, click inside the cell. You should see a green frame around the selected cell, and you should see a cursor inside the cell.</p>
+<p>To edit a text cell, double-click inside the cell. Again, you should see a green frame around the selected cell, and you should see a cursor inside the cell.</p>
+<p>Text cells use the Markdown typesetting language, which <a class="reference external" href="https://www.markdownguide.org/">you can read about here</a>.</p>
+<p>To run a cell, hold down Shift and press Enter.</p>
+<ul class="simple">
+<li><p>If you run a text cell, Jupyter formats the text and displays the result.</p></li>
+<li><p>If you run a code cell, Jupyter runs the code in the cell and displays the result, if any.</p></li>
+</ul>
+<p>To try it out, select the previous code cell and press Shift-Enter.  It should run the code and print <code class="docutils literal notranslate"><span class="pre">Hello</span></code>.</p>
+<p>Then edit this cell, change some of the text, and press Shift-Enter to format it.</p>
+</div>
+<div class="section" id="adding-and-removing-cells">
+<h3>Adding and removing cells<a class="headerlink" href="#adding-and-removing-cells" title="Permalink to this headline">¶</a></h3>
+<p>You can add and remove cells from a notebook using the menu at the top of the page and the tool bar below the menu.</p>
+<p>Try the following exercises:</p>
+<ol class="simple">
+<li><p>From the Insert menu select “Insert cell below” to add a cell below this one. By default, you get a code cell, as you can see in the pull-down menu that says “Code”.</p></li>
+<li><p>In the new cell, add a line of Python code and run it.</p></li>
+<li><p>Add another cell, select the new cell, and then click on the pull-down menu that says “Code”.  Select “Markdown”. This makes the new cell a text cell.</p></li>
+<li><p>In the new cell, type some text and format it.</p></li>
+<li><p>Use the arrow buttons in the tool bar to move cells up and down.</p></li>
+<li><p>Use the cut, copy, and paste buttons to delete, add, and move cells.</p></li>
+</ol>
+<p>As you make changes, Jupyter saves your notebook automatically, but if you want to make sure, you can press the save button, which looks like a floppy disk from the 1990s.</p>
+<p>Finally, when you are done with a notebook, select “Close and Halt” from the File menu.</p>
+</div>
+</div>
+<div class="section" id="check-your-installation">
+<h2>Check your installation<a class="headerlink" href="#check-your-installation" title="Permalink to this headline">¶</a></h2>
+<p>Run the following cells to import the libraries we need for the workshop.</p>
+<p>If any of the libraries are missing, you’ll get an error message.</p>
 <p>If you don’t get any error messages, you are all set.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -254,6 +350,15 @@
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s make sure you have a recent version of Pandas.</p>
+<p>If the following cell causes an error, you probably have an old version of Pandas.  Please update it before the workshop.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -294,29 +399,19 @@
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Created TAP+ (v1.2.1) - Connection:
-	Host: gea.esac.esa.int
-	Use HTTPS: True
-	Port: 443
-	SSL Port: 443
-Created TAP+ (v1.2.1) - Connection:
-	Host: geadata.esac.esa.int
-	Use HTTPS: True
-	Port: 443
-	SSL Port: 443
-</pre></div>
 </div>
 </div>
-</div>
+<div class="section" id="check-for-code-pasting-problems">
+<h2>Check for code-pasting problems<a class="headerlink" href="#check-for-code-pasting-problems" title="Permalink to this headline">¶</a></h2>
 <p>During the workshop, we might put code on Slack and ask you to cut and paste it into the notebook.</p>
 <p>If you are on a Mac, you might encounter a problem with smart quotes.</p>
-<p>To check, following this link to <a class="reference external" href="https://app.slack.com/client/T01DJHEP8Q1/C01D2TZA8SH/details/pins">our Slack workspace</a> and find the pinned message with the setup instructions.
+<p>To check, following this link to <a class="reference external" href="https://app.slack.com/client/T01GF8N96TD/C01G8AS0QBG/details/pins">our Slack workspace</a> and find the pinned message with the setup instructions.
 It contains a line of Python code.</p>
 <p>Copy the code from Slack and paste it in the cell below.
 If it runs without producing an error, you are all set.</p>
 <p>Otherwise, you might have to change your system settings so it does not convert straight quotes to smart quotes.
 If you have trouble with this, let us know and we will provide more details.</p>
+</div>
 </div>
 
     <script type="text/x-thebe-config">
