@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Chapter 5 &#8212; Astronomical Data in Python</title>
+    <title>Joining Tables &#8212; Astronomical Data in Python</title>
     
   <link rel="stylesheet" href="_static/css/index.d431a4ee1c1efae0e38bdfebc22debff.css">
 
@@ -57,8 +57,8 @@
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Chapter 6" href="06_photo.html" />
-    <link rel="prev" title="Chapter 4" href="04_select.html" />
+    <link rel="next" title="Photometry" href="06_photo.html" />
+    <link rel="prev" title="Transformation and Selection" href="04_select.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -109,27 +109,27 @@
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="03_motion.html">
-   Chapter 3
+   Proper Motion
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="04_select.html">
-   Chapter 4
+   Transformation and Selection
   </a>
  </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   Chapter 5
+   Joining Tables
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="06_photo.html">
-   Chapter 6
+   Photometry
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="07_plot.html">
-   Chapter 7
+   Visualization
   </a>
  </li>
 </ul>
@@ -254,7 +254,7 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#joining-tables">
+  <a class="reference internal nav-link" href="#id1">
    Joining tables
   </a>
  </li>
@@ -286,17 +286,17 @@
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id1">
-     Exercise
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id2">
      Exercise
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id3">
+     Exercise
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id4">
      Exercise
     </a>
    </li>
@@ -328,8 +328,8 @@
         
               <div>
                 
-  <div class="section" id="chapter-5">
-<h1>Chapter 5<a class="headerlink" href="#chapter-5" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="joining-tables">
+<h1>Joining Tables<a class="headerlink" href="#joining-tables" title="Permalink to this headline">¶</a></h1>
 <p>This is the fifth in a series of notebooks related to astronomy data.</p>
 <p>As a continuing example, we will replicate part of the analysis in a recent paper, “<a class="reference external" href="https://arxiv.org/abs/1805.00425">Off the beaten path: Gaia reveals GD-1 stars outside of the main stream</a>” by Adrian M. Price-Whelan and Ana Bonaca.</p>
 <p>Picking up where we left off, the next step in the analysis is to select candidate stars based on photometry data.  The following figure from the paper is a color-magnitude diagram for the stars selected based on proper motion:</p>
@@ -408,8 +408,8 @@
 <p>Fortunately, smart people have worked on this problem, and the Gaia database includes cross-matching tables that suggest a best neighbor in the Pan-STARRS catalog for many stars in the Gaia catalog.</p>
 <p><a class="reference external" href="https://gea.esac.esa.int/archive/documentation/GDR2/Catalogue_consolidation/chap_cu9val_cu9val/ssec_cu9xma/sssec_cu9xma_extcat.html">This document describes the cross matching process</a>.  Briefly, it uses a cone search to find possible matches in approximately the right position, then uses attributes like color and magnitude to choose pairs of observations most likely to be the same star.</p>
 </div>
-<div class="section" id="joining-tables">
-<h2>Joining tables<a class="headerlink" href="#joining-tables" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id1">
+<h2>Joining tables<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <p>So the hard part of cross-matching has been done for us.  Using the results is a little tricky, but it gives us a chance to learn about one of the most important tools for working with databases: “joining” tables.</p>
 <p>In general, a “join” is an operation where you match up records from one table with records from another table using as a “key” a piece of information that is common to both tables, usually some kind of ID code.</p>
 <p>In this example:</p>
@@ -864,8 +864,8 @@ dtype: float64
 <li><p>Run the query using the uploaded table.</p></li>
 </ol>
 <p>Since we’ve done everything here before, we’ll do these steps as an exercise.</p>
-<div class="section" id="id1">
-<h3>Exercise<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id2">
+<h3>Exercise<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
 <p>Select <code class="docutils literal notranslate"><span class="pre">source_id</span></code> and <code class="docutils literal notranslate"><span class="pre">original_ext_source_id</span></code> from <code class="docutils literal notranslate"><span class="pre">results1</span></code> and write the resulting table as a file named <code class="docutils literal notranslate"><span class="pre">external.xml</span></code>.</p>
 <div class="cell tag_hide-cell docutils container">
 <div class="cell_input docutils container">
@@ -900,8 +900,8 @@ dtype: float64
 </div>
 </div>
 </div>
-<div class="section" id="id2">
-<h3>Exercise<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id3">
+<h3>Exercise<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
 <p>Read <a class="reference external" href="https://gea.esac.esa.int/archive/documentation/GDR2/Gaia_archive/chap_datamodel/sec_dm_external_catalogues/ssec_dm_panstarrs1_original_valid.html">the documentation of the Pan-STARRS table</a> and make note of <code class="docutils literal notranslate"><span class="pre">obj_id</span></code>, which contains the object IDs we’ll use to find the rows we want.</p>
 <p>Write a query that uses each value of <code class="docutils literal notranslate"><span class="pre">original_ext_source_id</span></code> from the uploaded table to find a row in <code class="docutils literal notranslate"><span class="pre">gaiadr2.panstarrs1_original_valid</span></code> with the same value in <code class="docutils literal notranslate"><span class="pre">obj_id</span></code>, and select all columns from both tables.</p>
 <p>Suggestion: Develop and test your query incrementally.  For example:</p>
@@ -1004,8 +1004,8 @@ dtype: float64
 </table></div></div>
 </div>
 </div>
-<div class="section" id="id3">
-<h3>Exercise<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id4">
+<h3>Exercise<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <p>Optional Challenge: Do both joins in one query.</p>
 <p>There’s an <a class="reference external" href="https://github.com/smoh/Getting-started-with-Gaia/blob/master/gaia-adql-snippets.md">example here</a> you could start with.</p>
 <div class="cell docutils container">
@@ -1135,8 +1135,8 @@ dtype: float64
     
     <div class='prev-next-bottom'>
         
-    <a class='left-prev' id="prev-link" href="04_select.html" title="previous page">Chapter 4</a>
-    <a class='right-next' id="next-link" href="06_photo.html" title="next page">Chapter 6</a>
+    <a class='left-prev' id="prev-link" href="04_select.html" title="previous page">Transformation and Selection</a>
+    <a class='right-next' id="next-link" href="06_photo.html" title="next page">Photometry</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">
