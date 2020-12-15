@@ -1021,12 +1021,12 @@ dtype: float64
 <span class="s2">  ON ps.obj_id = best.original_ext_source_id</span>
 <span class="s2">&quot;&quot;&quot;</span>
 
-<span class="n">job3</span> <span class="o">=</span> <span class="n">Gaia</span><span class="o">.</span><span class="n">launch_job_async</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="n">query3</span><span class="p">,</span> 
+<span class="c1"># job3 = Gaia.launch_job_async(query=query3, </span>
                        <span class="n">upload_resource</span><span class="o">=</span><span class="s1">&#39;candidate_df.xml&#39;</span><span class="p">,</span> 
                        <span class="n">upload_table_name</span><span class="o">=</span><span class="s1">&#39;candidate_df&#39;</span><span class="p">)</span>
 
-<span class="n">results3</span> <span class="o">=</span> <span class="n">job3</span><span class="o">.</span><span class="n">get_results</span><span class="p">()</span>
-<span class="n">results3</span>
+<span class="c1"># results3 = job3.get_results()</span>
+<span class="c1"># results3</span>
 </pre></div>
 </div>
 </div>

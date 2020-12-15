@@ -257,11 +257,13 @@
   <a class="reference internal nav-link" href="#scatter-plot">
    Scatter plot
   </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#exercise">
-   Exercise
-  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#exercise">
+     Exercise
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#transform-back">
@@ -304,11 +306,13 @@
   <a class="reference internal nav-link" href="#saving-the-dataframe">
    Saving the DataFrame
   </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id2">
-   Exercise
-  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id2">
+     Exercise
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#summary">
@@ -583,13 +587,20 @@ radial_velocity float64   km / s                                                
 <p>The functions <code class="docutils literal notranslate"><span class="pre">xlabel</span></code> and <code class="docutils literal notranslate"><span class="pre">ylabel</span></code> put labels on the axes.</p>
 <p>This scatter plot has a problem.  It is “<a class="reference external" href="https://python-graph-gallery.com/134-how-to-avoid-overplotting-with-python/">overplotted</a>”, which means that there are so many overlapping points, we can’t distinguish between high and low density areas.</p>
 <p>To fix this, we can provide optional arguments to control the size and transparency of the points.</p>
-</div>
 <div class="section" id="exercise">
-<h2>Exercise<a class="headerlink" href="#exercise" title="Permalink to this headline">¶</a></h2>
+<h3>Exercise<a class="headerlink" href="#exercise" title="Permalink to this headline">¶</a></h3>
 <p>In the call to <code class="docutils literal notranslate"><span class="pre">plt.plot</span></code>, add the keyword argument <code class="docutils literal notranslate"><span class="pre">markersize=0.1</span></code> to make the markers smaller.</p>
 <p>Then add the argument <code class="docutils literal notranslate"><span class="pre">alpha=0.1</span></code> to make the markers nearly transparent.</p>
 <p>Adjust these arguments until you think the figure shows the data most clearly.</p>
 <p>Note: Once you have made these changes, you might notice that the figure shows stripes with lower density of stars.  These stripes are caused by the way Gaia scans the sky, which <a class="reference external" href="https://www.cosmos.esa.int/web/gaia/scanning-law">you can read about here</a>.  The dataset we are using, <a class="reference external" href="https://www.cosmos.esa.int/web/gaia/dr2">Gaia Data Release 2</a>, covers 22 months of observations; during this time, some parts of the sky were scanned more than others.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div class="section" id="transform-back">
 <h2>Transform back<a class="headerlink" href="#transform-back" title="Permalink to this headline">¶</a></h2>
@@ -696,7 +707,7 @@ which is an “interface for celestial coordinate representation, manipulation, 
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/03_motion_46_0.png" src="_images/03_motion_46_0.png" />
+<img alt="_images/03_motion_47_0.png" src="_images/03_motion_47_0.png" />
 </div>
 </div>
 <p>Remember that we started with a rectangle in GD-1 coordinates.  When transformed to ICRS, it’s a non-rectangular polygon.  Now that we have transformed back to GD-1 coordinates, it’s a rectangle again.</p>
@@ -1222,7 +1233,7 @@ Name: phi2, dtype: bool
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/03_motion_84_0.png" src="_images/03_motion_84_0.png" />
+<img alt="_images/03_motion_85_0.png" src="_images/03_motion_85_0.png" />
 </div>
 </div>
 <p>Looking at these results, we see a large cluster around (0, 0), and a smaller cluster near (0, -10).</p>
@@ -1243,7 +1254,7 @@ Name: phi2, dtype: bool
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/03_motion_86_0.png" src="_images/03_motion_86_0.png" />
+<img alt="_images/03_motion_87_0.png" src="_images/03_motion_87_0.png" />
 </div>
 </div>
 <p>Now we can see the smaller cluster more clearly.</p>
@@ -1291,7 +1302,7 @@ Name: phi2, dtype: bool
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/03_motion_93_0.png" src="_images/03_motion_93_0.png" />
+<img alt="_images/03_motion_94_0.png" src="_images/03_motion_94_0.png" />
 </div>
 </div>
 <p>To select rows that fall within these bounds, we’ll use the following function, which uses Pandas operators to make a mask that selects rows where <code class="docutils literal notranslate"><span class="pre">series</span></code> falls between <code class="docutils literal notranslate"><span class="pre">low</span></code> and <code class="docutils literal notranslate"><span class="pre">high</span></code>.</p>
@@ -1361,7 +1372,7 @@ Name: phi2, dtype: bool
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/03_motion_103_0.png" src="_images/03_motion_103_0.png" />
+<img alt="_images/03_motion_104_0.png" src="_images/03_motion_104_0.png" />
 </div>
 </div>
 <p>Now that’s starting to look like a tidal stream!</p>
@@ -1402,9 +1413,8 @@ Name: phi2, dtype: bool
 </div>
 <p>Because an HDF5 file can contain more than one Dataset, we have to provide a name, or “key”, that identifies the Dataset in the file.</p>
 <p>We could use any string as the key, but in this example I use the variable name <code class="docutils literal notranslate"><span class="pre">df</span></code>.</p>
-</div>
 <div class="section" id="id2">
-<h2>Exercise<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<h3>Exercise<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
 <p>We’re going to need <code class="docutils literal notranslate"><span class="pre">centerline</span></code> and <code class="docutils literal notranslate"><span class="pre">selected</span></code> later as well.  Write a line or two of code to add it as a second Dataset in the HDF5 file.</p>
 <div class="cell tag_hide-cell docutils container">
 <div class="cell_input docutils container">
@@ -1456,6 +1466,7 @@ Name: phi2, dtype: bool
 </div>
 </div>
 <p>Pandas can write a variety of other formats, <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/user_guide/io.html">which you can read about here</a>.</p>
+</div>
 </div>
 <div class="section" id="summary">
 <h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>

@@ -57,7 +57,7 @@
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Chapter 3" href="03_motion.html" />
+    <link rel="next" title="Proper Motion" href="03_motion.html" />
     <link rel="prev" title="Queries" href="01_query.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -109,27 +109,27 @@
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="03_motion.html">
-   Chapter 3
+   Proper Motion
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="04_select.html">
-   Chapter 4
+   Transformation and Selection
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="05_join.html">
-   Chapter 5
+   Joining Tables
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="06_photo.html">
-   Chapter 6
+   Photometry
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="07_plot.html">
-   Chapter 7
+   Visualization
   </a>
  </li>
 </ul>
@@ -247,11 +247,13 @@
   <a class="reference internal nav-link" href="#selecting-a-region">
    Selecting a region
   </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#exercise">
-   Exercise
-  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#exercise">
+     Exercise
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#getting-gd-1-data">
@@ -389,12 +391,28 @@ Created TAP+ (v1.2.1) - Connection:
 <tr><td>4057470555320409600</td></tr>
 </table></div></div>
 </div>
-</div>
 <div class="section" id="exercise">
-<h2>Exercise<a class="headerlink" href="#exercise" title="Permalink to this headline">¶</a></h2>
+<h3>Exercise<a class="headerlink" href="#exercise" title="Permalink to this headline">¶</a></h3>
 <p>When you are debugging queries like this, you can use <code class="docutils literal notranslate"><span class="pre">TOP</span></code> to limit the size of the results, but then you still don’t know how big the results will be.</p>
 <p>An alternative is to use <code class="docutils literal notranslate"><span class="pre">COUNT</span></code>, which asks for the number of rows that would be selected, but it does not return them.</p>
 <p>In the previous query, replace <code class="docutils literal notranslate"><span class="pre">TOP</span> <span class="pre">10</span> <span class="pre">source_id</span></code> with <code class="docutils literal notranslate"><span class="pre">COUNT(source_id)</span></code> and run the query again.  How many stars has Gaia identified in the cone we searched?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
+
+<span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">SELECT </span>
+<span class="s2">COUNT(source_id)</span>
+<span class="s2">FROM gaiadr2.gaia_source</span>
+<span class="s2">WHERE 1=CONTAINS(</span>
+<span class="s2">  POINT(ra, dec),</span>
+<span class="s2">  CIRCLE(266.41683, -29.00781, 0.08333333))</span>
+<span class="s2">&quot;&quot;&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div class="section" id="getting-gd-1-data">
 <h2>Getting GD-1 Data<a class="headerlink" href="#getting-gd-1-data" title="Permalink to this headline">¶</a></h2>
@@ -1830,7 +1848,7 @@ Results: None
     <div class='prev-next-bottom'>
         
     <a class='left-prev' id="prev-link" href="01_query.html" title="previous page">Queries</a>
-    <a class='right-next' id="next-link" href="03_motion.html" title="next page">Chapter 3</a>
+    <a class='right-next' id="next-link" href="03_motion.html" title="next page">Proper Motion</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">

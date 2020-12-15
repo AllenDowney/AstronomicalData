@@ -246,6 +246,13 @@
   <a class="reference internal nav-link" href="#making-figures-that-tell-a-story">
    Making Figures That Tell a Story
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#exercise">
+     Exercise
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#plotting-gd-1">
@@ -256,11 +263,25 @@
   <a class="reference internal nav-link" href="#annotations">
    Annotations
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id1">
+     Exercise
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#customization">
    Customization
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id2">
+     Exercise
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#rcparams">
@@ -296,6 +317,13 @@
   <a class="reference internal nav-link" href="#lower-right">
    Lower right
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id3">
+     Exercise
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#subplots">
@@ -306,6 +334,13 @@
   <a class="reference internal nav-link" href="#adjusting-proportions">
    Adjusting proportions
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id4">
+     Exercise
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#summary">
@@ -360,20 +395,52 @@
 <p>Not necessarily in that order.</p>
 <p>Let’s start by reviewing Figure 1 from the original paper.  We’ve seen the individual panels, but now let’s look at the whole thing, along with the caption:</p>
 <a class="reference internal image-reference" href="https://github.com/datacarpentry/astronomy-python/raw/gh-pages/fig/gd1-5.png"><img alt="https://github.com/datacarpentry/astronomy-python/raw/gh-pages/fig/gd1-5.png" src="https://github.com/datacarpentry/astronomy-python/raw/gh-pages/fig/gd1-5.png" style="width: 500px;" /></a>
-<p><strong>Exercise:</strong> Think about the following questions:</p>
+<div class="section" id="exercise">
+<h3>Exercise<a class="headerlink" href="#exercise" title="Permalink to this headline">¶</a></h3>
+<p>Think about the following questions:</p>
 <ol class="simple">
 <li><p>What is the primary scientific result of this work?</p></li>
 <li><p>What story is this figure telling?</p></li>
 <li><p>In the design of this figure, can you identify 1-2 choices the authors made that you think are effective?  Think about big-picture elements, like the number of panels and how they are arranged, as well as details like the choice of typeface.</p></li>
 <li><p>Can you identify 1-2 elements that could be improved, or that you might have done differently?</p></li>
 </ol>
-<p>Some topics that might come up in this discussion:</p>
-<ol class="simple">
-<li><p>The primary result is that the multiple stages of selection make it possible to separate likely candidates from the background more effectively than in previous work, which makes it possible to see the structure of GD-1 in “unprecedented detail”.</p></li>
-<li><p>The figure documents the selection process as a sequence of steps.  Reading right-to-left, top-to-bottom, we see selection based on proper motion, the results of the first selection, selection based on color and magnitude, and the results of the second selection.  So this figure documents the methodology and presents the primary result.</p></li>
-<li><p>It’s mostly black and white, with minimal use of color, so it will work well in print.  The annotations in the bottom left panel guide the reader to the most important results.  It contains enough technical detail for a professional audience, but most of it is also comprehensible to a more general audience.  The two left panels have the same dimensions and their axes are aligned.</p></li>
-<li><p>Since the panels represent a sequence, it might be better to arrange them left-to-right.  The placement and size of the axis labels could be tweaked.  The entire figure could be a little bigger to match the width and proportion of the caption.  The top left panel has unnused white space (but that leaves space for the annotations in the bottom left).</p></li>
-</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
+
+<span class="c1"># Some topics that might come up in this discussion:</span>
+
+<span class="c1"># 1. The primary result is that the multiple stages of selection </span>
+<span class="c1"># make it possible to separate likely candidates from the </span>
+<span class="c1"># background more effectively than in previous work, which makes </span>
+<span class="c1"># it possible to see the structure of GD-1 in &quot;unprecedented detail&quot;.</span>
+
+<span class="c1"># 2. The figure documents the selection process as a sequence of </span>
+<span class="c1"># steps.  Reading right-to-left, top-to-bottom, we see selection </span>
+<span class="c1"># based on proper motion, the results of the first selection, </span>
+<span class="c1"># selection based on color and magnitude, and the results of the </span>
+<span class="c1"># second selection.  So this figure documents the methodology and </span>
+<span class="c1"># presents the primary result.</span>
+
+<span class="c1"># 3. It&#39;s mostly black and white, with minimal use of color, so </span>
+<span class="c1"># it will work well in print.  The annotations in the bottom </span>
+<span class="c1"># left panel guide the reader to the most important results.  </span>
+<span class="c1"># It contains enough technical detail for a professional audience, </span>
+<span class="c1"># but most of it is also comprehensible to a more general audience.  </span>
+<span class="c1"># The two left panels have the same dimensions and their axes are </span>
+<span class="c1"># aligned.</span>
+
+<span class="c1"># 4. Since the panels represent a sequence, it might be better to </span>
+<span class="c1"># arrange them left-to-right.  The placement and size of the axis </span>
+<span class="c1"># labels could be tweaked.  The entire figure could be a little </span>
+<span class="c1"># bigger to match the width and proportion of the caption.  </span>
+<span class="c1"># The top left panel has unnused white space (but that leaves </span>
+<span class="c1"># space for the annotations in the bottom left).</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div class="section" id="plotting-gd-1">
 <h2>Plotting GD-1<a class="headerlink" href="#plotting-gd-1" title="Permalink to this headline">¶</a></h2>
@@ -388,6 +455,11 @@
 
 <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">download</span><span class="p">(</span><span class="n">path</span><span class="o">+</span><span class="n">filename</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>gd1_merged.hdf5
 </pre></div>
 </div>
 </div>
@@ -441,7 +513,9 @@
 <li><p>A label that identifies the new region, and</p></li>
 <li><p>Several annotations that combine text and arrows to identify features of GD-1.</p></li>
 </ul>
-<p>As an exercise, choose any or all of these features and add them to the figure:</p>
+<div class="section" id="id1">
+<h3>Exercise<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p>Choose any or all of these features and add them to the figure:</p>
 <ul class="simple">
 <li><p>To draw vertical lines, see <a class="reference external" href="https://matplotlib.org/3.3.1/api/_as_gen/matplotlib.pyplot.vlines.html"><code class="docutils literal notranslate"><span class="pre">plt.vlines</span></code></a> and <a class="reference external" href="https://matplotlib.org/3.3.1/api/_as_gen/matplotlib.pyplot.axvline.html#matplotlib.pyplot.axvline"><code class="docutils literal notranslate"><span class="pre">plt.axvline</span></code></a>.</p></li>
 <li><p>To add text, see <a class="reference external" href="https://matplotlib.org/3.3.1/api/_as_gen/matplotlib.pyplot.text.html"><code class="docutils literal notranslate"><span class="pre">plt.text</span></code></a>.</p></li>
@@ -472,6 +546,7 @@
 </div>
 </div>
 </div>
+</div>
 <div class="section" id="customization">
 <h2>Customization<a class="headerlink" href="#customization" title="Permalink to this headline">¶</a></h2>
 <p>Matplotlib provides a default style that determines things like the colors of lines, the placement of labels and ticks on the axes, and many other properties.</p>
@@ -487,13 +562,16 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">direction</span><span class="o">=</span><span class="s1">&#39;in&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p><strong>Exercise:</strong> Read the documentation of <a class="reference external" href="https://matplotlib.org/3.1.1/api/_as_gen/matplotlib.axes.Axes.tick_params.html"><code class="docutils literal notranslate"><span class="pre">tick_params</span></code></a> and use it to put ticks on the top and right sides of the axes.</p>
+<div class="section" id="id2">
+<h3>Exercise<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>Read the documentation of <a class="reference external" href="https://matplotlib.org/3.1.1/api/_as_gen/matplotlib.axes.Axes.tick_params.html"><code class="docutils literal notranslate"><span class="pre">tick_params</span></code></a> and use it to put ticks on the top and right sides of the axes.</p>
 <div class="cell tag_hide-cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
 
 <span class="c1"># plt.gca().tick_params(top=True, right=True)</span>
 </pre></div>
+</div>
 </div>
 </div>
 </div>
@@ -522,7 +600,7 @@
 </div>
 </div>
 </div>
-<p><strong>Exercise:</strong> Plot the previous figure again, and see what font sizes have changed.  Look up any other element of <code class="docutils literal notranslate"><span class="pre">rcParams</span></code>, change its value, and check the effect on the figure.</p>
+<p>As an exercise, plot the previous figure again, and see what font sizes have changed.  Look up any other element of <code class="docutils literal notranslate"><span class="pre">rcParams</span></code>, change its value, and check the effect on the figure.</p>
 <p>If you find yourself making the same customizations in several notebooks, you can put changes to <code class="docutils literal notranslate"><span class="pre">rcParams</span></code> in a <code class="docutils literal notranslate"><span class="pre">matplotlibrc</span></code> file, <a class="reference external" href="https://matplotlib.org/3.3.1/tutorials/introductory/customizing.html#customizing-with-matplotlibrc-files">which you can read about here</a>.</p>
 </div>
 <div class="section" id="style-sheets">
@@ -574,7 +652,7 @@
 </pre></div>
 </div>
 <p>The style sheet you choose will affect the appearance of all figures you plot after calling <code class="docutils literal notranslate"><span class="pre">use</span></code>, unless you override any of the options or call <code class="docutils literal notranslate"><span class="pre">use</span></code> again.</p>
-<p><strong>Exercise:</strong> Choose one of the styles on the list and select it by calling <code class="docutils literal notranslate"><span class="pre">use</span></code>.  Then go back and plot one of the figures above and see what effect it has.</p>
+<p>As an exercise, choose one of the styles on the list and select it by calling <code class="docutils literal notranslate"><span class="pre">use</span></code>.  Then go back and plot one of the figures above and see what effect it has.</p>
 <p>If you can’t find a style sheet that’s exactly what you want, you can make your own.  This repository includes a style sheet called <code class="docutils literal notranslate"><span class="pre">az-paper-twocol.mplstyle</span></code>, with customizations chosen by Azalee Bostroem for publication in astronomy journals.</p>
 <p>The following cell downloads the style sheet.</p>
 <div class="cell docutils container">
@@ -654,6 +732,11 @@
 
 <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">download</span><span class="p">(</span><span class="n">path</span><span class="o">+</span><span class="n">filename</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>gd1_dataframe.hdf5
 </pre></div>
 </div>
 </div>
@@ -737,7 +820,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/07_plot_51_0.png" src="_images/07_plot_51_0.png" />
+<img alt="_images/07_plot_54_0.png" src="_images/07_plot_54_0.png" />
 </div>
 </div>
 </div>
@@ -753,6 +836,11 @@
 
 <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">download</span><span class="p">(</span><span class="n">path</span><span class="o">+</span><span class="n">filename</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>gd1_candidates.hdf5
 </pre></div>
 </div>
 </div>
@@ -794,7 +882,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/07_plot_58_0.png" src="_images/07_plot_58_0.png" />
+<img alt="_images/07_plot_61_0.png" src="_images/07_plot_61_0.png" />
 </div>
 </div>
 </div>
@@ -845,11 +933,10 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/07_plot_64_0.png" src="_images/07_plot_64_0.png" />
+<img alt="_images/07_plot_67_0.png" src="_images/07_plot_67_0.png" />
 </div>
 </div>
-<p><strong>Exercise:</strong> Add a few lines to <code class="docutils literal notranslate"><span class="pre">plot_cmd</span></code> to show the Polygon we selected as a shaded area.</p>
-<p>Run these cells to get the polygon coordinates we saved in the previous notebook.</p>
+<p>The following cell downloads an HDF file that contains the polygon we used to select starts in the color-magnitude diagram, if it doesn’t already exist.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
@@ -862,38 +949,297 @@
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>gd1_polygon.hdf5
+</pre></div>
+</div>
+</div>
+</div>
+<p>And here’s how we read it back.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">loop</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_hdf</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;loop&#39;</span><span class="p">)</span>
+<span class="n">loop</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>gi
+0.587571    21.411746
+0.567801    21.322466
+0.548134    21.233380
+0.528693    21.144427
+0.509300    21.054549
+              ...    
+0.773743    21.054549
+0.798829    21.144427
+0.824000    21.233380
+0.849503    21.322466
+0.875220    21.411746
+Name: g, Length: 234, dtype: float64
+</pre></div>
+</div>
+</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">coords_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_hdf</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;coords_df&#39;</span><span class="p">)</span>
-<span class="n">coords</span> <span class="o">=</span> <span class="n">coords_df</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">coords</span> <span class="o">=</span> <span class="n">loop</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
 <span class="n">coords</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 0.26433692, 17.84253127],
-       [ 0.35394265, 18.799117  ],
-       [ 0.47491039, 19.68211921],
-       [ 0.63172043, 20.45474614],
-       [ 0.76612903, 20.78587196],
-       [ 0.80645161, 21.41133186],
-       [ 0.58691756, 21.30095659],
-       [ 0.39426523, 20.56512141],
-       [ 0.22401434, 19.2406181 ],
-       [ 0.19713262, 18.02649007]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 0.58757135, 21.41174601],
+       [ 0.56780097, 21.32246601],
+       [ 0.54813409, 21.23338001],
+       [ 0.5286928 , 21.14442701],
+       [ 0.50929987, 21.05454901],
+       [ 0.48991266, 20.96383501],
+       [ 0.47084777, 20.87386601],
+       [ 0.45222635, 20.78511001],
+       [ 0.43438902, 20.69865301],
+       [ 0.42745198, 20.66469601],
+       [ 0.42067029, 20.63135301],
+       [ 0.41402867, 20.59850601],
+       [ 0.40738016, 20.56529901],
+       [ 0.40088387, 20.53264001],
+       [ 0.39449608, 20.50023501],
+       [ 0.38843797, 20.46871801],
+       [ 0.38251577, 20.43765101],
+       [ 0.3766547 , 20.40653701],
+       [ 0.37088531, 20.37564701],
+       [ 0.36522325, 20.34505401],
+       [ 0.35962415, 20.31443001],
+       [ 0.35413292, 20.28413501],
+       [ 0.34871894, 20.25390101],
+       [ 0.34339273, 20.22385701],
+       [ 0.33815825, 20.19395801],
+       [ 0.33305724, 20.16427301],
+       [ 0.32820637, 20.13508501],
+       [ 0.32348139, 20.10604901],
+       [ 0.31883343, 20.07716101],
+       [ 0.31425423, 20.04833101],
+       [ 0.30974976, 20.01961701],
+       [ 0.30531997, 19.99097001],
+       [ 0.30097354, 19.96246401],
+       [ 0.29669999, 19.93401801],
+       [ 0.29250157, 19.90573101],
+       [ 0.28837983, 19.87746501],
+       [ 0.28441584, 19.84955001],
+       [ 0.28065057, 19.82188301],
+       [ 0.27700644, 19.79450101],
+       [ 0.27342328, 19.76713801],
+       [ 0.26989305, 19.73985301],
+       [ 0.26641258, 19.71265801],
+       [ 0.26298257, 19.68540001],
+       [ 0.25960216, 19.65824401],
+       [ 0.2562733 , 19.63113701],
+       [ 0.25299978, 19.60409301],
+       [ 0.24977307, 19.57714401],
+       [ 0.24660506, 19.55024001],
+       [ 0.24348829, 19.52341001],
+       [ 0.24042159, 19.49666601],
+       [ 0.23741737, 19.46998501],
+       [ 0.23447423, 19.44339301],
+       [ 0.23158726, 19.41688701],
+       [ 0.22876474, 19.39045101],
+       [ 0.22600432, 19.36410901],
+       [ 0.22330395, 19.33786601],
+       [ 0.220663  , 19.31170101],
+       [ 0.21808571, 19.28560101],
+       [ 0.21557456, 19.25960101],
+       [ 0.21312279, 19.23368701],
+       [ 0.21073349, 19.20785601],
+       [ 0.20840975, 19.18210401],
+       [ 0.20614799, 19.15640601],
+       [ 0.20395119, 19.13076401],
+       [ 0.20182156, 19.10523201],
+       [ 0.19975572, 19.07977101],
+       [ 0.19775195, 19.05436401],
+       [ 0.19581903, 19.02902801],
+       [ 0.19395701, 19.00376101],
+       [ 0.19216276, 18.97857301],
+       [ 0.19044513, 18.95347601],
+       [ 0.1888007 , 18.92850001],
+       [ 0.18723796, 18.90368201],
+       [ 0.18576648, 18.87905401],
+       [ 0.18438763, 18.85466301],
+       [ 0.18310871, 18.83056001],
+       [ 0.18193706, 18.80672701],
+       [ 0.18087817, 18.78327401],
+       [ 0.17993184, 18.76015001],
+       [ 0.17910244, 18.73740501],
+       [ 0.17838817, 18.71496101],
+       [ 0.17779005, 18.69282101],
+       [ 0.177312  , 18.67099501],
+       [ 0.17694971, 18.64944001],
+       [ 0.1767112 , 18.62815801],
+       [ 0.17659065, 18.60714001],
+       [ 0.17658939, 18.58636601],
+       [ 0.17671618, 18.56585701],
+       [ 0.17696696, 18.54562201],
+       [ 0.17733781, 18.52565801],
+       [ 0.1778346 , 18.50597901],
+       [ 0.17846661, 18.48656801],
+       [ 0.17922891, 18.46742401],
+       [ 0.18012796, 18.44859001],
+       [ 0.18116197, 18.43005501],
+       [ 0.18233604, 18.41181501],
+       [ 0.18363223, 18.39379401],
+       [ 0.18506009, 18.37602901],
+       [ 0.18660932, 18.35862101],
+       [ 0.18829849, 18.34153201],
+       [ 0.19012805, 18.32480701],
+       [ 0.19210919, 18.30851301],
+       [ 0.19422686, 18.29250401],
+       [ 0.1964951 , 18.27685701],
+       [ 0.19890209, 18.26156301],
+       [ 0.20145338, 18.24666001],
+       [ 0.20417715, 18.23260501],
+       [ 0.20705285, 18.21898101],
+       [ 0.21005661, 18.20562501],
+       [ 0.21319339, 18.19254201],
+       [ 0.22126873, 18.16185301],
+       [ 0.2300065 , 18.13259301],
+       [ 0.23950909, 18.10508001],
+       [ 0.24974677, 18.07932501],
+       [ 0.26066153, 18.05527801],
+       [ 0.27224553, 18.03295501],
+       [ 0.28447607, 18.01227601],
+       [ 0.40566013, 18.01227601],
+       [ 0.39412682, 18.03295501],
+       [ 0.38329907, 18.05527801],
+       [ 0.37320316, 18.07932501],
+       [ 0.36384734, 18.10508001],
+       [ 0.35529237, 18.13259301],
+       [ 0.34756872, 18.16185301],
+       [ 0.34056407, 18.19254201],
+       [ 0.33788593, 18.20562501],
+       [ 0.33535176, 18.21898101],
+       [ 0.33295648, 18.23260501],
+       [ 0.33072983, 18.24666001],
+       [ 0.32870734, 18.26156301],
+       [ 0.32684482, 18.27685701],
+       [ 0.3251355 , 18.29250401],
+       [ 0.32359167, 18.30851301],
+       [ 0.32219665, 18.32480701],
+       [ 0.32097089, 18.34153201],
+       [ 0.31990093, 18.35862101],
+       [ 0.31898485, 18.37602901],
+       [ 0.3182056 , 18.39379401],
+       [ 0.31756993, 18.41181501],
+       [ 0.31706705, 18.43005501],
+       [ 0.31671781, 18.44859001],
+       [ 0.3165174 , 18.46742401],
+       [ 0.31646817, 18.48656801],
+       [ 0.3165622 , 18.50597901],
+       [ 0.31680458, 18.52565801],
+       [ 0.31718682, 18.54562201],
+       [ 0.31770268, 18.56585701],
+       [ 0.31835632, 18.58636601],
+       [ 0.31915162, 18.60714001],
+       [ 0.32007915, 18.62815801],
+       [ 0.3211385 , 18.64944001],
+       [ 0.32233599, 18.67099501],
+       [ 0.32366367, 18.69282101],
+       [ 0.32512771, 18.71496101],
+       [ 0.32672398, 18.73740501],
+       [ 0.32845154, 18.76015001],
+       [ 0.33031546, 18.78327401],
+       [ 0.33230964, 18.80672701],
+       [ 0.33443651, 18.83056001],
+       [ 0.3366864 , 18.85466301],
+       [ 0.3390529 , 18.87905401],
+       [ 0.34152681, 18.90368201],
+       [ 0.34410502, 18.92850001],
+       [ 0.34677677, 18.95347601],
+       [ 0.34953217, 18.97857301],
+       [ 0.35237348, 19.00376101],
+       [ 0.35529144, 19.02902801],
+       [ 0.35828883, 19.05436401],
+       [ 0.36136575, 19.07977101],
+       [ 0.36451277, 19.10523201],
+       [ 0.36773241, 19.13076401],
+       [ 0.37102978, 19.15640601],
+       [ 0.37440044, 19.18210401],
+       [ 0.37784139, 19.20785601],
+       [ 0.38135736, 19.23368701],
+       [ 0.38494552, 19.25960101],
+       [ 0.388603  , 19.28560101],
+       [ 0.39233725, 19.31170101],
+       [ 0.39614435, 19.33786601],
+       [ 0.40002069, 19.36410901],
+       [ 0.40396796, 19.39045101],
+       [ 0.40798805, 19.41688701],
+       [ 0.41208235, 19.44339301],
+       [ 0.41624335, 19.46998501],
+       [ 0.42047622, 19.49666601],
+       [ 0.42478124, 19.52341001],
+       [ 0.42914714, 19.55024001],
+       [ 0.43357463, 19.57714401],
+       [ 0.43806989, 19.60409301],
+       [ 0.44262347, 19.63113701],
+       [ 0.44724247, 19.65824401],
+       [ 0.4519225 , 19.68540001],
+       [ 0.45666424, 19.71265801],
+       [ 0.46146067, 19.73985301],
+       [ 0.46631851, 19.76713801],
+       [ 0.47124047, 19.79450101],
+       [ 0.47623175, 19.82188301],
+       [ 0.48136578, 19.84955001],
+       [ 0.48671855, 19.87746501],
+       [ 0.49225451, 19.90573101],
+       [ 0.49787627, 19.93401801],
+       [ 0.50358931, 19.96246401],
+       [ 0.50938655, 19.99097001],
+       [ 0.51528266, 20.01961701],
+       [ 0.52126534, 20.04833101],
+       [ 0.52733726, 20.07716101],
+       [ 0.53348957, 20.10604901],
+       [ 0.53973535, 20.13508501],
+       [ 0.54612384, 20.16427301],
+       [ 0.55279781, 20.19395801],
+       [ 0.55962597, 20.22385701],
+       [ 0.56656311, 20.25390101],
+       [ 0.57360789, 20.28413501],
+       [ 0.58074299, 20.31443001],
+       [ 0.5880138 , 20.34505401],
+       [ 0.59535596, 20.37564701],
+       [ 0.60283203, 20.40653701],
+       [ 0.61042265, 20.43765101],
+       [ 0.61808231, 20.46871801],
+       [ 0.62591386, 20.50023501],
+       [ 0.63413647, 20.53264001],
+       [ 0.64249372, 20.56529901],
+       [ 0.65104657, 20.59850601],
+       [ 0.659584  , 20.63135301],
+       [ 0.66830253, 20.66469601],
+       [ 0.67722496, 20.69865301],
+       [ 0.70017638, 20.78511001],
+       [ 0.72413715, 20.87386601],
+       [ 0.74870785, 20.96383501],
+       [ 0.77374297, 21.05454901],
+       [ 0.7988286 , 21.14442701],
+       [ 0.8240001 , 21.23338001],
+       [ 0.84950281, 21.32246601],
+       [ 0.8752204 , 21.41174601]])
 </pre></div>
 </div>
 </div>
 </div>
+<div class="section" id="id3">
+<h3>Exercise<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>Add a few lines to <code class="docutils literal notranslate"><span class="pre">plot_cmd</span></code> to show the polygon we selected as a shaded area.</p>
+<p>Hint: pass <code class="docutils literal notranslate"><span class="pre">coords</span></code> as an argument to <code class="docutils literal notranslate"><span class="pre">Polygon</span></code> and plot it using <code class="docutils literal notranslate"><span class="pre">add_patch</span></code>.</p>
 <div class="cell tag_hide-cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
 
-<span class="c1">#poly = Polygon(coords, closed=True, </span>
-<span class="c1">#               facecolor=&#39;C1&#39;, alpha=0.4)</span>
-<span class="c1">#plt.gca().add_patch(poly)</span>
+<span class="c1"># poly = Polygon(coords, closed=True, </span>
+<span class="c1">#                facecolor=&#39;C1&#39;, alpha=0.4)</span>
+<span class="c1"># plt.gca().add_patch(poly)</span>
 </pre></div>
+</div>
 </div>
 </div>
 </div>
@@ -931,11 +1277,11 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/07_plot_70_0.png" src="_images/07_plot_70_0.png" />
+<img alt="_images/07_plot_76_0.png" src="_images/07_plot_76_0.png" />
 </div>
 </div>
 <p>We use <a class="reference external" href="https://matplotlib.org/3.3.1/tutorials/intermediate/tight_layout_guide.html"><code class="docutils literal notranslate"><span class="pre">plt.tight_layout</span></code></a> at the end, which adjusts the sizes of the panels to make sure the titles and axis labels don’t overlap.</p>
-<p><strong>Exercise:</strong> See what happens if you leave out <code class="docutils literal notranslate"><span class="pre">tight_layout</span></code>.</p>
+<p>As an exercise, see what happens if you leave out <code class="docutils literal notranslate"><span class="pre">tight_layout</span></code>.</p>
 </div>
 <div class="section" id="adjusting-proportions">
 <h2>Adjusting proportions<a class="headerlink" href="#adjusting-proportions" title="Permalink to this headline">¶</a></h2>
@@ -969,11 +1315,41 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/07_plot_73_0.png" src="_images/07_plot_73_0.png" />
+<img alt="_images/07_plot_79_0.png" src="_images/07_plot_79_0.png" />
 </div>
 </div>
 <p>This is looking more and more like the figure in the paper.</p>
-<p><strong>Exercise:</strong> In this example, the ratio of the widths of the panels is 3:1.  How would you adjust it if you wanted the ratio to be 3:2?</p>
+<div class="section" id="id4">
+<h3>Exercise<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>In this example, the ratio of the widths of the panels is 3:1.  How would you adjust it if you wanted the ratio to be 3:2?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
+
+<span class="c1"># plt.figure(figsize=(9, 4.5))</span>
+
+<span class="c1"># shape = (2, 5)                                   # CHANGED</span>
+<span class="c1"># plt.subplot2grid(shape, (0, 0), colspan=3)</span>
+<span class="c1"># plot_first_selection(candidate_df)</span>
+
+<span class="c1"># plt.subplot2grid(shape, (0, 3), colspan=2)       # CHANGED</span>
+<span class="c1"># plot_proper_motion(centerline)</span>
+
+<span class="c1"># plt.subplot2grid(shape, (1, 0), colspan=3)</span>
+<span class="c1"># plot_second_selection(selected)</span>
+
+<span class="c1"># plt.subplot2grid(shape, (1, 3), colspan=2)       # CHANGED</span>
+<span class="c1"># plot_cmd(merged)</span>
+<span class="c1"># poly = Polygon(coords, closed=True, </span>
+<span class="c1">#                facecolor=&#39;C1&#39;, alpha=0.4)</span>
+<span class="c1"># plt.gca().add_patch(poly)</span>
+
+<span class="c1"># plt.tight_layout()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div class="section" id="summary">
 <h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
