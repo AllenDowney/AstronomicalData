@@ -18,5 +18,5 @@ dependencies:
   - gsl
   - python-wget
   - pip
-    - astro-gala
+    - gala
 
