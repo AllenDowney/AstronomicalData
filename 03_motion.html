@@ -298,6 +298,11 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#plotting-proper-motion">
+   Plotting proper motion
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#filtering-based-on-proper-motion">
    Filtering based on proper motion
   </a>
@@ -497,7 +502,7 @@ radial_velocity float64   km / s                                                
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html"><i>Row index=0</i>
-<table id="table140419756472688">
+<table id="table140569154410096">
 <thead><tr><th>source_id</th><th>ra</th><th>dec</th><th>pmra</th><th>pmdec</th><th>parallax</th><th>parallax_error</th><th>radial_velocity</th></tr></thead>
 <thead><tr><th></th><th>deg</th><th>deg</th><th>mas / yr</th><th>mas / yr</th><th>mas</th><th>mas</th><th>km / s</th></tr></thead>
 <thead><tr><th>int64</th><th>float64</th><th>float64</th><th>float64</th><th>float64</th><th>float64</th><th>float64</th><th>float64</th></tr></thead>
@@ -589,13 +594,20 @@ radial_velocity float64   km / s                                                
 <p>To fix this, we can provide optional arguments to control the size and transparency of the points.</p>
 <div class="section" id="exercise">
 <h3>Exercise<a class="headerlink" href="#exercise" title="Permalink to this headline">¶</a></h3>
-<p>In the call to <code class="docutils literal notranslate"><span class="pre">plt.plot</span></code>, add the keyword argument <code class="docutils literal notranslate"><span class="pre">markersize=0.1</span></code> to make the markers smaller.</p>
-<p>Then add the argument <code class="docutils literal notranslate"><span class="pre">alpha=0.1</span></code> to make the markers nearly transparent.</p>
+<p>In the call to <code class="docutils literal notranslate"><span class="pre">plt.plot</span></code>, use the keyword argument <code class="docutils literal notranslate"><span class="pre">markersize</span></code> to make the markers smaller.</p>
+<p>Then add the keyword argument <code class="docutils literal notranslate"><span class="pre">alpha</span></code> to make the markers partly transparent.</p>
 <p>Adjust these arguments until you think the figure shows the data most clearly.</p>
 <p>Note: Once you have made these changes, you might notice that the figure shows stripes with lower density of stars.  These stripes are caused by the way Gaia scans the sky, which <a class="reference external" href="https://www.cosmos.esa.int/web/gaia/scanning-law">you can read about here</a>.  The dataset we are using, <a class="reference external" href="https://www.cosmos.esa.int/web/gaia/dr2">Gaia Data Release 2</a>, covers 22 months of observations; during this time, some parts of the sky were scanned more than others.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
+
+<span class="c1"># x = results[&#39;ra&#39;]</span>
+<span class="c1"># y = results[&#39;dec&#39;]</span>
+<span class="c1"># plt.plot(x, y, &#39;ko&#39;, markersize=0.1, alpha=0.1)</span>
+
+<span class="c1"># plt.xlabel(&#39;ra (degree ICRS)&#39;)</span>
+<span class="c1"># plt.ylabel(&#39;dec (degree ICRS)&#39;);</span>
 </pre></div>
 </div>
 </div>
@@ -606,15 +618,18 @@ radial_velocity float64   km / s                                                
 <h2>Transform back<a class="headerlink" href="#transform-back" title="Permalink to this headline">¶</a></h2>
 <p>Remember that we selected data from a rectangle of coordinates in the <code class="docutils literal notranslate"><span class="pre">GD1Koposov10</span></code> frame, then transformed them to ICRS when we constructed the query.
 The coordinates in <code class="docutils literal notranslate"><span class="pre">results</span></code> are in ICRS.</p>
-<p>To plot them, we will transform them back to the <code class="docutils literal notranslate"><span class="pre">GD1Koposov10</span></code> frame; that way, the axes of the figure are aligned with the GD-1, which will make it easy to select stars near the centerline of the stream.</p>
-<p>To do that, we’ll put the results into a <code class="docutils literal notranslate"><span class="pre">SkyCoord</span></code> object,
-which is an “interface for celestial coordinate representation, manipulation, and transformation between systems”, provided by Astropy.</p>
+<p>To plot them, we will transform them back to the <code class="docutils literal notranslate"><span class="pre">GD1Koposov10</span></code> frame; that way, the axes of the figure are aligned with the orbit of GD-1, which is useful for two reasons:</p>
+<ul class="simple">
+<li><p>We can identify stars that are likely to be in GD-1 by selecting stars near the centerline of the stream, where <span class="math notranslate nohighlight">\(\phi_2\)</span> is close to 0.</p></li>
+<li><p>We expect stars in GD-1 to have similar proper motion along the <span class="math notranslate nohighlight">\(\phi_1\)</span> axis.</p></li>
+</ul>
+<p>To do the transformation, we’ll put the results into a <code class="docutils literal notranslate"><span class="pre">SkyCoord</span></code> object.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">astropy.coordinates</span> <span class="k">as</span> <span class="nn">coord</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">astropy.coordinates</span> <span class="kn">import</span> <span class="n">SkyCoord</span>
 <span class="kn">import</span> <span class="nn">astropy.units</span> <span class="k">as</span> <span class="nn">u</span>
 
-<span class="n">skycoord</span> <span class="o">=</span> <span class="n">coord</span><span class="o">.</span><span class="n">SkyCoord</span><span class="p">(</span>
+<span class="n">skycoord</span> <span class="o">=</span> <span class="n">SkyCoord</span><span class="p">(</span>
                <span class="n">ra</span><span class="o">=</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;ra&#39;</span><span class="p">],</span> 
                <span class="n">dec</span><span class="o">=</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;dec&#39;</span><span class="p">],</span>
                <span class="n">pm_ra_cosdec</span><span class="o">=</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;pmra&#39;</span><span class="p">],</span>
@@ -627,26 +642,13 @@ which is an “interface for celestial coordinate representation, manipulation, 
 </div>
 <p>Most of the arguments we send to <code class="docutils literal notranslate"><span class="pre">SkyCoord</span></code> come directly from <code class="docutils literal notranslate"><span class="pre">results</span></code>.</p>
 <p>We provide <code class="docutils literal notranslate"><span class="pre">distance</span></code> and <code class="docutils literal notranslate"><span class="pre">radial_velocity</span></code> to prepare the data for reflex correction, which we explain below.</p>
-<p>The result is a <code class="docutils literal notranslate"><span class="pre">SkyCoord</span></code> object (<a class="reference external" href="https://docs.astropy.org/en/stable/api/astropy.coordinates.SkyCoord.html#astropy.coordinates.SkyCoord">documentation here</a>).</p>
-<p>The result is an Astropy <code class="docutils literal notranslate"><span class="pre">SkyCoord</span></code> object.</p>
+<p>The result is an Astropy <code class="docutils literal notranslate"><span class="pre">SkyCoord</span></code> object, which we can transform to the GD-1 frame.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">skycoord</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>astropy.coordinates.sky_coordinate.SkyCoord
-</pre></div>
-</div>
-</div>
-</div>
-<p><code class="docutils literal notranslate"><span class="pre">SkyCoord</span></code> provides <code class="docutils literal notranslate"><span class="pre">transform_to</span></code>, so we can transform the coordinates to other frames.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">gala.coordinates</span> <span class="k">as</span> <span class="nn">gc</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">gala.coordinates</span> <span class="kn">import</span> <span class="n">GD1Koposov10</span>
 
-<span class="n">transformed</span> <span class="o">=</span> <span class="n">skycoord</span><span class="o">.</span><span class="n">transform_to</span><span class="p">(</span><span class="n">gc</span><span class="o">.</span><span class="n">GD1Koposov10</span><span class="p">)</span>
+<span class="n">gd1_frame</span> <span class="o">=</span> <span class="n">GD1Koposov10</span><span class="p">()</span>
+<span class="n">transformed</span> <span class="o">=</span> <span class="n">skycoord</span><span class="o">.</span><span class="n">transform_to</span><span class="p">(</span><span class="n">gd1_frame</span><span class="p">)</span>
 <span class="nb">type</span><span class="p">(</span><span class="n">transformed</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -659,7 +661,7 @@ which is an “interface for celestial coordinate representation, manipulation, 
 </div>
 <p>The result is another <code class="docutils literal notranslate"><span class="pre">SkyCoord</span></code> object, now in the <code class="docutils literal notranslate"><span class="pre">GD1Koposov10</span></code> frame.</p>
 <p>The next step is to correct the proper motion measurements from Gaia for reflex due to the motion of our solar system around the Galactic center.</p>
-<p>When we created <code class="docutils literal notranslate"><span class="pre">skycoord</span></code>, we provided <code class="docutils literal notranslate"><span class="pre">distance</span></code> and <code class="docutils literal notranslate"><span class="pre">radial_velocity</span></code> as arguments, which means we ignore the measurements provided by Gaia and replace them with these fixed values.</p>
+<p>When we created <code class="docutils literal notranslate"><span class="pre">skycoord</span></code>, we provided <code class="docutils literal notranslate"><span class="pre">distance</span></code> and <code class="docutils literal notranslate"><span class="pre">radial_velocity</span></code> as arguments, but we did not use the measurements provided by Gaia.  Instead, we use fixed values for these parameters.</p>
 <p>That might seem like a strange thing to do, but here’s the motivation:</p>
 <ul class="simple">
 <li><p>Because the stars in GD-1 are so far away, the distance estimates we get from Gaia, which are based on parallax, are not very precise.  So we replace them with our current best estimate of the mean distance to GD-1, about 8 kpc.  See <a class="reference external" href="https://ui.adsabs.harvard.edu/abs/2010ApJ...712..260K/abstract">Koposov, Rix, and Hogg, 2010</a>.</p></li>
@@ -670,8 +672,9 @@ which is an “interface for celestial coordinate representation, manipulation, 
 <p>With this preparation, we can use <code class="docutils literal notranslate"><span class="pre">reflex_correct</span></code> from Gala (<a class="reference external" href="https://gala-astro.readthedocs.io/en/latest/api/gala.coordinates.reflex_correct.html">documentation here</a>) to correct for solar reflex motion.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gd1_coord</span> <span class="o">=</span> <span class="n">gc</span><span class="o">.</span><span class="n">reflex_correct</span><span class="p">(</span><span class="n">transformed</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">gala.coordinates</span> <span class="kn">import</span> <span class="n">reflex_correct</span>
 
+<span class="n">gd1_coord</span> <span class="o">=</span> <span class="n">reflex_correct</span><span class="p">(</span><span class="n">transformed</span><span class="p">)</span>
 <span class="nb">type</span><span class="p">(</span><span class="n">gd1_coord</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -684,8 +687,8 @@ which is an “interface for celestial coordinate representation, manipulation, 
 </div>
 <p>The result is a <code class="docutils literal notranslate"><span class="pre">SkyCoord</span></code> object that contains</p>
 <ul class="simple">
-<li><p>The transformed coordinates as attributes named <code class="docutils literal notranslate"><span class="pre">phi1</span></code> and <code class="docutils literal notranslate"><span class="pre">phi2</span></code>, which represent right ascension and declination in the <code class="docutils literal notranslate"><span class="pre">GD1Koposov10</span></code> frame.</p></li>
-<li><p>The transformed and corrected proper motions as <code class="docutils literal notranslate"><span class="pre">pm_phi1_cosphi2</span></code> and <code class="docutils literal notranslate"><span class="pre">pm_phi2</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">phi1</span></code> and <code class="docutils literal notranslate"><span class="pre">phi2</span></code>, which represent the transformed coordinates in the <code class="docutils literal notranslate"><span class="pre">GD1Koposov10</span></code> frame.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pm_phi1_cosphi2</span></code> and <code class="docutils literal notranslate"><span class="pre">pm_phi2</span></code>, which represent the transformed and corrected proper motions.</p></li>
 </ul>
 <p>We can select the coordinates like this:</p>
 <div class="cell docutils container">
@@ -707,7 +710,7 @@ which is an “interface for celestial coordinate representation, manipulation, 
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/03_motion_47_0.png" src="_images/03_motion_47_0.png" />
+<img alt="_images/03_motion_43_0.png" src="_images/03_motion_43_0.png" />
 </div>
 </div>
 <p>Remember that we started with a rectangle in GD-1 coordinates.  When transformed to ICRS, it’s a non-rectangular polygon.  Now that we have transformed back to GD-1 coordinates, it’s a rectangle again.</p>
@@ -752,8 +755,8 @@ which is an “interface for celestial coordinate representation, manipulation, 
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
-<span class="n">df</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">to_pandas</span><span class="p">()</span>
-<span class="n">df</span><span class="o">.</span><span class="n">shape</span>
+<span class="n">results_df</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">to_pandas</span><span class="p">()</span>
+<span class="n">results_df</span><span class="o">.</span><span class="n">shape</span>
 </pre></div>
 </div>
 </div>
@@ -767,7 +770,7 @@ which is an “interface for celestial coordinate representation, manipulation, 
 <p>It also provides <code class="docutils literal notranslate"><span class="pre">head</span></code>, which displays the first few rows.  It is useful for spot-checking large results as you go along.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">results_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -864,14 +867,14 @@ which is an “interface for celestial coordinate representation, manipulation, 
 <p>Now we can extract the columns we want from <code class="docutils literal notranslate"><span class="pre">gd1_coord</span></code> and add them as columns in the <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>.  <code class="docutils literal notranslate"><span class="pre">phi1</span></code> and <code class="docutils literal notranslate"><span class="pre">phi2</span></code> contain the transformed coordinates.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;phi1&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">gd1_coord</span><span class="o">.</span><span class="n">phi1</span>
-<span class="n">df</span><span class="p">[</span><span class="s1">&#39;phi2&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">gd1_coord</span><span class="o">.</span><span class="n">phi2</span>
-<span class="n">df</span><span class="o">.</span><span class="n">shape</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">results_df</span><span class="p">[</span><span class="s1">&#39;phi1&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">gd1_coord</span><span class="o">.</span><span class="n">phi1</span>
+<span class="n">results_df</span><span class="p">[</span><span class="s1">&#39;phi2&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">gd1_coord</span><span class="o">.</span><span class="n">phi2</span>
+<span class="n">results_df</span><span class="o">.</span><span class="n">shape</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(140340, 12)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(140340, 10)
 </pre></div>
 </div>
 </div>
@@ -879,9 +882,9 @@ which is an “interface for celestial coordinate representation, manipulation, 
 <p><code class="docutils literal notranslate"><span class="pre">pm_phi1_cosphi2</span></code> and <code class="docutils literal notranslate"><span class="pre">pm_phi2</span></code> contain the components of proper motion in the transformed frame.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;pm_phi1&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">gd1_coord</span><span class="o">.</span><span class="n">pm_phi1_cosphi2</span>
-<span class="n">df</span><span class="p">[</span><span class="s1">&#39;pm_phi2&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">gd1_coord</span><span class="o">.</span><span class="n">pm_phi2</span>
-<span class="n">df</span><span class="o">.</span><span class="n">shape</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">results_df</span><span class="p">[</span><span class="s1">&#39;pm_phi1&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">gd1_coord</span><span class="o">.</span><span class="n">pm_phi1_cosphi2</span>
+<span class="n">results_df</span><span class="p">[</span><span class="s1">&#39;pm_phi2&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">gd1_coord</span><span class="o">.</span><span class="n">pm_phi2</span>
+<span class="n">results_df</span><span class="o">.</span><span class="n">shape</span>
 </pre></div>
 </div>
 </div>
@@ -900,7 +903,7 @@ which is an “interface for celestial coordinate representation, manipulation, 
 <p>One of the most useful of these functions is <code class="docutils literal notranslate"><span class="pre">describe</span></code>, which computes summary statistics for each column.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">results_df</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -1098,17 +1101,17 @@ which is an “interface for celestial coordinate representation, manipulation, 
 <li><p>Due to the nature of tidal streams, we expect the proper motion for most stars to be along the axis of the stream; that is, we expect motion in the direction of <code class="docutils literal notranslate"><span class="pre">phi2</span></code> to be near 0.</p></li>
 <li><p>In the direction of <code class="docutils literal notranslate"><span class="pre">phi1</span></code>, we don’t have a prior expectation for proper motion, except that it should form a cluster at a non-zero value.</p></li>
 </ul>
-<p>To locate this cluster, we’ll select stars near the centerline of GD-1 and plot their proper motion.</p>
+<p>To locate this cluster, we will select stars near the centerline_df of GD-1.</p>
 </div>
 <div class="section" id="selecting-the-centerline">
 <h2>Selecting the centerline<a class="headerlink" href="#selecting-the-centerline" title="Permalink to this headline">¶</a></h2>
-<p>As we can see in the following figure, many stars in GD-1 are less than 1 degree of declination from the line <code class="docutils literal notranslate"><span class="pre">phi2=0</span></code>.</p>
+<p>As we can see in the following figure, many stars in GD-1 are less than 1 degree from the line <code class="docutils literal notranslate"><span class="pre">phi2=0</span></code>.</p>
 <img alt="https://github.com/datacarpentry/astronomy-python/raw/gh-pages/fig/gd1-4.png" src="https://github.com/datacarpentry/astronomy-python/raw/gh-pages/fig/gd1-4.png" />
-<p>If we select stars near this line, they are more likely to be in GD-1.</p>
-<p>We’ll start by selecting the <code class="docutils literal notranslate"><span class="pre">phi2</span></code> column from the <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>:</p>
+<p>So stars near this line have the highest probability of being in GD-1.</p>
+<p>To select them, we will use a “Boolean mask”.  We’ll start by selecting the <code class="docutils literal notranslate"><span class="pre">phi2</span></code> column from the <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">phi2</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;phi2&#39;</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">phi2</span> <span class="o">=</span> <span class="n">results_df</span><span class="p">[</span><span class="s1">&#39;phi2&#39;</span><span class="p">]</span>
 <span class="nb">type</span><span class="p">(</span><span class="n">phi2</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1126,25 +1129,13 @@ which is an “interface for celestial coordinate representation, manipulation, 
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">phi2_min</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.0</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">deg</span>
 <span class="n">phi2_max</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">deg</span>
 
-<span class="n">mask</span> <span class="o">=</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;phi2&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">phi2_min</span><span class="p">)</span>
+<span class="n">mask</span> <span class="o">=</span> <span class="p">(</span><span class="n">phi2</span> <span class="o">&gt;</span> <span class="n">phi2_min</span><span class="p">)</span>
 <span class="nb">type</span><span class="p">(</span><span class="n">mask</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>pandas.core.series.Series
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mask</span><span class="o">.</span><span class="n">dtype</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>dtype(&#39;bool&#39;)
 </pre></div>
 </div>
 </div>
@@ -1167,11 +1158,33 @@ Name: phi2, dtype: bool
 </div>
 </div>
 </div>
+<p>The <code class="docutils literal notranslate"><span class="pre">&amp;</span></code> operator computes “logical AND”, which means the result is true where elements from both Boolean <code class="docutils literal notranslate"><span class="pre">Series</span></code> are true.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mask</span> <span class="o">=</span> <span class="p">(</span><span class="n">phi2</span> <span class="o">&gt;</span> <span class="n">phi2_min</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">phi2</span> <span class="o">&lt;</span> <span class="n">phi2_max</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Python note: We need the parentheses around the conditions; otherwise the order of operations is incorrect.</p>
+<p>The sum of a Boolean <code class="docutils literal notranslate"><span class="pre">Series</span></code> is the number of <code class="docutils literal notranslate"><span class="pre">True</span></code> values, so we can use <code class="docutils literal notranslate"><span class="pre">sum</span></code> to see how many stars are in the selected region.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mask</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>25084
+</pre></div>
+</div>
+</div>
+</div>
 <p>A Boolean <code class="docutils literal notranslate"><span class="pre">Series</span></code> is sometimes called a “mask” because we can use it to mask out some of the rows in a <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> and select the rest, like this:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">subset</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span>
-<span class="nb">type</span><span class="p">(</span><span class="n">subset</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">centerline_df</span> <span class="o">=</span> <span class="n">results_df</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span>
+<span class="nb">type</span><span class="p">(</span><span class="n">centerline_df</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1181,49 +1194,15 @@ Name: phi2, dtype: bool
 </div>
 </div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">subset</span></code> is a <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> that contains only the rows from <code class="docutils literal notranslate"><span class="pre">df</span></code> that correspond to <code class="docutils literal notranslate"><span class="pre">True</span></code> values in <code class="docutils literal notranslate"><span class="pre">mask</span></code>.</p>
-<p>The previous mask selects all stars where <code class="docutils literal notranslate"><span class="pre">phi2</span></code> exceeds <code class="docutils literal notranslate"><span class="pre">phi2_min</span></code>; now we’ll select stars where <code class="docutils literal notranslate"><span class="pre">phi2</span></code> falls between <code class="docutils literal notranslate"><span class="pre">phi2_min</span></code> and <code class="docutils literal notranslate"><span class="pre">phi2_max</span></code>.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">phi_mask</span> <span class="o">=</span> <span class="p">((</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;phi2&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">phi2_min</span><span class="p">)</span> <span class="o">&amp;</span> 
-            <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;phi2&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">phi2_max</span><span class="p">))</span>
-</pre></div>
+<p><code class="docutils literal notranslate"><span class="pre">centerline_df</span></code> is a <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> that contains only the rows from <code class="docutils literal notranslate"><span class="pre">results_df</span></code> that correspond to <code class="docutils literal notranslate"><span class="pre">True</span></code> values in <code class="docutils literal notranslate"><span class="pre">mask</span></code>; that is, in contains the stars near the centerline of GD-1.</p>
 </div>
-</div>
-</div>
-<p>The <code class="docutils literal notranslate"><span class="pre">&amp;</span></code> operator computes “logical AND”, which means the result is true where elements from both Boolean <code class="docutils literal notranslate"><span class="pre">Series</span></code> are true.</p>
-<p>The sum of a Boolean <code class="docutils literal notranslate"><span class="pre">Series</span></code> is the number of <code class="docutils literal notranslate"><span class="pre">True</span></code> values, so we can use <code class="docutils literal notranslate"><span class="pre">sum</span></code> to see how many stars are in the selected region.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">phi_mask</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>25084
-</pre></div>
-</div>
-</div>
-</div>
-<p>And we can use <code class="docutils literal notranslate"><span class="pre">phi1_mask</span></code> to select stars near the centerline, which are more likely to be in GD-1.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">centerline</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">phi_mask</span><span class="p">]</span>
-<span class="nb">len</span><span class="p">(</span><span class="n">centerline</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>25084
-</pre></div>
-</div>
-</div>
-</div>
+<div class="section" id="plotting-proper-motion">
+<h2>Plotting proper motion<a class="headerlink" href="#plotting-proper-motion" title="Permalink to this headline">¶</a></h2>
 <p>Here’s a scatter plot of proper motion for the selected stars.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pm1</span> <span class="o">=</span> <span class="n">centerline</span><span class="p">[</span><span class="s1">&#39;pm_phi1&#39;</span><span class="p">]</span>
-<span class="n">pm2</span> <span class="o">=</span> <span class="n">centerline</span><span class="p">[</span><span class="s1">&#39;pm_phi2&#39;</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pm1</span> <span class="o">=</span> <span class="n">centerline_df</span><span class="p">[</span><span class="s1">&#39;pm_phi1&#39;</span><span class="p">]</span>
+<span class="n">pm2</span> <span class="o">=</span> <span class="n">centerline_df</span><span class="p">[</span><span class="s1">&#39;pm_phi2&#39;</span><span class="p">]</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">pm1</span><span class="p">,</span> <span class="n">pm2</span><span class="p">,</span> <span class="s1">&#39;ko&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
     
@@ -1233,15 +1212,15 @@ Name: phi2, dtype: bool
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/03_motion_85_0.png" src="_images/03_motion_85_0.png" />
+<img alt="_images/03_motion_80_0.png" src="_images/03_motion_80_0.png" />
 </div>
 </div>
 <p>Looking at these results, we see a large cluster around (0, 0), and a smaller cluster near (0, -10).</p>
 <p>We can use <code class="docutils literal notranslate"><span class="pre">xlim</span></code> and <code class="docutils literal notranslate"><span class="pre">ylim</span></code> to set the limits on the axes and zoom in on the region near (0, 0).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pm1</span> <span class="o">=</span> <span class="n">centerline</span><span class="p">[</span><span class="s1">&#39;pm_phi1&#39;</span><span class="p">]</span>
-<span class="n">pm2</span> <span class="o">=</span> <span class="n">centerline</span><span class="p">[</span><span class="s1">&#39;pm_phi2&#39;</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pm1</span> <span class="o">=</span> <span class="n">centerline_df</span><span class="p">[</span><span class="s1">&#39;pm_phi1&#39;</span><span class="p">]</span>
+<span class="n">pm2</span> <span class="o">=</span> <span class="n">centerline_df</span><span class="p">[</span><span class="s1">&#39;pm_phi2&#39;</span><span class="p">]</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">pm1</span><span class="p">,</span> <span class="n">pm2</span><span class="p">,</span> <span class="s1">&#39;ko&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
     
@@ -1254,7 +1233,7 @@ Name: phi2, dtype: bool
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/03_motion_87_0.png" src="_images/03_motion_87_0.png" />
+<img alt="_images/03_motion_82_0.png" src="_images/03_motion_82_0.png" />
 </div>
 </div>
 <p>Now we can see the smaller cluster more clearly.</p>
@@ -1281,8 +1260,19 @@ Name: phi2, dtype: bool
 <p>To draw these bounds, we’ll make two lists containing the coordinates of the corners of the rectangle.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pm1_rect</span> <span class="o">=</span> <span class="p">[</span><span class="n">pm1_min</span><span class="p">,</span> <span class="n">pm1_min</span><span class="p">,</span> <span class="n">pm1_max</span><span class="p">,</span> <span class="n">pm1_max</span><span class="p">,</span> <span class="n">pm1_min</span><span class="p">]</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">mas</span><span class="o">/</span><span class="n">u</span><span class="o">.</span><span class="n">yr</span>
-<span class="n">pm2_rect</span> <span class="o">=</span> <span class="p">[</span><span class="n">pm2_min</span><span class="p">,</span> <span class="n">pm2_max</span><span class="p">,</span> <span class="n">pm2_max</span><span class="p">,</span> <span class="n">pm2_min</span><span class="p">,</span> <span class="n">pm2_min</span><span class="p">]</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">mas</span><span class="o">/</span><span class="n">u</span><span class="o">.</span><span class="n">yr</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">make_rectangle</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">y2</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Return the corners of a rectangle.&quot;&quot;&quot;</span>
+    <span class="n">xs</span> <span class="o">=</span> <span class="p">[</span><span class="n">x1</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">x1</span><span class="p">]</span>
+    <span class="n">ys</span> <span class="o">=</span> <span class="p">[</span><span class="n">y1</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">y1</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">xs</span><span class="p">,</span> <span class="n">ys</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pm1_rect</span><span class="p">,</span> <span class="n">pm2_rect</span> <span class="o">=</span> <span class="n">make_rectangle</span><span class="p">(</span>
+    <span class="n">pm1_min</span><span class="p">,</span> <span class="n">pm1_max</span><span class="p">,</span> <span class="n">pm2_min</span><span class="p">,</span> <span class="n">pm2_max</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1302,7 +1292,7 @@ Name: phi2, dtype: bool
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/03_motion_94_0.png" src="_images/03_motion_94_0.png" />
+<img alt="_images/03_motion_90_0.png" src="_images/03_motion_90_0.png" />
 </div>
 </div>
 <p>To select rows that fall within these bounds, we’ll use the following function, which uses Pandas operators to make a mask that selects rows where <code class="docutils literal notranslate"><span class="pre">series</span></code> falls between <code class="docutils literal notranslate"><span class="pre">low</span></code> and <code class="docutils literal notranslate"><span class="pre">high</span></code>.</p>
@@ -1325,8 +1315,11 @@ Name: phi2, dtype: bool
 <p>The following mask select stars with proper motion in the region we chose.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pm_mask</span> <span class="o">=</span> <span class="p">(</span><span class="n">between</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;pm_phi1&#39;</span><span class="p">],</span> <span class="n">pm1_min</span><span class="p">,</span> <span class="n">pm1_max</span><span class="p">)</span> <span class="o">&amp;</span> 
-           <span class="n">between</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;pm_phi2&#39;</span><span class="p">],</span> <span class="n">pm2_min</span><span class="p">,</span> <span class="n">pm2_max</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pm1</span> <span class="o">=</span> <span class="n">results_df</span><span class="p">[</span><span class="s1">&#39;pm_phi1&#39;</span><span class="p">]</span>
+<span class="n">pm2</span> <span class="o">=</span> <span class="n">results_df</span><span class="p">[</span><span class="s1">&#39;pm_phi2&#39;</span><span class="p">]</span>
+
+<span class="n">pm_mask</span> <span class="o">=</span> <span class="p">(</span><span class="n">between</span><span class="p">(</span><span class="n">pm1</span><span class="p">,</span> <span class="n">pm1_min</span><span class="p">,</span> <span class="n">pm1_max</span><span class="p">)</span> <span class="o">&amp;</span> 
+           <span class="n">between</span><span class="p">(</span><span class="n">pm2</span><span class="p">,</span> <span class="n">pm2_min</span><span class="p">,</span> <span class="n">pm2_max</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -1344,11 +1337,11 @@ Name: phi2, dtype: bool
 </div>
 </div>
 </div>
-<p>Now we can use this mask to select rows from <code class="docutils literal notranslate"><span class="pre">df</span></code>.</p>
+<p>Now we can use this mask to select rows from <code class="docutils literal notranslate"><span class="pre">results_df</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">selected</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">pm_mask</span><span class="p">]</span>
-<span class="nb">len</span><span class="p">(</span><span class="n">selected</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">selected_df</span> <span class="o">=</span> <span class="n">results_df</span><span class="p">[</span><span class="n">pm_mask</span><span class="p">]</span>
+<span class="nb">len</span><span class="p">(</span><span class="n">selected_df</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1361,18 +1354,18 @@ Name: phi2, dtype: bool
 <p>These are the stars we think are likely to be in GD-1.  Let’s see what they look like, plotting their coordinates (not their proper motion).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">phi1</span> <span class="o">=</span> <span class="n">selected</span><span class="p">[</span><span class="s1">&#39;phi1&#39;</span><span class="p">]</span>
-<span class="n">phi2</span> <span class="o">=</span> <span class="n">selected</span><span class="p">[</span><span class="s1">&#39;phi2&#39;</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">phi1</span> <span class="o">=</span> <span class="n">selected_df</span><span class="p">[</span><span class="s1">&#39;phi1&#39;</span><span class="p">]</span>
+<span class="n">phi2</span> <span class="o">=</span> <span class="n">selected_df</span><span class="p">[</span><span class="s1">&#39;phi2&#39;</span><span class="p">]</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">phi1</span><span class="p">,</span> <span class="n">phi2</span><span class="p">,</span> <span class="s1">&#39;ko&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;ra (degree GD1)&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;dec (degree GD1)&#39;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\phi_1$ (degree GD1)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\phi_2$ (degree GD1)&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/03_motion_104_0.png" src="_images/03_motion_104_0.png" />
+<img alt="_images/03_motion_100_0.png" src="_images/03_motion_100_0.png" />
 </div>
 </div>
 <p>Now that’s starting to look like a tidal stream!</p>
@@ -1383,7 +1376,7 @@ Name: phi2, dtype: bool
 <p>To save a Pandas <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>, one option is to convert it to an Astropy <code class="docutils literal notranslate"><span class="pre">Table</span></code>, like this:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">selected_table</span> <span class="o">=</span> <span class="n">Table</span><span class="o">.</span><span class="n">from_pandas</span><span class="p">(</span><span class="n">selected</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">selected_table</span> <span class="o">=</span> <span class="n">Table</span><span class="o">.</span><span class="n">from_pandas</span><span class="p">(</span><span class="n">selected_df</span><span class="p">)</span>
 <span class="nb">type</span><span class="p">(</span><span class="n">selected_table</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1406,22 +1399,22 @@ Name: phi2, dtype: bool
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;gd1_dataframe.hdf5&#39;</span>
 
-<span class="n">df</span><span class="o">.</span><span class="n">to_hdf</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;df&#39;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">)</span>
+<span class="n">results_df</span><span class="o">.</span><span class="n">to_hdf</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;results_df&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 <p>Because an HDF5 file can contain more than one Dataset, we have to provide a name, or “key”, that identifies the Dataset in the file.</p>
-<p>We could use any string as the key, but in this example I use the variable name <code class="docutils literal notranslate"><span class="pre">df</span></code>.</p>
+<p>We could use any string as the key, but in this example I use the variable name <code class="docutils literal notranslate"><span class="pre">results_df</span></code>.</p>
 <div class="section" id="id2">
 <h3>Exercise<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
-<p>We’re going to need <code class="docutils literal notranslate"><span class="pre">centerline</span></code> and <code class="docutils literal notranslate"><span class="pre">selected</span></code> later as well.  Write a line or two of code to add it as a second Dataset in the HDF5 file.</p>
+<p>We’re going to need <code class="docutils literal notranslate"><span class="pre">centerline_df</span></code> and <code class="docutils literal notranslate"><span class="pre">selected_df</span></code> later as well.  Write a line or two of code to add it as a second Dataset in the HDF5 file.</p>
 <div class="cell tag_hide-cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
 
-<span class="n">centerline</span><span class="o">.</span><span class="n">to_hdf</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;centerline&#39;</span><span class="p">)</span>
-<span class="n">selected</span><span class="o">.</span><span class="n">to_hdf</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;selected&#39;</span><span class="p">)</span>
+<span class="n">centerline_df</span><span class="o">.</span><span class="n">to_hdf</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;centerline_df&#39;</span><span class="p">)</span>
+<span class="n">selected_df</span><span class="o">.</span><span class="n">to_hdf</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;selected_df&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1442,7 +1435,7 @@ Name: phi2, dtype: bool
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-rw-rw-r-- 1 downey downey 17M Nov 18 19:06 gd1_dataframe.hdf5
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-rw-rw-r-- 1 downey downey 20M Dec 29 11:48 gd1_dataframe.hdf5
 </pre></div>
 </div>
 </div>
@@ -1454,7 +1447,7 @@ Name: phi2, dtype: bool
 <p>We can read the file back like this:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">read_back_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_hdf</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;df&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">read_back_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_hdf</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;results_df&#39;</span><span class="p">)</span>
 <span class="n">read_back_df</span><span class="o">.</span><span class="n">shape</span>
 </pre></div>
 </div>
@@ -1471,7 +1464,7 @@ Name: phi2, dtype: bool
 <div class="section" id="summary">
 <h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
 <p>In this lesson, we re-loaded the Gaia data we saved from a previous query.</p>
-<p>We transformed the coordinates and proper motion from ICRS to a frame aligned with GD-1, and stored the results in a Pandas <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>.</p>
+<p>We transformed the coordinates and proper motion from ICRS to a frame aligned with the orbit of GD-1, and stored the results in a Pandas <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>.</p>
 <p>Then we replicated the selection process from the Price-Whelan and Bonaca paper:</p>
 <ul class="simple">
 <li><p>We selected stars near the centerline of GD-1 and made a scatter plot of their proper motion.</p></li>

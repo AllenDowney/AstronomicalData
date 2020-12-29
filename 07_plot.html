@@ -458,17 +458,12 @@
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>gd1_merged.hdf5
-</pre></div>
-</div>
-</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
-<span class="n">selected</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_hdf</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;selected&#39;</span><span class="p">)</span>
+<span class="n">selected2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_hdf</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;selected2&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -496,7 +491,7 @@
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mf">2.5</span><span class="p">))</span>
-<span class="n">plot_second_selection</span><span class="p">(</span><span class="n">selected</span><span class="p">)</span>
+<span class="n">plot_second_selection</span><span class="p">(</span><span class="n">selected2</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -722,7 +717,7 @@
 </div>
 <div class="section" id="upper-right">
 <h2>Upper right<a class="headerlink" href="#upper-right" title="Permalink to this headline">¶</a></h2>
-<p>To make the panel in the upper right, we have to reload <code class="docutils literal notranslate"><span class="pre">centerline</span></code>.</p>
+<p>To make the panel in the upper right, we have to reload <code class="docutils literal notranslate"><span class="pre">centerline_df</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
@@ -735,17 +730,12 @@
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>gd1_dataframe.hdf5
-</pre></div>
-</div>
-</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
-<span class="n">centerline</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_hdf</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;centerline&#39;</span><span class="p">)</span>
+<span class="n">centerline_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_hdf</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;centerline_df&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -815,7 +805,7 @@
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;text.usetex&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;default&#39;</span><span class="p">)</span>
 
-<span class="n">plot_proper_motion</span><span class="p">(</span><span class="n">centerline</span><span class="p">)</span>
+<span class="n">plot_proper_motion</span><span class="p">(</span><span class="n">centerline_df</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -836,11 +826,6 @@
 
 <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">download</span><span class="p">(</span><span class="n">path</span><span class="o">+</span><span class="n">filename</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>gd1_candidates.hdf5
 </pre></div>
 </div>
 </div>
@@ -919,8 +904,8 @@
     <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">([</span><span class="mi">14</span><span class="p">,</span> <span class="mi">22</span><span class="p">])</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">invert_yaxis</span><span class="p">()</span>
 
-    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$g_0$&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$(g-i)_0$&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$Magnitude (g)$&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$Color (g-i)$&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -949,283 +934,67 @@
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>gd1_polygon.hdf5
-</pre></div>
-</div>
-</div>
 </div>
 <p>And here’s how we read it back.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">loop</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_hdf</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;loop&#39;</span><span class="p">)</span>
-<span class="n">loop</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">loop_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_hdf</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;loop_df&#39;</span><span class="p">)</span>
+<span class="n">loop_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>gi
-0.587571    21.411746
-0.567801    21.322466
-0.548134    21.233380
-0.528693    21.144427
-0.509300    21.054549
-              ...    
-0.773743    21.054549
-0.798829    21.144427
-0.824000    21.233380
-0.849503    21.322466
-0.875220    21.411746
-Name: g, Length: 234, dtype: float64
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">coords</span> <span class="o">=</span> <span class="n">loop</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
-<span class="n">coords</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 0.58757135, 21.41174601],
-       [ 0.56780097, 21.32246601],
-       [ 0.54813409, 21.23338001],
-       [ 0.5286928 , 21.14442701],
-       [ 0.50929987, 21.05454901],
-       [ 0.48991266, 20.96383501],
-       [ 0.47084777, 20.87386601],
-       [ 0.45222635, 20.78511001],
-       [ 0.43438902, 20.69865301],
-       [ 0.42745198, 20.66469601],
-       [ 0.42067029, 20.63135301],
-       [ 0.41402867, 20.59850601],
-       [ 0.40738016, 20.56529901],
-       [ 0.40088387, 20.53264001],
-       [ 0.39449608, 20.50023501],
-       [ 0.38843797, 20.46871801],
-       [ 0.38251577, 20.43765101],
-       [ 0.3766547 , 20.40653701],
-       [ 0.37088531, 20.37564701],
-       [ 0.36522325, 20.34505401],
-       [ 0.35962415, 20.31443001],
-       [ 0.35413292, 20.28413501],
-       [ 0.34871894, 20.25390101],
-       [ 0.34339273, 20.22385701],
-       [ 0.33815825, 20.19395801],
-       [ 0.33305724, 20.16427301],
-       [ 0.32820637, 20.13508501],
-       [ 0.32348139, 20.10604901],
-       [ 0.31883343, 20.07716101],
-       [ 0.31425423, 20.04833101],
-       [ 0.30974976, 20.01961701],
-       [ 0.30531997, 19.99097001],
-       [ 0.30097354, 19.96246401],
-       [ 0.29669999, 19.93401801],
-       [ 0.29250157, 19.90573101],
-       [ 0.28837983, 19.87746501],
-       [ 0.28441584, 19.84955001],
-       [ 0.28065057, 19.82188301],
-       [ 0.27700644, 19.79450101],
-       [ 0.27342328, 19.76713801],
-       [ 0.26989305, 19.73985301],
-       [ 0.26641258, 19.71265801],
-       [ 0.26298257, 19.68540001],
-       [ 0.25960216, 19.65824401],
-       [ 0.2562733 , 19.63113701],
-       [ 0.25299978, 19.60409301],
-       [ 0.24977307, 19.57714401],
-       [ 0.24660506, 19.55024001],
-       [ 0.24348829, 19.52341001],
-       [ 0.24042159, 19.49666601],
-       [ 0.23741737, 19.46998501],
-       [ 0.23447423, 19.44339301],
-       [ 0.23158726, 19.41688701],
-       [ 0.22876474, 19.39045101],
-       [ 0.22600432, 19.36410901],
-       [ 0.22330395, 19.33786601],
-       [ 0.220663  , 19.31170101],
-       [ 0.21808571, 19.28560101],
-       [ 0.21557456, 19.25960101],
-       [ 0.21312279, 19.23368701],
-       [ 0.21073349, 19.20785601],
-       [ 0.20840975, 19.18210401],
-       [ 0.20614799, 19.15640601],
-       [ 0.20395119, 19.13076401],
-       [ 0.20182156, 19.10523201],
-       [ 0.19975572, 19.07977101],
-       [ 0.19775195, 19.05436401],
-       [ 0.19581903, 19.02902801],
-       [ 0.19395701, 19.00376101],
-       [ 0.19216276, 18.97857301],
-       [ 0.19044513, 18.95347601],
-       [ 0.1888007 , 18.92850001],
-       [ 0.18723796, 18.90368201],
-       [ 0.18576648, 18.87905401],
-       [ 0.18438763, 18.85466301],
-       [ 0.18310871, 18.83056001],
-       [ 0.18193706, 18.80672701],
-       [ 0.18087817, 18.78327401],
-       [ 0.17993184, 18.76015001],
-       [ 0.17910244, 18.73740501],
-       [ 0.17838817, 18.71496101],
-       [ 0.17779005, 18.69282101],
-       [ 0.177312  , 18.67099501],
-       [ 0.17694971, 18.64944001],
-       [ 0.1767112 , 18.62815801],
-       [ 0.17659065, 18.60714001],
-       [ 0.17658939, 18.58636601],
-       [ 0.17671618, 18.56585701],
-       [ 0.17696696, 18.54562201],
-       [ 0.17733781, 18.52565801],
-       [ 0.1778346 , 18.50597901],
-       [ 0.17846661, 18.48656801],
-       [ 0.17922891, 18.46742401],
-       [ 0.18012796, 18.44859001],
-       [ 0.18116197, 18.43005501],
-       [ 0.18233604, 18.41181501],
-       [ 0.18363223, 18.39379401],
-       [ 0.18506009, 18.37602901],
-       [ 0.18660932, 18.35862101],
-       [ 0.18829849, 18.34153201],
-       [ 0.19012805, 18.32480701],
-       [ 0.19210919, 18.30851301],
-       [ 0.19422686, 18.29250401],
-       [ 0.1964951 , 18.27685701],
-       [ 0.19890209, 18.26156301],
-       [ 0.20145338, 18.24666001],
-       [ 0.20417715, 18.23260501],
-       [ 0.20705285, 18.21898101],
-       [ 0.21005661, 18.20562501],
-       [ 0.21319339, 18.19254201],
-       [ 0.22126873, 18.16185301],
-       [ 0.2300065 , 18.13259301],
-       [ 0.23950909, 18.10508001],
-       [ 0.24974677, 18.07932501],
-       [ 0.26066153, 18.05527801],
-       [ 0.27224553, 18.03295501],
-       [ 0.28447607, 18.01227601],
-       [ 0.40566013, 18.01227601],
-       [ 0.39412682, 18.03295501],
-       [ 0.38329907, 18.05527801],
-       [ 0.37320316, 18.07932501],
-       [ 0.36384734, 18.10508001],
-       [ 0.35529237, 18.13259301],
-       [ 0.34756872, 18.16185301],
-       [ 0.34056407, 18.19254201],
-       [ 0.33788593, 18.20562501],
-       [ 0.33535176, 18.21898101],
-       [ 0.33295648, 18.23260501],
-       [ 0.33072983, 18.24666001],
-       [ 0.32870734, 18.26156301],
-       [ 0.32684482, 18.27685701],
-       [ 0.3251355 , 18.29250401],
-       [ 0.32359167, 18.30851301],
-       [ 0.32219665, 18.32480701],
-       [ 0.32097089, 18.34153201],
-       [ 0.31990093, 18.35862101],
-       [ 0.31898485, 18.37602901],
-       [ 0.3182056 , 18.39379401],
-       [ 0.31756993, 18.41181501],
-       [ 0.31706705, 18.43005501],
-       [ 0.31671781, 18.44859001],
-       [ 0.3165174 , 18.46742401],
-       [ 0.31646817, 18.48656801],
-       [ 0.3165622 , 18.50597901],
-       [ 0.31680458, 18.52565801],
-       [ 0.31718682, 18.54562201],
-       [ 0.31770268, 18.56585701],
-       [ 0.31835632, 18.58636601],
-       [ 0.31915162, 18.60714001],
-       [ 0.32007915, 18.62815801],
-       [ 0.3211385 , 18.64944001],
-       [ 0.32233599, 18.67099501],
-       [ 0.32366367, 18.69282101],
-       [ 0.32512771, 18.71496101],
-       [ 0.32672398, 18.73740501],
-       [ 0.32845154, 18.76015001],
-       [ 0.33031546, 18.78327401],
-       [ 0.33230964, 18.80672701],
-       [ 0.33443651, 18.83056001],
-       [ 0.3366864 , 18.85466301],
-       [ 0.3390529 , 18.87905401],
-       [ 0.34152681, 18.90368201],
-       [ 0.34410502, 18.92850001],
-       [ 0.34677677, 18.95347601],
-       [ 0.34953217, 18.97857301],
-       [ 0.35237348, 19.00376101],
-       [ 0.35529144, 19.02902801],
-       [ 0.35828883, 19.05436401],
-       [ 0.36136575, 19.07977101],
-       [ 0.36451277, 19.10523201],
-       [ 0.36773241, 19.13076401],
-       [ 0.37102978, 19.15640601],
-       [ 0.37440044, 19.18210401],
-       [ 0.37784139, 19.20785601],
-       [ 0.38135736, 19.23368701],
-       [ 0.38494552, 19.25960101],
-       [ 0.388603  , 19.28560101],
-       [ 0.39233725, 19.31170101],
-       [ 0.39614435, 19.33786601],
-       [ 0.40002069, 19.36410901],
-       [ 0.40396796, 19.39045101],
-       [ 0.40798805, 19.41688701],
-       [ 0.41208235, 19.44339301],
-       [ 0.41624335, 19.46998501],
-       [ 0.42047622, 19.49666601],
-       [ 0.42478124, 19.52341001],
-       [ 0.42914714, 19.55024001],
-       [ 0.43357463, 19.57714401],
-       [ 0.43806989, 19.60409301],
-       [ 0.44262347, 19.63113701],
-       [ 0.44724247, 19.65824401],
-       [ 0.4519225 , 19.68540001],
-       [ 0.45666424, 19.71265801],
-       [ 0.46146067, 19.73985301],
-       [ 0.46631851, 19.76713801],
-       [ 0.47124047, 19.79450101],
-       [ 0.47623175, 19.82188301],
-       [ 0.48136578, 19.84955001],
-       [ 0.48671855, 19.87746501],
-       [ 0.49225451, 19.90573101],
-       [ 0.49787627, 19.93401801],
-       [ 0.50358931, 19.96246401],
-       [ 0.50938655, 19.99097001],
-       [ 0.51528266, 20.01961701],
-       [ 0.52126534, 20.04833101],
-       [ 0.52733726, 20.07716101],
-       [ 0.53348957, 20.10604901],
-       [ 0.53973535, 20.13508501],
-       [ 0.54612384, 20.16427301],
-       [ 0.55279781, 20.19395801],
-       [ 0.55962597, 20.22385701],
-       [ 0.56656311, 20.25390101],
-       [ 0.57360789, 20.28413501],
-       [ 0.58074299, 20.31443001],
-       [ 0.5880138 , 20.34505401],
-       [ 0.59535596, 20.37564701],
-       [ 0.60283203, 20.40653701],
-       [ 0.61042265, 20.43765101],
-       [ 0.61808231, 20.46871801],
-       [ 0.62591386, 20.50023501],
-       [ 0.63413647, 20.53264001],
-       [ 0.64249372, 20.56529901],
-       [ 0.65104657, 20.59850601],
-       [ 0.659584  , 20.63135301],
-       [ 0.66830253, 20.66469601],
-       [ 0.67722496, 20.69865301],
-       [ 0.70017638, 20.78511001],
-       [ 0.72413715, 20.87386601],
-       [ 0.74870785, 20.96383501],
-       [ 0.77374297, 21.05454901],
-       [ 0.7988286 , 21.14442701],
-       [ 0.8240001 , 21.23338001],
-       [ 0.84950281, 21.32246601],
-       [ 0.8752204 , 21.41174601]])
-</pre></div>
-</div>
-</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>color_loop</th>
+      <th>mag_loop</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.632171</td>
+      <td>21.411746</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0.610238</td>
+      <td>21.322466</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.588449</td>
+      <td>21.233380</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.566924</td>
+      <td>21.144427</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.545461</td>
+      <td>21.054549</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 <div class="section" id="id3">
 <h3>Exercise<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
@@ -1235,7 +1004,7 @@ Name: g, Length: 234, dtype: float64
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
 
-<span class="c1"># poly = Polygon(coords, closed=True, </span>
+<span class="c1"># poly = Polygon(loop_df, closed=True, </span>
 <span class="c1">#                facecolor=&#39;C1&#39;, alpha=0.4)</span>
 <span class="c1"># plt.gca().add_patch(poly)</span>
 </pre></div>
@@ -1261,14 +1030,14 @@ Name: g, Length: 234, dtype: float64
 <span class="n">plot_first_selection</span><span class="p">(</span><span class="n">candidate_df</span><span class="p">)</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">subplot2grid</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
-<span class="n">plot_proper_motion</span><span class="p">(</span><span class="n">centerline</span><span class="p">)</span>
+<span class="n">plot_proper_motion</span><span class="p">(</span><span class="n">centerline_df</span><span class="p">)</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">subplot2grid</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
-<span class="n">plot_second_selection</span><span class="p">(</span><span class="n">selected</span><span class="p">)</span>
+<span class="n">plot_second_selection</span><span class="p">(</span><span class="n">selected2</span><span class="p">)</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">subplot2grid</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
 <span class="n">plot_cmd</span><span class="p">(</span><span class="n">merged</span><span class="p">)</span>
-<span class="n">poly</span> <span class="o">=</span> <span class="n">Polygon</span><span class="p">(</span><span class="n">coords</span><span class="p">,</span> <span class="n">closed</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> 
+<span class="n">poly</span> <span class="o">=</span> <span class="n">Polygon</span><span class="p">(</span><span class="n">loop_df</span><span class="p">,</span> <span class="n">closed</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> 
                <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;C1&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">poly</span><span class="p">)</span>
 
@@ -1277,7 +1046,7 @@ Name: g, Length: 234, dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/07_plot_76_0.png" src="_images/07_plot_76_0.png" />
+<img alt="_images/07_plot_75_0.png" src="_images/07_plot_75_0.png" />
 </div>
 </div>
 <p>We use <a class="reference external" href="https://matplotlib.org/3.3.1/tutorials/intermediate/tight_layout_guide.html"><code class="docutils literal notranslate"><span class="pre">plt.tight_layout</span></code></a> at the end, which adjusts the sizes of the panels to make sure the titles and axis labels don’t overlap.</p>
@@ -1299,14 +1068,14 @@ Name: g, Length: 234, dtype: float64
 <span class="n">plot_first_selection</span><span class="p">(</span><span class="n">candidate_df</span><span class="p">)</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">subplot2grid</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
-<span class="n">plot_proper_motion</span><span class="p">(</span><span class="n">centerline</span><span class="p">)</span>
+<span class="n">plot_proper_motion</span><span class="p">(</span><span class="n">centerline_df</span><span class="p">)</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">subplot2grid</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">colspan</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-<span class="n">plot_second_selection</span><span class="p">(</span><span class="n">selected</span><span class="p">)</span>
+<span class="n">plot_second_selection</span><span class="p">(</span><span class="n">selected2</span><span class="p">)</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">subplot2grid</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
 <span class="n">plot_cmd</span><span class="p">(</span><span class="n">merged</span><span class="p">)</span>
-<span class="n">poly</span> <span class="o">=</span> <span class="n">Polygon</span><span class="p">(</span><span class="n">coords</span><span class="p">,</span> <span class="n">closed</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> 
+<span class="n">poly</span> <span class="o">=</span> <span class="n">Polygon</span><span class="p">(</span><span class="n">loop_df</span><span class="p">,</span> <span class="n">closed</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> 
                <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;C1&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">poly</span><span class="p">)</span>
 
@@ -1315,7 +1084,7 @@ Name: g, Length: 234, dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/07_plot_79_0.png" src="_images/07_plot_79_0.png" />
+<img alt="_images/07_plot_78_0.png" src="_images/07_plot_78_0.png" />
 </div>
 </div>
 <p>This is looking more and more like the figure in the paper.</p>
@@ -1333,10 +1102,10 @@ Name: g, Length: 234, dtype: float64
 <span class="c1"># plot_first_selection(candidate_df)</span>
 
 <span class="c1"># plt.subplot2grid(shape, (0, 3), colspan=2)       # CHANGED</span>
-<span class="c1"># plot_proper_motion(centerline)</span>
+<span class="c1"># plot_proper_motion(centerline_df)</span>
 
 <span class="c1"># plt.subplot2grid(shape, (1, 0), colspan=3)</span>
-<span class="c1"># plot_second_selection(selected)</span>
+<span class="c1"># plot_second_selection(selected2)</span>
 
 <span class="c1"># plt.subplot2grid(shape, (1, 3), colspan=2)       # CHANGED</span>
 <span class="c1"># plot_cmd(merged)</span>

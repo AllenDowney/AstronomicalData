@@ -45,7 +45,7 @@ This notebook demonstrates the following steps:
 
 Press this button to run this notebook on Colab:
 
-[<img src="run_on_colab_small.png">](https://colab.research.google.com/github/AllenDowney/AstronomicalData/blob/main/01_query.ipynb)
+[Run Notebook 1 on Colab](https://colab.research.google.com/github/AllenDowney/AstronomicalData/blob/main/01_query.ipynb)
 
 [or click here to read it on NBViewer](https://nbviewer.jupyter.org/github/AllenDowney/AstronomicalData/blob/main/01_query.ipynb)
 
@@ -68,7 +68,7 @@ Then, to select stars in the vicinity of GD-1, we:
 
 Press this button to run this notebook on Colab:
 
-[<img src="run_on_colab_small.png">](https://colab.research.google.com/github/AllenDowney/AstronomicalData/blob/main/02_coords.ipynb)
+[Run Notebook 2 on Colab](https://colab.research.google.com/github/AllenDowney/AstronomicalData/blob/main/02_coords.ipynb)
 
 [or click here to read it on NBViewer](https://nbviewer.jupyter.org/github/AllenDowney/AstronomicalData/blob/main/02_coords.ipynb)
 
@@ -89,7 +89,7 @@ Here are the steps in this notebook:
 
 Press this button to run this notebook on Colab:
 
-[<img src="run_on_colab_small.png">](https://colab.research.google.com/github/AllenDowney/AstronomicalData/blob/main/03_motion.ipynb)
+[Run Notebook 3 on Colab](https://colab.research.google.com/github/AllenDowney/AstronomicalData/blob/main/03_motion.ipynb)
 
 [or click here to read it on NBViewer](https://nbviewer.jupyter.org/github/AllenDowney/AstronomicalData/blob/main/03_motion.ipynb)
 
@@ -108,7 +108,7 @@ That will make it possible to search a bigger region of the sky in a single quer
 
 Press this button to run this notebook on Colab:
 
-[<img src="run_on_colab_small.png">](https://colab.research.google.com/github/AllenDowney/AstronomicalData/blob/main/04_select.ipynb)
+[Run Notebook 4 on Colab](https://colab.research.google.com/github/AllenDowney/AstronomicalData/blob/main/04_select.ipynb)
 
 [or click here to read it on NBViewer](https://nbviewer.jupyter.org/github/AllenDowney/AstronomicalData/blob/main/04_select.ipynb)
 
@@ -125,7 +125,7 @@ Here are the steps in this notebook:
 
 Press this button to run this notebook on Colab:
 
-[<img src="run_on_colab_small.png">](https://colab.research.google.com/github/AllenDowney/AstronomicalData/blob/main/05_join.ipynb)
+[Run Notebook 5 on Colab](https://colab.research.google.com/github/AllenDowney/AstronomicalData/blob/main/05_join.ipynb)
 
 [or click here to read it on NBViewer](https://nbviewer.jupyter.org/github/AllenDowney/AstronomicalData/blob/main/05_join.ipynb)
 
@@ -142,7 +142,7 @@ Here are the steps in this notebook:
 
 Press this button to run this notebook on Colab:
 
-[<img src="run_on_colab_small.png">](https://colab.research.google.com/github/AllenDowney/AstronomicalData/blob/main/06_photo.ipynb)
+[Run Notebook 6 on Colab](https://colab.research.google.com/github/AllenDowney/AstronomicalData/blob/main/06_photo.ipynb)
 
 [or click here to read it on NBViewer](https://nbviewer.jupyter.org/github/AllenDowney/AstronomicalData/blob/main/06_photo.ipynb)
 
@@ -159,7 +159,7 @@ Here are the steps in this notebook:
 
 Press this button to run this notebook on Colab:
 
-[<img src="run_on_colab_small.png">](https://colab.research.google.com/github/AllenDowney/AstronomicalData/blob/main/07_plot.ipynb)
+[Run Notebook 7 on Colab](https://colab.research.google.com/github/AllenDowney/AstronomicalData/blob/main/07_plot.ipynb)
 
 [or click here to read it on NBViewer](https://nbviewer.jupyter.org/github/AllenDowney/AstronomicalData/blob/main/07_plot.ipynb)
 

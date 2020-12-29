@@ -332,7 +332,8 @@
 <h1>Joining Tables<a class="headerlink" href="#joining-tables" title="Permalink to this headline">¶</a></h1>
 <p>This is the fifth in a series of notebooks related to astronomy data.</p>
 <p>As a continuing example, we will replicate part of the analysis in a recent paper, “<a class="reference external" href="https://arxiv.org/abs/1805.00425">Off the beaten path: Gaia reveals GD-1 stars outside of the main stream</a>” by Adrian M. Price-Whelan and Ana Bonaca.</p>
-<p>Picking up where we left off, the next step in the analysis is to select candidate stars based on photometry data.  The following figure from the paper is a color-magnitude diagram for the stars selected based on proper motion:</p>
+<p>Picking up where we left off, the next step in the analysis is to select candidate stars based on photometry data.
+The following figure from the paper is a color-magnitude diagram for the stars selected based on proper motion:</p>
 <a class="reference internal image-reference" href="https://github.com/datacarpentry/astronomy-python/raw/gh-pages/fig/gd1-3.png"><img alt="https://github.com/datacarpentry/astronomy-python/raw/gh-pages/fig/gd1-3.png" src="https://github.com/datacarpentry/astronomy-python/raw/gh-pages/fig/gd1-3.png" style="width: 300px;" /></a>
 <p>In red is a <a class="reference external" href="https://en.wikipedia.org/wiki/Stellar_isochrone">stellar isochrone</a>, showing where we expect the stars in GD-1 to fall based on the metallicity and age of their original globular cluster.</p>
 <p>By selecting stars in the shaded area, we can further distinguish the main sequence of GD-1 from younger background stars.</p>
@@ -499,7 +500,7 @@ The size of the file is about 750 KB, so that’s not too bad.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-rw-rw-r-- 1 downey downey 396K Dec 10 11:33 candidate_df.xml
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-rw-rw-r-- 1 downey downey 396K Dec 29 11:50 candidate_df.xml
 </pre></div>
 </div>
 </div>
@@ -511,38 +512,30 @@ The size of the file is about 750 KB, so that’s not too bad.</p>
 <div class="section" id="exercise">
 <h3>Exercise<a class="headerlink" href="#exercise" title="Permalink to this headline">¶</a></h3>
 <p>There’s a gotcha here we want to warn you about.  Why do you think we used double brackets to specify the column we wanted?  What happens if you use single brackets?</p>
-<p>Run these cells to find out.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">table_id</span> <span class="o">=</span> <span class="n">candidate_table</span><span class="p">[[</span><span class="s1">&#39;source_id&#39;</span><span class="p">]]</span>
-<span class="nb">type</span><span class="p">(</span><span class="n">table_id</span><span class="p">)</span>
+<p>Run these code snippets to find out.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">table_id</span> <span class="o">=</span> <span class="n">candidate_table</span><span class="p">[[</span><span class="s1">&#39;source_id&#39;</span><span class="p">]]</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">table_id</span><span class="p">))</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>astropy.table.table.Table
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">column</span> <span class="o">=</span> <span class="n">candidate_table</span><span class="p">[</span><span class="s1">&#39;source_id&#39;</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">column</span><span class="p">))</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">column</span> <span class="o">=</span> <span class="n">candidate_table</span><span class="p">[</span><span class="s1">&#39;source_id&#39;</span><span class="p">]</span>
-<span class="nb">type</span><span class="p">(</span><span class="n">column</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># This one should cause an error</span>
+<span class="n">table_id</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;candidate_df.xml&#39;</span><span class="p">,</span> 
+               <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;votable&#39;</span><span class="p">,</span> 
+               <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>astropy.table.column.Column
-</pre></div>
-</div>
-</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># This line is commented out because it would cause an error</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
 
-<span class="c1"># writeto(column, &#39;candidate_df.xml&#39;)</span>
+<span class="c1"># table_id is a Table</span>
+
+<span class="c1"># column is a Column</span>
+
+<span class="c1"># Column does not provide `write`, so you get an AttributeError</span>
 </pre></div>
 </div>
 </div>
@@ -604,7 +597,7 @@ INFO: Query finished. [astroquery.utils.tap.core]
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html"><i>Table length=7346</i>
-<table id="table140668290919488" class="table-striped table-bordered table-condensed">
+<table id="table139832308444608" class="table-striped table-bordered table-condensed">
 <thead><tr><th>source_id</th></tr></thead>
 <thead><tr><th>int64</th></tr></thead>
 <tr><td>635559124339440000</td></tr>
@@ -633,7 +626,7 @@ INFO: Query finished. [astroquery.utils.tap.core]
 <p>If things go according to plan, the result should contain the same rows and columns as the uploaded table.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">candidate_table</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">table_id</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -645,12 +638,24 @@ INFO: Query finished. [astroquery.utils.tap.core]
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">set</span><span class="p">(</span><span class="n">candidate_table</span><span class="p">[</span><span class="s1">&#39;source_id&#39;</span><span class="p">])</span> <span class="o">==</span> <span class="nb">set</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;source_id&#39;</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">table_id</span><span class="o">.</span><span class="n">colnames</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;source_id&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">results</span><span class="o">.</span><span class="n">colnames</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;source_id&#39;]
 </pre></div>
 </div>
 </div>
@@ -705,7 +710,7 @@ INFO: Query finished. [astroquery.utils.tap.core]
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html"><i>Table length=3724</i>
-<table id="table140668268803072" class="table-striped table-bordered table-condensed">
+<table id="table139832308265696" class="table-striped table-bordered table-condensed">
 <thead><tr><th>source_id</th><th>original_ext_source_id</th><th>angular_distance</th><th>number_of_neighbours</th><th>number_of_mates</th><th>best_neighbour_multiplicity</th><th>gaia_astrometric_params</th><th>source_id_2</th></tr></thead>
 <thead><tr><th></th><th></th><th>arcsec</th><th></th><th></th><th></th><th></th><th></th></tr></thead>
 <thead><tr><th>int64</th><th>int64</th><th>float64</th><th>int32</th><th>int16</th><th>int16</th><th>int16</th><th>int64</th></tr></thead>
@@ -929,7 +934,7 @@ dtype: float64
 
 <span class="c1"># Second test</span>
 
-<span class="n">query2</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT TOP 10 *</span>
+<span class="n">query2</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT TOP 10</span>
 <span class="s2">FROM gaiadr2.panstarrs1_original_valid</span>
 <span class="s2">&quot;&quot;&quot;</span>
 
@@ -977,7 +982,7 @@ dtype: float64
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html"><i>Table length=3724</i>
-<table id="table140668299958448" class="table-striped table-bordered table-condensed">
+<table id="table139832332951360" class="table-striped table-bordered table-condensed">
 <thead><tr><th>source_id</th><th>g_mean_psf_mag</th><th>i_mean_psf_mag</th></tr></thead>
 <thead><tr><th></th><th></th><th>mag</th></tr></thead>
 <thead><tr><th>int64</th><th>float64</th><th>float64</th></tr></thead>
@@ -1022,44 +1027,14 @@ dtype: float64
 <span class="s2">&quot;&quot;&quot;</span>
 
 <span class="c1"># job3 = Gaia.launch_job_async(query=query3, </span>
-                       <span class="n">upload_resource</span><span class="o">=</span><span class="s1">&#39;candidate_df.xml&#39;</span><span class="p">,</span> 
-                       <span class="n">upload_table_name</span><span class="o">=</span><span class="s1">&#39;candidate_df&#39;</span><span class="p">)</span>
+<span class="c1">#                       upload_resource=&#39;candidate_df.xml&#39;, </span>
+<span class="c1">#                       upload_table_name=&#39;candidate_df&#39;)</span>
 
 <span class="c1"># results3 = job3.get_results()</span>
 <span class="c1"># results3</span>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: Query finished. [astroquery.utils.tap.core]
-</pre></div>
-</div>
-<div class="output text_html"><i>Table length=3724</i>
-<table id="table140668275467456" class="table-striped table-bordered table-condensed">
-<thead><tr><th>source_id</th><th>g_mean_psf_mag</th><th>i_mean_psf_mag</th></tr></thead>
-<thead><tr><th></th><th></th><th>mag</th></tr></thead>
-<thead><tr><th>int64</th><th>float64</th><th>float64</th></tr></thead>
-<tr><td>635860218726658176</td><td>17.8978004455566</td><td>17.5174007415771</td></tr>
-<tr><td>635674126383965568</td><td>19.2873001098633</td><td>17.6781005859375</td></tr>
-<tr><td>635535454774983040</td><td>16.9237995147705</td><td>16.478099822998</td></tr>
-<tr><td>635497276810313600</td><td>19.9242000579834</td><td>18.3339996337891</td></tr>
-<tr><td>635614168640132864</td><td>16.1515998840332</td><td>14.6662998199463</td></tr>
-<tr><td>635598607974369792</td><td>16.5223999023438</td><td>16.1375007629395</td></tr>
-<tr><td>635737661835496576</td><td>14.5032997131348</td><td>13.9849004745483</td></tr>
-<tr><td>635850945892748672</td><td>16.5174999237061</td><td>16.0450000762939</td></tr>
-<tr><td>635600532119713664</td><td>20.4505996704102</td><td>19.5177001953125</td></tr>
-<tr><td>...</td><td>...</td><td>...</td></tr>
-<tr><td>612241781249124608</td><td>20.2343997955322</td><td>18.6518001556396</td></tr>
-<tr><td>612332147361443072</td><td>21.3848991394043</td><td>20.3076000213623</td></tr>
-<tr><td>612426744016802432</td><td>17.8281002044678</td><td>17.4281005859375</td></tr>
-<tr><td>612331739340341760</td><td>21.8656997680664</td><td>19.5223007202148</td></tr>
-<tr><td>612282738058264960</td><td>22.5151996612549</td><td>19.9743995666504</td></tr>
-<tr><td>612386332668697600</td><td>19.3792991638184</td><td>17.9923000335693</td></tr>
-<tr><td>612296172717818624</td><td>17.4944000244141</td><td>16.926700592041</td></tr>
-<tr><td>612250375480101760</td><td>15.3330001831055</td><td>14.6280002593994</td></tr>
-<tr><td>612394926899159168</td><td>16.4414005279541</td><td>15.8212003707886</td></tr>
-<tr><td>612256418500423168</td><td>20.8715991973877</td><td>19.9612007141113</td></tr>
-</table></div></div>
 </div>
 </div>
 </div>
@@ -1082,7 +1057,7 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-rw-rw-r-- 1 downey downey 96K Dec 10 11:34 gd1_photo.fits
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-rw-rw-r-- 1 downey downey 96K Dec 29 11:51 gd1_photo.fits
 </pre></div>
 </div>
 </div>

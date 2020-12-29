@@ -266,6 +266,18 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#transforming-coordinates">
+   Transforming coordinates
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id1">
+     Exercise
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#selecting-a-rectangle">
    Selecting a rectangle
   </a>
@@ -313,7 +325,7 @@
 <p>Then, to select stars in the vicinity of GD-1, we’ll:</p>
 <ul class="simple">
 <li><p>Use <code class="docutils literal notranslate"><span class="pre">Quantity</span></code> objects to represent measurements with units.</p></li>
-<li><p>Use the <code class="docutils literal notranslate"><span class="pre">Gala</span></code> library to convert coordinates from one frame to another.</p></li>
+<li><p>Use Astropy to convert coordinates from one frame to another.</p></li>
 <li><p>Use the ADQL keywords <code class="docutils literal notranslate"><span class="pre">POLYGON</span></code>, <code class="docutils literal notranslate"><span class="pre">CONTAINS</span></code>, and <code class="docutils literal notranslate"><span class="pre">POINT</span></code> to select stars that fall within a polygonal region.</p></li>
 <li><p>Submit a query and download the results.</p></li>
 <li><p>Store the results in a FITS file.</p></li>
@@ -357,8 +369,7 @@
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">astroquery.gaia</span> <span class="kn">import</span> <span class="n">Gaia</span>
 
 <span class="n">job</span> <span class="o">=</span> <span class="n">Gaia</span><span class="o">.</span><span class="n">launch_job</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
-<span class="n">result</span> <span class="o">=</span> <span class="n">job</span><span class="o">.</span><span class="n">get_results</span><span class="p">()</span>
-<span class="n">result</span>
+<span class="n">job</span>
 </pre></div>
 </div>
 </div>
@@ -375,8 +386,21 @@ Created TAP+ (v1.2.1) - Connection:
 	SSL Port: 443
 </pre></div>
 </div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;astroquery.utils.tap.model.job.Job at 0x7f59bd93e490&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">job</span><span class="o">.</span><span class="n">get_results</span><span class="p">()</span>
+<span class="n">result</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
 <div class="output text_html"><i>Table length=10</i>
-<table id="table140686245658336" class="table-striped table-bordered table-condensed">
+<table id="table140023409350736" class="table-striped table-bordered table-condensed">
 <thead><tr><th>source_id</th></tr></thead>
 <thead><tr><th>int64</th></tr></thead>
 <tr><td>4057468321929794432</td></tr>
@@ -418,34 +442,30 @@ Created TAP+ (v1.2.1) - Connection:
 <h2>Getting GD-1 Data<a class="headerlink" href="#getting-gd-1-data" title="Permalink to this headline">¶</a></h2>
 <p>From the Price-Whelan and Bonaca paper, we will try to reproduce Figure 1, which includes this representation of stars likely to belong to GD-1:</p>
 <img alt="https://github.com/datacarpentry/astronomy-python/raw/gh-pages/fig/gd1-4.png" src="https://github.com/datacarpentry/astronomy-python/raw/gh-pages/fig/gd1-4.png" />
-<p>Along the axis of right ascension (<span class="math notranslate nohighlight">\(\phi_1\)</span>) the figure extends from -100 to 20 degrees.</p>
-<p>Along the axis of declination (<span class="math notranslate nohighlight">\(\phi_2\)</span>) the figure extends from about -8 to 4 degrees.</p>
+<p>The axes of this figure are defined so the x-axis is aligned with the stars in GD-1, and the y-axis is perpendicular.</p>
+<ul class="simple">
+<li><p>Along the x-axis (<span class="math notranslate nohighlight">\(\phi_1\)</span>) the figure extends from -100 to 20 degrees.</p></li>
+<li><p>Along the y-axis (<span class="math notranslate nohighlight">\(\phi_2\)</span>) the figure extends from about -8 to 4 degrees.</p></li>
+</ul>
 <p>Ideally, we would select all stars from this rectangle, but there are more than 10 million of them, so</p>
 <ul class="simple">
 <li><p>That would be difficult to work with,</p></li>
-<li><p>As anonymous users, we are limited to 3 million rows in a single query, and</p></li>
+<li><p>As anonymous Gaia users, we are limited to 3 million rows in a single query, and</p></li>
 <li><p>While we are developing and testing code, it will be faster to work with a smaller dataset.</p></li>
 </ul>
-<p>So we’ll start by selecting stars in a smaller rectangle, from -55 to -45 degrees right ascension and -8 to 4 degrees of declination.</p>
+<p>So we’ll start by selecting stars in a smaller rectangle near the center of GD-1, from -55 to -45 degrees <span class="math notranslate nohighlight">\(\phi_1\)</span> and -8 to 4 degrees <span class="math notranslate nohighlight">\(\phi_2\)</span>.</p>
 <p>But first we let’s see how to represent quantities with units like degrees.</p>
 </div>
 <div class="section" id="working-with-coordinates">
 <h2>Working with coordinates<a class="headerlink" href="#working-with-coordinates" title="Permalink to this headline">¶</a></h2>
 <p>Coordinates are physical quantities, which means that they have two parts, a value and a unit.</p>
 <p>For example, the coordinate <span class="math notranslate nohighlight">\(30^{\circ}\)</span> has value 30 and its units are degrees.</p>
-<p>Until recently, most scientific computation was done with values only; units were left out of the program altogether, <a class="reference external" href="https://en.wikipedia.org/wiki/Mars_Climate_Orbiter#Cause_of_failure">often with disastrous results</a>.</p>
+<p>Until recently, most scientific computation was done with values only; units were left out of the program altogether, <a class="reference external" href="https://en.wikipedia.org/wiki/Mars_Climate_Orbiter#Cause_of_failure">often with catastrophic results</a>.</p>
 <p>Astropy provides tools for including units explicitly in computations, which makes it possible to detect errors before they cause disasters.</p>
 <p>To use Astropy units, we import them like this:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">astropy.units</span> <span class="k">as</span> <span class="nn">u</span>
-
-<span class="n">u</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;module &#39;astropy.units&#39; from &#39;/home/downey/anaconda3/envs/AstronomicalData/lib/python3.8/site-packages/astropy/units/__init__.py&#39;&gt;
 </pre></div>
 </div>
 </div>
@@ -923,6 +943,7 @@ Created TAP+ (v1.2.1) - Connection:
  &#39;Tmin&#39;,
  &#39;Tmol&#39;,
  &#39;Tohm&#39;,
+ &#39;Torr&#39;,
  &#39;Tpc&#39;,
  &#39;Tph&#39;,
  &#39;Tphoton&#39;,
@@ -1458,7 +1479,6 @@ Created TAP+ (v1.2.1) - Connection:
  &#39;dRy&#39;,
  &#39;dS&#39;,
  &#39;dSt&#39;,
- &#39;dT&#39;,
  ...]
 </pre></div>
 </div>
@@ -1467,8 +1487,8 @@ Created TAP+ (v1.2.1) - Connection:
 <p>To create a quantity, we multiply a value by a unit.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">coordinate</span> <span class="o">=</span> <span class="mi">30</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">deg</span>
-<span class="nb">type</span><span class="p">(</span><span class="n">coordinate</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">quantity</span> <span class="o">=</span> <span class="mi">30</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">degree</span>
+<span class="nb">type</span><span class="p">(</span><span class="n">quantity</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1482,7 +1502,7 @@ Created TAP+ (v1.2.1) - Connection:
 <p>Jupyter knows how to display <code class="docutils literal notranslate"><span class="pre">Quantities</span></code> like this:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">coordinate</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">quantity</span>
 </pre></div>
 </div>
 </div>
@@ -1492,16 +1512,121 @@ Created TAP+ (v1.2.1) - Connection:
 </div>
 </div>
 </div>
-<div class="section" id="selecting-a-rectangle">
-<h2>Selecting a rectangle<a class="headerlink" href="#selecting-a-rectangle" title="Permalink to this headline">¶</a></h2>
-<p>Now we’ll select a rectangle from -55 to -45 degrees right ascension and -8 to 4 degrees of declination.</p>
-<p>We’ll define variables to contain these limits.</p>
+<div class="section" id="transforming-coordinates">
+<h2>Transforming coordinates<a class="headerlink" href="#transforming-coordinates" title="Permalink to this headline">¶</a></h2>
+<p>Astropy provides a <code class="docutils literal notranslate"><span class="pre">SkyCoord</span></code> object that represents sky coordinates relative to a specified frame.</p>
+<p>The following example creates a <code class="docutils literal notranslate"><span class="pre">SkyCoord</span></code> object that represents the approximate coordinates of <a class="reference external" href="http://simbad.u-strasbg.fr/simbad/sim-basic?Ident=Betelgeuse">Betelgeuse</a> (alf Ori) in the ICRS frame.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">phi1_min</span> <span class="o">=</span> <span class="o">-</span><span class="mi">55</span>
-<span class="n">phi1_max</span> <span class="o">=</span> <span class="o">-</span><span class="mi">45</span>
-<span class="n">phi2_min</span> <span class="o">=</span> <span class="o">-</span><span class="mi">8</span>
-<span class="n">phi2_max</span> <span class="o">=</span> <span class="mi">4</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">astropy.coordinates</span> <span class="kn">import</span> <span class="n">SkyCoord</span>
+
+<span class="n">ra</span> <span class="o">=</span> <span class="mf">88.8</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">degree</span>
+<span class="n">dec</span> <span class="o">=</span> <span class="mf">7.4</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">degree</span>
+<span class="n">coord_icrs</span> <span class="o">=</span> <span class="n">SkyCoord</span><span class="p">(</span><span class="n">ra</span><span class="o">=</span><span class="n">ra</span><span class="p">,</span> <span class="n">dec</span><span class="o">=</span><span class="n">dec</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="s1">&#39;icrs&#39;</span><span class="p">)</span>
+
+<span class="n">coord_icrs</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;SkyCoord (ICRS): (ra, dec) in deg
+    (88.8, 7.4)&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">SkyCoord</span></code> provides a function that transforms to other frames.
+For example, we can transform <code class="docutils literal notranslate"><span class="pre">coords_icrs</span></code> to Galactic coordinates like this:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">coord_galactic</span> <span class="o">=</span> <span class="n">coord_icrs</span><span class="o">.</span><span class="n">transform_to</span><span class="p">(</span><span class="s1">&#39;galactic&#39;</span><span class="p">)</span>
+<span class="n">coord_galactic</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;SkyCoord (Galactic): (l, b) in deg
+    (199.79693102, -8.95591653)&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<p>To transform to and from GD-1 coordinates, we’ll use a frame defined by <a class="reference external" href="https://gala-astro.readthedocs.io/en/latest/">Gala</a>, which is an Astropy-affiliated library that provides tools for galactic dynamics.</p>
+<p>Gala provides <code class="docutils literal notranslate"><span class="pre">GD1Koposov10</span></code>, which is “<a class="reference external" href="https://gala-astro.readthedocs.io/en/latest/_modules/gala/coordinates/gd1.html">a Heliocentric spherical coordinate system defined by the orbit of the GD-1 stream</a>”</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">gala.coordinates</span> <span class="kn">import</span> <span class="n">GD1Koposov10</span>
+
+<span class="n">gd1_frame</span> <span class="o">=</span> <span class="n">GD1Koposov10</span><span class="p">()</span>
+<span class="n">gd1_frame</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;GD1Koposov10 Frame&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can use it to find the coordinates of Betelgeuse in the GD-1 frame, like this:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">coord_gd1</span> <span class="o">=</span> <span class="n">coord_icrs</span><span class="o">.</span><span class="n">transform_to</span><span class="p">(</span><span class="n">gd1_frame</span><span class="p">)</span>
+<span class="n">coord_gd1</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;SkyCoord (GD1Koposov10): (phi1, phi2) in deg
+    (-94.97222038, 34.5813813)&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id1">
+<h3>Exercise<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p>Let’s find the location of GD-1 in ICRS coordinates.</p>
+<ol class="simple">
+<li><p>Create a <code class="docutils literal notranslate"><span class="pre">SkyCoord</span></code> object at 0°, 0° in the GD-1 frame.</p></li>
+<li><p>Transform it to the ICRS frame.</p></li>
+</ol>
+<p>Hint: Because ICRS is built into Astropy, you can specify it by name, <code class="docutils literal notranslate"><span class="pre">icrs</span></code> (as we did with <code class="docutils literal notranslate"><span class="pre">galactic</span></code>).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
+
+<span class="n">coord_gd1</span> <span class="o">=</span> <span class="n">SkyCoord</span><span class="p">(</span><span class="mi">0</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">degree</span><span class="p">,</span> <span class="mi">0</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">degree</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="n">gd1_frame</span><span class="p">)</span>
+
+<span class="c1"># Note: because ICRS is built into Astropy, </span>
+<span class="c1"># we can identify it by name</span>
+<span class="n">coord_gd1</span><span class="o">.</span><span class="n">transform_to</span><span class="p">(</span><span class="s1">&#39;icrs&#39;</span><span class="p">)</span>
+
+<span class="c1"># More formally, we could instantiate it</span>
+<span class="kn">from</span> <span class="nn">astropy.coordinates</span> <span class="kn">import</span> <span class="n">ICRS</span>
+<span class="n">icrs_frame</span> <span class="o">=</span> <span class="n">ICRS</span><span class="p">()</span>
+<span class="n">coord_gd1</span><span class="o">.</span><span class="n">transform_to</span><span class="p">(</span><span class="n">icrs_frame</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;SkyCoord (ICRS): (ra, dec) in deg
+    (200., 59.4504341)&gt;
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="selecting-a-rectangle">
+<h2>Selecting a rectangle<a class="headerlink" href="#selecting-a-rectangle" title="Permalink to this headline">¶</a></h2>
+<p>Now we’ll use these coordinate transformations to define a rectangle in the GD-1 frame and transform it to ICRS.</p>
+<p>The following variables define the boundaries of the rectangle in <span class="math notranslate nohighlight">\(\phi_1\)</span> and <span class="math notranslate nohighlight">\(\phi_2\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">phi1_min</span> <span class="o">=</span> <span class="o">-</span><span class="mi">55</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">degree</span>
+<span class="n">phi1_max</span> <span class="o">=</span> <span class="o">-</span><span class="mi">45</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">degree</span>
+<span class="n">phi2_min</span> <span class="o">=</span> <span class="o">-</span><span class="mi">8</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">degree</span>
+<span class="n">phi2_max</span> <span class="o">=</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">degree</span>
 </pre></div>
 </div>
 </div>
@@ -1509,40 +1634,37 @@ Created TAP+ (v1.2.1) - Connection:
 <p>To represent a rectangle, we’ll use two lists of coordinates and multiply by their units.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">phi1_rect</span> <span class="o">=</span> <span class="p">[</span><span class="n">phi1_min</span><span class="p">,</span> <span class="n">phi1_min</span><span class="p">,</span> <span class="n">phi1_max</span><span class="p">,</span> <span class="n">phi1_max</span><span class="p">]</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">deg</span>
-<span class="n">phi2_rect</span> <span class="o">=</span> <span class="p">[</span><span class="n">phi2_min</span><span class="p">,</span> <span class="n">phi2_max</span><span class="p">,</span> <span class="n">phi2_max</span><span class="p">,</span> <span class="n">phi2_min</span><span class="p">]</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">deg</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">make_rectangle</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">y2</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Return the corners of a rectangle.&quot;&quot;&quot;</span>
+    <span class="n">xs</span> <span class="o">=</span> <span class="p">[</span><span class="n">x1</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">x1</span><span class="p">]</span>
+    <span class="n">ys</span> <span class="o">=</span> <span class="p">[</span><span class="n">y1</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">y1</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">xs</span><span class="p">,</span> <span class="n">ys</span>
 </pre></div>
 </div>
 </div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">phi1_rect</span></code> and <code class="docutils literal notranslate"><span class="pre">phi2_rect</span></code> represent the coordinates of the corners of a rectangle.</p>
-<p>But they are in “<a class="reference external" href="https://gala-astro.readthedocs.io/en/latest/_modules/gala/coordinates/gd1.html">a Heliocentric spherical coordinate system defined by the orbit of the GD1 stream</a>”</p>
-<p>In order to use them in a Gaia query, we have to convert them to <a class="reference external" href="https://en.wikipedia.org/wiki/International_Celestial_Reference_System">International Celestial Reference System</a> (ICRS) coordinates.  We can do that by storing the coordinates in a <code class="docutils literal notranslate"><span class="pre">GD1Koposov10</span></code> object provided by <a class="reference external" href="https://gala-astro.readthedocs.io/en/latest/coordinates/">Gala</a>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">phi1_rect</span><span class="p">,</span> <span class="n">phi2_rect</span> <span class="o">=</span> <span class="n">make_rectangle</span><span class="p">(</span>
+    <span class="n">phi1_min</span><span class="p">,</span> <span class="n">phi1_max</span><span class="p">,</span> <span class="n">phi2_min</span><span class="p">,</span> <span class="n">phi2_max</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">phi1_rect</span></code> and <code class="docutils literal notranslate"><span class="pre">phi2_rect</span></code> represent the coordinates of the corners of a rectangle in the GD-1 frame.</p>
+<p>In order to use them in a Gaia query, we have to convert them to ICRS.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">gala.coordinates</span> <span class="k">as</span> <span class="nn">gc</span>
 
-<span class="n">corners</span> <span class="o">=</span> <span class="n">gc</span><span class="o">.</span><span class="n">GD1Koposov10</span><span class="p">(</span><span class="n">phi1</span><span class="o">=</span><span class="n">phi1_rect</span><span class="p">,</span> <span class="n">phi2</span><span class="o">=</span><span class="n">phi2_rect</span><span class="p">)</span>
-<span class="nb">type</span><span class="p">(</span><span class="n">corners</span><span class="p">)</span>
+<span class="n">corners</span> <span class="o">=</span> <span class="n">SkyCoord</span><span class="p">(</span><span class="n">phi1</span><span class="o">=</span><span class="n">phi1_rect</span><span class="p">,</span> <span class="n">phi2</span><span class="o">=</span><span class="n">phi2_rect</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="n">gd1_frame</span><span class="p">)</span>
+<span class="n">corners</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>gala.coordinates.gd1.GD1Koposov10
-</pre></div>
-</div>
-</div>
-</div>
-<p>We can display the result like this:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">corners</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;GD1Koposov10 Coordinate: (phi1, phi2) in deg
-    [(-55., -8.), (-55.,  4.), (-45.,  4.), (-45., -8.)]&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;SkyCoord (GD1Koposov10): (phi1, phi2) in deg
+    [(-55., -8.), (-55.,  4.), (-45.,  4.), (-45., -8.), (-55., -8.)]&gt;
 </pre></div>
 </div>
 </div>
@@ -1552,28 +1674,16 @@ Created TAP+ (v1.2.1) - Connection:
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">astropy.coordinates</span> <span class="k">as</span> <span class="nn">coord</span>
 
-<span class="n">corners_icrs</span> <span class="o">=</span> <span class="n">corners</span><span class="o">.</span><span class="n">transform_to</span><span class="p">(</span><span class="n">coord</span><span class="o">.</span><span class="n">ICRS</span><span class="p">)</span>
-<span class="nb">type</span><span class="p">(</span><span class="n">corners_icrs</span><span class="p">)</span>
+<span class="n">corners_icrs</span> <span class="o">=</span> <span class="n">corners</span><span class="o">.</span><span class="n">transform_to</span><span class="p">(</span><span class="s1">&#39;icrs&#39;</span><span class="p">)</span>
+<span class="n">corners_icrs</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>astropy.coordinates.builtin_frames.icrs.ICRS
-</pre></div>
-</div>
-</div>
-</div>
-<p>The result is an <code class="docutils literal notranslate"><span class="pre">ICRS</span></code> object.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">corners_icrs</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;ICRS Coordinate: (ra, dec) in deg
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;SkyCoord (ICRS): (ra, dec) in deg
     [(146.27533314, 19.26190982), (135.42163944, 25.87738723),
-     (141.60264825, 34.3048303 ), (152.81671045, 27.13611254)]&gt;
+     (141.60264825, 34.3048303 ), (152.81671045, 27.13611254),
+     (146.27533314, 19.26190982)]&gt;
 </pre></div>
 </div>
 </div>
@@ -1600,14 +1710,16 @@ Created TAP+ (v1.2.1) - Connection:
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;ICRS Coordinate: (ra, dec) in deg
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;SkyCoord (ICRS): (ra, dec) in deg
     (146.27533314, 19.26190982)&gt;
-&lt;ICRS Coordinate: (ra, dec) in deg
+&lt;SkyCoord (ICRS): (ra, dec) in deg
     (135.42163944, 25.87738723)&gt;
-&lt;ICRS Coordinate: (ra, dec) in deg
+&lt;SkyCoord (ICRS): (ra, dec) in deg
     (141.60264825, 34.3048303)&gt;
-&lt;ICRS Coordinate: (ra, dec) in deg
+&lt;SkyCoord (ICRS): (ra, dec) in deg
     (152.81671045, 27.13611254)&gt;
+&lt;SkyCoord (ICRS): (ra, dec) in deg
+    (146.27533314, 19.26190982)&gt;
 </pre></div>
 </div>
 </div>
@@ -1625,6 +1737,7 @@ Created TAP+ (v1.2.1) - Connection:
 135d25m17.902s 25d52m38.594s
 141d36m09.5337s 34d18m17.3891s
 152d49m00.1576s 27d08m10.0051s
+146d16m31.1993s 19d15m42.8754s
 </pre></div>
 </div>
 </div>
@@ -1642,6 +1755,7 @@ Created TAP+ (v1.2.1) - Connection:
 135.42163944306296 25.87738722767213
 141.60264825107333 34.304830296257144
 152.81671044675923 27.136112541397996
+146.27533313607782 19.261909820533692
 </pre></div>
 </div>
 </div>
@@ -1661,7 +1775,8 @@ Created TAP+ (v1.2.1) - Connection:
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;146.27533313607782, 19.261909820533692&#39;,
  &#39;135.42163944306296, 25.87738722767213&#39;,
  &#39;141.60264825107333, 34.304830296257144&#39;,
- &#39;152.81671044675923, 27.136112541397996&#39;]
+ &#39;152.81671044675923, 27.136112541397996&#39;,
+ &#39;146.27533313607782, 19.261909820533692&#39;]
 </pre></div>
 </div>
 </div>
@@ -1675,7 +1790,7 @@ Created TAP+ (v1.2.1) - Connection:
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;146.27533313607782, 19.261909820533692, 135.42163944306296, 25.87738722767213, 141.60264825107333, 34.304830296257144, 152.81671044675923, 27.136112541397996&#39;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;146.27533313607782, 19.261909820533692, 135.42163944306296, 25.87738722767213, 141.60264825107333, 34.304830296257144, 152.81671044675923, 27.136112541397996, 146.27533313607782, 19.261909820533692&#39;
 </pre></div>
 </div>
 </div>
@@ -1718,7 +1833,7 @@ FROM gaiadr2.gaia_source
 WHERE parallax &lt; 1
   AND bp_rp BETWEEN -0.75 AND 2 
   AND 1 = CONTAINS(POINT(ra, dec), 
-                   POLYGON(146.27533313607782, 19.261909820533692, 135.42163944306296, 25.87738722767213, 141.60264825107333, 34.304830296257144, 152.81671044675923, 27.136112541397996))
+                   POLYGON(146.27533313607782, 19.261909820533692, 135.42163944306296, 25.87738722767213, 141.60264825107333, 34.304830296257144, 152.81671044675923, 27.136112541397996, 146.27533313607782, 19.261909820533692))
 </pre></div>
 </div>
 </div>
@@ -1745,10 +1860,10 @@ WHERE parallax &lt; 1
        parallax float64      mas                                                           Parallax      0
  parallax_error float64      mas                                         Standard error of parallax      0
 radial_velocity float64   km / s                                                    Radial velocity 139374
-Jobid: 1605624329053O
+Jobid: 1609260439320O
 Phase: COMPLETED
 Owner: None
-Output file: async_20201117094529.vot
+Output file: async_20201229114719.vot
 Results: None
 </pre></div>
 </div>
@@ -1793,7 +1908,7 @@ Results: None
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-rw-rw-r-- 1 downey downey 8.6M Nov 17 09:45 gd1_results.fits
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-rw-rw-r-- 1 downey downey 8.6M Dec 29 11:47 gd1_results.fits
 </pre></div>
 </div>
 </div>
