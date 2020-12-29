@@ -1701,101 +1701,34 @@ For example, we can transform <code class="docutils literal notranslate"><span c
 <span class="sd">&quot;&quot;&quot;</span>
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">corners_icrs</span></code> behaves like a list, so we can use a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop to iterate through the points.</p>
+<p>The following function does the job:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">point</span> <span class="ow">in</span> <span class="n">corners_icrs</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">point</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;SkyCoord (ICRS): (ra, dec) in deg
-    (146.27533314, 19.26190982)&gt;
-&lt;SkyCoord (ICRS): (ra, dec) in deg
-    (135.42163944, 25.87738723)&gt;
-&lt;SkyCoord (ICRS): (ra, dec) in deg
-    (141.60264825, 34.3048303)&gt;
-&lt;SkyCoord (ICRS): (ra, dec) in deg
-    (152.81671045, 27.13611254)&gt;
-&lt;SkyCoord (ICRS): (ra, dec) in deg
-    (146.27533314, 19.26190982)&gt;
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">skycoord_to_string</span><span class="p">(</span><span class="n">skycoord</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Convert SkyCoord to string.&quot;&quot;&quot;</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">skycoord</span><span class="o">.</span><span class="n">to_string</span><span class="p">()</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">s</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;, &#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
-<p>From that, we can select the coordinates <code class="docutils literal notranslate"><span class="pre">ra</span></code> and <code class="docutils literal notranslate"><span class="pre">dec</span></code>:</p>
+<p><code class="docutils literal notranslate"><span class="pre">SkyCoord</span></code> provides <code class="docutils literal notranslate"><span class="pre">to_string</span></code>, which returns a list of strings.</p>
+<p>We use <code class="docutils literal notranslate"><span class="pre">join</span></code> to make a single string with spaces between the coordinates.</p>
+<p>Then we use <code class="docutils literal notranslate"><span class="pre">replace</span></code> to add commas between the coordinates.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">point</span> <span class="ow">in</span> <span class="n">corners_icrs</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">point</span><span class="o">.</span><span class="n">ra</span><span class="p">,</span> <span class="n">point</span><span class="o">.</span><span class="n">dec</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>146d16m31.1993s 19d15m42.8754s
-135d25m17.902s 25d52m38.594s
-141d36m09.5337s 34d18m17.3891s
-152d49m00.1576s 27d08m10.0051s
-146d16m31.1993s 19d15m42.8754s
-</pre></div>
-</div>
-</div>
-</div>
-<p>The results are quantities with units, but if we select the <code class="docutils literal notranslate"><span class="pre">value</span></code> part, we get a dimensionless floating-point number.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">point</span> <span class="ow">in</span> <span class="n">corners_icrs</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">point</span><span class="o">.</span><span class="n">ra</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">point</span><span class="o">.</span><span class="n">dec</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>146.27533313607782 19.261909820533692
-135.42163944306296 25.87738722767213
-141.60264825107333 34.304830296257144
-152.81671044675923 27.136112541397996
-146.27533313607782 19.261909820533692
-</pre></div>
-</div>
-</div>
-</div>
-<p>We can use string <code class="docutils literal notranslate"><span class="pre">format</span></code> to convert these numbers to strings.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">point_base</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{point.ra.value}</span><span class="s2">, </span><span class="si">{point.dec.value}</span><span class="s2">&quot;</span>
-
-<span class="n">t</span> <span class="o">=</span> <span class="p">[</span><span class="n">point_base</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">point</span><span class="o">=</span><span class="n">point</span><span class="p">)</span>
-     <span class="k">for</span> <span class="n">point</span> <span class="ow">in</span> <span class="n">corners_icrs</span><span class="p">]</span>
-<span class="n">t</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;146.27533313607782, 19.261909820533692&#39;,
- &#39;135.42163944306296, 25.87738722767213&#39;,
- &#39;141.60264825107333, 34.304830296257144&#39;,
- &#39;152.81671044675923, 27.136112541397996&#39;,
- &#39;146.27533313607782, 19.261909820533692&#39;]
-</pre></div>
-</div>
-</div>
-</div>
-<p>The result is a list of strings, which we can join into a single string using <code class="docutils literal notranslate"><span class="pre">join</span></code>.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">point_list</span> <span class="o">=</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">point_list</span> <span class="o">=</span> <span class="n">skycoord_to_string</span><span class="p">(</span><span class="n">corners_icrs</span><span class="p">)</span>
 <span class="n">point_list</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;146.27533313607782, 19.261909820533692, 135.42163944306296, 25.87738722767213, 141.60264825107333, 34.304830296257144, 152.81671044675923, 27.136112541397996, 146.27533313607782, 19.261909820533692&#39;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;146.275, 19.2619, 135.422, 25.8774, 141.603, 34.3048, 152.817, 27.1361, 146.275, 19.2619&#39;
 </pre></div>
 </div>
 </div>
 </div>
-<p>Notice that we invoke <code class="docutils literal notranslate"><span class="pre">join</span></code> on a string and pass the list as an argument.</p>
 <p>Before we can assemble the query, we need <code class="docutils literal notranslate"><span class="pre">columns</span></code> again (as we saw in the previous notebook).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1833,7 +1766,7 @@ FROM gaiadr2.gaia_source
 WHERE parallax &lt; 1
   AND bp_rp BETWEEN -0.75 AND 2 
   AND 1 = CONTAINS(POINT(ra, dec), 
-                   POLYGON(146.27533313607782, 19.261909820533692, 135.42163944306296, 25.87738722767213, 141.60264825107333, 34.304830296257144, 152.81671044675923, 27.136112541397996, 146.27533313607782, 19.261909820533692))
+                   POLYGON(146.275, 19.2619, 135.422, 25.8774, 141.603, 34.3048, 152.817, 27.1361, 146.275, 19.2619))
 </pre></div>
 </div>
 </div>
@@ -1849,7 +1782,7 @@ WHERE parallax &lt; 1
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: Query finished. [astroquery.utils.tap.core]
-&lt;Table length=140340&gt;
+&lt;Table length=140339&gt;
       name       dtype    unit                              description                             n_bad 
 --------------- ------- -------- ------------------------------------------------------------------ ------
       source_id   int64          Unique source identifier (unique within a particular Data Release)      0
@@ -1859,11 +1792,11 @@ WHERE parallax &lt; 1
           pmdec float64 mas / yr                             Proper motion in declination direction      0
        parallax float64      mas                                                           Parallax      0
  parallax_error float64      mas                                         Standard error of parallax      0
-radial_velocity float64   km / s                                                    Radial velocity 139374
-Jobid: 1609260439320O
+radial_velocity float64   km / s                                                    Radial velocity 139373
+Jobid: 1609277169233O
 Phase: COMPLETED
 Owner: None
-Output file: async_20201229114719.vot
+Output file: async_20201229162609.vot
 Results: None
 </pre></div>
 </div>
@@ -1878,7 +1811,7 @@ Results: None
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>140340
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>140339
 </pre></div>
 </div>
 </div>

@@ -605,62 +605,33 @@ The next step is to use it as part of an ADQL query.</p>
 <li><p>We will add another clause to select stars whose proper motion is in the polygon we just computed, <code class="docutils literal notranslate"><span class="pre">pm_vertices</span></code>.</p></li>
 <li><p>We will select stars with coordinates in a larger region.</p></li>
 </ol>
-<p>To use <code class="docutils literal notranslate"><span class="pre">pm_vertices</span></code> as part of an ADQL query, we have to convert it to a string.</p>
-<p>We’ll use <code class="docutils literal notranslate"><span class="pre">flatten</span></code> to convert from a 2-D array to a 1-D array, and <code class="docutils literal notranslate"><span class="pre">str</span></code> to convert each element to a string.</p>
+<p>To use <code class="docutils literal notranslate"><span class="pre">pm_vertices</span></code> as part of an ADQL query, we have to convert it to a string.
+Using <code class="docutils literal notranslate"><span class="pre">flatten</span></code> and <code class="docutils literal notranslate"><span class="pre">array2string</span></code>, we can almost get the format we need.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">t</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">pm_vertices</span><span class="o">.</span><span class="n">flatten</span><span class="p">()]</span>
-<span class="n">t</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array2string</span><span class="p">(</span><span class="n">pm_vertices</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span> 
+                    <span class="n">max_line_width</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
+                    <span class="n">separator</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+<span class="n">s</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;-4.050371212154984&#39;,
- &#39;-14.75623260987968&#39;,
- &#39;-3.4198108491382455&#39;,
- &#39;-14.723655456335619&#39;,
- &#39;-3.035219883740934&#39;,
- &#39;-14.443571352854612&#39;,
- &#39;-2.268479190206636&#39;,
- &#39;-13.714023598831554&#39;,
- &#39;-2.611722027231764&#39;,
- &#39;-13.247974712069263&#39;,
- &#39;-2.7347140078529106&#39;,
- &#39;-13.090544709622938&#39;,
- &#39;-3.199231461993783&#39;,
- &#39;-12.594265302440828&#39;,
- &#39;-3.34082545787549&#39;,
- &#39;-12.476119260818695&#39;,
- &#39;-5.674894125178565&#39;,
- &#39;-11.160833381392624&#39;,
- &#39;-5.95159272432137&#39;,
- &#39;-11.105478836426514&#39;,
- &#39;-6.423940229776128&#39;,
- &#39;-11.05981294804957&#39;,
- &#39;-7.096310230579248&#39;,
- &#39;-11.951878058650085&#39;,
- &#39;-7.306415190921692&#39;,
- &#39;-12.245599765990594&#39;,
- &#39;-7.040166963232815&#39;,
- &#39;-12.885807024935527&#39;,
- &#39;-6.0034770546523735&#39;,
- &#39;-13.759120984106968&#39;,
- &#39;-4.42442296194263&#39;,
- &#39;-14.7464117578883&#39;]
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;[ -4.05037121,-14.75623261, -3.41981085,-14.72365546, -3.03521988,-14.44357135, -2.26847919,-13.7140236 , -2.61172203,-13.24797471, -2.73471401,-13.09054471, -3.19923146,-12.5942653 , -3.34082546,-12.47611926, -5.67489413,-11.16083338, -5.95159272,-11.10547884, -6.42394023,-11.05981295, -7.09631023,-11.95187806, -7.30641519,-12.24559977, -7.04016696,-12.88580702, -6.00347705,-13.75912098, -4.42442296,-14.74641176]&#39;
 </pre></div>
 </div>
 </div>
 </div>
-<p>Now <code class="docutils literal notranslate"><span class="pre">t</span></code> is a list of strings; we can use <code class="docutils literal notranslate"><span class="pre">join</span></code> to make a single string with commas between the elements.</p>
+<p>We just have to remove the brackets.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pm_point_list</span> <span class="o">=</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pm_point_list</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39;[]&#39;</span><span class="p">)</span>
 <span class="n">pm_point_list</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;-4.050371212154984, -14.75623260987968, -3.4198108491382455, -14.723655456335619, -3.035219883740934, -14.443571352854612, -2.268479190206636, -13.714023598831554, -2.611722027231764, -13.247974712069263, -2.7347140078529106, -13.090544709622938, -3.199231461993783, -12.594265302440828, -3.34082545787549, -12.476119260818695, -5.674894125178565, -11.160833381392624, -5.95159272432137, -11.105478836426514, -6.423940229776128, -11.05981294804957, -7.096310230579248, -11.951878058650085, -7.306415190921692, -12.245599765990594, -7.040166963232815, -12.885807024935527, -6.0034770546523735, -13.759120984106968, -4.42442296194263, -14.7464117578883&#39;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39; -4.05037121,-14.75623261, -3.41981085,-14.72365546, -3.03521988,-14.44357135, -2.26847919,-13.7140236 , -2.61172203,-13.24797471, -2.73471401,-13.09054471, -3.19923146,-12.5942653 , -3.34082546,-12.47611926, -5.67489413,-11.16083338, -5.95159272,-11.10547884, -6.42394023,-11.05981295, -7.09631023,-11.95187806, -7.30641519,-12.24559977, -7.04016696,-12.88580702, -6.00347705,-13.75912098, -4.42442296,-14.74641176&#39;
 </pre></div>
 </div>
 </div>
@@ -693,7 +664,10 @@ The next step is to use it as part of an ADQL query.</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">gala.coordinates</span> <span class="kn">import</span> <span class="n">GD1Koposov10</span>
 <span class="kn">from</span> <span class="nn">astropy.coordinates</span> <span class="kn">import</span> <span class="n">SkyCoord</span>
 
-<span class="n">corners</span> <span class="o">=</span> <span class="n">SkyCoord</span><span class="p">(</span><span class="n">phi1</span><span class="o">=</span><span class="n">phi1_rect</span><span class="p">,</span> <span class="n">phi2</span><span class="o">=</span><span class="n">phi2_rect</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="n">GD1Koposov10</span><span class="p">)</span>
+<span class="n">corners</span> <span class="o">=</span> <span class="n">SkyCoord</span><span class="p">(</span><span class="n">phi1</span><span class="o">=</span><span class="n">phi1_rect</span><span class="p">,</span> 
+                   <span class="n">phi2</span><span class="o">=</span><span class="n">phi2_rect</span><span class="p">,</span> 
+                   <span class="n">frame</span><span class="o">=</span><span class="n">GD1Koposov10</span><span class="p">)</span>
+
 <span class="n">corners_icrs</span> <span class="o">=</span> <span class="n">corners</span><span class="o">.</span><span class="n">transform_to</span><span class="p">(</span><span class="s1">&#39;icrs&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -702,18 +676,24 @@ The next step is to use it as part of an ADQL query.</p>
 <p>To use <code class="docutils literal notranslate"><span class="pre">corners_icrs</span></code> as part of an ADQL query, we have to convert it to a string.  Here’s how we do that, as we saw in the previous lesson.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">point_base</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{point.ra.value}</span><span class="s2">, </span><span class="si">{point.dec.value}</span><span class="s2">&quot;</span>
-
-<span class="n">t</span> <span class="o">=</span> <span class="p">[</span><span class="n">point_base</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">point</span><span class="o">=</span><span class="n">point</span><span class="p">)</span>
-     <span class="k">for</span> <span class="n">point</span> <span class="ow">in</span> <span class="n">corners_icrs</span><span class="p">]</span>
-
-<span class="n">point_list</span> <span class="o">=</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">skycoord_to_string</span><span class="p">(</span><span class="n">skycoord</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Convert SkyCoord to string.&quot;&quot;&quot;</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">skycoord</span><span class="o">.</span><span class="n">to_string</span><span class="p">()</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">s</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;, &#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">point_list</span> <span class="o">=</span> <span class="n">skycoord_to_string</span><span class="p">(</span><span class="n">corners_icrs</span><span class="p">)</span>
 <span class="n">point_list</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;135.30559858565638, 8.398623940157561, 126.50951508623503, 13.44494195652069, 163.0173655836748, 54.24242734020255, 172.9328536286811, 46.47260492416258, 135.30559858565638, 8.398623940157561&#39;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;135.306, 8.39862, 126.51, 13.4449, 163.017, 54.2424, 172.933, 46.4726, 135.306, 8.39862&#39;
 </pre></div>
 </div>
 </div>
@@ -772,8 +752,8 @@ Here’s the base query from the previous lesson again:</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
 
 <span class="n">query</span> <span class="o">=</span> <span class="n">query_base</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">columns</span><span class="p">,</span> 
-                            <span class="n">point_list</span><span class="o">=</span><span class="n">point_list</span><span class="p">,</span>
-                            <span class="n">pm_point_list</span><span class="o">=</span><span class="n">pm_point_list</span><span class="p">)</span>
+                          <span class="n">point_list</span><span class="o">=</span><span class="n">point_list</span><span class="p">,</span>
+                          <span class="n">pm_point_list</span><span class="o">=</span><span class="n">pm_point_list</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -785,9 +765,9 @@ FROM gaiadr2.gaia_source
 WHERE parallax &lt; 1
   AND bp_rp BETWEEN -0.75 AND 2 
   AND 1 = CONTAINS(POINT(ra, dec), 
-                   POLYGON(135.30559858565638, 8.398623940157561, 126.50951508623503, 13.44494195652069, 163.0173655836748, 54.24242734020255, 172.9328536286811, 46.47260492416258, 135.30559858565638, 8.398623940157561))
+                   POLYGON(135.306, 8.39862, 126.51, 13.4449, 163.017, 54.2424, 172.933, 46.4726, 135.306, 8.39862))
   AND 1 = CONTAINS(POINT(pmra, pmdec),
-                   POLYGON(-4.050371212154984, -14.75623260987968, -3.4198108491382455, -14.723655456335619, -3.035219883740934, -14.443571352854612, -2.268479190206636, -13.714023598831554, -2.611722027231764, -13.247974712069263, -2.7347140078529106, -13.090544709622938, -3.199231461993783, -12.594265302440828, -3.34082545787549, -12.476119260818695, -5.674894125178565, -11.160833381392624, -5.95159272432137, -11.105478836426514, -6.423940229776128, -11.05981294804957, -7.096310230579248, -11.951878058650085, -7.306415190921692, -12.245599765990594, -7.040166963232815, -12.885807024935527, -6.0034770546523735, -13.759120984106968, -4.42442296194263, -14.7464117578883))
+                   POLYGON( -4.05037121,-14.75623261, -3.41981085,-14.72365546, -3.03521988,-14.44357135, -2.26847919,-13.7140236 , -2.61172203,-13.24797471, -2.73471401,-13.09054471, -3.19923146,-12.5942653 , -3.34082546,-12.47611926, -5.67489413,-11.16083338, -5.95159272,-11.10547884, -6.42394023,-11.05981295, -7.09631023,-11.95187806, -7.30641519,-12.24559977, -7.04016696,-12.88580702, -6.00347705,-13.75912098, -4.42442296,-14.74641176))
 </pre></div>
 </div>
 </div>
@@ -803,18 +783,8 @@ WHERE parallax &lt; 1
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Created TAP+ (v1.2.1) - Connection:
-	Host: gea.esac.esa.int
-	Use HTTPS: True
-	Port: 443
-	SSL Port: 443
-Created TAP+ (v1.2.1) - Connection:
-	Host: geadata.esac.esa.int
-	Use HTTPS: True
-	Port: 443
-	SSL Port: 443
-INFO: Query finished. [astroquery.utils.tap.core]
-&lt;Table length=7346&gt;
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: Query finished. [astroquery.utils.tap.core]
+&lt;Table length=7345&gt;
       name       dtype    unit                              description                             n_bad
 --------------- ------- -------- ------------------------------------------------------------------ -----
       source_id   int64          Unique source identifier (unique within a particular Data Release)     0
@@ -823,11 +793,11 @@ INFO: Query finished. [astroquery.utils.tap.core]
            pmra float64 mas / yr                         Proper motion in right ascension direction     0
           pmdec float64 mas / yr                             Proper motion in declination direction     0
        parallax float64      mas                                                           Parallax     0
-radial_velocity float64   km / s                                                    Radial velocity  7295
-Jobid: 1609260557475O
+radial_velocity float64   km / s                                                    Radial velocity  7294
+Jobid: 1609278364817O
 Phase: COMPLETED
 Owner: None
-Output file: async_20201229114917.vot
+Output file: async_20201229164604.vot
 Results: None
 </pre></div>
 </div>
@@ -842,7 +812,7 @@ Results: None
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>7346
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>7345
 </pre></div>
 </div>
 </div>
@@ -864,7 +834,7 @@ Results: None
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/04_select_57_0.png" src="_images/04_select_57_0.png" />
+<img alt="_images/04_select_58_0.png" src="_images/04_select_58_0.png" />
 </div>
 </div>
 <p>Here we can see why it was useful to transform these coordinates.  In ICRS, it is more difficult to identity the stars near the centerline of GD-1.</p>
@@ -923,7 +893,7 @@ Results: None
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/04_select_63_0.png" src="_images/04_select_63_0.png" />
+<img alt="_images/04_select_64_0.png" src="_images/04_select_64_0.png" />
 </div>
 </div>
 <p>We’re starting to see GD-1 more clearly.</p>
@@ -954,7 +924,7 @@ Results: None
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-rw-rw-r-- 1 downey downey 698K Dec 29 11:50 gd1_candidates.hdf5
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-rw-rw-r-- 1 downey downey 698K Dec 29 16:46 gd1_candidates.hdf5
 </pre></div>
 </div>
 </div>
@@ -987,7 +957,7 @@ Results: None
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-rw-rw-r-- 1 downey downey 1.4M Dec 29 11:50 gd1_candidates.csv
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-rw-rw-r-- 1 downey downey 1.4M Dec 29 16:46 gd1_candidates.csv
 </pre></div>
 </div>
 </div>
