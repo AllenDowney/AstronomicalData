@@ -46,8 +46,6 @@ This notebook demonstrates the following steps:
 
 4. Downloading the response from the server as an Astropy `Table`.
 
-Press this button to run this notebook on Colab:
-
 [Run Notebook 1 on Colab](https://colab.research.google.com/github/AllenDowney/AstronomicalData/blob/main/01_query.ipynb)
 
 [or click here to read it on NBViewer](https://nbviewer.jupyter.org/github/AllenDowney/AstronomicalData/blob/main/01_query.ipynb)
@@ -69,8 +67,6 @@ Then, to select stars in the vicinity of GD-1, we:
 
 * Store the results in a FITS file.
 
-Press this button to run this notebook on Colab:
-
 [Run Notebook 2 on Colab](https://colab.research.google.com/github/AllenDowney/AstronomicalData/blob/main/02_coords.ipynb)
 
 [or click here to read it on NBViewer](https://nbviewer.jupyter.org/github/AllenDowney/AstronomicalData/blob/main/02_coords.ipynb)
@@ -90,8 +86,6 @@ Here are the steps in this notebook:
 
 5. Finally, we'll select and plot the stars whose proper motion is in that region.
 
-Press this button to run this notebook on Colab:
-
 [Run Notebook 3 on Colab](https://colab.research.google.com/github/AllenDowney/AstronomicalData/blob/main/03_motion.ipynb)
 
 [or click here to read it on NBViewer](https://nbviewer.jupyter.org/github/AllenDowney/AstronomicalData/blob/main/03_motion.ipynb)
@@ -109,8 +103,6 @@ Here are the steps in this notebook:
 
 That will make it possible to search a bigger region of the sky in a single query.
 
-Press this button to run this notebook on Colab:
-
 [Run Notebook 4 on Colab](https://colab.research.google.com/github/AllenDowney/AstronomicalData/blob/main/04_select.ipynb)
 
 [or click here to read it on NBViewer](https://nbviewer.jupyter.org/github/AllenDowney/AstronomicalData/blob/main/04_select.ipynb)
@@ -125,8 +117,6 @@ Here are the steps in this notebook:
 2. Then we'll run a query on the Gaia server that uploads the table of candidates and uses a `JOIN` operation to select photometry data for the candidate stars.
 
 3. We'll write the results to a file for use in the next notebook.
-
-Press this button to run this notebook on Colab:
 
 [Run Notebook 5 on Colab](https://colab.research.google.com/github/AllenDowney/AstronomicalData/blob/main/05_join.ipynb)
 
@@ -143,8 +133,6 @@ Here are the steps in this notebook:
 
 3. Then we'll merge the photometry data with the list of candidate stars, storing the result in a Pandas `DataFrame`.
 
-Press this button to run this notebook on Colab:
-
 [Run Notebook 6 on Colab](https://colab.research.google.com/github/AllenDowney/AstronomicalData/blob/main/06_photo.ipynb)
 
 [or click here to read it on NBViewer](https://nbviewer.jupyter.org/github/AllenDowney/AstronomicalData/blob/main/06_photo.ipynb)
@@ -159,8 +147,6 @@ Here are the steps in this notebook:
 2. The we'll see several ways to customize figures to make them more appealing and effective.
 
 3. Finally, we'll see how to make a figure with multiple panels or subplots.
-
-Press this button to run this notebook on Colab:
 
 [Run Notebook 7 on Colab](https://colab.research.google.com/github/AllenDowney/AstronomicalData/blob/main/07_plot.ipynb)
 
