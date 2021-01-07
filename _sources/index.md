@@ -25,7 +25,10 @@ links below, you can read the notebooks on NBViewer or run them on Colab.  If yo
 want to run the notebooks in your own environment, you can download them from
 this repository and follow the instructions below to set up your environment.
 
-### Prerequisites
+This material is also available in the form of [Carpentries lessons](https://datacarpentry.github.io/astronomy-python), but you should be
+aware that these versions might diverge in the future.
+
+**Prerequisites**
 
 This material should be accessible to people familiar with basic Python, but not necessarily the libraries we will use, like Astropy or Pandas.  If you are familiar with Python lists and dictionaries, and you know how to write a function that takes parameters and returns a value, that should be enough.
 
@@ -166,4 +169,118 @@ Press this button to run this notebook on Colab:
 
 ## Installation instructions
 
-Coming soon.
+If you plan to run these notebooks on Colab, you don't have to 
+install anything; you can use the links in the
+previous section to open and run them.
+If you want to run the notebooks in your own environment, 
+you might have to do some setup.
+
+You will need to install Python, Jupyter, and some additional 
+libraries.
+If you don't already have Jupyter, we recommend installing 
+Anaconda, which is a Python distribution that 
+contains everything you need to run the workshop code.  
+It is easy to install on Windows, Mac, and Linux, 
+and because it does a user-level install, it will not 
+interfere with other Python installations.
+
+[Information about installing Anaconda is here](https://www.anaconda.com/distribution/).
+
+If you have the choice of Python 2 or 3, choose Python 3.
+
+Now, there are two ways to get the libraries you need:
+
+* Option 1: You can install them in an existing Conda environment.
+
+* Option 2: You can create a new Conda environment.
+
+Installing libraries in an existing environment is simpler, 
+but if you use the same environment for many projects, 
+it will get big, complicated, and prone to package conflicts.
+
+
+**Option 1:** *Installing libraries in an existing Conda 
+environment*
+
+Most of the libraries we need can be installed using Conda, 
+by running the following commands in a Terminal.
+If you are on a Mac or Linux machine, you should be able to 
+use any Terminal.  
+If you are on Windows, you might have to use the Anaconda Prompt, 
+which you can find under the Start menu.
+
+```
+conda install jupyter numpy scipy pandas matplotlib seaborn libopenblas
+conda install -c conda-forge astropy astroquery gala python-wget
+```
+
+
+
+**Option 2:** *Creating a new Conda environment*
+
+To create a new Conda environment, you'll need to download 
+an environment file from our repository.  On Mac or Linux, 
+you can download it using `wget` on the command line: 
+
+```
+wget https://raw.githubusercontent.com/AllenDowney/AstronomicalData/main/environment.yml
+```
+
+Or you can [download it using this link](https://raw.githubusercontent.com/AllenDowney/AstronomicalData/main/environment.yml).
+
+In a Terminal or Jupyter Prompt, make sure you are in folder 
+where `environment.yml` is stored, and run:
+
+```
+conda env create -f environment.yml
+```
+
+Then, to activate the environment you just created, run:
+
+```
+conda activate AstronomicalData
+```
+
+**Run Jupyter**
+
+If you are not familiar with Jupyter, you can [run a tutorial by clicking here](https://jupyter.org/try).
+Then select "Try Classic Notebook".  It will open a notebook with instructions for getting started.
+Or you can run this [introductory notebook on Colab](https://colab.research.google.com/notebooks/intro.ipynb).
+
+Before you launch Jupyter, [download this notebook](https://raw.githubusercontent.com/AllenDowney/AstronomicalData/main/test_setup.ipynb), which contains code to test your environment.
+
+Or you can use `wget` to download it on the command line, like this:
+
+```
+wget https://raw.githubusercontent.com/AllenDowney/AstronomicalData/main/test_setup.ipynb
+```
+
+To start Jupyter, run:
+
+```
+jupyter notebook
+```
+
+Jupyter should launch your default browser or open a tab in an existing browser window.
+If not, the Jupyter server should print a URL you can use.  For example, when I launch Jupyter, I get
+
+```
+$ jupyter notebook
+[I 10:03:20.115 NotebookApp] Serving notebooks from local directory: /home/username
+[I 10:03:20.115 NotebookApp] 0 active kernels
+[I 10:03:20.115 NotebookApp] The Jupyter Notebook is running at: http://localhost:8888/
+[I 10:03:20.115 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+```
+
+In this example, the URL is [http://localhost:8888](http://localhost:8888).  
+When you start your server, you might get a different URL.
+Whatever it is, if you paste it into a browser, you should should see a home page with a list of directories.
+
+Now open the notebook you downloaded and run the cells that contain `import` statements.
+If they work and you get no error messages, **you are all set**.
+
+If you get error messages about missing packages, you can install the packages you need using Conda or `pip`.
+
+If you run into problems with these instructions, let us know and we will make corrections.  Good luck!
+
+
