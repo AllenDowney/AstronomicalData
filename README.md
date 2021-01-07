@@ -48,7 +48,7 @@ This notebook demonstrates the following steps:
 
 Press this button to run this notebook on Colab:
 
-[<img src="run_on_colab_small.png">](https://colab.research.google.com/github/AllenDowney/AstronomicalData/blob/main/01_query.ipynb)
+[Run Notebook 1 on Colab](https://colab.research.google.com/github/AllenDowney/AstronomicalData/blob/main/01_query.ipynb)
 
 [or click here to read it on NBViewer](https://nbviewer.jupyter.org/github/AllenDowney/AstronomicalData/blob/main/01_query.ipynb)
 
@@ -71,7 +71,7 @@ Then, to select stars in the vicinity of GD-1, we:
 
 Press this button to run this notebook on Colab:
 
-[<img src="run_on_colab_small.png">](https://colab.research.google.com/github/AllenDowney/AstronomicalData/blob/main/02_coords.ipynb)
+[Run Notebook 2 on Colab](https://colab.research.google.com/github/AllenDowney/AstronomicalData/blob/main/02_coords.ipynb)
 
 [or click here to read it on NBViewer](https://nbviewer.jupyter.org/github/AllenDowney/AstronomicalData/blob/main/02_coords.ipynb)
 
@@ -92,7 +92,7 @@ Here are the steps in this notebook:
 
 Press this button to run this notebook on Colab:
 
-[<img src="run_on_colab_small.png">](https://colab.research.google.com/github/AllenDowney/AstronomicalData/blob/main/03_motion.ipynb)
+[Run Notebook 3 on Colab](https://colab.research.google.com/github/AllenDowney/AstronomicalData/blob/main/03_motion.ipynb)
 
 [or click here to read it on NBViewer](https://nbviewer.jupyter.org/github/AllenDowney/AstronomicalData/blob/main/03_motion.ipynb)
 
@@ -111,7 +111,7 @@ That will make it possible to search a bigger region of the sky in a single quer
 
 Press this button to run this notebook on Colab:
 
-[<img src="run_on_colab_small.png">](https://colab.research.google.com/github/AllenDowney/AstronomicalData/blob/main/04_select.ipynb)
+[Run Notebook 4 on Colab](https://colab.research.google.com/github/AllenDowney/AstronomicalData/blob/main/04_select.ipynb)
 
 [or click here to read it on NBViewer](https://nbviewer.jupyter.org/github/AllenDowney/AstronomicalData/blob/main/04_select.ipynb)
 
@@ -128,7 +128,7 @@ Here are the steps in this notebook:
 
 Press this button to run this notebook on Colab:
 
-[<img src="run_on_colab_small.png">](https://colab.research.google.com/github/AllenDowney/AstronomicalData/blob/main/05_join.ipynb)
+[Run Notebook 5 on Colab](https://colab.research.google.com/github/AllenDowney/AstronomicalData/blob/main/05_join.ipynb)
 
 [or click here to read it on NBViewer](https://nbviewer.jupyter.org/github/AllenDowney/AstronomicalData/blob/main/05_join.ipynb)
 
@@ -145,7 +145,7 @@ Here are the steps in this notebook:
 
 Press this button to run this notebook on Colab:
 
-[<img src="run_on_colab_small.png">](https://colab.research.google.com/github/AllenDowney/AstronomicalData/blob/main/06_photo.ipynb)
+[Run Notebook 6 on Colab](https://colab.research.google.com/github/AllenDowney/AstronomicalData/blob/main/06_photo.ipynb)
 
 [or click here to read it on NBViewer](https://nbviewer.jupyter.org/github/AllenDowney/AstronomicalData/blob/main/06_photo.ipynb)
 
@@ -162,53 +162,65 @@ Here are the steps in this notebook:
 
 Press this button to run this notebook on Colab:
 
-[<img src="run_on_colab_small.png">](https://colab.research.google.com/github/AllenDowney/AstronomicalData/blob/main/07_plot.ipynb)
+[Run Notebook 7 on Colab](https://colab.research.google.com/github/AllenDowney/AstronomicalData/blob/main/07_plot.ipynb)
 
 [or click here to read it on NBViewer](https://nbviewer.jupyter.org/github/AllenDowney/AstronomicalData/blob/main/07_plot.ipynb)
 
 
 **Installation instructions**
 
-If you plan to run these notebooks on Colab, you don't have to install anything; you can use the links in the
+If you plan to run these notebooks on Colab, you don't have to 
+install anything; you can use the links in the
 previous section to open and run them.
-If you want to run the notebooks in your own environment, you might have to do some setup.
+If you want to run the notebooks in your own environment, 
+you might have to do some setup.
 
-You will need to install Python, Jupyter, and some additional libraries.
-If you don't already have Jupyter, we recommend installing Anaconda, which is a Python distribution that 
-contains everything you need to run the workshop code.  It is easy to install on Windows, Mac, and Linux, 
-and because it does a user-level install, it will not interfere with other Python installations.
+You will need to install Python, Jupyter, and some additional 
+libraries.
+If you don't already have Jupyter, we recommend installing 
+Anaconda, which is a Python distribution that 
+contains everything you need to run the workshop code.  
+It is easy to install on Windows, Mac, and Linux, 
+and because it does a user-level install, it will not 
+interfere with other Python installations.
 
 [Information about installing Anaconda is here](https://www.anaconda.com/distribution/).
 
 If you have the choice of Python 2 or 3, choose Python 3.
 
 Now, there are two ways to get the libraries you need:
+
 * Option 1: You can install them in an existing Conda environment.
+
 * Option 2: You can create a new Conda environment.
 
-Installing libraries in an existing environment is simpler, but if you use the same environment for many projects, it will get big, complicated, and prone to package conflicts.
+Installing libraries in an existing environment is simpler, 
+but if you use the same environment for many projects, 
+it will get big, complicated, and prone to package conflicts.
 
 
-**Option 1:** *Installing libraries in an existing Conda environment*
+**Option 1:** *Installing libraries in an existing Conda 
+environment*
 
-Most of the libraries we need can be installed using Conda, by running the following commands in a Terminal.
-If you are on a Mac or Linux machine, you should be able to use any Terminal.  
-If you are on Windows, you might have to use the Anaconda Prompt, which you can find under the Start menu.
+Most of the libraries we need can be installed using Conda, 
+by running the following commands in a Terminal.
+If you are on a Mac or Linux machine, you should be able to 
+use any Terminal.  
+If you are on Windows, you might have to use the Anaconda Prompt, 
+which you can find under the Start menu.
 
 ```
 conda install jupyter numpy scipy pandas matplotlib seaborn libopenblas
-conda install -c conda-forge astropy astroquery astro-gala python-wget
+conda install -c conda-forge astropy astroquery gala python-wget
 ```
 
-In addition, there's one library we can't install with Conda, so we have to use `pip`:
 
-```
-pip install pyia
-```
 
 **Option 2:** *Creating a new Conda environment*
 
-To create a new Conda environment, you'll need to download an environment file from our repository.  On Mac or Linux, you can download it using `wget` on the command line: 
+To create a new Conda environment, you'll need to download 
+an environment file from our repository.  On Mac or Linux, 
+you can download it using `wget` on the command line: 
 
 ```
 wget https://raw.githubusercontent.com/AllenDowney/AstronomicalData/main/environment.yml
@@ -216,7 +228,8 @@ wget https://raw.githubusercontent.com/AllenDowney/AstronomicalData/main/environ
 
 Or you can [download it using this link](https://raw.githubusercontent.com/AllenDowney/AstronomicalData/main/environment.yml).
 
-In a Terminal or Jupyter Prompt, make sure you are in folder where `environment.yml` is stored, and run:
+In a Terminal or Jupyter Prompt, make sure you are in folder 
+where `environment.yml` is stored, and run:
 
 ```
 conda env create -f environment.yml
@@ -259,7 +272,7 @@ $ jupyter notebook
 [I 10:03:20.115 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
 ```
 
-In this case, the URL is [http://localhost:8888](http://localhost:8888).  
+In this example, the URL is [http://localhost:8888](http://localhost:8888).  
 When you start your server, you might get a different URL.
 Whatever it is, if you paste it into a browser, you should should see a home page with a list of directories.
 
