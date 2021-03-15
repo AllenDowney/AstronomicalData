@@ -342,14 +342,17 @@ We’ll also see how to write the results to a CSV file.</p>
 <p>The following cells download the data from the previous lesson, if necessary, and load it into a Pandas <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">from</span> <span class="nn">wget</span> <span class="kn">import</span> <span class="n">download</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">basename</span><span class="p">,</span> <span class="n">exists</span>
 
-<span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;gd1_data.hdf&#39;</span>
-<span class="n">path</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/AllenDowney/AstronomicalData/raw/main/data/&#39;</span>
+<span class="k">def</span> <span class="nf">download</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
+    <span class="n">filename</span> <span class="o">=</span> <span class="n">basename</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">exists</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">urllib.request</span> <span class="kn">import</span> <span class="n">urlretrieve</span>
+        <span class="n">local</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">urlretrieve</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Downloaded &#39;</span> <span class="o">+</span> <span class="n">local</span><span class="p">)</span>
 
-<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">download</span><span class="p">(</span><span class="n">path</span><span class="o">+</span><span class="n">filename</span><span class="p">))</span>
+<span class="n">download</span><span class="p">(</span><span class="s1">&#39;https://github.com/AllenDowney/AstronomicalData/raw/main/&#39;</span> <span class="o">+</span>
+         <span class="s1">&#39;data/gd1_data.hdf&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -357,6 +360,8 @@ We’ll also see how to write the results to a CSV file.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;gd1_data.hdf&#39;</span>
 
 <span class="n">centerline_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_hdf</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;centerline_df&#39;</span><span class="p">)</span>
 <span class="n">selected_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_hdf</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;selected_df&#39;</span><span class="p">)</span>
@@ -513,7 +518,7 @@ We’ll also see how to write the results to a CSV file.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;scipy.spatial.qhull.ConvexHull at 0x7fb34c626a60&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;scipy.spatial.qhull.ConvexHull at 0x7f712e3b6dc0&gt;
 </pre></div>
 </div>
 </div>
@@ -569,7 +574,7 @@ We’ll also see how to write the results to a CSV file.</p>
 </div>
 </div>
 </div>
-<p>This use of <code class="docutils literal notranslate"><span class="pre">transpose</span></code> is a bit of a NumPy trick.  Because <code class="docutils literal notranslate"><span class="pre">pm_vertices</span></code> has two columns, its transpose has two rows, which are assigned to the two variables <code class="docutils literal notranslate"><span class="pre">pmra_poly</span></code> and <code class="docutils literal notranslate"><span class="pre">pmdec_poly</span></code>.</p>
+<p>This use of <code class="docutils literal notranslate"><span class="pre">transpose</span></code> is a useful NumPy idiom.  Because <code class="docutils literal notranslate"><span class="pre">pm_vertices</span></code> has two columns, its <a class="reference external" href="https://en.wikipedia.org/wiki/Transpose">matrix transpose</a> has two rows, which are assigned to the two variables <code class="docutils literal notranslate"><span class="pre">pmra_poly</span></code> and <code class="docutils literal notranslate"><span class="pre">pmdec_poly</span></code>.</p>
 <p>The following figure shows proper motion in ICRS again, along with the convex hull we just computed.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -592,7 +597,7 @@ We’ll also see how to write the results to a CSV file.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/04_select_31_0.png" src="_images/04_select_31_0.png" />
+<img alt="_images/04_select_30_0.png" src="_images/04_select_30_0.png" />
 </div>
 </div>
 <p>So <code class="docutils literal notranslate"><span class="pre">pm_vertices</span></code> represents the polygon we want to select.
@@ -684,10 +689,10 @@ Here’s the function from Lesson 2 we used to do that.</p>
 </div>
 </div>
 </div>
-<p>Here again are the columns we want to select.</p>
+<p>Here are the columns we want to select.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">columns</span> <span class="o">=</span> <span class="s1">&#39;source_id, ra, dec, pmra, pmdec, parallax&#39;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">columns</span> <span class="o">=</span> <span class="s1">&#39;source_id, ra, dec, pmra, pmdec&#39;</span>
 </pre></div>
 </div>
 </div>
@@ -703,7 +708,7 @@ Here’s the function from Lesson 2 we used to do that.</p>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>SELECT
-source_id, ra, dec, pmra, pmdec, parallax
+source_id, ra, dec, pmra, pmdec
 FROM gaiadr2.gaia_source
 WHERE parallax &lt; 1
   AND bp_rp BETWEEN -0.75 AND 2 
@@ -789,7 +794,7 @@ Using <code class="docutils literal notranslate"><span class="pre">flatten</span
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>SELECT 
-source_id, ra, dec, pmra, pmdec, parallax
+source_id, ra, dec, pmra, pmdec
 FROM gaiadr2.gaia_source
 WHERE parallax &lt; 1
   AND bp_rp BETWEEN -0.75 AND 2 
@@ -812,7 +817,17 @@ WHERE parallax &lt; 1
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: Query finished. [astroquery.utils.tap.core]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Created TAP+ (v1.2.1) - Connection:
+	Host: gea.esac.esa.int
+	Use HTTPS: True
+	Port: 443
+	SSL Port: 443
+Created TAP+ (v1.2.1) - Connection:
+	Host: geadata.esac.esa.int
+	Use HTTPS: True
+	Port: 443
+	SSL Port: 443
+INFO: Query finished. [astroquery.utils.tap.core]
 &lt;Table length=7345&gt;
    name    dtype    unit                              description                            
 --------- ------- -------- ------------------------------------------------------------------
@@ -821,11 +836,10 @@ source_id   int64          Unique source identifier (unique within a particular 
       dec float64      deg                                                        Declination
      pmra float64 mas / yr                         Proper motion in right ascension direction
     pmdec float64 mas / yr                             Proper motion in declination direction
- parallax float64      mas                                                           Parallax
-Jobid: 1610562623566O
+Jobid: 1615824245107O
 Phase: COMPLETED
 Owner: None
-Output file: async_20210113133023.vot
+Output file: async_20210315120405.vot
 Results: None
 </pre></div>
 </div>
@@ -863,12 +877,12 @@ Results: None
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/04_select_64_0.png" src="_images/04_select_64_0.png" />
+<img alt="_images/04_select_62_0.png" src="_images/04_select_62_0.png" />
 </div>
 </div>
 <p>Here we can see why it was useful to transform these coordinates.  In ICRS, it is more difficult to identity the stars near the centerline of GD-1.</p>
-<p>So let’s transform the results back to the GD-1 frame.</p>
-<p>Here’s the code we used to transform the coordinates and make a Pandas <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>, wrapped in a function.</p>
+<p>So let’s transform the results back to the GD-1 frame.
+Here’s the code we used to transform the coordinates and make a Pandas <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>, wrapped in a function.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">gala.coordinates</span> <span class="kn">import</span> <span class="n">reflex_correct</span>
@@ -923,11 +937,11 @@ Results: None
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/04_select_70_0.png" src="_images/04_select_70_0.png" />
+<img alt="_images/04_select_68_0.png" src="_images/04_select_68_0.png" />
 </div>
 </div>
-<p>We’re starting to see GD-1 more clearly.</p>
-<p>We can compare this figure with this panel from Figure 1 from the original paper:</p>
+<p>We’re starting to see GD-1 more clearly.
+We can compare this figure with this panel from Figure 1 from the original paper:</p>
 <a class="reference internal image-reference" href="https://github.com/datacarpentry/astronomy-python/raw/gh-pages/fig/gd1-2.png"><img alt="https://github.com/datacarpentry/astronomy-python/raw/gh-pages/fig/gd1-2.png" src="https://github.com/datacarpentry/astronomy-python/raw/gh-pages/fig/gd1-2.png" style="height: 150px;" /></a>
 <p>This panel shows stars selected based on proper motion only, so it is comparable to our figure (although notice that it covers a wider region).</p>
 <p>In the next lesson, we will use photometry data from Pan-STARRS to do a second round of filtering, and see if we can replicate this panel.</p>
@@ -947,22 +961,21 @@ Results: None
 </div>
 </div>
 </div>
-<p>We can use <code class="docutils literal notranslate"><span class="pre">ls</span></code> to confirm that the file exists and check the size:</p>
+<p>We can use <code class="docutils literal notranslate"><span class="pre">getsize</span></code> to confirm that the file exists and check the size:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>ls -lh gd1_data.hdf
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">getsize</span>
+
+<span class="n">MB</span> <span class="o">=</span> <span class="mi">1024</span> <span class="o">*</span> <span class="mi">1024</span>
+<span class="n">getsize</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span> <span class="o">/</span> <span class="n">MB</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-rw-rw-r-- 1 downey downey 3.3M Jan 13 13:32 gd1_data.hdf
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2.575897216796875
 </pre></div>
 </div>
 </div>
-</div>
-<p>If you are using Windows, <code class="docutils literal notranslate"><span class="pre">ls</span></code> might not work; in that case, try:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>!dir gd1_data.hdf
-</pre></div>
 </div>
 </div>
 <div class="section" id="csv">
@@ -983,12 +996,12 @@ Results: None
 <p>We can check the file size like this:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>ls -lh gd1_data.csv
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">getsize</span><span class="p">(</span><span class="s1">&#39;gd1_data.csv&#39;</span><span class="p">)</span> <span class="o">/</span> <span class="n">MB</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-rw-rw-r-- 1 downey downey 1.4M Jan 13 13:33 gd1_data.csv
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.238297462463379
 </pre></div>
 </div>
 </div>
@@ -996,14 +1009,26 @@ Results: None
 <p>We can see the first few lines like this:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>head -3 gd1_data.csv
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">head</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="nb">next</span><span class="p">(</span><span class="n">fp</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">head</span><span class="p">(</span><span class="s1">&#39;gd1_data.csv&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>,source_id,ra,dec,pmra,pmdec,parallax,phi1,phi2,pm_phi1,pm_phi2
-0,635559124339440000,137.58671691646745,19.1965441084838,-3.770521900009566,-12.490481778113859,0.7913934419894347,-59.63048941944402,-1.2164852515042963,-7.361362712597496,-0.592632882064492
-1,635860218726658176,138.5187065217173,19.09233926905897,-5.941679495793577,-11.346409129876392,0.30745551377348623,-59.247329893833296,-2.016078400820631,-7.527126084640531,1.7487794924176672
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>,source_id,ra,dec,pmra,pmdec,phi1,phi2,pm_phi1,pm_phi2
+
+0,635559124339440000,137.58671691646745,19.1965441084838,-3.770521900009566,-12.490481778113859,-59.63048941944402,-1.2164852515042963,-7.361362712597496,-0.592632882064492
+
+1,635860218726658176,138.5187065217173,19.09233926905897,-5.941679495793577,-11.346409129876392,-59.247329893833296,-2.016078400820631,-7.527126084640531,1.7487794924176672
 </pre></div>
 </div>
 </div>
