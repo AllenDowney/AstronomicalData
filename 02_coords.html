@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>2. Coordinates and Units &#8212; Astronomical Data in Python</title>
+    <title>Coordinates and units &#8212; Astronomical Data in Python</title>
     
   <link rel="stylesheet" href="_static/css/index.d431a4ee1c1efae0e38bdfebc22debff.css">
 
@@ -57,8 +57,8 @@
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="3. Proper Motion" href="03_motion.html" />
-    <link rel="prev" title="1. Queries" href="01_query.html" />
+    <link rel="next" title="Proper Motion" href="03_motion.html" />
+    <link rel="prev" title="Queries" href="01_query.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -99,22 +99,22 @@
 <ul class="current nav sidenav_l1">
  <li class="toctree-l1">
   <a class="reference internal" href="01_query.html">
-   1. Queries
+   Queries
   </a>
  </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   2. Coordinates and Units
+   Coordinates and units
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="03_motion.html">
-   3. Proper Motion
+   Proper Motion
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="04_select.html">
-   4. Transformation and Selection
+   Transformation and Selection
   </a>
  </li>
  <li class="toctree-l1">
@@ -244,24 +244,12 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#working-with-units">
-   Working with Units
+  <a class="reference internal nav-link" href="#selecting-a-region">
+   Selecting a region
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#exercise">
-     Exercise
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#selecting-a-region">
-   Selecting a Region
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id1">
      Exercise
     </a>
    </li>
@@ -273,12 +261,17 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#working-with-coordinates">
+   Working with coordinates
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#transforming-coordinates">
    Transforming coordinates
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id2">
+    <a class="reference internal nav-link" href="#id1">
      Exercise
     </a>
    </li>
@@ -290,13 +283,8 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#defining-a-polygon">
-   Defining a polygon
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#assembling-the-query">
-   Assembling the query
+  <a class="reference internal nav-link" href="#selecting-a-polygon">
+   Selecting a polygon
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -326,9 +314,11 @@
               <div>
                 
   <div class="section" id="coordinates-and-units">
-<h1>2. Coordinates and Units<a class="headerlink" href="#coordinates-and-units" title="Permalink to this headline">¶</a></h1>
-<p>In the previous lesson, we wrote ADQL queries and used them to select and download data from the Gaia server.</p>
-<p>In this lesson, we’ll pick up where we left off and write a query to select stars from a particular region of the sky.</p>
+<h1>Coordinates and units<a class="headerlink" href="#coordinates-and-units" title="Permalink to this headline">¶</a></h1>
+<p>This is the second in a series of notebooks related to astronomy data.</p>
+<p>As a running example, we are replicating parts of the analysis in a recent paper, “<a class="reference external" href="https://arxiv.org/abs/1805.00425">Off the beaten path: Gaia reveals GD-1 stars outside of the main stream</a>” by Adrian M. Price-Whelan and Ana Bonaca.</p>
+<p>In the first notebook, we wrote ADQL queries and used them to select and download data from the Gaia server.</p>
+<p>In this notebook, we’ll pick up where we left off and write a query to select stars from the region of the sky where we expect GD-1 to be.</p>
 <div class="section" id="outline">
 <h2>Outline<a class="headerlink" href="#outline" title="Permalink to this headline">¶</a></h2>
 <p>We’ll start with an example that does a “cone search”; that is, it selects stars that appear in a circular region of the sky.</p>
@@ -347,10 +337,129 @@
 <li><p>Download the results of a query and store them in a file.</p></li>
 </ul>
 </div>
-<div class="section" id="working-with-units">
-<h2>Working with Units<a class="headerlink" href="#working-with-units" title="Permalink to this headline">¶</a></h2>
-<p>The measurements we will work with are physical quantities, which means that they have two parts, a value and a unit.
-For example, the coordinate <span class="math notranslate nohighlight">\(30^{\circ}\)</span> has value 30 and its units are degrees.</p>
+<div class="section" id="selecting-a-region">
+<h2>Selecting a region<a class="headerlink" href="#selecting-a-region" title="Permalink to this headline">¶</a></h2>
+<p>One of the most common ways to restrict a query is to select stars in a particular region of the sky.</p>
+<p>For example, here’s a query from the <a class="reference external" href="https://gea.esac.esa.int/archive-help/adql/examples/index.html">Gaia archive documentation</a> that selects “all the objects … in a circular region centered at (266.41683, -29.00781) with a search radius of 5 arcmin (0.08333 deg).”</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">SELECT </span>
+<span class="s2">TOP 10 source_id</span>
+<span class="s2">FROM gaiadr2.gaia_source</span>
+<span class="s2">WHERE 1=CONTAINS(</span>
+<span class="s2">  POINT(ra, dec),</span>
+<span class="s2">  CIRCLE(266.41683, -29.00781, 0.08333333))</span>
+<span class="s2">&quot;&quot;&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>This query uses three keywords that are specific to ADQL (not SQL):</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">POINT</span></code>: a location in <a class="reference external" href="https://en.wikipedia.org/wiki/International_Celestial_Reference_System">ICRS coordinates</a>, specified in degrees of right ascension and declination.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CIRCLE</span></code>: a circle where the first two values are the coordinates of the center and the third is the radius in degrees.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CONTAINS</span></code>: a function that returns <code class="docutils literal notranslate"><span class="pre">1</span></code> if a <code class="docutils literal notranslate"><span class="pre">POINT</span></code> is contained in a shape and <code class="docutils literal notranslate"><span class="pre">0</span></code> otherwise.</p></li>
+</ul>
+<p>Here is the <a class="reference external" href="http://www.ivoa.net/documents/ADQL/20180112/PR-ADQL-2.1-20180112.html#tth_sEc4.2.12">documentation of <code class="docutils literal notranslate"><span class="pre">CONTAINS</span></code></a>.</p>
+<p>A query like this is called a cone search because it selects stars in a cone.</p>
+<p>Here’s how we run it.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">astroquery.gaia</span> <span class="kn">import</span> <span class="n">Gaia</span>
+
+<span class="n">job</span> <span class="o">=</span> <span class="n">Gaia</span><span class="o">.</span><span class="n">launch_job</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+<span class="n">job</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Created TAP+ (v1.2.1) - Connection:
+	Host: gea.esac.esa.int
+	Use HTTPS: True
+	Port: 443
+	SSL Port: 443
+Created TAP+ (v1.2.1) - Connection:
+	Host: geadata.esac.esa.int
+	Use HTTPS: True
+	Port: 443
+	SSL Port: 443
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;astroquery.utils.tap.model.job.Job at 0x7f59bd93e490&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">job</span><span class="o">.</span><span class="n">get_results</span><span class="p">()</span>
+<span class="n">result</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><i>Table length=10</i>
+<table id="table140023409350736" class="table-striped table-bordered table-condensed">
+<thead><tr><th>source_id</th></tr></thead>
+<thead><tr><th>int64</th></tr></thead>
+<tr><td>4057468321929794432</td></tr>
+<tr><td>4057468287575835392</td></tr>
+<tr><td>4057482027171038976</td></tr>
+<tr><td>4057470349160630656</td></tr>
+<tr><td>4057470039924301696</td></tr>
+<tr><td>4057469868125641984</td></tr>
+<tr><td>4057468351995073024</td></tr>
+<tr><td>4057469661959554560</td></tr>
+<tr><td>4057470520960672640</td></tr>
+<tr><td>4057470555320409600</td></tr>
+</table></div></div>
+</div>
+<div class="section" id="exercise">
+<h3>Exercise<a class="headerlink" href="#exercise" title="Permalink to this headline">¶</a></h3>
+<p>When you are debugging queries like this, you can use <code class="docutils literal notranslate"><span class="pre">TOP</span></code> to limit the size of the results, but then you still don’t know how big the results will be.</p>
+<p>An alternative is to use <code class="docutils literal notranslate"><span class="pre">COUNT</span></code>, which asks for the number of rows that would be selected, but it does not return them.</p>
+<p>In the previous query, replace <code class="docutils literal notranslate"><span class="pre">TOP</span> <span class="pre">10</span> <span class="pre">source_id</span></code> with <code class="docutils literal notranslate"><span class="pre">COUNT(source_id)</span></code> and run the query again.  How many stars has Gaia identified in the cone we searched?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
+
+<span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">SELECT </span>
+<span class="s2">COUNT(source_id)</span>
+<span class="s2">FROM gaiadr2.gaia_source</span>
+<span class="s2">WHERE 1=CONTAINS(</span>
+<span class="s2">  POINT(ra, dec),</span>
+<span class="s2">  CIRCLE(266.41683, -29.00781, 0.08333333))</span>
+<span class="s2">&quot;&quot;&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="getting-gd-1-data">
+<h2>Getting GD-1 Data<a class="headerlink" href="#getting-gd-1-data" title="Permalink to this headline">¶</a></h2>
+<p>From the Price-Whelan and Bonaca paper, we will try to reproduce Figure 1, which includes this representation of stars likely to belong to GD-1:</p>
+<img alt="https://github.com/datacarpentry/astronomy-python/raw/gh-pages/fig/gd1-4.png" src="https://github.com/datacarpentry/astronomy-python/raw/gh-pages/fig/gd1-4.png" />
+<p>The axes of this figure are defined so the x-axis is aligned with the stars in GD-1, and the y-axis is perpendicular.</p>
+<ul class="simple">
+<li><p>Along the x-axis (<span class="math notranslate nohighlight">\(\phi_1\)</span>) the figure extends from -100 to 20 degrees.</p></li>
+<li><p>Along the y-axis (<span class="math notranslate nohighlight">\(\phi_2\)</span>) the figure extends from about -8 to 4 degrees.</p></li>
+</ul>
+<p>Ideally, we would select all stars from this rectangle, but there are more than 10 million of them, so</p>
+<ul class="simple">
+<li><p>That would be difficult to work with,</p></li>
+<li><p>As anonymous Gaia users, we are limited to 3 million rows in a single query, and</p></li>
+<li><p>While we are developing and testing code, it will be faster to work with a smaller dataset.</p></li>
+</ul>
+<p>So we’ll start by selecting stars in a smaller rectangle near the center of GD-1, from -55 to -45 degrees <span class="math notranslate nohighlight">\(\phi_1\)</span> and -8 to 4 degrees <span class="math notranslate nohighlight">\(\phi_2\)</span>.</p>
+<p>But first we let’s see how to represent quantities with units like degrees.</p>
+</div>
+<div class="section" id="working-with-coordinates">
+<h2>Working with coordinates<a class="headerlink" href="#working-with-coordinates" title="Permalink to this headline">¶</a></h2>
+<p>Coordinates are physical quantities, which means that they have two parts, a value and a unit.</p>
+<p>For example, the coordinate <span class="math notranslate nohighlight">\(30^{\circ}\)</span> has value 30 and its units are degrees.</p>
 <p>Until recently, most scientific computation was done with values only; units were left out of the program altogether, <a class="reference external" href="https://en.wikipedia.org/wiki/Mars_Climate_Orbiter#Cause_of_failure">often with catastrophic results</a>.</p>
 <p>Astropy provides tools for including units explicitly in computations, which makes it possible to detect errors before they cause disasters.</p>
 <p>To use Astropy units, we import them like this:</p>
@@ -1378,8 +1487,8 @@ For example, the coordinate <span class="math notranslate nohighlight">\(30^{\ci
 <p>To create a quantity, we multiply a value by a unit.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">angle</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">degree</span>
-<span class="nb">type</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">quantity</span> <span class="o">=</span> <span class="mi">30</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">degree</span>
+<span class="nb">type</span><span class="p">(</span><span class="n">quantity</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1389,210 +1498,24 @@ For example, the coordinate <span class="math notranslate nohighlight">\(30^{\ci
 </div>
 </div>
 </div>
-<p>The result is a <code class="docutils literal notranslate"><span class="pre">Quantity</span></code> object.
-Jupyter knows how to display <code class="docutils literal notranslate"><span class="pre">Quantities</span></code> like this:</p>
+<p>The result is a <code class="docutils literal notranslate"><span class="pre">Quantity</span></code> object.</p>
+<p>Jupyter knows how to display <code class="docutils literal notranslate"><span class="pre">Quantities</span></code> like this:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">angle</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">quantity</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_latex math notranslate nohighlight">
-\[10 \; \mathrm{{}^{\circ}}\]</div>
+\[30 \; \mathrm{{}^{\circ}}\]</div>
 </div>
 </div>
-<p>Quantities provide a method called <code class="docutils literal notranslate"><span class="pre">to</span></code> that converts to other units.  For example, we can compute the number of arcminutes in <code class="docutils literal notranslate"><span class="pre">angle</span></code>:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">angle_arcmin</span> <span class="o">=</span> <span class="n">angle</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">arcmin</span><span class="p">)</span>
-<span class="n">angle_arcmin</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_latex math notranslate nohighlight">
-\[600 \; \mathrm{{}^{\prime}}\]</div>
-</div>
-</div>
-<p>If you add quantities, Astropy converts them to compatible units, if possible:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">angle</span> <span class="o">+</span> <span class="mi">30</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">arcmin</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_latex math notranslate nohighlight">
-\[10.5 \; \mathrm{{}^{\circ}}\]</div>
-</div>
-</div>
-<p>If the units are not compatible, you get an error.
-For example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">angle</span> <span class="o">+</span> <span class="mi">5</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">second</span>
-</pre></div>
-</div>
-<p>causes a <code class="docutils literal notranslate"><span class="pre">UnitConversionError</span></code>.</p>
-<div class="section" id="exercise">
-<h3>Exercise<a class="headerlink" href="#exercise" title="Permalink to this headline">¶</a></h3>
-<p>Create a quantity that represents 5 <a class="reference external" href="https://en.wikipedia.org/wiki/Minute_and_second_of_arc">arcminutes</a> and assign it to a variable called <code class="docutils literal notranslate"><span class="pre">radius</span></code>.</p>
-<p>Then convert it to degrees.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## Solution</span>
-
-<span class="n">radius</span> <span class="o">=</span> <span class="mi">5</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">arcmin</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">radius</span><span class="p">)</span>
-
-<span class="n">radius</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">degree</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>5.0 arcmin
-</pre></div>
-</div>
-<div class="output text_latex math notranslate nohighlight">
-\[0.083333333 \; \mathrm{{}^{\circ}}\]</div>
-</div>
-</div>
-</div>
-</div>
-<div class="section" id="selecting-a-region">
-<h2>Selecting a Region<a class="headerlink" href="#selecting-a-region" title="Permalink to this headline">¶</a></h2>
-<p>One of the most common ways to restrict a query is to select stars in a particular region of the sky.
-For example, here’s a query from the <a class="reference external" href="https://gea.esac.esa.int/archive-help/adql/examples/index.html">Gaia archive documentation</a> that selects objects in a circular region centered at (88.8, 7.4) with a search radius of 5 arcmin (0.08333 deg).</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">query_cone</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT </span>
-<span class="s2">TOP 10 </span>
-<span class="s2">source_id</span>
-<span class="s2">FROM gaiadr2.gaia_source</span>
-<span class="s2">WHERE 1=CONTAINS(</span>
-<span class="s2">  POINT(ra, dec),</span>
-<span class="s2">  CIRCLE(88.8, 7.4, 0.08333333))</span>
-<span class="s2">&quot;&quot;&quot;</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>This query uses three keywords that are specific to ADQL (not SQL):</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">POINT</span></code>: a location in <a class="reference external" href="https://en.wikipedia.org/wiki/International_Celestial_Reference_System">ICRS coordinates</a>, specified in degrees of right ascension and declination.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">CIRCLE</span></code>: a circle where the first two values are the coordinates of the center and the third is the radius in degrees.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">CONTAINS</span></code>: a function that returns <code class="docutils literal notranslate"><span class="pre">1</span></code> if a <code class="docutils literal notranslate"><span class="pre">POINT</span></code> is contained in a shape and <code class="docutils literal notranslate"><span class="pre">0</span></code> otherwise.</p></li>
-</ul>
-<p>Here is the <a class="reference external" href="http://www.ivoa.net/documents/ADQL/20180112/PR-ADQL-2.1-20180112.html#tth_sEc4.2.12">documentation of <code class="docutils literal notranslate"><span class="pre">CONTAINS</span></code></a>.</p>
-<p>A query like this is called a cone search because it selects stars in a cone.
-Here’s how we run it.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">astroquery.gaia</span> <span class="kn">import</span> <span class="n">Gaia</span>
-
-<span class="n">job</span> <span class="o">=</span> <span class="n">Gaia</span><span class="o">.</span><span class="n">launch_job</span><span class="p">(</span><span class="n">query_cone</span><span class="p">)</span>
-<span class="n">job</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Created TAP+ (v1.2.1) - Connection:
-	Host: gea.esac.esa.int
-	Use HTTPS: True
-	Port: 443
-	SSL Port: 443
-Created TAP+ (v1.2.1) - Connection:
-	Host: geadata.esac.esa.int
-	Use HTTPS: True
-	Port: 443
-	SSL Port: 443
-</pre></div>
-</div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;astroquery.utils.tap.model.job.Job at 0x7f277785fa30&gt;
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">results</span> <span class="o">=</span> <span class="n">job</span><span class="o">.</span><span class="n">get_results</span><span class="p">()</span>
-<span class="n">results</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><i>Table length=10</i>
-<table id="table139807485721280" class="table-striped table-bordered table-condensed">
-<thead><tr><th>source_id</th></tr></thead>
-<thead><tr><th>int64</th></tr></thead>
-<tr><td>3322773965056065536</td></tr>
-<tr><td>3322773758899157120</td></tr>
-<tr><td>3322774068134271104</td></tr>
-<tr><td>3322773930696320512</td></tr>
-<tr><td>3322774377374425728</td></tr>
-<tr><td>3322773724537891456</td></tr>
-<tr><td>3322773724537891328</td></tr>
-<tr><td>3322773930696321792</td></tr>
-<tr><td>3322773724537890944</td></tr>
-<tr><td>3322773930696322176</td></tr>
-</table></div></div>
-</div>
-<div class="section" id="id1">
-<h3>Exercise<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
-<p>When you are debugging queries like this, you can use <code class="docutils literal notranslate"><span class="pre">TOP</span></code> to limit the size of the results, but then you still don’t know how big the results will be.</p>
-<p>An alternative is to use <code class="docutils literal notranslate"><span class="pre">COUNT</span></code>, which asks for the number of rows that would be selected, but it does not return them.</p>
-<p>In the previous query, replace <code class="docutils literal notranslate"><span class="pre">TOP</span> <span class="pre">10</span> <span class="pre">source_id</span></code> with <code class="docutils literal notranslate"><span class="pre">COUNT(source_id)</span></code> and run the query again.  How many stars has Gaia identified in the cone we searched?</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
-
-<span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT </span>
-<span class="s2">COUNT(source_id)</span>
-<span class="s2">FROM gaiadr2.gaia_source</span>
-<span class="s2">WHERE 1=CONTAINS(</span>
-<span class="s2">  POINT(ra, dec),</span>
-<span class="s2">  CIRCLE(88.8, 7.4, 0.08333333))</span>
-<span class="s2">&quot;&quot;&quot;</span>
-
-<span class="n">job</span> <span class="o">=</span> <span class="n">Gaia</span><span class="o">.</span><span class="n">launch_job</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
-<span class="n">results</span> <span class="o">=</span> <span class="n">job</span><span class="o">.</span><span class="n">get_results</span><span class="p">()</span>
-<span class="n">results</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><i>Table length=1</i>
-<table id="table139808112576400" class="table-striped table-bordered table-condensed">
-<thead><tr><th>count</th></tr></thead>
-<thead><tr><th>int64</th></tr></thead>
-<tr><td>594</td></tr>
-</table></div></div>
-</div>
-</div>
-</div>
-<div class="section" id="getting-gd-1-data">
-<h2>Getting GD-1 Data<a class="headerlink" href="#getting-gd-1-data" title="Permalink to this headline">¶</a></h2>
-<p>From the Price-Whelan and Bonaca paper, we will try to reproduce Figure 1, which includes this representation of stars likely to belong to GD-1:</p>
-<img alt="https://github.com/datacarpentry/astronomy-python/raw/gh-pages/fig/gd1-4.png" src="https://github.com/datacarpentry/astronomy-python/raw/gh-pages/fig/gd1-4.png" />
-<p>The axes of this figure are defined so the x-axis is aligned with the stars in GD-1, and the y-axis is perpendicular.</p>
-<ul class="simple">
-<li><p>Along the x-axis (<span class="math notranslate nohighlight">\(\phi_1\)</span>) the figure extends from -100 to 20 degrees.</p></li>
-<li><p>Along the y-axis (<span class="math notranslate nohighlight">\(\phi_2\)</span>) the figure extends from about -8 to 4 degrees.</p></li>
-</ul>
-<p>Ideally, we would select all stars from this rectangle, but there are more than 10 million of them, so</p>
-<ul class="simple">
-<li><p>That would be difficult to work with,</p></li>
-<li><p>As anonymous Gaia users, we are limited to 3 million rows in a single query, and</p></li>
-<li><p>While we are developing and testing code, it will be faster to work with a smaller dataset.</p></li>
-</ul>
-<p>So we’ll start by selecting stars in a smaller rectangle near the center of GD-1, from -55 to -45 degrees <span class="math notranslate nohighlight">\(\phi_1\)</span> and -8 to 4 degrees <span class="math notranslate nohighlight">\(\phi_2\)</span>.</p>
-<p>But first we let’s see how to represent these coordinates with Astropy.</p>
 </div>
 <div class="section" id="transforming-coordinates">
 <h2>Transforming coordinates<a class="headerlink" href="#transforming-coordinates" title="Permalink to this headline">¶</a></h2>
 <p>Astropy provides a <code class="docutils literal notranslate"><span class="pre">SkyCoord</span></code> object that represents sky coordinates relative to a specified frame.</p>
 <p>The following example creates a <code class="docutils literal notranslate"><span class="pre">SkyCoord</span></code> object that represents the approximate coordinates of <a class="reference external" href="http://simbad.u-strasbg.fr/simbad/sim-basic?Ident=Betelgeuse">Betelgeuse</a> (alf Ori) in the ICRS frame.</p>
-<p><a class="reference external" href="https://www.iers.org/IERS/EN/Science/ICRS/ICRS.html">ICRS</a> is the
-“International Celestial Reference System”, adopted in 1997 by the International Astronomical Union.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">astropy.coordinates</span> <span class="kn">import</span> <span class="n">SkyCoord</span>
@@ -1628,9 +1551,8 @@ For example, we can transform <code class="docutils literal notranslate"><span c
 </div>
 </div>
 </div>
-<p>Notice that in the Galactic frame, the coordinates are called <code class="docutils literal notranslate"><span class="pre">l</span></code> and <code class="docutils literal notranslate"><span class="pre">b</span></code>, not <code class="docutils literal notranslate"><span class="pre">ra</span></code> and <code class="docutils literal notranslate"><span class="pre">dec</span></code>.</p>
 <p>To transform to and from GD-1 coordinates, we’ll use a frame defined by <a class="reference external" href="https://gala-astro.readthedocs.io/en/latest/">Gala</a>, which is an Astropy-affiliated library that provides tools for galactic dynamics.</p>
-<p>Gala provides <a class="reference external" href="https://gala-astro.readthedocs.io/en/latest/_modules/gala/coordinates/gd1.html"><code class="docutils literal notranslate"><span class="pre">GD1Koposov10</span></code></a>, which is “a Heliocentric spherical coordinate system defined by the orbit of the GD-1 stream”.</p>
+<p>Gala provides <code class="docutils literal notranslate"><span class="pre">GD1Koposov10</span></code>, which is “<a class="reference external" href="https://gala-astro.readthedocs.io/en/latest/_modules/gala/coordinates/gd1.html">a Heliocentric spherical coordinate system defined by the orbit of the GD-1 stream</a>”</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">gala.coordinates</span> <span class="kn">import</span> <span class="n">GD1Koposov10</span>
@@ -1661,10 +1583,8 @@ For example, we can transform <code class="docutils literal notranslate"><span c
 </div>
 </div>
 </div>
-<p>Notice that the coordinates are called <code class="docutils literal notranslate"><span class="pre">phi1</span></code> and <code class="docutils literal notranslate"><span class="pre">phi2</span></code>.
-These are the coordinates shown in the figure from the paper, above.</p>
-<div class="section" id="id2">
-<h3>Exercise<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id1">
+<h3>Exercise<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
 <p>Let’s find the location of GD-1 in ICRS coordinates.</p>
 <ol class="simple">
 <li><p>Create a <code class="docutils literal notranslate"><span class="pre">SkyCoord</span></code> object at 0°, 0° in the GD-1 frame.</p></li>
@@ -1675,22 +1595,16 @@ These are the coordinates shown in the figure from the paper, above.</p>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
 
-<span class="n">origin_gd1</span> <span class="o">=</span> <span class="n">SkyCoord</span><span class="p">(</span><span class="mi">0</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">degree</span><span class="p">,</span> <span class="mi">0</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">degree</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="n">gd1_frame</span><span class="p">)</span>
-
-<span class="c1"># OR</span>
-
-<span class="n">origin_gd1</span> <span class="o">=</span> <span class="n">SkyCoord</span><span class="p">(</span><span class="n">phi1</span><span class="o">=</span><span class="mi">0</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">degree</span><span class="p">,</span> 
-                      <span class="n">phi2</span><span class="o">=</span><span class="mi">0</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">degree</span><span class="p">,</span> 
-                      <span class="n">frame</span><span class="o">=</span><span class="n">gd1_frame</span><span class="p">)</span>
+<span class="n">coord_gd1</span> <span class="o">=</span> <span class="n">SkyCoord</span><span class="p">(</span><span class="mi">0</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">degree</span><span class="p">,</span> <span class="mi">0</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">degree</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="n">gd1_frame</span><span class="p">)</span>
 
 <span class="c1"># Note: because ICRS is built into Astropy, </span>
-<span class="c1"># we can identify it by string name</span>
-<span class="n">origin_gd1</span><span class="o">.</span><span class="n">transform_to</span><span class="p">(</span><span class="s1">&#39;icrs&#39;</span><span class="p">)</span>
+<span class="c1"># we can identify it by name</span>
+<span class="n">coord_gd1</span><span class="o">.</span><span class="n">transform_to</span><span class="p">(</span><span class="s1">&#39;icrs&#39;</span><span class="p">)</span>
 
 <span class="c1"># More formally, we could instantiate it</span>
 <span class="kn">from</span> <span class="nn">astropy.coordinates</span> <span class="kn">import</span> <span class="n">ICRS</span>
 <span class="n">icrs_frame</span> <span class="o">=</span> <span class="n">ICRS</span><span class="p">()</span>
-<span class="n">origin_gd1</span><span class="o">.</span><span class="n">transform_to</span><span class="p">(</span><span class="n">icrs_frame</span><span class="p">)</span>
+<span class="n">coord_gd1</span><span class="o">.</span><span class="n">transform_to</span><span class="p">(</span><span class="n">icrs_frame</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1701,7 +1615,6 @@ These are the coordinates shown in the figure from the paper, above.</p>
 </div>
 </div>
 </div>
-<p>Notice that the origin of the GD-1 frame maps to <code class="docutils literal notranslate"><span class="pre">ra=200</span></code>, exactly, in ICRS.  That’s by design.</p>
 </div>
 </div>
 <div class="section" id="selecting-a-rectangle">
@@ -1718,7 +1631,7 @@ These are the coordinates shown in the figure from the paper, above.</p>
 </div>
 </div>
 </div>
-<p>To create a rectangle, we’ll use the following function, which takes the lower and upper bounds as parameters.</p>
+<p>To represent a rectangle, we’ll use two lists of coordinates and multiply by their units.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">make_rectangle</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">y2</span><span class="p">):</span>
@@ -1730,7 +1643,6 @@ These are the coordinates shown in the figure from the paper, above.</p>
 </div>
 </div>
 </div>
-<p>The return value is a tuple containing a list of coordinates in <code class="docutils literal notranslate"><span class="pre">phi1</span></code> followed by a list of coordinates in <code class="docutils literal notranslate"><span class="pre">phi2</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">phi1_rect</span><span class="p">,</span> <span class="n">phi2_rect</span> <span class="o">=</span> <span class="n">make_rectangle</span><span class="p">(</span>
@@ -1739,11 +1651,13 @@ These are the coordinates shown in the figure from the paper, above.</p>
 </div>
 </div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">phi1_rect</span></code> and <code class="docutils literal notranslate"><span class="pre">phi2_rect</span></code> contains the coordinates of the corners of a rectangle in the GD-1 frame.</p>
-<p>In order to use them in a Gaia query, we have to convert them to ICRS.  First we’ll put them into a <code class="docutils literal notranslate"><span class="pre">SkyCoord</span></code> object.</p>
+<p><code class="docutils literal notranslate"><span class="pre">phi1_rect</span></code> and <code class="docutils literal notranslate"><span class="pre">phi2_rect</span></code> represent the coordinates of the corners of a rectangle in the GD-1 frame.</p>
+<p>In order to use them in a Gaia query, we have to convert them to ICRS.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">corners</span> <span class="o">=</span> <span class="n">SkyCoord</span><span class="p">(</span><span class="n">phi1</span><span class="o">=</span><span class="n">phi1_rect</span><span class="p">,</span> <span class="n">phi2</span><span class="o">=</span><span class="n">phi2_rect</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="n">gd1_frame</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">gala.coordinates</span> <span class="k">as</span> <span class="nn">gc</span>
+
+<span class="n">corners</span> <span class="o">=</span> <span class="n">SkyCoord</span><span class="p">(</span><span class="n">phi1</span><span class="o">=</span><span class="n">phi1_rect</span><span class="p">,</span> <span class="n">phi2</span><span class="o">=</span><span class="n">phi2_rect</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="n">gd1_frame</span><span class="p">)</span>
 <span class="n">corners</span>
 </pre></div>
 </div>
@@ -1758,7 +1672,9 @@ These are the coordinates shown in the figure from the paper, above.</p>
 <p>Now we can use <code class="docutils literal notranslate"><span class="pre">transform_to</span></code> to convert to ICRS coordinates.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">corners_icrs</span> <span class="o">=</span> <span class="n">corners</span><span class="o">.</span><span class="n">transform_to</span><span class="p">(</span><span class="s1">&#39;icrs&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">astropy.coordinates</span> <span class="k">as</span> <span class="nn">coord</span>
+
+<span class="n">corners_icrs</span> <span class="o">=</span> <span class="n">corners</span><span class="o">.</span><span class="n">transform_to</span><span class="p">(</span><span class="s1">&#39;icrs&#39;</span><span class="p">)</span>
 <span class="n">corners_icrs</span>
 </pre></div>
 </div>
@@ -1772,10 +1688,10 @@ These are the coordinates shown in the figure from the paper, above.</p>
 </div>
 </div>
 </div>
-<p>Notice that a rectangle in one coordinate system is not necessarily a rectangle in another.  In this example, the result is a (non-rectangular) polygon.</p>
+<p>Notice that a rectangle in one coordinate system is not necessarily a rectangle in another.  In this example, the result is a polygon.</p>
 </div>
-<div class="section" id="defining-a-polygon">
-<h2>Defining a polygon<a class="headerlink" href="#defining-a-polygon" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="selecting-a-polygon">
+<h2>Selecting a polygon<a class="headerlink" href="#selecting-a-polygon" title="Permalink to this headline">¶</a></h2>
 <p>In order to use this polygon as part of an ADQL query, we have to convert it to a string with a comma-separated list of coordinates, as in this example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">POLYGON(143.65, 20.98, </span>
@@ -1785,52 +1701,7 @@ These are the coordinates shown in the figure from the paper, above.</p>
 <span class="sd">&quot;&quot;&quot;</span>
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">SkyCoord</span></code> provides <code class="docutils literal notranslate"><span class="pre">to_string</span></code>, which produces a list of strings.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">t</span> <span class="o">=</span> <span class="n">corners_icrs</span><span class="o">.</span><span class="n">to_string</span><span class="p">()</span>
-<span class="n">t</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;146.275 19.2619&#39;,
- &#39;135.422 25.8774&#39;,
- &#39;141.603 34.3048&#39;,
- &#39;152.817 27.1361&#39;,
- &#39;146.275 19.2619&#39;]
-</pre></div>
-</div>
-</div>
-</div>
-<p>We can use the Python string function <code class="docutils literal notranslate"><span class="pre">join</span></code> to join <code class="docutils literal notranslate"><span class="pre">t</span></code> into a single string (with spaces between the pairs):</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
-<span class="n">s</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;146.275 19.2619 135.422 25.8774 141.603 34.3048 152.817 27.1361 146.275 19.2619&#39;
-</pre></div>
-</div>
-</div>
-</div>
-<p>That’s almost what we need, but we have to replace the spaces with commas.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;, &#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;146.275, 19.2619, 135.422, 25.8774, 141.603, 34.3048, 152.817, 27.1361, 146.275, 19.2619&#39;
-</pre></div>
-</div>
-</div>
-</div>
-<p>The following function combines these steps.</p>
+<p>The following function does the job:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">skycoord_to_string</span><span class="p">(</span><span class="n">skycoord</span><span class="p">):</span>
@@ -1842,7 +1713,9 @@ These are the coordinates shown in the figure from the paper, above.</p>
 </div>
 </div>
 </div>
-<p>Here’s how we use it.</p>
+<p><code class="docutils literal notranslate"><span class="pre">SkyCoord</span></code> provides <code class="docutils literal notranslate"><span class="pre">to_string</span></code>, which returns a list of strings.</p>
+<p>We use <code class="docutils literal notranslate"><span class="pre">join</span></code> to make a single string with spaces between the coordinates.</p>
+<p>Then we use <code class="docutils literal notranslate"><span class="pre">replace</span></code> to add commas between the coordinates.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">point_list</span> <span class="o">=</span> <span class="n">skycoord_to_string</span><span class="p">(</span><span class="n">corners_icrs</span><span class="p">)</span>
@@ -1856,38 +1729,18 @@ These are the coordinates shown in the figure from the paper, above.</p>
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="assembling-the-query">
-<h2>Assembling the query<a class="headerlink" href="#assembling-the-query" title="Permalink to this headline">¶</a></h2>
-<p>Now we’re ready to assemble the query.
-We need <code class="docutils literal notranslate"><span class="pre">columns</span></code> again (as we saw in the previous lesson).</p>
+<p>Before we can assemble the query, we need <code class="docutils literal notranslate"><span class="pre">columns</span></code> again (as we saw in the previous notebook).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">columns</span> <span class="o">=</span> <span class="s1">&#39;source_id, ra, dec, pmra, pmdec, parallax&#39;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">columns</span> <span class="o">=</span> <span class="s1">&#39;source_id, ra, dec, pmra, pmdec, parallax, parallax_error, radial_velocity&#39;</span>
 </pre></div>
 </div>
 </div>
 </div>
-<p>And here’s the query base we used in the previous lesson:</p>
+<p>Here’s the base for the query, with format specifiers for <code class="docutils literal notranslate"><span class="pre">columns</span></code> and <code class="docutils literal notranslate"><span class="pre">point_list</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">query3_base</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT </span>
-<span class="s2">TOP 10 </span>
-<span class="si">{columns}</span><span class="s2"></span>
-<span class="s2">FROM gaiadr2.gaia_source</span>
-<span class="s2">WHERE parallax &lt; 1</span>
-<span class="s2">  AND bp_rp BETWEEN -0.75 AND 2</span>
-<span class="s2">&quot;&quot;&quot;</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>Now we’ll add a <code class="docutils literal notranslate"><span class="pre">WHERE</span></code> clause to select stars in the polygon we defined.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">query4_base</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT</span>
-<span class="s2">TOP 10</span>
-<span class="si">{columns}</span><span class="s2"></span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">query_base</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT </span><span class="si">{columns}</span><span class="s2"></span>
 <span class="s2">FROM gaiadr2.gaia_source</span>
 <span class="s2">WHERE parallax &lt; 1</span>
 <span class="s2">  AND bp_rp BETWEEN -0.75 AND 2 </span>
@@ -1898,20 +1751,17 @@ We need <code class="docutils literal notranslate"><span class="pre">columns</sp
 </div>
 </div>
 </div>
-<p>The query base contains format specifiers for <code class="docutils literal notranslate"><span class="pre">columns</span></code> and <code class="docutils literal notranslate"><span class="pre">point_list</span></code>.</p>
-<p>We’ll use <code class="docutils literal notranslate"><span class="pre">format</span></code> to fill in these values.</p>
+<p>And here’s the result:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">query4</span> <span class="o">=</span> <span class="n">query4_base</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">columns</span><span class="p">,</span> 
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">query</span> <span class="o">=</span> <span class="n">query_base</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">columns</span><span class="p">,</span> 
                           <span class="n">point_list</span><span class="o">=</span><span class="n">point_list</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">query4</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>SELECT
-TOP 10
-source_id, ra, dec, pmra, pmdec
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>SELECT source_id, ra, dec, pmra, pmdec, parallax, parallax_error, radial_velocity
 FROM gaiadr2.gaia_source
 WHERE parallax &lt; 1
   AND bp_rp BETWEEN -0.75 AND 2 
@@ -1922,97 +1772,10 @@ WHERE parallax &lt; 1
 </div>
 </div>
 <p>As always, we should take a minute to proof-read the query before we launch it.</p>
+<p>The result will be bigger than our previous queries, so it will take a little longer.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">job</span> <span class="o">=</span> <span class="n">Gaia</span><span class="o">.</span><span class="n">launch_job_async</span><span class="p">(</span><span class="n">query4</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">job</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: Query finished. [astroquery.utils.tap.core]
-&lt;Table length=10&gt;
-   name    dtype    unit                              description                            
---------- ------- -------- ------------------------------------------------------------------
-source_id   int64          Unique source identifier (unique within a particular Data Release)
-       ra float64      deg                                                    Right ascension
-      dec float64      deg                                                        Declination
-     pmra float64 mas / yr                         Proper motion in right ascension direction
-    pmdec float64 mas / yr                             Proper motion in declination direction
-Jobid: 1615815873808O
-Phase: COMPLETED
-Owner: None
-Output file: async_20210315094433.vot
-Results: None
-</pre></div>
-</div>
-</div>
-</div>
-<p>Here are the results.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">results</span> <span class="o">=</span> <span class="n">job</span><span class="o">.</span><span class="n">get_results</span><span class="p">()</span>
-<span class="n">results</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><i>Table length=10</i>
-<table id="table139807251332016" class="table-striped table-bordered table-condensed">
-<thead><tr><th>source_id</th><th>ra</th><th>dec</th><th>pmra</th><th>pmdec</th></tr></thead>
-<thead><tr><th></th><th>deg</th><th>deg</th><th>mas / yr</th><th>mas / yr</th></tr></thead>
-<thead><tr><th>int64</th><th>float64</th><th>float64</th><th>float64</th><th>float64</th></tr></thead>
-<tr><td>637987125186749568</td><td>142.48301935991023</td><td>21.75771616932985</td><td>-2.5168384683875766</td><td>2.941813096629439</td></tr>
-<tr><td>638285195917112960</td><td>142.25452941346344</td><td>22.476168171141378</td><td>2.6627020143457996</td><td>-12.165984395577347</td></tr>
-<tr><td>638073505568978688</td><td>142.64528557468074</td><td>22.16693224953078</td><td>18.30674739454163</td><td>-7.950659620550862</td></tr>
-<tr><td>638086386175786752</td><td>142.57739430926034</td><td>22.22791951401365</td><td>0.9877856720147953</td><td>-2.584105480335548</td></tr>
-<tr><td>638049655615392384</td><td>142.58913564478618</td><td>22.110783166677418</td><td>0.24443878227817095</td><td>-4.941079187010136</td></tr>
-<tr><td>638267565075964032</td><td>141.81762228999614</td><td>22.375696125322275</td><td>-3.413174589660796</td><td>1.8838892877285924</td></tr>
-<tr><td>638028902333511168</td><td>143.18339801317677</td><td>22.2512465812369</td><td>7.848511762712128</td><td>-21.391145547787154</td></tr>
-<tr><td>638085767700610432</td><td>142.9347319464589</td><td>22.46244080823965</td><td>-3.6585960944321476</td><td>-12.486419770278376</td></tr>
-<tr><td>638299863230178304</td><td>142.26769745823267</td><td>22.640183776884836</td><td>-1.8168370892218297</td><td>1.0537342990941316</td></tr>
-<tr><td>637973067758974208</td><td>142.89551292869012</td><td>21.612824100339875</td><td>-8.645166256559063</td><td>-44.41164172204947</td></tr>
-</table></div></div>
-</div>
-<p>Finally, we can remove <code class="docutils literal notranslate"><span class="pre">TOP</span> <span class="pre">10</span></code> run the query again.</p>
-<p>The result is bigger than our previous queries, so it will take a little longer.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">query5_base</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT</span>
-<span class="si">{columns}</span><span class="s2"></span>
-<span class="s2">FROM gaiadr2.gaia_source</span>
-<span class="s2">WHERE parallax &lt; 1</span>
-<span class="s2">  AND bp_rp BETWEEN -0.75 AND 2 </span>
-<span class="s2">  AND 1 = CONTAINS(POINT(ra, dec), </span>
-<span class="s2">                   POLYGON(</span><span class="si">{point_list}</span><span class="s2">))</span>
-<span class="s2">&quot;&quot;&quot;</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">query5</span> <span class="o">=</span> <span class="n">query5_base</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">columns</span><span class="p">,</span> 
-                          <span class="n">point_list</span><span class="o">=</span><span class="n">point_list</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">query5</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>SELECT
-source_id, ra, dec, pmra, pmdec
-FROM gaiadr2.gaia_source
-WHERE parallax &lt; 1
-  AND bp_rp BETWEEN -0.75 AND 2 
-  AND 1 = CONTAINS(POINT(ra, dec), 
-                   POLYGON(146.275, 19.2619, 135.422, 25.8774, 141.603, 34.3048, 152.817, 27.1361, 146.275, 19.2619))
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">job</span> <span class="o">=</span> <span class="n">Gaia</span><span class="o">.</span><span class="n">launch_job_async</span><span class="p">(</span><span class="n">query5</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">job</span> <span class="o">=</span> <span class="n">Gaia</span><span class="o">.</span><span class="n">launch_job_async</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">job</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -2020,22 +1783,26 @@ WHERE parallax &lt; 1
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: Query finished. [astroquery.utils.tap.core]
 &lt;Table length=140339&gt;
-   name    dtype    unit                              description                            
---------- ------- -------- ------------------------------------------------------------------
-source_id   int64          Unique source identifier (unique within a particular Data Release)
-       ra float64      deg                                                    Right ascension
-      dec float64      deg                                                        Declination
-     pmra float64 mas / yr                         Proper motion in right ascension direction
-    pmdec float64 mas / yr                             Proper motion in declination direction
-Jobid: 1615815886707O
+      name       dtype    unit                              description                             n_bad 
+--------------- ------- -------- ------------------------------------------------------------------ ------
+      source_id   int64          Unique source identifier (unique within a particular Data Release)      0
+             ra float64      deg                                                    Right ascension      0
+            dec float64      deg                                                        Declination      0
+           pmra float64 mas / yr                         Proper motion in right ascension direction      0
+          pmdec float64 mas / yr                             Proper motion in declination direction      0
+       parallax float64      mas                                                           Parallax      0
+ parallax_error float64      mas                                         Standard error of parallax      0
+radial_velocity float64   km / s                                                    Radial velocity 139373
+Jobid: 1609277169233O
 Phase: COMPLETED
 Owner: None
-Output file: async_20210315094446.vot
+Output file: async_20201229162609.vot
 Results: None
 </pre></div>
 </div>
 </div>
 </div>
+<p>Here are the results.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">results</span> <span class="o">=</span> <span class="n">job</span><span class="o">.</span><span class="n">get_results</span><span class="p">()</span>
@@ -2066,21 +1833,22 @@ Results: None
 </div>
 <p>Because the filename ends with <code class="docutils literal notranslate"><span class="pre">fits</span></code>, the table is written in the <a class="reference external" href="https://en.wikipedia.org/wiki/FITS">FITS format</a>, which preserves the metadata associated with the table.</p>
 <p>If the file already exists, the <code class="docutils literal notranslate"><span class="pre">overwrite</span></code> argument causes it to be overwritten.</p>
-<p>We can use <code class="docutils literal notranslate"><span class="pre">getsize</span></code> to confirm that the file exists and check the size:</p>
+<p>To see how big the file is, we can use <code class="docutils literal notranslate"><span class="pre">ls</span></code> with the <code class="docutils literal notranslate"><span class="pre">-lh</span></code> option, which prints information about the file including its size in human-readable form.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">getsize</span>
-
-<span class="n">MB</span> <span class="o">=</span> <span class="mi">1024</span> <span class="o">*</span> <span class="mi">1024</span>
-<span class="n">getsize</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span> <span class="o">/</span> <span class="n">MB</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>ls -lh gd1_results.fits
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>5.36407470703125
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-rw-rw-r-- 1 downey downey 8.6M Dec 29 11:47 gd1_results.fits
 </pre></div>
 </div>
 </div>
+</div>
+<p>The file is about 8.6 MB.  If you are using Windows, <code class="docutils literal notranslate"><span class="pre">ls</span></code> might not work; in that case, try:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>!dir gd1_results.fits
+</pre></div>
 </div>
 </div>
 <div class="section" id="summary">
@@ -2092,7 +1860,7 @@ Results: None
 <h2>Best practices<a class="headerlink" href="#best-practices" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>For measurements with units, use <code class="docutils literal notranslate"><span class="pre">Quantity</span></code> objects that represent units explicitly and check for errors.</p></li>
-<li><p>Use the <code class="docutils literal notranslate"><span class="pre">format</span></code> function to compose queries; code written this way is easier to read and less error-prone.</p></li>
+<li><p>Use the <code class="docutils literal notranslate"><span class="pre">format</span></code> function to compose queries; it is often faster and less error-prone.</p></li>
 <li><p>Develop queries incrementally: start with something simple, test it, and add a little bit at a time.</p></li>
 <li><p>Once you have a query working, save the data in a local file.  If you shut down the notebook and come back to it later, you can reload the file; you don’t have to run the query again.</p></li>
 </ul>
@@ -2127,8 +1895,8 @@ Results: None
     
     <div class='prev-next-bottom'>
         
-    <a class='left-prev' id="prev-link" href="01_query.html" title="previous page">1. Queries</a>
-    <a class='right-next' id="next-link" href="03_motion.html" title="next page">3. Proper Motion</a>
+    <a class='left-prev' id="prev-link" href="01_query.html" title="previous page">Queries</a>
+    <a class='right-next' id="next-link" href="03_motion.html" title="next page">Proper Motion</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">

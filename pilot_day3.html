@@ -1,0 +1,1261 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>&lt;no title&gt; &#8212; Astronomical Data in Python</title>
+    
+  <link rel="stylesheet" href="_static/css/index.d431a4ee1c1efae0e38bdfebc22debff.css">
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="_static/sphinx-book-theme.bfb7730f9caf2ec0b46a44615585038c.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.30270b6e4c972e43c488.js">
+
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/sphinx-book-theme.be0a4a0c39cd630af62a2fcf693f3f06.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="index.html">
+  
+  
+  <h1 class="site-logo" id="site-title">Astronomical Data in Python</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="README.html">
+   Astronomical Data in Python
+  </a>
+ </li>
+</ul>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="01_query.html">
+   Queries
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="02_coords.html">
+   Coordinates and units
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03_motion.html">
+   Chapter 3
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="04_select.html">
+   Chapter 4
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="05_join.html">
+   Chapter 5
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06_photo.html">
+   Chapter 6
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="07_plot.html">
+   Chapter 7
+  </a>
+ </li>
+</ul>
+
+</nav>
+
+ <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        <div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/pilot_day3.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+    
+</div>
+        <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/AllenDowney/AstronomicalData"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        
+        
+    </div>
+</div>
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/AllenDowney/AstronomicalData/master?urlpath=tree/pilot_day3.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/AllenDowney/AstronomicalData/blob/master/pilot_day3.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="simple nav section-nav flex-column">
+</ul>
+
+        </nav>
+        
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;gd1_results.fits&#39;</span>
+<span class="kn">from</span> <span class="nn">astropy.table</span> <span class="kn">import</span> <span class="n">Table</span>
+
+<span class="n">results</span> <span class="o">=</span> <span class="n">Table</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyia</span> <span class="kn">import</span> <span class="n">GaiaData</span>
+
+<span class="n">gaia_data</span> <span class="o">=</span> <span class="n">GaiaData</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+<span class="nb">type</span><span class="p">(</span><span class="n">gaia_data</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>pyia.data.GaiaData
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">astropy.units</span> <span class="k">as</span> <span class="nn">u</span>
+
+<span class="n">skycoord</span> <span class="o">=</span> <span class="n">gaia_data</span><span class="o">.</span><span class="n">get_skycoord</span><span class="p">(</span>
+                <span class="n">distance</span><span class="o">=</span><span class="mi">8</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">kpc</span><span class="p">,</span> 
+                <span class="n">radial_velocity</span><span class="o">=</span><span class="mi">0</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">km</span><span class="o">/</span><span class="n">u</span><span class="o">.</span><span class="n">s</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">gala.coordinates</span> <span class="k">as</span> <span class="nn">gc</span>
+
+<span class="n">transformed</span> <span class="o">=</span> <span class="n">skycoord</span><span class="o">.</span><span class="n">transform_to</span><span class="p">(</span><span class="n">gc</span><span class="o">.</span><span class="n">GD1Koposov10</span><span class="p">)</span>
+<span class="nb">type</span><span class="p">(</span><span class="n">transformed</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>astropy.coordinates.sky_coordinate.SkyCoord
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gd1_coord</span> <span class="o">=</span> <span class="n">gc</span><span class="o">.</span><span class="n">reflex_correct</span><span class="p">(</span><span class="n">transformed</span><span class="p">)</span>
+
+<span class="nb">type</span><span class="p">(</span><span class="n">gd1_coord</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>astropy.coordinates.sky_coordinate.SkyCoord
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">phi1</span> <span class="o">=</span> <span class="n">gd1_coord</span><span class="o">.</span><span class="n">phi1</span>
+<span class="n">phi2</span> <span class="o">=</span> <span class="n">gd1_coord</span><span class="o">.</span><span class="n">phi2</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">phi1</span><span class="p">,</span> <span class="n">phi2</span><span class="p">,</span> <span class="s1">&#39;ko&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;ra (degree GD1)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;dec (degree GD1)&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/pilot_day3_6_0.png" src="_images/pilot_day3_6_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">to_pandas</span><span class="p">()</span>
+<span class="n">df</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(140340, 8)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;phi1&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">gd1_coord</span><span class="o">.</span><span class="n">phi1</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;phi2&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">gd1_coord</span><span class="o">.</span><span class="n">phi2</span>
+<span class="n">df</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(140340, 10)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;pm_phi1&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">gd1_coord</span><span class="o">.</span><span class="n">pm_phi1_cosphi2</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;pm_phi2&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">gd1_coord</span><span class="o">.</span><span class="n">pm_phi2</span>
+<span class="n">df</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(140340, 12)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">phi2_min</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.0</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">deg</span>
+<span class="n">phi2_max</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">deg</span>
+
+<span class="n">phi_mask</span> <span class="o">=</span> <span class="p">((</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;phi2&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">phi2_min</span><span class="p">)</span> <span class="o">&amp;</span> 
+            <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;phi2&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">phi2_max</span><span class="p">))</span>
+
+<span class="n">phi_mask</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>25084
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">centerline</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">phi_mask</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pm1</span> <span class="o">=</span> <span class="n">centerline</span><span class="p">[</span><span class="s1">&#39;pm_phi1&#39;</span><span class="p">]</span>
+<span class="n">pm2</span> <span class="o">=</span> <span class="n">centerline</span><span class="p">[</span><span class="s1">&#39;pm_phi2&#39;</span><span class="p">]</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">pm1</span><span class="p">,</span> <span class="n">pm2</span><span class="p">,</span> <span class="s1">&#39;ko&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+    
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Proper motion phi1 (GD1 frame)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Proper motion phi2 (GD1 frame)&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/pilot_day3_12_0.png" src="_images/pilot_day3_12_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pm1_min</span> <span class="o">=</span> <span class="o">-</span><span class="mf">8.9</span>
+<span class="n">pm1_max</span> <span class="o">=</span> <span class="o">-</span><span class="mf">6.9</span>
+<span class="n">pm2_min</span> <span class="o">=</span> <span class="o">-</span><span class="mf">2.2</span>
+<span class="n">pm2_max</span> <span class="o">=</span>  <span class="mf">1.0</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pm1_rect</span> <span class="o">=</span> <span class="p">[</span><span class="n">pm1_min</span><span class="p">,</span> <span class="n">pm1_min</span><span class="p">,</span> <span class="n">pm1_max</span><span class="p">,</span> <span class="n">pm1_max</span><span class="p">,</span> <span class="n">pm1_min</span><span class="p">]</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">mas</span><span class="o">/</span><span class="n">u</span><span class="o">.</span><span class="n">yr</span>
+<span class="n">pm2_rect</span> <span class="o">=</span> <span class="p">[</span><span class="n">pm2_min</span><span class="p">,</span> <span class="n">pm2_max</span><span class="p">,</span> <span class="n">pm2_max</span><span class="p">,</span> <span class="n">pm2_min</span><span class="p">,</span> <span class="n">pm2_min</span><span class="p">]</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">mas</span><span class="o">/</span><span class="n">u</span><span class="o">.</span><span class="n">yr</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">pm1</span><span class="p">,</span> <span class="n">pm2</span><span class="p">,</span> <span class="s1">&#39;ko&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">pm1_rect</span><span class="p">,</span> <span class="n">pm2_rect</span><span class="p">,</span> <span class="s1">&#39;-&#39;</span><span class="p">)</span>
+    
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Proper motion phi1 (GD1 frame)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Proper motion phi2 (GD1 frame)&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/pilot_day3_15_0.png" src="_images/pilot_day3_15_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">between</span><span class="p">(</span><span class="n">series</span><span class="p">,</span> <span class="n">low</span><span class="p">,</span> <span class="n">high</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Make a Boolean Series.</span>
+<span class="sd">    </span>
+<span class="sd">    series: Pandas Series</span>
+<span class="sd">    low: lower bound</span>
+<span class="sd">    high: upper bound</span>
+<span class="sd">    </span>
+<span class="sd">    returns: Boolean Series</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">series</span> <span class="o">&gt;</span> <span class="n">low</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">series</span> <span class="o">&lt;</span> <span class="n">high</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pm_mask</span> <span class="o">=</span> <span class="p">(</span><span class="n">between</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;pm_phi1&#39;</span><span class="p">],</span> <span class="n">pm1_min</span><span class="p">,</span> <span class="n">pm1_max</span><span class="p">)</span> <span class="o">&amp;</span> 
+           <span class="n">between</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;pm_phi2&#39;</span><span class="p">],</span> <span class="n">pm2_min</span><span class="p">,</span> <span class="n">pm2_max</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pm_mask</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1049
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">selected</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">pm_mask</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">phi1</span> <span class="o">=</span> <span class="n">selected</span><span class="p">[</span><span class="s1">&#39;phi1&#39;</span><span class="p">]</span>
+<span class="n">phi2</span> <span class="o">=</span> <span class="n">selected</span><span class="p">[</span><span class="s1">&#39;phi2&#39;</span><span class="p">]</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">phi1</span><span class="p">,</span> <span class="n">phi2</span><span class="p">,</span> <span class="s1">&#39;ko&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;ra (degree GD1)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;dec (degree GD1)&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/pilot_day3_20_0.png" src="_images/pilot_day3_20_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;gd1_dataframe.hdf5&#39;</span>
+
+<span class="n">df</span><span class="o">.</span><span class="n">to_hdf</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;df&#39;</span><span class="p">)</span>
+<span class="n">centerline</span><span class="o">.</span><span class="n">to_hdf</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;centerline&#39;</span><span class="p">)</span>
+<span class="n">selected</span><span class="o">.</span><span class="n">to_hdf</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;selected&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>ls -lh gd1_dataframe.hdf5
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-rw-rw-r-- 1 downey downey 17M Nov 18 19:06 gd1_dataframe.hdf5
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>rm gd1_dataframe.hdf5
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>wget https://github.com/AllenDowney/AstronomicalData/raw/main/data/gd1_dataframe.hdf5
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--2020-11-18 19:31:21--  https://github.com/AllenDowney/AstronomicalData/raw/main/data/gd1_dataframe.hdf5
+Resolving github.com... 140.82.114.3
+Connecting to github.com|140.82.114.3|:443... connected.
+HTTP request sent, awaiting response... 302 Found
+Location: https://raw.githubusercontent.com/AllenDowney/AstronomicalData/main/data/gd1_dataframe.hdf5 [following]
+--2020-11-18 19:31:21--  https://raw.githubusercontent.com/AllenDowney/AstronomicalData/main/data/gd1_dataframe.hdf5
+Resolving raw.githubusercontent.com... 151.101.116.133
+Connecting to raw.githubusercontent.com|151.101.116.133|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 17335888 (17M) [application/octet-stream]
+Saving to: ‘gd1_dataframe.hdf5’
+
+gd1_dataframe.hdf5  100%[===================&gt;]  16.53M  8.77MB/s    in 1.9s    
+
+2020-11-18 19:31:24 (8.77 MB/s) - ‘gd1_dataframe.hdf5’ saved [17335888/17335888]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;gd1_dataframe.hdf5&#39;</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_hdf</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;df&#39;</span><span class="p">)</span>
+<span class="n">centerline</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_hdf</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;centerline&#39;</span><span class="p">)</span>
+<span class="n">selected</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_hdf</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;selected&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(140340, 12)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">centerline</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(25084, 12)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">selected</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(1049, 12)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">points</span> <span class="o">=</span> <span class="n">selected</span><span class="p">[[</span><span class="s1">&#39;pmra&#39;</span><span class="p">,</span> <span class="s1">&#39;pmdec&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">points</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ -3.65859609, -12.48641977],
+       [ -3.57235105, -13.19584836],
+       [ -4.52678061, -12.74505387],
+       ...,
+       [ -3.7313674 , -13.06684162],
+       [ -3.63378135, -12.93358913],
+       [ -3.44742277, -13.22808211]])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">points</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(1049, 2)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.spatial</span> <span class="kn">import</span> <span class="n">ConvexHull</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hull</span> <span class="o">=</span> <span class="n">ConvexHull</span><span class="p">(</span><span class="n">points</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hull</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;scipy.spatial.qhull.ConvexHull at 0x7fac07b1b8e0&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hull</span><span class="o">.</span><span class="n">vertices</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([ 692,  873,  141,  303,   42,  622,   45,   83,  127,  182, 1006,
+        971,  967, 1001,  969,  940], dtype=int32)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pm_vertices</span> <span class="o">=</span> <span class="n">points</span><span class="p">[</span><span class="n">hull</span><span class="o">.</span><span class="n">vertices</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">pm_vertices</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>numpy.ndarray
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pm_vertices</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(16, 2)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pm_vertices</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ -4.05037121, -14.75623261],
+       [ -3.41981085, -14.72365546],
+       [ -3.03521988, -14.44357135],
+       [ -2.26847919, -13.7140236 ],
+       [ -2.61172203, -13.24797471],
+       [ -2.73471401, -13.09054471],
+       [ -3.19923146, -12.5942653 ],
+       [ -3.34082546, -12.47611926],
+       [ -5.67489413, -11.16083338],
+       [ -5.95159272, -11.10547884],
+       [ -6.42394023, -11.05981295],
+       [ -7.09631023, -11.95187806],
+       [ -7.30641519, -12.24559977],
+       [ -7.04016696, -12.88580702],
+       [ -6.00347705, -13.75912098],
+       [ -4.42442296, -14.74641176]])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xs</span><span class="p">,</span> <span class="n">ys</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">pm_vertices</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xs</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([-4.05037121, -3.41981085, -3.03521988, -2.26847919, -2.61172203,
+       -2.73471401, -3.19923146, -3.34082546, -5.67489413, -5.95159272,
+       -6.42394023, -7.09631023, -7.30641519, -7.04016696, -6.00347705,
+       -4.42442296])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ys</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([-14.75623261, -14.72365546, -14.44357135, -13.7140236 ,
+       -13.24797471, -13.09054471, -12.5942653 , -12.47611926,
+       -11.16083338, -11.10547884, -11.05981295, -11.95187806,
+       -12.24559977, -12.88580702, -13.75912098, -14.74641176])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pm1</span> <span class="o">=</span> <span class="n">centerline</span><span class="p">[</span><span class="s1">&#39;pmra&#39;</span><span class="p">]</span>
+<span class="n">pm2</span> <span class="o">=</span> <span class="n">centerline</span><span class="p">[</span><span class="s1">&#39;pmdec&#39;</span><span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">pm1</span><span class="p">,</span> <span class="n">pm2</span><span class="p">,</span> <span class="s1">&#39;ko&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+
+<span class="n">pm1</span> <span class="o">=</span> <span class="n">selected</span><span class="p">[</span><span class="s1">&#39;pmra&#39;</span><span class="p">]</span>
+<span class="n">pm2</span> <span class="o">=</span> <span class="n">selected</span><span class="p">[</span><span class="s1">&#39;pmdec&#39;</span><span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">pm1</span><span class="p">,</span> <span class="n">pm2</span><span class="p">,</span> <span class="s1">&#39;gx&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">ys</span><span class="p">)</span>
+    
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Proper motion ra (ICRS frame)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Proper motion dec (ICRS frame)&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">([</span><span class="o">-</span><span class="mi">20</span><span class="p">,</span> <span class="mi">5</span><span class="p">]);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/pilot_day3_45_0.png" src="_images/pilot_day3_45_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pm_vertices</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ -4.05037121, -14.75623261],
+       [ -3.41981085, -14.72365546],
+       [ -3.03521988, -14.44357135],
+       [ -2.26847919, -13.7140236 ],
+       [ -2.61172203, -13.24797471],
+       [ -2.73471401, -13.09054471],
+       [ -3.19923146, -12.5942653 ],
+       [ -3.34082546, -12.47611926],
+       [ -5.67489413, -11.16083338],
+       [ -5.95159272, -11.10547884],
+       [ -6.42394023, -11.05981295],
+       [ -7.09631023, -11.95187806],
+       [ -7.30641519, -12.24559977],
+       [ -7.04016696, -12.88580702],
+       [ -6.00347705, -13.75912098],
+       [ -4.42442296, -14.74641176]])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">t</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">pm_vertices</span><span class="o">.</span><span class="n">flatten</span><span class="p">()]</span>
+<span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>32
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pm_point_list</span> <span class="o">=</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+<span class="n">pm_point_list</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;-4.050371212154984, -14.75623260987968, -3.4198108491382455, -14.723655456335619, -3.035219883740934, -14.443571352854612, -2.268479190206636, -13.714023598831554, -2.611722027231764, -13.247974712069263, -2.7347140078529106, -13.090544709622938, -3.199231461993783, -12.594265302440828, -3.34082545787549, -12.476119260818695, -5.674894125178565, -11.160833381392624, -5.95159272432137, -11.105478836426514, -6.423940229776128, -11.05981294804957, -7.096310230579248, -11.951878058650085, -7.306415190921692, -12.245599765990594, -7.040166963232815, -12.885807024935527, -6.0034770546523735, -13.759120984106968, -4.42442296194263, -14.7464117578883&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">phi1_min</span> <span class="o">=</span> <span class="o">-</span><span class="mi">70</span>
+<span class="n">phi1_max</span> <span class="o">=</span> <span class="o">-</span><span class="mi">20</span>
+<span class="n">phi2_min</span> <span class="o">=</span> <span class="o">-</span><span class="mi">5</span>
+<span class="n">phi2_max</span> <span class="o">=</span> <span class="mi">5</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">astropy.units</span> <span class="k">as</span> <span class="nn">u</span>
+
+<span class="n">phi1_rect</span> <span class="o">=</span> <span class="p">[</span><span class="n">phi1_min</span><span class="p">,</span> <span class="n">phi1_min</span><span class="p">,</span> <span class="n">phi1_max</span><span class="p">,</span> <span class="n">phi1_max</span><span class="p">]</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">deg</span>
+<span class="n">phi2_rect</span> <span class="o">=</span> <span class="p">[</span><span class="n">phi2_min</span><span class="p">,</span> <span class="n">phi2_max</span><span class="p">,</span> <span class="n">phi2_max</span><span class="p">,</span> <span class="n">phi2_min</span><span class="p">]</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">deg</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">gala.coordinates</span> <span class="k">as</span> <span class="nn">gc</span>
+<span class="kn">import</span> <span class="nn">astropy.coordinates</span> <span class="k">as</span> <span class="nn">coord</span>
+
+<span class="n">corners</span> <span class="o">=</span> <span class="n">gc</span><span class="o">.</span><span class="n">GD1Koposov10</span><span class="p">(</span><span class="n">phi1</span><span class="o">=</span><span class="n">phi1_rect</span><span class="p">,</span> <span class="n">phi2</span><span class="o">=</span><span class="n">phi2_rect</span><span class="p">)</span>
+<span class="n">corners_icrs</span> <span class="o">=</span> <span class="n">corners</span><span class="o">.</span><span class="n">transform_to</span><span class="p">(</span><span class="n">coord</span><span class="o">.</span><span class="n">ICRS</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">point_base</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{point.ra.value}</span><span class="s2">, </span><span class="si">{point.dec.value}</span><span class="s2">&quot;</span>
+
+<span class="n">t</span> <span class="o">=</span> <span class="p">[</span><span class="n">point_base</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">point</span><span class="o">=</span><span class="n">point</span><span class="p">)</span>
+     <span class="k">for</span> <span class="n">point</span> <span class="ow">in</span> <span class="n">corners_icrs</span><span class="p">]</span>
+
+<span class="n">point_list</span> <span class="o">=</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+<span class="n">point_list</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;135.30559858565638, 8.398623940157561, 126.50951508623503, 13.44494195652069, 163.0173655836748, 54.24242734020255, 172.9328536286811, 46.47260492416258&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">query_base</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT </span>
+<span class="si">{columns}</span><span class="s2"></span>
+<span class="s2">FROM gaiadr2.gaia_source</span>
+<span class="s2">WHERE parallax &lt; 1</span>
+<span class="s2">  AND bp_rp BETWEEN -0.75 AND 2 </span>
+<span class="s2">  AND 1 = CONTAINS(POINT(ra, dec), </span>
+<span class="s2">                   POLYGON(</span><span class="si">{point_list}</span><span class="s2">))</span>
+<span class="s2">&quot;&quot;&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">columns</span> <span class="o">=</span> <span class="s1">&#39;source_id, ra, dec, pmra, pmdec, parallax, parallax_error, radial_velocity&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Exercise 1:</strong> Use <code class="docutils literal notranslate"><span class="pre">format</span></code> to format <code class="docutils literal notranslate"><span class="pre">query_base</span></code> and define <code class="docutils literal notranslate"><span class="pre">query</span></code>, filling in the values of <code class="docutils literal notranslate"><span class="pre">columns</span></code> and <code class="docutils literal notranslate"><span class="pre">point_list</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">query</span> <span class="o">=</span> <span class="n">query_base</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">columns</span><span class="p">,</span> <span class="n">point_list</span><span class="o">=</span><span class="n">point_list</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>SELECT 
+source_id, ra, dec, pmra, pmdec, parallax, parallax_error, radial_velocity
+FROM gaiadr2.gaia_source
+WHERE parallax &lt; 1
+  AND bp_rp BETWEEN -0.75 AND 2 
+  AND 1 = CONTAINS(POINT(ra, dec), 
+                   POLYGON(135.30559858565638, 8.398623940157561, 126.50951508623503, 13.44494195652069, 163.0173655836748, 54.24242734020255, 172.9328536286811, 46.47260492416258))
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Exercise 2:</strong> Modify <code class="docutils literal notranslate"><span class="pre">query_base</span></code> by adding a new clause to select stars whose coordinates of proper motion, <code class="docutils literal notranslate"><span class="pre">pmra</span></code> and <code class="docutils literal notranslate"><span class="pre">pmdec</span></code>, fall within the polygon defined by <code class="docutils literal notranslate"><span class="pre">pm_point_list</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">query_base</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT </span>
+<span class="si">{columns}</span><span class="s2"></span>
+<span class="s2">FROM gaiadr2.gaia_source</span>
+<span class="s2">WHERE parallax &lt; 1</span>
+<span class="s2">  AND bp_rp BETWEEN -0.75 AND 2 </span>
+<span class="s2">  AND 1 = CONTAINS(POINT(ra, dec), </span>
+<span class="s2">                   POLYGON(</span><span class="si">{point_list}</span><span class="s2">))</span>
+<span class="s2">  AND 1 = CONTAINS(POINT(pmra, pmdec), </span>
+<span class="s2">                   POLYGON(</span><span class="si">{pm_point_list}</span><span class="s2">))</span>
+<span class="s2">&quot;&quot;&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">query</span> <span class="o">=</span> <span class="n">query_base</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">columns</span><span class="p">,</span> 
+                          <span class="n">point_list</span><span class="o">=</span><span class="n">point_list</span><span class="p">,</span> 
+                          <span class="n">pm_point_list</span><span class="o">=</span><span class="n">pm_point_list</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>SELECT 
+source_id, ra, dec, pmra, pmdec, parallax, parallax_error, radial_velocity
+FROM gaiadr2.gaia_source
+WHERE parallax &lt; 1
+  AND bp_rp BETWEEN -0.75 AND 2 
+  AND 1 = CONTAINS(POINT(ra, dec), 
+                   POLYGON(135.30559858565638, 8.398623940157561, 126.50951508623503, 13.44494195652069, 163.0173655836748, 54.24242734020255, 172.9328536286811, 46.47260492416258))
+  AND 1 = CONTAINS(POINT(pmra, pmdec), 
+                   POLYGON(-4.050371212154984, -14.75623260987968, -3.4198108491382455, -14.723655456335619, -3.035219883740934, -14.443571352854612, -2.268479190206636, -13.714023598831554, -2.611722027231764, -13.247974712069263, -2.7347140078529106, -13.090544709622938, -3.199231461993783, -12.594265302440828, -3.34082545787549, -12.476119260818695, -5.674894125178565, -11.160833381392624, -5.95159272432137, -11.105478836426514, -6.423940229776128, -11.05981294804957, -7.096310230579248, -11.951878058650085, -7.306415190921692, -12.245599765990594, -7.040166963232815, -12.885807024935527, -6.0034770546523735, -13.759120984106968, -4.42442296194263, -14.7464117578883))
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">astroquery.gaia</span> <span class="kn">import</span> <span class="n">Gaia</span>
+
+<span class="n">job</span> <span class="o">=</span> <span class="n">Gaia</span><span class="o">.</span><span class="n">launch_job_async</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">job</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Created TAP+ (v1.2.1) - Connection:
+	Host: gea.esac.esa.int
+	Use HTTPS: True
+	Port: 443
+	SSL Port: 443
+Created TAP+ (v1.2.1) - Connection:
+	Host: geadata.esac.esa.int
+	Use HTTPS: True
+	Port: 443
+	SSL Port: 443
+INFO: Query finished. [astroquery.utils.tap.core]
+&lt;Table length=7346&gt;
+      name       dtype    unit                              description                             n_bad
+--------------- ------- -------- ------------------------------------------------------------------ -----
+      source_id   int64          Unique source identifier (unique within a particular Data Release)     0
+             ra float64      deg                                                    Right ascension     0
+            dec float64      deg                                                        Declination     0
+           pmra float64 mas / yr                         Proper motion in right ascension direction     0
+          pmdec float64 mas / yr                             Proper motion in declination direction     0
+       parallax float64      mas                                                           Parallax     0
+ parallax_error float64      mas                                         Standard error of parallax     0
+radial_velocity float64   km / s                                                    Radial velocity  7295
+Jobid: 1605731697505O
+Phase: COMPLETED
+Owner: None
+Output file: async_20201118153457.vot
+Results: None
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">candidate_table</span> <span class="o">=</span> <span class="n">job</span><span class="o">.</span><span class="n">get_results</span><span class="p">()</span>
+<span class="nb">type</span><span class="p">(</span><span class="n">candidate_table</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>astropy.table.table.Table
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">candidate_table</span><span class="p">[</span><span class="s1">&#39;ra&#39;</span><span class="p">]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">candidate_table</span><span class="p">[</span><span class="s1">&#39;dec&#39;</span><span class="p">]</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">&#39;ko&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;ra (deg ICRS)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;dec (deg ICRS)&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/pilot_day3_64_0.png" src="_images/pilot_day3_64_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyia</span> <span class="kn">import</span> <span class="n">GaiaData</span>
+
+<span class="k">def</span> <span class="nf">make_dataframe</span><span class="p">(</span><span class="n">table</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Transform coordinates from ICRS to GD-1 frame.</span>
+<span class="sd">    </span>
+<span class="sd">    table: Astropy Table</span>
+<span class="sd">    </span>
+<span class="sd">    returns: Pandas DataFrame</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">gaia_data</span> <span class="o">=</span> <span class="n">GaiaData</span><span class="p">(</span><span class="n">table</span><span class="p">)</span>
+
+    <span class="n">c_sky</span> <span class="o">=</span> <span class="n">gaia_data</span><span class="o">.</span><span class="n">get_skycoord</span><span class="p">(</span><span class="n">distance</span><span class="o">=</span><span class="mi">8</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">kpc</span><span class="p">,</span> 
+                                   <span class="n">radial_velocity</span><span class="o">=</span><span class="mi">0</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">km</span><span class="o">/</span><span class="n">u</span><span class="o">.</span><span class="n">s</span><span class="p">)</span>
+    <span class="n">c_gd1</span> <span class="o">=</span> <span class="n">gc</span><span class="o">.</span><span class="n">reflex_correct</span><span class="p">(</span>
+                <span class="n">c_sky</span><span class="o">.</span><span class="n">transform_to</span><span class="p">(</span><span class="n">gc</span><span class="o">.</span><span class="n">GD1Koposov10</span><span class="p">))</span>
+
+    <span class="n">df</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">to_pandas</span><span class="p">()</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;phi1&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">c_gd1</span><span class="o">.</span><span class="n">phi1</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;phi2&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">c_gd1</span><span class="o">.</span><span class="n">phi2</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;pm_phi1&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">c_gd1</span><span class="o">.</span><span class="n">pm_phi1_cosphi2</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;pm_phi2&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">c_gd1</span><span class="o">.</span><span class="n">pm_phi2</span>
+    <span class="k">return</span> <span class="n">df</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">candidate_df</span> <span class="o">=</span> <span class="n">make_dataframe</span><span class="p">(</span><span class="n">candidate_table</span><span class="p">)</span>
+<span class="n">candidate_df</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(7346, 12)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">candidate_df</span><span class="p">[</span><span class="s1">&#39;phi1&#39;</span><span class="p">]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">candidate_df</span><span class="p">[</span><span class="s1">&#39;phi2&#39;</span><span class="p">]</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">&#39;ko&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;phi1 (deg GD1)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;phi2 (deg GD1)&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/pilot_day3_67_0.png" src="_images/pilot_day3_67_0.png" />
+</div>
+</div>
+<p><strong>Exercise</strong>  Write <code class="docutils literal notranslate"><span class="pre">candidate_df</span></code> to an HDF file named <code class="docutils literal notranslate"><span class="pre">gd1_candidates</span></code>.</p>
+<p>Save it as a dataset named <code class="docutils literal notranslate"><span class="pre">candidate_df</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">candidate_df</span><span class="o">.</span><span class="n">to_hdf</span><span class="p">(</span><span class="s1">&#39;gd1_candidates.hdf&#39;</span><span class="p">,</span> <span class="s1">&#39;candidate_df&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>ls -lh gd1_candidates.hdf
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-rw-rw-r-- 1 downey downey 756K Nov 18 15:54 gd1_candidates.hdf
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">candidate_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;gd1_candidates.csv&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>ls -lh gd1_candidates.csv
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-rw-rw-r-- 1 downey downey 1.6M Nov 18 15:51 gd1_candidates.csv
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>head gd1_candidates.csv
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>,source_id,ra,dec,pmra,pmdec,parallax,parallax_error,radial_velocity,phi1,phi2,pm_phi1,pm_phi2
+0,635559124339440000,137.58671691646745,19.1965441084838,-3.770521900009566,-12.490481778113859,0.7913934419894347,0.2717538145759051,,-59.63048941944396,-1.21648525150429,-7.3613627125974945,-0.5926328820644919
+1,635860218726658176,138.5187065217173,19.09233926905897,-5.941679495793577,-11.346409129876392,0.30745551377348623,0.19946557779138105,,-59.247329893833296,-2.0160784008206476,-7.52712608464053,1.7487794924176672
+2,635674126383965568,138.8428741026386,19.031798198627634,-3.8970011609340207,-12.702779525389634,0.7794631695848825,0.22369151932421705,,-59.13339098769217,-2.3069007451798287,-7.560607655557421,-0.7417999555980245
+3,635535454774983040,137.8377518255436,18.864006786112604,-4.335040664412791,-14.492308604905652,0.31451429349160354,0.10277456217796248,,-59.78529963350303,-1.5945692849622026,-9.35753561702402,-1.2184922339592716
+4,635497276810313600,138.0445160213759,19.00947118796605,-7.1729306406216615,-12.291499169815987,0.42540354480291037,0.3376892347379532,,-59.55774434692722,-1.6821467937242753,-9.000831056712947,2.3344066165829673
+5,635614168640132864,139.59219748145836,18.807955539071433,-3.309602916796381,-13.708904908478631,0.5833821573394844,0.5746175895352217,,-58.938113464510934,-3.0241923218278397,-8.062761531706451,-1.8690819375362338
+6,635821843194387840,139.88094034815086,19.62185456718988,-6.544201177153814,-12.55978220563274,0.3788707393484704,0.2134264091820104,,-58.10569437830526,-2.8105428528649257,-8.814581159026405,1.451032881430119
+7,635551706931167104,138.04665586038192,19.248909662830798,-6.224595114220405,-12.224246333795001,0.7832805254544403,0.12699359319614956,,-59.354285349557074,-1.5557649698784075,-8.427716582116249,1.5738026079151446
+8,635518889086133376,137.2374229207837,18.7428630711791,-3.3186800714801046,-12.710314902969365,0.17932476739336733,0.7503378631682915,,-60.19048364007102,-1.1779749872253444,-7.3401827273605385,-1.064062501817137
+</pre></div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Allen B. Downey<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="_static/js/index.30270b6e4c972e43c488.js"></script>
+
+
+    
+  </body>
+</html>

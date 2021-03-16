@@ -196,7 +196,7 @@ If you are on Windows, you might have to use the Anaconda Prompt,
 which you can find under the Start menu.
 
 ```
-conda install jupyter numpy scipy pandas pytables matplotlib seaborn libopenblas
+conda install jupyter numpy scipy pandas matplotlib seaborn libopenblas
 conda install -c conda-forge astropy astroquery gala python-wget
 ```
 

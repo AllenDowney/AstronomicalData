@@ -1,0 +1,1040 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Writing queries &#8212; Astronomical Data in Python</title>
+    
+  <link rel="stylesheet" href="_static/css/index.d431a4ee1c1efae0e38bdfebc22debff.css">
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="_static/sphinx-book-theme.bfb7730f9caf2ec0b46a44615585038c.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.30270b6e4c972e43c488.js">
+
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/sphinx-book-theme.be0a4a0c39cd630af62a2fcf693f3f06.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="index.html">
+  
+  
+  <h1 class="site-logo" id="site-title">Astronomical Data in Python</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="README.html">
+   Astronomical Data in Python
+  </a>
+ </li>
+</ul>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="01_query.html">
+   Queries
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="02_coords.html">
+   Coordinates and units
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03_motion.html">
+   Chapter 3
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="04_select.html">
+   Chapter 4
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="05_join.html">
+   Chapter 5
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06_photo.html">
+   Chapter 6
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="07_plot.html">
+   Chapter 7
+  </a>
+ </li>
+</ul>
+
+</nav>
+
+ <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        <div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/pilot_day1.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+    
+</div>
+        <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/AllenDowney/AstronomicalData"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        
+        
+    </div>
+</div>
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/AllenDowney/AstronomicalData/master?urlpath=tree/pilot_day1.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/AllenDowney/AstronomicalData/blob/master/pilot_day1.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   Writing queries
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#add-one-thing-at-a-time-and-test-as-you-go">
+   Add one thing at a time and test as you go
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#exercise">
+   Exercise
+  </a>
+ </li>
+</ul>
+
+        </nav>
+        
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">astroquery.gaia</span> <span class="kn">import</span> <span class="n">Gaia</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Created TAP+ (v1.2.1) - Connection:
+	Host: gea.esac.esa.int
+	Use HTTPS: True
+	Port: 443
+	SSL Port: 443
+Created TAP+ (v1.2.1) - Connection:
+	Host: geadata.esac.esa.int
+	Use HTTPS: True
+	Port: 443
+	SSL Port: 443
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Gaia</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;astroquery.gaia.core.GaiaClass at 0x7fd23f809850&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tables</span> <span class="o">=</span> <span class="n">Gaia</span><span class="o">.</span><span class="n">load_tables</span><span class="p">(</span><span class="n">only_names</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: Retrieving tables... [astroquery.utils.tap.core]
+INFO: Parsing tables... [astroquery.utils.tap.core]
+INFO: Done. [astroquery.utils.tap.core]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">tables</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>list
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">table</span> <span class="ow">in</span> <span class="n">tables</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">get_qualified_name</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>external.external.apassdr9
+external.external.gaiadr2_geometric_distance
+external.external.galex_ais
+external.external.ravedr5_com
+external.external.ravedr5_dr5
+external.external.ravedr5_gra
+external.external.ravedr5_on
+external.external.sdssdr13_photoprimary
+external.external.skymapperdr1_master
+external.external.tmass_xsc
+public.public.hipparcos
+public.public.hipparcos_newreduction
+public.public.hubble_sc
+public.public.igsl_source
+public.public.igsl_source_catalog_ids
+public.public.tycho2
+public.public.dual
+tap_config.tap_config.coord_sys
+tap_config.tap_config.properties
+tap_schema.tap_schema.columns
+tap_schema.tap_schema.key_columns
+tap_schema.tap_schema.keys
+tap_schema.tap_schema.schemas
+tap_schema.tap_schema.tables
+gaiadr1.gaiadr1.aux_qso_icrf2_match
+gaiadr1.gaiadr1.ext_phot_zero_point
+gaiadr1.gaiadr1.allwise_best_neighbour
+gaiadr1.gaiadr1.allwise_neighbourhood
+gaiadr1.gaiadr1.gsc23_best_neighbour
+gaiadr1.gaiadr1.gsc23_neighbourhood
+gaiadr1.gaiadr1.ppmxl_best_neighbour
+gaiadr1.gaiadr1.ppmxl_neighbourhood
+gaiadr1.gaiadr1.sdss_dr9_best_neighbour
+gaiadr1.gaiadr1.sdss_dr9_neighbourhood
+gaiadr1.gaiadr1.tmass_best_neighbour
+gaiadr1.gaiadr1.tmass_neighbourhood
+gaiadr1.gaiadr1.ucac4_best_neighbour
+gaiadr1.gaiadr1.ucac4_neighbourhood
+gaiadr1.gaiadr1.urat1_best_neighbour
+gaiadr1.gaiadr1.urat1_neighbourhood
+gaiadr1.gaiadr1.cepheid
+gaiadr1.gaiadr1.phot_variable_time_series_gfov
+gaiadr1.gaiadr1.phot_variable_time_series_gfov_statistical_parameters
+gaiadr1.gaiadr1.rrlyrae
+gaiadr1.gaiadr1.variable_summary
+gaiadr1.gaiadr1.allwise_original_valid
+gaiadr1.gaiadr1.gsc23_original_valid
+gaiadr1.gaiadr1.ppmxl_original_valid
+gaiadr1.gaiadr1.sdssdr9_original_valid
+gaiadr1.gaiadr1.tmass_original_valid
+gaiadr1.gaiadr1.ucac4_original_valid
+gaiadr1.gaiadr1.urat1_original_valid
+gaiadr1.gaiadr1.gaia_source
+gaiadr1.gaiadr1.tgas_source
+gaiadr2.gaiadr2.aux_allwise_agn_gdr2_cross_id
+gaiadr2.gaiadr2.aux_iers_gdr2_cross_id
+gaiadr2.gaiadr2.aux_sso_orbit_residuals
+gaiadr2.gaiadr2.aux_sso_orbits
+gaiadr2.gaiadr2.dr1_neighbourhood
+gaiadr2.gaiadr2.allwise_best_neighbour
+gaiadr2.gaiadr2.allwise_neighbourhood
+gaiadr2.gaiadr2.apassdr9_best_neighbour
+gaiadr2.gaiadr2.apassdr9_neighbourhood
+gaiadr2.gaiadr2.gsc23_best_neighbour
+gaiadr2.gaiadr2.gsc23_neighbourhood
+gaiadr2.gaiadr2.hipparcos2_best_neighbour
+gaiadr2.gaiadr2.hipparcos2_neighbourhood
+gaiadr2.gaiadr2.panstarrs1_best_neighbour
+gaiadr2.gaiadr2.panstarrs1_neighbourhood
+gaiadr2.gaiadr2.ppmxl_best_neighbour
+gaiadr2.gaiadr2.ppmxl_neighbourhood
+gaiadr2.gaiadr2.ravedr5_best_neighbour
+gaiadr2.gaiadr2.ravedr5_neighbourhood
+gaiadr2.gaiadr2.sdssdr9_best_neighbour
+gaiadr2.gaiadr2.sdssdr9_neighbourhood
+gaiadr2.gaiadr2.tmass_best_neighbour
+gaiadr2.gaiadr2.tmass_neighbourhood
+gaiadr2.gaiadr2.tycho2_best_neighbour
+gaiadr2.gaiadr2.tycho2_neighbourhood
+gaiadr2.gaiadr2.urat1_best_neighbour
+gaiadr2.gaiadr2.urat1_neighbourhood
+gaiadr2.gaiadr2.sso_observation
+gaiadr2.gaiadr2.sso_source
+gaiadr2.gaiadr2.vari_cepheid
+gaiadr2.gaiadr2.vari_classifier_class_definition
+gaiadr2.gaiadr2.vari_classifier_definition
+gaiadr2.gaiadr2.vari_classifier_result
+gaiadr2.gaiadr2.vari_long_period_variable
+gaiadr2.gaiadr2.vari_rotation_modulation
+gaiadr2.gaiadr2.vari_rrlyrae
+gaiadr2.gaiadr2.vari_short_timescale
+gaiadr2.gaiadr2.vari_time_series_statistics
+gaiadr2.gaiadr2.panstarrs1_original_valid
+gaiadr2.gaiadr2.gaia_source
+gaiadr2.gaiadr2.ruwe
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">meta</span> <span class="o">=</span> <span class="n">Gaia</span><span class="o">.</span><span class="n">load_table</span><span class="p">(</span><span class="s1">&#39;gaiadr2.gaia_source&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Retrieving table &#39;gaiadr2.gaia_source&#39;
+Parsing table &#39;gaiadr2.gaia_source&#39;...
+Done.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">meta</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;astroquery.utils.tap.model.taptable.TapTableMeta at 0x7fd23e840b80&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">meta</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>TAP Table name: gaiadr2.gaiadr2.gaia_source
+Description: This table has an entry for every Gaia observed source as listed in the
+Main Database accumulating catalogue version from which the catalogue
+release has been generated. It contains the basic source parameters,
+that is only final data (no epoch data) and no spectra (neither final
+nor epoch).
+Num. columns: 96
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">meta</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">column</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>solution_id
+designation
+source_id
+random_index
+ref_epoch
+ra
+ra_error
+dec
+dec_error
+parallax
+parallax_error
+parallax_over_error
+pmra
+pmra_error
+pmdec
+pmdec_error
+ra_dec_corr
+ra_parallax_corr
+ra_pmra_corr
+ra_pmdec_corr
+dec_parallax_corr
+dec_pmra_corr
+dec_pmdec_corr
+parallax_pmra_corr
+parallax_pmdec_corr
+pmra_pmdec_corr
+astrometric_n_obs_al
+astrometric_n_obs_ac
+astrometric_n_good_obs_al
+astrometric_n_bad_obs_al
+astrometric_gof_al
+astrometric_chi2_al
+astrometric_excess_noise
+astrometric_excess_noise_sig
+astrometric_params_solved
+astrometric_primary_flag
+astrometric_weight_al
+astrometric_pseudo_colour
+astrometric_pseudo_colour_error
+mean_varpi_factor_al
+astrometric_matched_observations
+visibility_periods_used
+astrometric_sigma5d_max
+frame_rotator_object_type
+matched_observations
+duplicated_source
+phot_g_n_obs
+phot_g_mean_flux
+phot_g_mean_flux_error
+phot_g_mean_flux_over_error
+phot_g_mean_mag
+phot_bp_n_obs
+phot_bp_mean_flux
+phot_bp_mean_flux_error
+phot_bp_mean_flux_over_error
+phot_bp_mean_mag
+phot_rp_n_obs
+phot_rp_mean_flux
+phot_rp_mean_flux_error
+phot_rp_mean_flux_over_error
+phot_rp_mean_mag
+phot_bp_rp_excess_factor
+phot_proc_mode
+bp_rp
+bp_g
+g_rp
+radial_velocity
+radial_velocity_error
+rv_nb_transits
+rv_template_teff
+rv_template_logg
+rv_template_fe_h
+phot_variable_flag
+l
+b
+ecl_lon
+ecl_lat
+priam_flags
+teff_val
+teff_percentile_lower
+teff_percentile_upper
+a_g_val
+a_g_percentile_lower
+a_g_percentile_upper
+e_bp_min_rp_val
+e_bp_min_rp_percentile_lower
+e_bp_min_rp_percentile_upper
+flame_flags
+radius_val
+radius_percentile_lower
+radius_percentile_upper
+lum_val
+lum_percentile_lower
+lum_percentile_upper
+datalink_url
+epoch_photometry_url
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">meta2</span> <span class="o">=</span> <span class="n">Gaia</span><span class="o">.</span><span class="n">load_table</span><span class="p">(</span><span class="s1">&#39;gaiadr2.panstarrs1_original_valid&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Retrieving table &#39;gaiadr2.panstarrs1_original_valid&#39;
+Parsing table &#39;gaiadr2.panstarrs1_original_valid&#39;...
+Done.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">meta2</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">column</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>obj_name
+obj_id
+ra
+dec
+ra_error
+dec_error
+epoch_mean
+g_mean_psf_mag
+g_mean_psf_mag_error
+g_flags
+r_mean_psf_mag
+r_mean_psf_mag_error
+r_flags
+i_mean_psf_mag
+i_mean_psf_mag_error
+i_flags
+z_mean_psf_mag
+z_mean_psf_mag_error
+z_flags
+y_mean_psf_mag
+y_mean_psf_mag_error
+y_flags
+n_detections
+zone_id
+obj_info_flag
+quality_flag
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="writing-queries">
+<h1>Writing queries<a class="headerlink" href="#writing-queries" title="Permalink to this headline">¶</a></h1>
+<p>More text here…</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">columns</span> <span class="o">=</span> <span class="s1">&#39;source_id, ref_epoch, ra, dec, parallax&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">columns2</span> <span class="o">=</span> <span class="s1">&#39;source_id, ref_epoch, ra, dec, parallax, parallax_error, radial_velocity&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">query_base</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT</span>
+<span class="s2">TOP 30</span>
+<span class="si">{columns}</span><span class="s2"></span>
+<span class="s2">FROM gaiadr2.gaia_source</span>
+<span class="s2">WHERE parallax &lt; </span><span class="si">{max_parallax}</span><span class="s2"></span>
+<span class="s2">  AND bp_rp BETWEEN -0.75 AND 2</span>
+<span class="s2">&quot;&quot;&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">query</span> <span class="o">=</span> <span class="n">query_base</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">columns2</span><span class="p">,</span> <span class="n">max_parallax</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">query</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;SELECT\nTOP 30\nsource_id, ref_epoch, ra, dec, parallax, parallax_error, radial_velocity\nFROM gaiadr2.gaia_source\nWHERE parallax &lt; 1\n  AND bp_rp BETWEEN -0.75 AND 2\n&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>SELECT
+TOP 30
+source_id, ref_epoch, ra, dec, parallax, parallax_error, radial_velocity
+FROM gaiadr2.gaia_source
+WHERE parallax &lt; 1
+  AND bp_rp BETWEEN -0.75 AND 2
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="add-one-thing-at-a-time-and-test-as-you-go">
+<h1>Add one thing at a time and test as you go<a class="headerlink" href="#add-one-thing-at-a-time-and-test-as-you-go" title="Permalink to this headline">¶</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">job</span>  <span class="o">=</span> <span class="n">Gaia</span><span class="o">.</span><span class="n">launch_job_async</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: Query finished. [astroquery.utils.tap.core]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">job</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;astroquery.utils.tap.model.job.Job at 0x7fd23e4cb250&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">job</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Table length=30&gt;
+      name       dtype   unit                             description                             n_bad
+--------------- ------- ------ ------------------------------------------------------------------ -----
+      source_id   int64        Unique source identifier (unique within a particular Data Release)     0
+      ref_epoch float64     yr                                                    Reference epoch     0
+             ra float64    deg                                                    Right ascension     0
+            dec float64    deg                                                        Declination     0
+       parallax float64    mas                                                           Parallax     0
+ parallax_error float64    mas                                         Standard error of parallax     0
+radial_velocity float64 km / s                                                    Radial velocity    30
+Jobid: 1605559085364O
+Phase: COMPLETED
+Owner: None
+Output file: async_20201116153805.vot
+Results: None
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">results</span> <span class="o">=</span> <span class="n">job</span><span class="o">.</span><span class="n">get_results</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">results</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><i>Table length=30</i>
+<table id="table140540965072960" class="table-striped table-bordered table-condensed">
+<thead><tr><th>source_id</th><th>ref_epoch</th><th>ra</th><th>dec</th><th>parallax</th><th>parallax_error</th><th>radial_velocity</th></tr></thead>
+<thead><tr><th></th><th>yr</th><th>deg</th><th>deg</th><th>mas</th><th>mas</th><th>km / s</th></tr></thead>
+<thead><tr><th>int64</th><th>float64</th><th>float64</th><th>float64</th><th>float64</th><th>float64</th><th>float64</th></tr></thead>
+<tr><td>1859772967200548480</td><td>2015.5</td><td>311.7716418009337</td><td>31.60557436984631</td><td>0.7767665671013428</td><td>0.27955289399217836</td><td>--</td></tr>
+<tr><td>1859782313041944832</td><td>2015.5</td><td>311.17390526154423</td><td>31.258797158719847</td><td>-0.25450688880064243</td><td>0.5006522058606456</td><td>--</td></tr>
+<tr><td>1859780869933153280</td><td>2015.5</td><td>311.06679375877263</td><td>31.219207019583653</td><td>0.34319978848338417</td><td>0.9313353159918977</td><td>--</td></tr>
+<tr><td>1859815057881369728</td><td>2015.5</td><td>311.55787663577127</td><td>31.62814807023982</td><td>-1.1955122356250545</td><td>0.7536507995983105</td><td>--</td></tr>
+<tr><td>1859764720853733504</td><td>2015.5</td><td>311.6968717764019</td><td>31.434121014193668</td><td>-2.4116892107687353</td><td>1.0180585839909577</td><td>--</td></tr>
+<tr><td>1859760494615052672</td><td>2015.5</td><td>311.7229144199955</td><td>31.344728455960162</td><td>0.33945025045930244</td><td>0.026879108757164063</td><td>--</td></tr>
+<tr><td>1859773413877146880</td><td>2015.5</td><td>311.8239717687711</td><td>31.5938682761331</td><td>-0.023183552578126928</td><td>0.05352617574037097</td><td>--</td></tr>
+<tr><td>1859769703016675328</td><td>2015.5</td><td>311.9698646366692</td><td>31.564087117425384</td><td>0.7133302224741606</td><td>0.8298725715561183</td><td>--</td></tr>
+<tr><td>1859813168089772032</td><td>2015.5</td><td>311.59531018136306</td><td>31.532982947737132</td><td>0.3676714937163033</td><td>0.7347671145224394</td><td>--</td></tr>
+<tr><td>...</td><td>...</td><td>...</td><td>...</td><td>...</td><td>...</td><td>...</td></tr>
+<tr><td>1859792341785287808</td><td>2015.5</td><td>311.2492437362059</td><td>31.473206794319317</td><td>0.3304263088856413</td><td>0.13675690977806274</td><td>--</td></tr>
+<tr><td>1859783408252461056</td><td>2015.5</td><td>311.11804657574396</td><td>31.297510342315928</td><td>0.0746539334379134</td><td>0.37680767316478425</td><td>--</td></tr>
+<tr><td>1859810281870133120</td><td>2015.5</td><td>311.13172365620215</td><td>31.686981863130708</td><td>0.26853128238207785</td><td>0.4553883976568405</td><td>--</td></tr>
+<tr><td>1859794815685744640</td><td>2015.5</td><td>310.96367939259284</td><td>31.31718097982628</td><td>-2.992496067633503</td><td>1.1089042277934307</td><td>--</td></tr>
+<tr><td>1859757677108231424</td><td>2015.5</td><td>311.99649307561697</td><td>31.506728013267534</td><td>0.7281871916676326</td><td>0.7765992662451379</td><td>--</td></tr>
+<tr><td>1859771146134503680</td><td>2015.5</td><td>311.74605797643176</td><td>31.485773669678412</td><td>0.13099351906829404</td><td>0.6713360113643849</td><td>--</td></tr>
+<tr><td>1859768667930613760</td><td>2015.5</td><td>311.81939870908116</td><td>31.50296753045608</td><td>0.33351119622751657</td><td>0.20853032024261492</td><td>--</td></tr>
+<tr><td>1859783687439520384</td><td>2015.5</td><td>311.1026531878309</td><td>31.318830227630794</td><td>0.36306118566694123</td><td>0.059633195646531766</td><td>--</td></tr>
+<tr><td>1859813885341735296</td><td>2015.5</td><td>311.6205103129279</td><td>31.569289167922214</td><td>-0.07059528156917382</td><td>0.14061938403885946</td><td>--</td></tr>
+<tr><td>1859777670175822720</td><td>2015.5</td><td>311.12238771094496</td><td>31.20200621855245</td><td>0.062101356212957384</td><td>0.33608219792403937</td><td>--</td></tr>
+</table></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>astropy.table.table.Table
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="exercise">
+<h1>Exercise<a class="headerlink" href="#exercise" title="Permalink to this headline">¶</a></h1>
+<p>Read about SQL operators</p>
+<p>https://www.w3schools.com/sql/sql_operators.asp</p>
+<p>Then modify the previous query to select rows where
+<code class="docutils literal notranslate"><span class="pre">bp_rp</span></code> is between -0.75 and 2.</p>
+<p>You can read about this variable at
+https://gea.esac.esa.int/archive/documentation/GDR2/Gaia_archive/chap_datamodel/sec_dm_main_tables/ssec_dm_gaia_source.html</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="n">df1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="n">df1</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;a&#39;</span>
+<span class="n">df1</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>a</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>a</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>a</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>a</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
+<span class="n">df2</span><span class="p">[</span><span class="s1">&#39;b&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;b&#39;</span>
+<span class="n">df2</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>b</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>b</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>b</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>b</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df1</span><span class="p">[</span><span class="s1">&#39;b&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df2</span><span class="p">[</span><span class="s1">&#39;b&#39;</span><span class="p">]</span>
+<span class="n">df1</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>a</th>
+      <th>b</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>a</td>
+      <td>b</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>a</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>a</td>
+      <td>b</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df1</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(3, 2)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df1</span> <span class="ow">is</span> <span class="n">df2</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>False
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Allen B. Downey<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="_static/js/index.30270b6e4c972e43c488.js"></script>
+
+
+    
+  </body>
+</html>
