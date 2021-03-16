@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Transformation and Selection &#8212; Astronomical Data in Python</title>
+    <title>4. Transformation and Selection &#8212; Astronomical Data in Python</title>
     
   <link rel="stylesheet" href="_static/css/index.d431a4ee1c1efae0e38bdfebc22debff.css">
 
@@ -58,7 +58,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Joining Tables" href="05_join.html" />
-    <link rel="prev" title="Proper Motion" href="03_motion.html" />
+    <link rel="prev" title="3. Proper Motion" href="03_motion.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -99,22 +99,22 @@
 <ul class="current nav sidenav_l1">
  <li class="toctree-l1">
   <a class="reference internal" href="01_query.html">
-   Queries
+   1. Queries
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="02_coords.html">
-   Coordinates and units
+   2. Coordinates and Units
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="03_motion.html">
-   Proper Motion
+   3. Proper Motion
   </a>
  </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   Transformation and Selection
+   4. Transformation and Selection
   </a>
  </li>
  <li class="toctree-l1">
@@ -262,6 +262,11 @@
   <a class="reference internal nav-link" href="#assembling-the-query">
    Assembling the query
   </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#selecting-proper-motion">
+   Selecting proper motion
+  </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#exercise">
@@ -278,16 +283,6 @@
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#plotting-one-more-time">
    Plotting one more time
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#saving-the-dataframe">
-   Saving the DataFrame
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#csv">
-   CSV
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -312,21 +307,18 @@
               <div>
                 
   <div class="section" id="transformation-and-selection">
-<h1>Transformation and Selection<a class="headerlink" href="#transformation-and-selection" title="Permalink to this headline">¶</a></h1>
-<p>This is the fourth in a series of notebooks related to astronomy data.</p>
-<p>As a running example, we are replicating parts of the analysis in a recent paper, “<a class="reference external" href="https://arxiv.org/abs/1805.00425">Off the beaten path: Gaia reveals GD-1 stars outside of the main stream</a>” by Adrian M. Price-Whelan and Ana Bonaca.</p>
-<p>In the first lesson, we wrote ADQL queries and used them to select and download data from the Gaia server.</p>
-<p>In the second lesson, we write a query to select stars from the region of the sky where we expect GD-1 to be, and save the results in a FITS file.</p>
-<p>In the third lesson, we read that data back and identified stars with the proper motion we expect for GD-1.</p>
+<h1>4. Transformation and Selection<a class="headerlink" href="#transformation-and-selection" title="Permalink to this headline">¶</a></h1>
+<p>In the previous lesson, we identified stars with the proper motion we expect for GD-1.</p>
+<p>Now we’ll do the same selection in an ADQL query, which will make it possible to work with a larger region of the sky and still download less data.</p>
 <div class="section" id="outline">
 <h2>Outline<a class="headerlink" href="#outline" title="Permalink to this headline">¶</a></h2>
 <p>Here are the steps in this lesson:</p>
 <ol class="simple">
 <li><p>Using data from the previous lesson, we’ll identify the values of proper motion for stars likely to be in GD-1.</p></li>
 <li><p>Then we’ll compose an ADQL query that selects stars based on proper motion, so we can download only the data we need.</p></li>
-<li><p>We’ll also see how to write the results to a CSV file.</p></li>
 </ol>
-<p>That will make it possible to search a bigger region of the sky in a single query.</p>
+<p>That will make it possible to search a bigger region of the sky in a single query.
+We’ll also see how to write the results to a CSV file.</p>
 <p>After completing this lesson, you should be able to</p>
 <ul class="simple">
 <li><p>Transform proper motions from one frame to another.</p></li>
@@ -340,14 +332,17 @@
 <p>The following cells download the data from the previous lesson, if necessary, and load it into a Pandas <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">from</span> <span class="nn">wget</span> <span class="kn">import</span> <span class="n">download</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">basename</span><span class="p">,</span> <span class="n">exists</span>
 
-<span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;gd1_dataframe.hdf5&#39;</span>
-<span class="n">path</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/AllenDowney/AstronomicalData/raw/main/data/&#39;</span>
+<span class="k">def</span> <span class="nf">download</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
+    <span class="n">filename</span> <span class="o">=</span> <span class="n">basename</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">exists</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">urllib.request</span> <span class="kn">import</span> <span class="n">urlretrieve</span>
+        <span class="n">local</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">urlretrieve</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Downloaded &#39;</span> <span class="o">+</span> <span class="n">local</span><span class="p">)</span>
 
-<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">download</span><span class="p">(</span><span class="n">path</span><span class="o">+</span><span class="n">filename</span><span class="p">))</span>
+<span class="n">download</span><span class="p">(</span><span class="s1">&#39;https://github.com/AllenDowney/AstronomicalData/raw/main/&#39;</span> <span class="o">+</span>
+         <span class="s1">&#39;data/gd1_data.hdf&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -355,6 +350,8 @@
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;gd1_data.hdf&#39;</span>
 
 <span class="n">centerline_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_hdf</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;centerline_df&#39;</span><span class="p">)</span>
 <span class="n">selected_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_hdf</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;selected_df&#39;</span><span class="p">)</span>
@@ -405,6 +402,29 @@
 </div>
 </div>
 </div>
+<p>Since we’ll need to plot proper motion several times, we’ll use the following function.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="k">def</span> <span class="nf">plot_proper_motion</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Plot proper motion.</span>
+<span class="sd">    </span>
+<span class="sd">    df: DataFrame with `pm_phi1` and `pm_phi2`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;pm_phi1&#39;</span><span class="p">]</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;pm_phi2&#39;</span><span class="p">]</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">&#39;ko&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Proper motion phi1 (GD1 frame)&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Proper motion phi2 (GD1 frame)&#39;</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
 <p>The following figure shows:</p>
 <ul class="simple">
 <li><p>Proper motion for the stars we selected along the center line of GD-1,</p></li>
@@ -413,40 +433,30 @@
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_proper_motion</span><span class="p">(</span><span class="n">centerline_df</span><span class="p">)</span>
 
-<span class="n">pm1</span> <span class="o">=</span> <span class="n">centerline_df</span><span class="p">[</span><span class="s1">&#39;pm_phi1&#39;</span><span class="p">]</span>
-<span class="n">pm2</span> <span class="o">=</span> <span class="n">centerline_df</span><span class="p">[</span><span class="s1">&#39;pm_phi2&#39;</span><span class="p">]</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">pm1</span><span class="p">,</span> <span class="n">pm2</span><span class="p">,</span> <span class="s1">&#39;ko&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">pm1_rect</span><span class="p">,</span> <span class="n">pm2_rect</span><span class="p">)</span>
 
-<span class="n">pm1</span> <span class="o">=</span> <span class="n">selected_df</span><span class="p">[</span><span class="s1">&#39;pm_phi1&#39;</span><span class="p">]</span>
-<span class="n">pm2</span> <span class="o">=</span> <span class="n">selected_df</span><span class="p">[</span><span class="s1">&#39;pm_phi2&#39;</span><span class="p">]</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">pm1</span><span class="p">,</span> <span class="n">pm2</span><span class="p">,</span> <span class="s1">&#39;gx&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">pm1_rect</span><span class="p">,</span> <span class="n">pm2_rect</span><span class="p">,</span> <span class="s1">&#39;-&#39;</span><span class="p">)</span>
-    
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Proper motion phi1 (GD1 frame)&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Proper motion phi2 (GD1 frame)&#39;</span><span class="p">)</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">selected_df</span><span class="p">[</span><span class="s1">&#39;pm_phi1&#39;</span><span class="p">]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">selected_df</span><span class="p">[</span><span class="s1">&#39;pm_phi2&#39;</span><span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">&#39;gx&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/04_select_13_0.png" src="_images/04_select_13_0.png" />
+<img alt="_images/04_select_15_0.png" src="_images/04_select_15_0.png" />
 </div>
 </div>
 <p>Now we’ll make the same plot using proper motions in the ICRS frame, which are stored in columns <code class="docutils literal notranslate"><span class="pre">pmra</span></code> and <code class="docutils literal notranslate"><span class="pre">pmdec</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pm1</span> <span class="o">=</span> <span class="n">centerline_df</span><span class="p">[</span><span class="s1">&#39;pmra&#39;</span><span class="p">]</span>
-<span class="n">pm2</span> <span class="o">=</span> <span class="n">centerline_df</span><span class="p">[</span><span class="s1">&#39;pmdec&#39;</span><span class="p">]</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">pm1</span><span class="p">,</span> <span class="n">pm2</span><span class="p">,</span> <span class="s1">&#39;ko&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">centerline_df</span><span class="p">[</span><span class="s1">&#39;pmra&#39;</span><span class="p">]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">centerline_df</span><span class="p">[</span><span class="s1">&#39;pmdec&#39;</span><span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">&#39;ko&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
 
-<span class="n">pm1</span> <span class="o">=</span> <span class="n">selected_df</span><span class="p">[</span><span class="s1">&#39;pmra&#39;</span><span class="p">]</span>
-<span class="n">pm2</span> <span class="o">=</span> <span class="n">selected_df</span><span class="p">[</span><span class="s1">&#39;pmdec&#39;</span><span class="p">]</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">pm1</span><span class="p">,</span> <span class="n">pm2</span><span class="p">,</span> <span class="s1">&#39;gx&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">selected_df</span><span class="p">[</span><span class="s1">&#39;pmra&#39;</span><span class="p">]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">selected_df</span><span class="p">[</span><span class="s1">&#39;pmdec&#39;</span><span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">&#39;gx&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
     
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Proper motion ra (ICRS frame)&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Proper motion dec (ICRS frame)&#39;</span><span class="p">)</span>
@@ -457,7 +467,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/04_select_15_0.png" src="_images/04_select_15_0.png" />
+<img alt="_images/04_select_17_0.png" src="_images/04_select_17_0.png" />
 </div>
 </div>
 <p>The proper motions of the selected stars are more spread out in this frame, which is why it was preferable to do the selection in the GD-1 frame.</p>
@@ -498,7 +508,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;scipy.spatial.qhull.ConvexHull at 0x7fa7c4c03a90&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;scipy.spatial.qhull.ConvexHull at 0x7f712e3b6dc0&gt;
 </pre></div>
 </div>
 </div>
@@ -554,17 +564,17 @@
 </div>
 </div>
 </div>
-<p>This use of <code class="docutils literal notranslate"><span class="pre">transpose</span></code> is a bit of a NumPy trick.  Because <code class="docutils literal notranslate"><span class="pre">pm_vertices</span></code> has two columns, its transpose has two rows, which are assigned to the two variables <code class="docutils literal notranslate"><span class="pre">pmra_poly</span></code> and <code class="docutils literal notranslate"><span class="pre">pmdec_poly</span></code>.</p>
+<p>This use of <code class="docutils literal notranslate"><span class="pre">transpose</span></code> is a useful NumPy idiom.  Because <code class="docutils literal notranslate"><span class="pre">pm_vertices</span></code> has two columns, its <a class="reference external" href="https://en.wikipedia.org/wiki/Transpose">matrix transpose</a> has two rows, which are assigned to the two variables <code class="docutils literal notranslate"><span class="pre">pmra_poly</span></code> and <code class="docutils literal notranslate"><span class="pre">pmdec_poly</span></code>.</p>
 <p>The following figure shows proper motion in ICRS again, along with the convex hull we just computed.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pm1</span> <span class="o">=</span> <span class="n">centerline_df</span><span class="p">[</span><span class="s1">&#39;pmra&#39;</span><span class="p">]</span>
-<span class="n">pm2</span> <span class="o">=</span> <span class="n">centerline_df</span><span class="p">[</span><span class="s1">&#39;pmdec&#39;</span><span class="p">]</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">pm1</span><span class="p">,</span> <span class="n">pm2</span><span class="p">,</span> <span class="s1">&#39;ko&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">centerline_df</span><span class="p">[</span><span class="s1">&#39;pmra&#39;</span><span class="p">]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">centerline_df</span><span class="p">[</span><span class="s1">&#39;pmdec&#39;</span><span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">&#39;ko&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
 
-<span class="n">pm1</span> <span class="o">=</span> <span class="n">selected_df</span><span class="p">[</span><span class="s1">&#39;pmra&#39;</span><span class="p">]</span>
-<span class="n">pm2</span> <span class="o">=</span> <span class="n">selected_df</span><span class="p">[</span><span class="s1">&#39;pmdec&#39;</span><span class="p">]</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">pm1</span><span class="p">,</span> <span class="n">pm2</span><span class="p">,</span> <span class="s1">&#39;gx&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">selected_df</span><span class="p">[</span><span class="s1">&#39;pmra&#39;</span><span class="p">]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">selected_df</span><span class="p">[</span><span class="s1">&#39;pmdec&#39;</span><span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">&#39;gx&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">pmra_poly</span><span class="p">,</span> <span class="n">pmdec_poly</span><span class="p">)</span>
     
@@ -577,7 +587,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/04_select_29_0.png" src="_images/04_select_29_0.png" />
+<img alt="_images/04_select_30_0.png" src="_images/04_select_30_0.png" />
 </div>
 </div>
 <p>So <code class="docutils literal notranslate"><span class="pre">pm_vertices</span></code> represents the polygon we want to select.
@@ -585,10 +595,10 @@ The next step is to use it as part of an ADQL query.</p>
 </div>
 <div class="section" id="assembling-the-query">
 <h2>Assembling the query<a class="headerlink" href="#assembling-the-query" title="Permalink to this headline">¶</a></h2>
-<p>Here’s the base string we used for the query in the previous lesson.</p>
+<p>In Lesson 2 we used the following query to select stars in a polygonal region.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">query_base</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT </span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">query5_base</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT</span>
 <span class="si">{columns}</span><span class="s2"></span>
 <span class="s2">FROM gaiadr2.gaia_source</span>
 <span class="s2">WHERE parallax &lt; 1</span>
@@ -600,11 +610,111 @@ The next step is to use it as part of an ADQL query.</p>
 </div>
 </div>
 </div>
-<p>And here are the changes we’ll make in this lesson:</p>
+<p>In this lesson we’ll make two changes:</p>
 <ol class="simple">
-<li><p>We will add another clause to select stars whose proper motion is in the polygon we just computed, <code class="docutils literal notranslate"><span class="pre">pm_vertices</span></code>.</p></li>
-<li><p>We will select stars with coordinates in a larger region.</p></li>
+<li><p>We’ll select stars with coordinates in a larger region.</p></li>
+<li><p>We’ll add another clause to select stars whose proper motion is in the polygon we just computed, <code class="docutils literal notranslate"><span class="pre">pm_vertices</span></code>.</p></li>
 </ol>
+<p>Here are the coordinates of the larger rectangle in the GD-1 frame.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">astropy.units</span> <span class="k">as</span> <span class="nn">u</span>
+
+<span class="n">phi1_min</span> <span class="o">=</span> <span class="o">-</span><span class="mi">70</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">degree</span>
+<span class="n">phi1_max</span> <span class="o">=</span> <span class="o">-</span><span class="mi">20</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">degree</span>
+<span class="n">phi2_min</span> <span class="o">=</span> <span class="o">-</span><span class="mi">5</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">degree</span>
+<span class="n">phi2_max</span> <span class="o">=</span> <span class="mi">5</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">degree</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We selected these bounds by trial and error, defining the largest region we can process in a single query.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">phi1_rect</span><span class="p">,</span> <span class="n">phi2_rect</span> <span class="o">=</span> <span class="n">make_rectangle</span><span class="p">(</span>
+    <span class="n">phi1_min</span><span class="p">,</span> <span class="n">phi1_max</span><span class="p">,</span> <span class="n">phi2_min</span><span class="p">,</span> <span class="n">phi2_max</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Here’s how we transform it to ICRS, as we saw in Lesson 2.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">gala.coordinates</span> <span class="kn">import</span> <span class="n">GD1Koposov10</span>
+<span class="kn">from</span> <span class="nn">astropy.coordinates</span> <span class="kn">import</span> <span class="n">SkyCoord</span>
+
+<span class="n">gd1_frame</span> <span class="o">=</span> <span class="n">GD1Koposov10</span><span class="p">()</span>
+<span class="n">corners</span> <span class="o">=</span> <span class="n">SkyCoord</span><span class="p">(</span><span class="n">phi1</span><span class="o">=</span><span class="n">phi1_rect</span><span class="p">,</span> 
+                   <span class="n">phi2</span><span class="o">=</span><span class="n">phi2_rect</span><span class="p">,</span> 
+                   <span class="n">frame</span><span class="o">=</span><span class="n">gd1_frame</span><span class="p">)</span>
+
+<span class="n">corners_icrs</span> <span class="o">=</span> <span class="n">corners</span><span class="o">.</span><span class="n">transform_to</span><span class="p">(</span><span class="s1">&#39;icrs&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>To use <code class="docutils literal notranslate"><span class="pre">corners_icrs</span></code> as part of an ADQL query, we have to convert it to a string.<br />
+Here’s the function from Lesson 2 we used to do that.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">skycoord_to_string</span><span class="p">(</span><span class="n">skycoord</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Convert SkyCoord to string.&quot;&quot;&quot;</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">skycoord</span><span class="o">.</span><span class="n">to_string</span><span class="p">()</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">s</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;, &#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">point_list</span> <span class="o">=</span> <span class="n">skycoord_to_string</span><span class="p">(</span><span class="n">corners_icrs</span><span class="p">)</span>
+<span class="n">point_list</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;135.306, 8.39862, 126.51, 13.4449, 163.017, 54.2424, 172.933, 46.4726, 135.306, 8.39862&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p>Here are the columns we want to select.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">columns</span> <span class="o">=</span> <span class="s1">&#39;source_id, ra, dec, pmra, pmdec&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now we have everything we need to assemble the query.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">query5</span> <span class="o">=</span> <span class="n">query5_base</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">columns</span><span class="p">,</span> 
+                            <span class="n">point_list</span><span class="o">=</span><span class="n">point_list</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">query5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>SELECT
+source_id, ra, dec, pmra, pmdec
+FROM gaiadr2.gaia_source
+WHERE parallax &lt; 1
+  AND bp_rp BETWEEN -0.75 AND 2 
+  AND 1 = CONTAINS(POINT(ra, dec), 
+                   POLYGON(135.306, 8.39862, 126.51, 13.4449, 163.017, 54.2424, 172.933, 46.4726, 135.306, 8.39862))
+</pre></div>
+</div>
+</div>
+</div>
+<p>But don’t try to run that query.
+Because it selects a larger region, there are too many stars to handle in a single query.
+Until we select by proper motion, that is.</p>
+</div>
+<div class="section" id="selecting-proper-motion">
+<h2>Selecting proper motion<a class="headerlink" href="#selecting-proper-motion" title="Permalink to this headline">¶</a></h2>
+<p>Now we’re ready to add a <code class="docutils literal notranslate"><span class="pre">WHERE</span></code> clause to select stars whose proper motion falls in the polygon defined by <code class="docutils literal notranslate"><span class="pre">pm_vertices</span></code>.</p>
 <p>To use <code class="docutils literal notranslate"><span class="pre">pm_vertices</span></code> as part of an ADQL query, we have to convert it to a string.
 Using <code class="docutils literal notranslate"><span class="pre">flatten</span></code> and <code class="docutils literal notranslate"><span class="pre">array2string</span></code>, we can almost get the format we need.</p>
 <div class="cell docutils container">
@@ -636,92 +746,14 @@ Using <code class="docutils literal notranslate"><span class="pre">flatten</span
 </div>
 </div>
 </div>
-<p>We’ll add this string to the query soon, but first let’s compute the other polygon, the one that specifies the region of the sky we want.</p>
-<p>Here are the coordinates of the rectangle we’ll select, in the GD-1 frame.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">astropy.units</span> <span class="k">as</span> <span class="nn">u</span>
-
-<span class="n">phi1_min</span> <span class="o">=</span> <span class="o">-</span><span class="mi">70</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">degree</span>
-<span class="n">phi1_max</span> <span class="o">=</span> <span class="o">-</span><span class="mi">20</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">degree</span>
-<span class="n">phi2_min</span> <span class="o">=</span> <span class="o">-</span><span class="mi">5</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">degree</span>
-<span class="n">phi2_max</span> <span class="o">=</span> <span class="mi">5</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">degree</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">phi1_rect</span><span class="p">,</span> <span class="n">phi2_rect</span> <span class="o">=</span> <span class="n">make_rectangle</span><span class="p">(</span>
-    <span class="n">phi1_min</span><span class="p">,</span> <span class="n">phi1_max</span><span class="p">,</span> <span class="n">phi2_min</span><span class="p">,</span> <span class="n">phi2_max</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>Here’s how we transform it to ICRS, as we saw in the previous lesson.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">gala.coordinates</span> <span class="kn">import</span> <span class="n">GD1Koposov10</span>
-<span class="kn">from</span> <span class="nn">astropy.coordinates</span> <span class="kn">import</span> <span class="n">SkyCoord</span>
-
-<span class="n">corners</span> <span class="o">=</span> <span class="n">SkyCoord</span><span class="p">(</span><span class="n">phi1</span><span class="o">=</span><span class="n">phi1_rect</span><span class="p">,</span> 
-                   <span class="n">phi2</span><span class="o">=</span><span class="n">phi2_rect</span><span class="p">,</span> 
-                   <span class="n">frame</span><span class="o">=</span><span class="n">GD1Koposov10</span><span class="p">)</span>
-
-<span class="n">corners_icrs</span> <span class="o">=</span> <span class="n">corners</span><span class="o">.</span><span class="n">transform_to</span><span class="p">(</span><span class="s1">&#39;icrs&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>To use <code class="docutils literal notranslate"><span class="pre">corners_icrs</span></code> as part of an ADQL query, we have to convert it to a string.  Here’s how we do that, as we saw in the previous lesson.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">skycoord_to_string</span><span class="p">(</span><span class="n">skycoord</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Convert SkyCoord to string.&quot;&quot;&quot;</span>
-    <span class="n">t</span> <span class="o">=</span> <span class="n">skycoord</span><span class="o">.</span><span class="n">to_string</span><span class="p">()</span>
-    <span class="n">s</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">s</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;, &#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">point_list</span> <span class="o">=</span> <span class="n">skycoord_to_string</span><span class="p">(</span><span class="n">corners_icrs</span><span class="p">)</span>
-<span class="n">point_list</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;135.306, 8.39862, 126.51, 13.4449, 163.017, 54.2424, 172.933, 46.4726, 135.306, 8.39862&#39;
-</pre></div>
-</div>
-</div>
-</div>
-<p>Now we have everything we need to assemble the query.
-Here’s the base query from the previous lesson again:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">query_base</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT </span>
-<span class="si">{columns}</span><span class="s2"></span>
-<span class="s2">FROM gaiadr2.gaia_source</span>
-<span class="s2">WHERE parallax &lt; 1</span>
-<span class="s2">  AND bp_rp BETWEEN -0.75 AND 2 </span>
-<span class="s2">  AND 1 = CONTAINS(POINT(ra, dec), </span>
-<span class="s2">                   POLYGON(</span><span class="si">{point_list}</span><span class="s2">))</span>
-<span class="s2">&quot;&quot;&quot;</span>
-</pre></div>
-</div>
-</div>
-</div>
 <div class="section" id="exercise">
 <h3>Exercise<a class="headerlink" href="#exercise" title="Permalink to this headline">¶</a></h3>
-<p>Modify <code class="docutils literal notranslate"><span class="pre">query_base</span></code> by adding a new clause to select stars whose coordinates of proper motion, <code class="docutils literal notranslate"><span class="pre">pmra</span></code> and <code class="docutils literal notranslate"><span class="pre">pmdec</span></code>, fall within the polygon defined by <code class="docutils literal notranslate"><span class="pre">pm_point_list</span></code>.</p>
+<p>Define <code class="docutils literal notranslate"><span class="pre">query6_base</span></code>, starting with <code class="docutils literal notranslate"><span class="pre">query5_base</span></code> and adding a new clause to select stars whose coordinates of proper motion, <code class="docutils literal notranslate"><span class="pre">pmra</span></code> and <code class="docutils literal notranslate"><span class="pre">pmdec</span></code>, fall within the polygon defined by <code class="docutils literal notranslate"><span class="pre">pm_point_list</span></code>.</p>
 <div class="cell tag_hide-cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
 
-<span class="n">query_base</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT </span>
+<span class="n">query6_base</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT </span>
 <span class="si">{columns}</span><span class="s2"></span>
 <span class="s2">FROM gaiadr2.gaia_source</span>
 <span class="s2">WHERE parallax &lt; 1</span>
@@ -735,32 +767,24 @@ Here’s the base query from the previous lesson again:</p>
 </div>
 </div>
 </div>
-<p>Here again are the columns we want to select.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">columns</span> <span class="o">=</span> <span class="s1">&#39;source_id, ra, dec, pmra, pmdec, parallax, radial_velocity&#39;</span>
-</pre></div>
-</div>
-</div>
-</div>
 </div>
 <div class="section" id="id1">
 <h3>Exercise<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
-<p>Use <code class="docutils literal notranslate"><span class="pre">format</span></code> to format <code class="docutils literal notranslate"><span class="pre">query_base</span></code> and define <code class="docutils literal notranslate"><span class="pre">query</span></code>, filling in the values of <code class="docutils literal notranslate"><span class="pre">columns</span></code>, <code class="docutils literal notranslate"><span class="pre">point_list</span></code>, and <code class="docutils literal notranslate"><span class="pre">pm_point_list</span></code>.</p>
+<p>Use <code class="docutils literal notranslate"><span class="pre">format</span></code> to format <code class="docutils literal notranslate"><span class="pre">query6_base</span></code> and define <code class="docutils literal notranslate"><span class="pre">query6</span></code>, filling in the values of <code class="docutils literal notranslate"><span class="pre">columns</span></code>, <code class="docutils literal notranslate"><span class="pre">point_list</span></code>, and <code class="docutils literal notranslate"><span class="pre">pm_point_list</span></code>.</p>
 <div class="cell tag_hide-cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
 
-<span class="n">query</span> <span class="o">=</span> <span class="n">query_base</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">columns</span><span class="p">,</span> 
+<span class="n">query6</span> <span class="o">=</span> <span class="n">query6_base</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">columns</span><span class="p">,</span> 
                           <span class="n">point_list</span><span class="o">=</span><span class="n">point_list</span><span class="p">,</span>
                           <span class="n">pm_point_list</span><span class="o">=</span><span class="n">pm_point_list</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">query6</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>SELECT 
-source_id, ra, dec, pmra, pmdec, parallax, radial_velocity
+source_id, ra, dec, pmra, pmdec
 FROM gaiadr2.gaia_source
 WHERE parallax &lt; 1
   AND bp_rp BETWEEN -0.75 AND 2 
@@ -777,27 +801,35 @@ WHERE parallax &lt; 1
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">astroquery.gaia</span> <span class="kn">import</span> <span class="n">Gaia</span>
 
-<span class="n">job</span> <span class="o">=</span> <span class="n">Gaia</span><span class="o">.</span><span class="n">launch_job_async</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+<span class="n">job</span> <span class="o">=</span> <span class="n">Gaia</span><span class="o">.</span><span class="n">launch_job_async</span><span class="p">(</span><span class="n">query6</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">job</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: Query finished. [astroquery.utils.tap.core]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Created TAP+ (v1.2.1) - Connection:
+	Host: gea.esac.esa.int
+	Use HTTPS: True
+	Port: 443
+	SSL Port: 443
+Created TAP+ (v1.2.1) - Connection:
+	Host: geadata.esac.esa.int
+	Use HTTPS: True
+	Port: 443
+	SSL Port: 443
+INFO: Query finished. [astroquery.utils.tap.core]
 &lt;Table length=7345&gt;
-      name       dtype    unit                              description                             n_bad
---------------- ------- -------- ------------------------------------------------------------------ -----
-      source_id   int64          Unique source identifier (unique within a particular Data Release)     0
-             ra float64      deg                                                    Right ascension     0
-            dec float64      deg                                                        Declination     0
-           pmra float64 mas / yr                         Proper motion in right ascension direction     0
-          pmdec float64 mas / yr                             Proper motion in declination direction     0
-       parallax float64      mas                                                           Parallax     0
-radial_velocity float64   km / s                                                    Radial velocity  7294
-Jobid: 1609278364817O
+   name    dtype    unit                              description                            
+--------- ------- -------- ------------------------------------------------------------------
+source_id   int64          Unique source identifier (unique within a particular Data Release)
+       ra float64      deg                                                    Right ascension
+      dec float64      deg                                                        Declination
+     pmra float64 mas / yr                         Proper motion in right ascension direction
+    pmdec float64 mas / yr                             Proper motion in declination direction
+Jobid: 1615824245107O
 Phase: COMPLETED
 Owner: None
-Output file: async_20201229164604.vot
+Output file: async_20210315120405.vot
 Results: None
 </pre></div>
 </div>
@@ -817,6 +849,7 @@ Results: None
 </div>
 </div>
 </div>
+<p>We call the results <code class="docutils literal notranslate"><span class="pre">candidate_table</span></code> because it contains stars that are good candidates for GD-1.</p>
 </div>
 </div>
 <div class="section" id="plotting-one-more-time">
@@ -834,11 +867,12 @@ Results: None
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/04_select_58_0.png" src="_images/04_select_58_0.png" />
+<img alt="_images/04_select_62_0.png" src="_images/04_select_62_0.png" />
 </div>
 </div>
 <p>Here we can see why it was useful to transform these coordinates.  In ICRS, it is more difficult to identity the stars near the centerline of GD-1.</p>
-<p>So, before we move on to the next step, let’s collect the code we used to transform the coordinates and make a Pandas <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>:</p>
+<p>So let’s transform the results back to the GD-1 frame.
+Here’s the code we used to transform the coordinates and make a Pandas <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>, wrapped in a function.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">gala.coordinates</span> <span class="kn">import</span> <span class="n">reflex_correct</span>
@@ -858,20 +892,21 @@ Results: None
                <span class="n">distance</span><span class="o">=</span><span class="mi">8</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">kpc</span><span class="p">,</span> 
                <span class="n">radial_velocity</span><span class="o">=</span><span class="mi">0</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">km</span><span class="o">/</span><span class="n">u</span><span class="o">.</span><span class="n">s</span><span class="p">)</span>
 
-    <span class="n">transformed</span> <span class="o">=</span> <span class="n">skycoord</span><span class="o">.</span><span class="n">transform_to</span><span class="p">(</span><span class="n">GD1Koposov10</span><span class="p">)</span>
-    <span class="n">gd1_coord</span> <span class="o">=</span> <span class="n">reflex_correct</span><span class="p">(</span><span class="n">transformed</span><span class="p">)</span>
+    <span class="n">gd1_frame</span> <span class="o">=</span> <span class="n">GD1Koposov10</span><span class="p">()</span>
+    <span class="n">transformed</span> <span class="o">=</span> <span class="n">skycoord</span><span class="o">.</span><span class="n">transform_to</span><span class="p">(</span><span class="n">gd1_frame</span><span class="p">)</span>
+    <span class="n">skycoord_gd1</span> <span class="o">=</span> <span class="n">reflex_correct</span><span class="p">(</span><span class="n">transformed</span><span class="p">)</span>
 
     <span class="n">df</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">to_pandas</span><span class="p">()</span>
-    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;phi1&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">gd1_coord</span><span class="o">.</span><span class="n">phi1</span>
-    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;phi2&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">gd1_coord</span><span class="o">.</span><span class="n">phi2</span>
-    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;pm_phi1&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">gd1_coord</span><span class="o">.</span><span class="n">pm_phi1_cosphi2</span>
-    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;pm_phi2&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">gd1_coord</span><span class="o">.</span><span class="n">pm_phi2</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;phi1&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">skycoord_gd1</span><span class="o">.</span><span class="n">phi1</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;phi2&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">skycoord_gd1</span><span class="o">.</span><span class="n">phi2</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;pm_phi1&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">skycoord_gd1</span><span class="o">.</span><span class="n">pm_phi1_cosphi2</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;pm_phi2&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">skycoord_gd1</span><span class="o">.</span><span class="n">pm_phi2</span>
     <span class="k">return</span> <span class="n">df</span>
 </pre></div>
 </div>
 </div>
 </div>
-<p>Here’s how we can use this function:</p>
+<p>Here’s how we use it:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">candidate_df</span> <span class="o">=</span> <span class="n">make_dataframe</span><span class="p">(</span><span class="n">candidate_table</span><span class="p">)</span>
@@ -884,285 +919,24 @@ Results: None
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">candidate_df</span><span class="p">[</span><span class="s1">&#39;phi1&#39;</span><span class="p">]</span>
 <span class="n">y</span> <span class="o">=</span> <span class="n">candidate_df</span><span class="p">[</span><span class="s1">&#39;phi2&#39;</span><span class="p">]</span>
-
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">&#39;ko&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;ra (degree GD1)&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;dec (degree GD1)&#39;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;phi1 (degree GD1)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;phi2 (degree GD1)&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/04_select_64_0.png" src="_images/04_select_64_0.png" />
+<img alt="_images/04_select_68_0.png" src="_images/04_select_68_0.png" />
 </div>
 </div>
-<p>We’re starting to see GD-1 more clearly.</p>
-<p>We can compare this figure with one of these panels in Figure 1 from the original paper:</p>
+<p>We’re starting to see GD-1 more clearly.
+We can compare this figure with this panel from Figure 1 from the original paper:</p>
 <a class="reference internal image-reference" href="https://github.com/datacarpentry/astronomy-python/raw/gh-pages/fig/gd1-2.png"><img alt="https://github.com/datacarpentry/astronomy-python/raw/gh-pages/fig/gd1-2.png" src="https://github.com/datacarpentry/astronomy-python/raw/gh-pages/fig/gd1-2.png" style="height: 150px;" /></a>
+<p>This panel shows stars selected based on proper motion only, so it is comparable to our figure (although notice that it covers a wider region).</p>
+<p>In the next lesson, we will use photometry data from Pan-STARRS to do a second round of filtering, and see if we can replicate this panel.</p>
 <a class="reference internal image-reference" href="https://github.com/datacarpentry/astronomy-python/raw/gh-pages/fig/gd1-4.png"><img alt="https://github.com/datacarpentry/astronomy-python/raw/gh-pages/fig/gd1-4.png" src="https://github.com/datacarpentry/astronomy-python/raw/gh-pages/fig/gd1-4.png" style="height: 150px;" /></a>
-<p>The top panel shows stars selected based on proper motion only, so it is comparable to our figure (although notice that it covers a wider region).</p>
-<p>In the next lesson, we will use photometry data from Pan-STARRS to do a second round of filtering, and see if we can replicate the bottom panel.</p>
-<p>We’ll also learn how to add annotations like the ones in the figure from the paper, and customize the style of the figure to present the results clearly and compellingly.</p>
-</div>
-<div class="section" id="saving-the-dataframe">
-<h2>Saving the DataFrame<a class="headerlink" href="#saving-the-dataframe" title="Permalink to this headline">¶</a></h2>
-<p>Let’s save this <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> so we can pick up where we left off without running this query again.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;gd1_candidates.hdf5&#39;</span>
-
-<span class="n">candidate_df</span><span class="o">.</span><span class="n">to_hdf</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;candidate_df&#39;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>We can use <code class="docutils literal notranslate"><span class="pre">ls</span></code> to confirm that the file exists and check the size:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>ls -lh gd1_candidates.hdf5
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-rw-rw-r-- 1 downey downey 698K Dec 29 16:46 gd1_candidates.hdf5
-</pre></div>
-</div>
-</div>
-</div>
-<p>If you are using Windows, <code class="docutils literal notranslate"><span class="pre">ls</span></code> might not work; in that case, try:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>!dir gd1_candidates.hdf5
-</pre></div>
-</div>
-</div>
-<div class="section" id="csv">
-<h2>CSV<a class="headerlink" href="#csv" title="Permalink to this headline">¶</a></h2>
-<p>Pandas can write a variety of other formats, <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/user_guide/io.html">which you can read about here</a>.</p>
-<p>We won’t cover all of them, but one other important one is <a class="reference external" href="https://en.wikipedia.org/wiki/Comma-separated_values">CSV</a>, which stands for “comma-separated values”.</p>
-<p>CSV is a plain-text format with minimal formatting requirements, so it can be read and written by pretty much any tool that works with data.  In that sense, it is the “least common denominator” of data formats.</p>
-<p>However, it has an important limitation: some information about the data gets lost in translation, notably the data types.  If you read a CSV file from someone else, you might need some additional information to make sure you are getting it right.</p>
-<p>Also, CSV files tend to be big, and slow to read and write.</p>
-<p>With those caveats, here’s how to write one:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">candidate_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;gd1_candidates.csv&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>We can check the file size like this:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>ls -lh gd1_candidates.csv
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-rw-rw-r-- 1 downey downey 1.4M Dec 29 16:46 gd1_candidates.csv
-</pre></div>
-</div>
-</div>
-</div>
-<p>The CSV file about 2 times bigger than the HDF5 file (so that’s not that bad, really).</p>
-<p>We can see the first few lines like this:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>head -3 gd1_candidates.csv
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>,source_id,ra,dec,pmra,pmdec,parallax,radial_velocity,phi1,phi2,pm_phi1,pm_phi2
-0,635559124339440000,137.58671691646745,19.1965441084838,-3.770521900009566,-12.490481778113859,0.7913934419894347,,-59.63048941944402,-1.2164852515042963,-7.361362712597496,-0.592632882064492
-1,635860218726658176,138.5187065217173,19.09233926905897,-5.941679495793577,-11.346409129876392,0.30745551377348623,,-59.247329893833296,-2.016078400820631,-7.527126084640531,1.7487794924176672
-</pre></div>
-</div>
-</div>
-</div>
-<p>The CSV file contains the names of the columns, but not the data types.</p>
-<p>We can read the CSV file back like this:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">read_back_csv</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;gd1_candidates.csv&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>Let’s compare the first few rows of <code class="docutils literal notranslate"><span class="pre">candidate_df</span></code> and <code class="docutils literal notranslate"><span class="pre">read_back_csv</span></code></p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">candidate_df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>source_id</th>
-      <th>ra</th>
-      <th>dec</th>
-      <th>pmra</th>
-      <th>pmdec</th>
-      <th>parallax</th>
-      <th>radial_velocity</th>
-      <th>phi1</th>
-      <th>phi2</th>
-      <th>pm_phi1</th>
-      <th>pm_phi2</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>635559124339440000</td>
-      <td>137.586717</td>
-      <td>19.196544</td>
-      <td>-3.770522</td>
-      <td>-12.490482</td>
-      <td>0.791393</td>
-      <td>NaN</td>
-      <td>-59.630489</td>
-      <td>-1.216485</td>
-      <td>-7.361363</td>
-      <td>-0.592633</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>635860218726658176</td>
-      <td>138.518707</td>
-      <td>19.092339</td>
-      <td>-5.941679</td>
-      <td>-11.346409</td>
-      <td>0.307456</td>
-      <td>NaN</td>
-      <td>-59.247330</td>
-      <td>-2.016078</td>
-      <td>-7.527126</td>
-      <td>1.748779</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>635674126383965568</td>
-      <td>138.842874</td>
-      <td>19.031798</td>
-      <td>-3.897001</td>
-      <td>-12.702780</td>
-      <td>0.779463</td>
-      <td>NaN</td>
-      <td>-59.133391</td>
-      <td>-2.306901</td>
-      <td>-7.560608</td>
-      <td>-0.741800</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">read_back_csv</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Unnamed: 0</th>
-      <th>source_id</th>
-      <th>ra</th>
-      <th>dec</th>
-      <th>pmra</th>
-      <th>pmdec</th>
-      <th>parallax</th>
-      <th>radial_velocity</th>
-      <th>phi1</th>
-      <th>phi2</th>
-      <th>pm_phi1</th>
-      <th>pm_phi2</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>0</td>
-      <td>635559124339440000</td>
-      <td>137.586717</td>
-      <td>19.196544</td>
-      <td>-3.770522</td>
-      <td>-12.490482</td>
-      <td>0.791393</td>
-      <td>NaN</td>
-      <td>-59.630489</td>
-      <td>-1.216485</td>
-      <td>-7.361363</td>
-      <td>-0.592633</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>1</td>
-      <td>635860218726658176</td>
-      <td>138.518707</td>
-      <td>19.092339</td>
-      <td>-5.941679</td>
-      <td>-11.346409</td>
-      <td>0.307456</td>
-      <td>NaN</td>
-      <td>-59.247330</td>
-      <td>-2.016078</td>
-      <td>-7.527126</td>
-      <td>1.748779</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>2</td>
-      <td>635674126383965568</td>
-      <td>138.842874</td>
-      <td>19.031798</td>
-      <td>-3.897001</td>
-      <td>-12.702780</td>
-      <td>0.779463</td>
-      <td>NaN</td>
-      <td>-59.133391</td>
-      <td>-2.306901</td>
-      <td>-7.560608</td>
-      <td>-0.741800</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
-</div>
-<p>Notice that the index in <code class="docutils literal notranslate"><span class="pre">candidate_df</span></code> has become an unnamed column in <code class="docutils literal notranslate"><span class="pre">read_back_csv</span></code>.  The Pandas functions for writing and reading CSV files provide options to avoid that problem, but this is an example of the kind of thing that can go wrong with CSV files.</p>
+<p>Later we’ll see how to add annotations like the ones in the figure and customize the style of the figure to present the results clearly and compellingly.</p>
 </div>
 <div class="section" id="summary">
 <h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
@@ -1172,14 +946,12 @@ Results: None
 <li><p>Search the same region and download less data, or</p></li>
 <li><p>Search a larger region while still downloading a manageable amount of data.</p></li>
 </ol>
-<p>In the next lesson, we’ll learn about the databased <code class="docutils literal notranslate"><span class="pre">JOIN</span></code> operation and use it to download photometry data from Pan-STARRS.</p>
+<p>In the next lesson, we’ll learn about the database <code class="docutils literal notranslate"><span class="pre">JOIN</span></code> operation and use it to download photometry data from Pan-STARRS.</p>
 </div>
 <div class="section" id="best-practices">
 <h2>Best practices<a class="headerlink" href="#best-practices" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>When possible, “move the computation to the data”; that is, do as much of the work as possible on the database server before downloading the data.</p></li>
-<li><p>For most applications, saving data in FITS or HDF5 is better than CSV.  FITS and HDF5 are binary formats, so the files are usually smaller, and they store metadata, so you don’t lose anything when you read the file back.</p></li>
-<li><p>On the other hand, CSV is a “least common denominator” format; that is, it can be read by practically any application that works with data.</p></li>
 </ul>
 </div>
 </div>
@@ -1212,7 +984,7 @@ Results: None
     
     <div class='prev-next-bottom'>
         
-    <a class='left-prev' id="prev-link" href="03_motion.html" title="previous page">Proper Motion</a>
+    <a class='left-prev' id="prev-link" href="03_motion.html" title="previous page">3. Proper Motion</a>
     <a class='right-next' id="next-link" href="05_join.html" title="next page">Joining Tables</a>
 
     </div>

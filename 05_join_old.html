@@ -1,0 +1,1135 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Joining Tables &#8212; Astronomical Data in Python</title>
+    
+  <link rel="stylesheet" href="_static/css/index.d431a4ee1c1efae0e38bdfebc22debff.css">
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="_static/sphinx-book-theme.bfb7730f9caf2ec0b46a44615585038c.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.30270b6e4c972e43c488.js">
+
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/sphinx-book-theme.be0a4a0c39cd630af62a2fcf693f3f06.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="index.html">
+  
+  
+  <h1 class="site-logo" id="site-title">Astronomical Data in Python</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="README.html">
+   Astronomical Data in Python
+  </a>
+ </li>
+</ul>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="01_query.html">
+   1. Queries
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="02_coords.html">
+   2. Coordinates and Units
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03_motion.html">
+   3. Proper Motion
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="04_select.html">
+   4. Transformation and Selection
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="05_join.html">
+   Joining Tables
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06_photo.html">
+   Photometry
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="07_plot.html">
+   Visualization
+  </a>
+ </li>
+</ul>
+
+</nav>
+
+ <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        <div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/05_join_old.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+    
+</div>
+        <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/AllenDowney/AstronomicalData"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        
+        
+    </div>
+</div>
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/AllenDowney/AstronomicalData/master?urlpath=tree/05_join_old.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/AllenDowney/AstronomicalData/blob/master/05_join_old.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#outline">
+   Outline
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#reloading-the-data">
+   Reloading the data
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#getting-photometry-data">
+   Getting photometry data
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id1">
+   Joining tables
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#preparing-a-table-for-uploading">
+   Preparing a table for uploading
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#exercise">
+     Exercise
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#uploading-a-table">
+   Uploading a table
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#joining-with-an-uploaded-table">
+   Joining with an uploaded table
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#getting-the-photometry-data">
+   Getting the photometry data
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id2">
+     Exercise
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id3">
+     Exercise
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id4">
+     Exercise
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#write-the-data">
+   Write the data
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#summary">
+   Summary
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#best-practice">
+   Best practice
+  </a>
+ </li>
+</ul>
+
+        </nav>
+        
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="joining-tables">
+<h1>Joining Tables<a class="headerlink" href="#joining-tables" title="Permalink to this headline">¶</a></h1>
+<p>This is the fifth in a series of notebooks related to astronomy data.</p>
+<p>As a continuing example, we will replicate part of the analysis in a recent paper, “<a class="reference external" href="https://arxiv.org/abs/1805.00425">Off the beaten path: Gaia reveals GD-1 stars outside of the main stream</a>” by Adrian M. Price-Whelan and Ana Bonaca.</p>
+<p>Picking up where we left off, the next step in the analysis is to select candidate stars based on photometry data.
+The following figure from the paper is a color-magnitude diagram for the stars selected based on proper motion:</p>
+<a class="reference internal image-reference" href="https://github.com/datacarpentry/astronomy-python/raw/gh-pages/fig/gd1-3.png"><img alt="https://github.com/datacarpentry/astronomy-python/raw/gh-pages/fig/gd1-3.png" src="https://github.com/datacarpentry/astronomy-python/raw/gh-pages/fig/gd1-3.png" style="width: 300px;" /></a>
+<p>In red is a <a class="reference external" href="https://en.wikipedia.org/wiki/Stellar_isochrone">stellar isochrone</a>, showing where we expect the stars in GD-1 to fall based on the metallicity and age of their original globular cluster.</p>
+<p>By selecting stars in the shaded area, we can further distinguish the main sequence of GD-1 from younger background stars.</p>
+<div class="section" id="outline">
+<h2>Outline<a class="headerlink" href="#outline" title="Permalink to this headline">¶</a></h2>
+<p>Here are the steps in this notebook:</p>
+<ol class="simple">
+<li><p>We’ll reload the candidate stars we identified in the previous notebook.</p></li>
+<li><p>Then we’ll run a query on the Gaia server that uploads the table of candidates and uses a <code class="docutils literal notranslate"><span class="pre">JOIN</span></code> operation to select photometry data for the candidate stars.</p></li>
+<li><p>We’ll write the results to a file for use in the next notebook.</p></li>
+</ol>
+<p>After completing this lesson, you should be able to</p>
+<ul class="simple">
+<li><p>Upload a table to the Gaia server.</p></li>
+<li><p>Write ADQL queries involving <code class="docutils literal notranslate"><span class="pre">JOIN</span></code> operations.</p></li>
+</ul>
+</div>
+<div class="section" id="reloading-the-data">
+<h2>Reloading the data<a class="headerlink" href="#reloading-the-data" title="Permalink to this headline">¶</a></h2>
+<p>The following cell downloads the data from the previous notebook.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">wget</span> <span class="kn">import</span> <span class="n">download</span>
+
+<span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;gd1_candidates.hdf5&#39;</span>
+<span class="n">path</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/AllenDowney/AstronomicalData/raw/main/data/&#39;</span>
+
+<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">download</span><span class="p">(</span><span class="n">path</span><span class="o">+</span><span class="n">filename</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>And we can read it back.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="n">candidate_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_hdf</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;candidate_df&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">candidate_df</span></code> is the Pandas DataFrame that contains results from the query in the previous notebook, which selects stars likely to be in GD-1 based on proper motion.  It also includes position and proper motion transformed to the ICRS frame.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">candidate_df</span><span class="p">[</span><span class="s1">&#39;phi1&#39;</span><span class="p">]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">candidate_df</span><span class="p">[</span><span class="s1">&#39;phi2&#39;</span><span class="p">]</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">&#39;ko&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;ra (degree GD1)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;dec (degree GD1)&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/05_join_old_10_0.png" src="_images/05_join_old_10_0.png" />
+</div>
+</div>
+<p>This is the same figure we saw at the end of the previous notebook.  GD-1 is visible against the background stars, but we will be able to see it more clearly after selecting based on photometry data.</p>
+</div>
+<div class="section" id="getting-photometry-data">
+<h2>Getting photometry data<a class="headerlink" href="#getting-photometry-data" title="Permalink to this headline">¶</a></h2>
+<p>The Gaia dataset contains some photometry data, including the variable <code class="docutils literal notranslate"><span class="pre">bp_rp</span></code>, which we used in the original query to select stars with BP - RP color between -0.75 and 2.</p>
+<p>Selecting stars with <code class="docutils literal notranslate"><span class="pre">bp-rp</span></code> less than 2 excludes many class M dwarf stars, which are low temperature, low luminosity.  A star like that at GD-1’s distance would be hard to detect, so if it is detected, it it more likely to be in the foreground.</p>
+<p>Now, to select stars with the age and metal richness we expect in GD-1, we will use <code class="docutils literal notranslate"><span class="pre">g</span> <span class="pre">-</span> <span class="pre">i</span></code> color and apparent <code class="docutils literal notranslate"><span class="pre">g</span></code>-band magnitude, which are available from the Pan-STARRS survey.</p>
+<p>Conveniently, the Gaia server provides data from Pan-STARRS as a table in the same database we have been using, so we can access it by making ADQL queries.</p>
+<p>In general, choosing a star from the Gaia catalog and finding the corresponding star in the Pan-STARRS catalog is not easy.  This kind of cross matching is not always possible, because a star might appear in one catalog and not the other.  And even when both stars are present, there might not be a clear one-to-one relationship between stars in the two catalogs.</p>
+<p>Fortunately, smart people have worked on this problem, and the Gaia database includes cross-matching tables that suggest a best neighbor in the Pan-STARRS catalog for many stars in the Gaia catalog.</p>
+<p><a class="reference external" href="https://gea.esac.esa.int/archive/documentation/GDR2/Catalogue_consolidation/chap_cu9val_cu9val/ssec_cu9xma/sssec_cu9xma_extcat.html">This document describes the cross matching process</a>.  Briefly, it uses a cone search to find possible matches in approximately the right position, then uses attributes like color and magnitude to choose pairs of observations most likely to be the same star.</p>
+</div>
+<div class="section" id="id1">
+<h2>Joining tables<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>So the hard part of cross-matching has been done for us.  Using the results is a little tricky, but it gives us a chance to learn about one of the most important tools for working with databases: “joining” tables.</p>
+<p>In general, a “join” is an operation where you match up records from one table with records from another table using as a “key” a piece of information that is common to both tables, usually some kind of ID code.</p>
+<p>In this example:</p>
+<ul class="simple">
+<li><p>Stars in the Gaia dataset are identified by <code class="docutils literal notranslate"><span class="pre">source_id</span></code>.</p></li>
+<li><p>Stars in the Pan-STARRS dataset are identified by <code class="docutils literal notranslate"><span class="pre">obj_id</span></code>.</p></li>
+</ul>
+<p>For each candidate star we have selected so far, we have the <code class="docutils literal notranslate"><span class="pre">source_id</span></code>; the goal is to find the <code class="docutils literal notranslate"><span class="pre">obj_id</span></code> for the same star (we hope) in the Pan-STARRS catalog.</p>
+<p>To do that we will:</p>
+<ol class="simple">
+<li><p>Make a table that contains the <code class="docutils literal notranslate"><span class="pre">source_id</span></code> for each candidate star and upload the table to the Gaia server;</p></li>
+<li><p>Use the <code class="docutils literal notranslate"><span class="pre">JOIN</span></code> operator to look up each <code class="docutils literal notranslate"><span class="pre">source_id</span></code> in the <code class="docutils literal notranslate"><span class="pre">gaiadr2.panstarrs1_best_neighbour</span></code> table, which contains the <code class="docutils literal notranslate"><span class="pre">obj_id</span></code> of the best match for each star in the Gaia catalog; then</p></li>
+<li><p>Use the <code class="docutils literal notranslate"><span class="pre">JOIN</span></code> operator again to look up each <code class="docutils literal notranslate"><span class="pre">obj_id</span></code> in the <code class="docutils literal notranslate"><span class="pre">panstarrs1_original_valid</span></code> table, which contains the Pan-STARRS photometry data we want.</p></li>
+</ol>
+<p>Let’s start with the first step, uploading a table.</p>
+</div>
+<div class="section" id="preparing-a-table-for-uploading">
+<h2>Preparing a table for uploading<a class="headerlink" href="#preparing-a-table-for-uploading" title="Permalink to this headline">¶</a></h2>
+<p>For each candidate star, we want to find the corresponding row in the <code class="docutils literal notranslate"><span class="pre">gaiadr2.panstarrs1_best_neighbour</span></code> table.</p>
+<p>In order to do that, we have to:</p>
+<ol class="simple">
+<li><p>Write the table in a local file as an XML VOTable, which is a format suitable for transmitting a table over a network.</p></li>
+<li><p>Write an ADQL query that refers to the uploaded table.</p></li>
+<li><p>Change the way we submit the job so it uploads the table before running the query.</p></li>
+</ol>
+<p>The first step is not too difficult because Astropy provides a function called <code class="docutils literal notranslate"><span class="pre">writeto</span></code> that can write a <code class="docutils literal notranslate"><span class="pre">Table</span></code> in <code class="docutils literal notranslate"><span class="pre">XML</span></code>.</p>
+<p><a class="reference external" href="https://docs.astropy.org/en/stable/io/votable/">The documentation of this process is here</a>.</p>
+<p>First we have to convert our Pandas <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> to an Astropy <code class="docutils literal notranslate"><span class="pre">Table</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">astropy.table</span> <span class="kn">import</span> <span class="n">Table</span>
+
+<span class="n">candidate_table</span> <span class="o">=</span> <span class="n">Table</span><span class="o">.</span><span class="n">from_pandas</span><span class="p">(</span><span class="n">candidate_df</span><span class="p">)</span>
+<span class="nb">type</span><span class="p">(</span><span class="n">candidate_table</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>astropy.table.table.Table
+</pre></div>
+</div>
+</div>
+</div>
+<p>To write the file, we can use <code class="docutils literal notranslate"><span class="pre">Table.write</span></code> with <code class="docutils literal notranslate"><span class="pre">format='votable'</span></code>, <a class="reference external" href="https://docs.astropy.org/en/stable/io/unified.html#vo-tables">as described here</a>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">table_id</span> <span class="o">=</span> <span class="n">candidate_table</span><span class="p">[[</span><span class="s1">&#39;source_id&#39;</span><span class="p">]]</span>
+<span class="n">table_id</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;candidate_df.xml&#39;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;votable&#39;</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Notice that we select a single column from the table, <code class="docutils literal notranslate"><span class="pre">source_id</span></code>.
+We could write the entire table to a file, but that would take longer to transmit over the network, and we really only need one column.</p>
+<p>This process, taking a structure like a <code class="docutils literal notranslate"><span class="pre">Table</span></code> and translating it into a form that can be transmitted over a network, is called <a class="reference external" href="https://en.wikipedia.org/wiki/Serialization">serialization</a>.</p>
+<p>XML is one of the most common serialization formats.  One nice feature is that XML data is plain text, as opposed to binary digits, so you can read the file we just wrote:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>head candidate_df.xml
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;!-- Produced with astropy.io.votable version 4.2
+     http://www.astropy.org/ --&gt;
+&lt;VOTABLE version=&quot;1.4&quot; xmlns=&quot;http://www.ivoa.net/xml/VOTable/v1.4&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xsi:noNamespaceSchemaLocation=&quot;http://www.ivoa.net/xml/VOTable/v1.4&quot;&gt;
+ &lt;RESOURCE type=&quot;results&quot;&gt;
+  &lt;TABLE&gt;
+   &lt;FIELD ID=&quot;source_id&quot; datatype=&quot;long&quot; name=&quot;source_id&quot;/&gt;
+   &lt;DATA&gt;
+    &lt;TABLEDATA&gt;
+     &lt;TR&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<p>XML is a general format, so different XML files contain different kinds of data.  In order to read an XML file, it’s not enough to know that it’s XML; you also have to know the data format, which is called a <a class="reference external" href="https://en.wikipedia.org/wiki/XML_schema">schema</a>.</p>
+<p>In this example, the schema is VOTable; notice that one of the first tags in the file specifies the schema, and even includes the URL where you can get its definition.</p>
+<p>So this is an example of a self-documenting format.</p>
+<p>A drawback of XML is that it tends to be big, which is why we wrote just the <code class="docutils literal notranslate"><span class="pre">source_id</span></code> column rather than the whole table.
+The size of the file is about 750 KB, so that’s not too bad.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>ls -lh candidate_df.xml
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-rw-rw-r-- 1 downey downey 396K Dec 29 11:50 candidate_df.xml
+</pre></div>
+</div>
+</div>
+</div>
+<p>If you are using Windows, <code class="docutils literal notranslate"><span class="pre">ls</span></code> might not work; in that case, try:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>!dir candidate_df.xml
+</pre></div>
+</div>
+<div class="section" id="exercise">
+<h3>Exercise<a class="headerlink" href="#exercise" title="Permalink to this headline">¶</a></h3>
+<p>There’s a gotcha here we want to warn you about.  Why do you think we used double brackets to specify the column we wanted?  What happens if you use single brackets?</p>
+<p>Run these code snippets to find out.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">table_id</span> <span class="o">=</span> <span class="n">candidate_table</span><span class="p">[[</span><span class="s1">&#39;source_id&#39;</span><span class="p">]]</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">table_id</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">column</span> <span class="o">=</span> <span class="n">candidate_table</span><span class="p">[</span><span class="s1">&#39;source_id&#39;</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">column</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># This one should cause an error</span>
+<span class="n">column</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;candidate_df.xml&#39;</span><span class="p">,</span> 
+               <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;votable&#39;</span><span class="p">,</span> 
+               <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
+
+<span class="c1"># table_id is a Table</span>
+
+<span class="c1"># column is a Column</span>
+
+<span class="c1"># Column does not provide `write`, so you get an AttributeError</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="uploading-a-table">
+<h2>Uploading a table<a class="headerlink" href="#uploading-a-table" title="Permalink to this headline">¶</a></h2>
+<p>The next step is to upload this table to the Gaia server and use it as part of a query.</p>
+<p><a class="reference external" href="https://astroquery.readthedocs.io/en/latest/gaia/gaia.html#synchronous-query-on-an-on-the-fly-uploaded-table">Here’s the documentation that explains how to run a query with an uploaded table</a>.</p>
+<p>In the spirit of incremental development and testing, let’s start with the simplest possible query.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT *</span>
+<span class="s2">FROM tap_upload.candidate_df</span>
+<span class="s2">&quot;&quot;&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>This query downloads all rows and all columns from the uploaded table.  The name of the table has two parts: <code class="docutils literal notranslate"><span class="pre">tap_upload</span></code> specifies a table that was uploaded using TAP+ (remember that’s the name of the protocol we’re using to talk to the Gaia server).</p>
+<p>And <code class="docutils literal notranslate"><span class="pre">candidate_df</span></code> is the name of the table, which we get to choose (unlike <code class="docutils literal notranslate"><span class="pre">tap_upload</span></code>, which we didn’t get to choose).</p>
+<p>Here’s how we run the query:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">astroquery.gaia</span> <span class="kn">import</span> <span class="n">Gaia</span>
+
+<span class="n">job</span> <span class="o">=</span> <span class="n">Gaia</span><span class="o">.</span><span class="n">launch_job_async</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="n">query</span><span class="p">,</span> 
+                            <span class="n">upload_resource</span><span class="o">=</span><span class="s1">&#39;candidate_df.xml&#39;</span><span class="p">,</span> 
+                            <span class="n">upload_table_name</span><span class="o">=</span><span class="s1">&#39;candidate_df&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Created TAP+ (v1.2.1) - Connection:
+	Host: gea.esac.esa.int
+	Use HTTPS: True
+	Port: 443
+	SSL Port: 443
+Created TAP+ (v1.2.1) - Connection:
+	Host: geadata.esac.esa.int
+	Use HTTPS: True
+	Port: 443
+	SSL Port: 443
+INFO: Query finished. [astroquery.utils.tap.core]
+</pre></div>
+</div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">upload_resource</span></code> specifies the name of the file we want to upload, which is the file we just wrote.</p>
+<p><code class="docutils literal notranslate"><span class="pre">upload_table_name</span></code> is the name we assign to this table, which is the name we used in the query.</p>
+<p>And here are the results:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">results</span> <span class="o">=</span> <span class="n">job</span><span class="o">.</span><span class="n">get_results</span><span class="p">()</span>
+<span class="n">results</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><i>Table length=7346</i>
+<table id="table139832308444608" class="table-striped table-bordered table-condensed">
+<thead><tr><th>source_id</th></tr></thead>
+<thead><tr><th>int64</th></tr></thead>
+<tr><td>635559124339440000</td></tr>
+<tr><td>635860218726658176</td></tr>
+<tr><td>635674126383965568</td></tr>
+<tr><td>635535454774983040</td></tr>
+<tr><td>635497276810313600</td></tr>
+<tr><td>635614168640132864</td></tr>
+<tr><td>635821843194387840</td></tr>
+<tr><td>635551706931167104</td></tr>
+<tr><td>635518889086133376</td></tr>
+<tr><td>635580294233854464</td></tr>
+<tr><td>...</td></tr>
+<tr><td>612282738058264960</td></tr>
+<tr><td>612485911486166656</td></tr>
+<tr><td>612386332668697600</td></tr>
+<tr><td>612296172717818624</td></tr>
+<tr><td>612250375480101760</td></tr>
+<tr><td>612394926899159168</td></tr>
+<tr><td>612288854091187712</td></tr>
+<tr><td>612428870024913152</td></tr>
+<tr><td>612256418500423168</td></tr>
+<tr><td>612429144902815104</td></tr>
+</table></div></div>
+</div>
+<p>If things go according to plan, the result should contain the same rows and columns as the uploaded table.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">table_id</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(7346, 7346)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">table_id</span><span class="o">.</span><span class="n">colnames</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;source_id&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">results</span><span class="o">.</span><span class="n">colnames</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;source_id&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<p>In this example, we uploaded a table and then downloaded it again, so that’s not too useful.</p>
+<p>But now that we can upload a table, we can join it with other tables on the Gaia server.</p>
+</div>
+<div class="section" id="joining-with-an-uploaded-table">
+<h2>Joining with an uploaded table<a class="headerlink" href="#joining-with-an-uploaded-table" title="Permalink to this headline">¶</a></h2>
+<p>Here’s the first example of a query that contains a <code class="docutils literal notranslate"><span class="pre">JOIN</span></code> clause.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">query1</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT *</span>
+<span class="s2">FROM gaiadr2.panstarrs1_best_neighbour as best</span>
+<span class="s2">JOIN tap_upload.candidate_df as candidate_df</span>
+<span class="s2">  ON best.source_id = candidate_df.source_id</span>
+<span class="s2">&quot;&quot;&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s break that down one clause at a time:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">SELECT</span> <span class="pre">*</span></code> means we will download all columns from both tables.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">FROM</span> <span class="pre">gaiadr2.panstarrs1_best_neighbour</span> <span class="pre">as</span> <span class="pre">best</span></code> means that we’ll get the columns from the Pan-STARRS best neighbor table, which we’ll refer to using the short name <code class="docutils literal notranslate"><span class="pre">best</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">JOIN</span> <span class="pre">tap_upload.candidate_df</span> <span class="pre">as</span> <span class="pre">candidate_df</span></code> means that we’ll also get columns from the uploaded table, which we’ll refer to using the short name <code class="docutils literal notranslate"><span class="pre">candidate_df</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ON</span> <span class="pre">best.source_id</span> <span class="pre">=</span> <span class="pre">candidate_df.source_id</span></code> specifies that we will use <code class="docutils literal notranslate"><span class="pre">source_id</span> </code> to match up the rows from the two tables.</p></li>
+</ul>
+<p>Here’s the <a class="reference external" href="https://gea.esac.esa.int/archive/documentation/GDR2/Gaia_archive/chap_datamodel/sec_dm_crossmatches/ssec_dm_panstarrs1_best_neighbour.html">documentation of the best neighbor table</a>.</p>
+<p>Let’s run the query:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">job1</span> <span class="o">=</span> <span class="n">Gaia</span><span class="o">.</span><span class="n">launch_job_async</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="n">query1</span><span class="p">,</span> 
+                       <span class="n">upload_resource</span><span class="o">=</span><span class="s1">&#39;candidate_df.xml&#39;</span><span class="p">,</span> 
+                       <span class="n">upload_table_name</span><span class="o">=</span><span class="s1">&#39;candidate_df&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: Query finished. [astroquery.utils.tap.core]
+</pre></div>
+</div>
+</div>
+</div>
+<p>And get the results.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">results1</span> <span class="o">=</span> <span class="n">job1</span><span class="o">.</span><span class="n">get_results</span><span class="p">()</span>
+<span class="n">results1</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><i>Table length=3724</i>
+<table id="table139832308265696" class="table-striped table-bordered table-condensed">
+<thead><tr><th>source_id</th><th>original_ext_source_id</th><th>angular_distance</th><th>number_of_neighbours</th><th>number_of_mates</th><th>best_neighbour_multiplicity</th><th>gaia_astrometric_params</th><th>source_id_2</th></tr></thead>
+<thead><tr><th></th><th></th><th>arcsec</th><th></th><th></th><th></th><th></th><th></th></tr></thead>
+<thead><tr><th>int64</th><th>int64</th><th>float64</th><th>int32</th><th>int16</th><th>int16</th><th>int16</th><th>int64</th></tr></thead>
+<tr><td>635860218726658176</td><td>130911385187671349</td><td>0.053667035895467084</td><td>1</td><td>0</td><td>1</td><td>5</td><td>635860218726658176</td></tr>
+<tr><td>635674126383965568</td><td>130831388428488720</td><td>0.038810268141577516</td><td>1</td><td>0</td><td>1</td><td>5</td><td>635674126383965568</td></tr>
+<tr><td>635535454774983040</td><td>130631378377657369</td><td>0.034323028828991076</td><td>1</td><td>0</td><td>1</td><td>5</td><td>635535454774983040</td></tr>
+<tr><td>635497276810313600</td><td>130811380445631930</td><td>0.04720255413250006</td><td>1</td><td>0</td><td>1</td><td>5</td><td>635497276810313600</td></tr>
+<tr><td>635614168640132864</td><td>130571395922140135</td><td>0.020304189709964143</td><td>1</td><td>0</td><td>1</td><td>5</td><td>635614168640132864</td></tr>
+<tr><td>635598607974369792</td><td>130341392091279513</td><td>0.036524626853403054</td><td>1</td><td>0</td><td>1</td><td>5</td><td>635598607974369792</td></tr>
+<tr><td>635737661835496576</td><td>131001399333502136</td><td>0.036626827820716606</td><td>1</td><td>0</td><td>1</td><td>5</td><td>635737661835496576</td></tr>
+<tr><td>635850945892748672</td><td>132011398654934147</td><td>0.021178742393378396</td><td>1</td><td>0</td><td>1</td><td>5</td><td>635850945892748672</td></tr>
+<tr><td>635600532119713664</td><td>130421392285893623</td><td>0.04518820915043015</td><td>1</td><td>0</td><td>1</td><td>5</td><td>635600532119713664</td></tr>
+<tr><td>...</td><td>...</td><td>...</td><td>...</td><td>...</td><td>...</td><td>...</td><td>...</td></tr>
+<tr><td>612241781249124608</td><td>129751343755995561</td><td>0.04235715830001815</td><td>1</td><td>0</td><td>1</td><td>5</td><td>612241781249124608</td></tr>
+<tr><td>612332147361443072</td><td>130141341458538777</td><td>0.02265249859012977</td><td>1</td><td>0</td><td>1</td><td>5</td><td>612332147361443072</td></tr>
+<tr><td>612426744016802432</td><td>130521346852465656</td><td>0.03247653009961843</td><td>1</td><td>0</td><td>1</td><td>5</td><td>612426744016802432</td></tr>
+<tr><td>612331739340341760</td><td>130111341217793839</td><td>0.036064240818025735</td><td>1</td><td>0</td><td>1</td><td>5</td><td>612331739340341760</td></tr>
+<tr><td>612282738058264960</td><td>129741340445933519</td><td>0.025293237353496898</td><td>1</td><td>0</td><td>1</td><td>5</td><td>612282738058264960</td></tr>
+<tr><td>612386332668697600</td><td>130351354570219774</td><td>0.02010316001403086</td><td>1</td><td>0</td><td>1</td><td>5</td><td>612386332668697600</td></tr>
+<tr><td>612296172717818624</td><td>129691338006168780</td><td>0.051264212025836205</td><td>1</td><td>0</td><td>1</td><td>5</td><td>612296172717818624</td></tr>
+<tr><td>612250375480101760</td><td>129741346475897464</td><td>0.031783740347530905</td><td>1</td><td>0</td><td>1</td><td>5</td><td>612250375480101760</td></tr>
+<tr><td>612394926899159168</td><td>130581355199751795</td><td>0.04019174830546698</td><td>1</td><td>0</td><td>1</td><td>5</td><td>612394926899159168</td></tr>
+<tr><td>612256418500423168</td><td>129931349075297310</td><td>0.009242789669513156</td><td>1</td><td>0</td><td>1</td><td>5</td><td>612256418500423168</td></tr>
+</table></div></div>
+</div>
+<p>This table contains all of the columns from the best neighbor table, plus the single column from the uploaded table.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">results1</span><span class="o">.</span><span class="n">colnames</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;source_id&#39;,
+ &#39;original_ext_source_id&#39;,
+ &#39;angular_distance&#39;,
+ &#39;number_of_neighbours&#39;,
+ &#39;number_of_mates&#39;,
+ &#39;best_neighbour_multiplicity&#39;,
+ &#39;gaia_astrometric_params&#39;,
+ &#39;source_id_2&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Because one of the column names appears in both tables, the second instance of <code class="docutils literal notranslate"><span class="pre">source_id</span></code> has been appended with the suffix <code class="docutils literal notranslate"><span class="pre">_2</span></code>.</p>
+<p>The length of <code class="docutils literal notranslate"><span class="pre">results1</span></code> is about 3000, which means we were not able to find matches for all stars in the list of candidates.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">results1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3724
+</pre></div>
+</div>
+</div>
+</div>
+<p>To get more information about the matching process, we can inspect <code class="docutils literal notranslate"><span class="pre">best_neighbour_multiplicity</span></code>, which indicates for each star in Gaia how many stars in Pan-STARRS are equally likely matches.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">results1</span><span class="p">[</span><span class="s1">&#39;best_neighbour_multiplicity&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">&lt;MaskedColumn name=&apos;best_neighbour_multiplicity&apos; dtype=&apos;int16&apos; description=&apos;Number of neighbours with same probability as best neighbour&apos; length=3724&gt;
+<table>
+<tr><td>1</td></tr>
+<tr><td>1</td></tr>
+<tr><td>1</td></tr>
+<tr><td>1</td></tr>
+<tr><td>1</td></tr>
+<tr><td>1</td></tr>
+<tr><td>1</td></tr>
+<tr><td>1</td></tr>
+<tr><td>1</td></tr>
+<tr><td>1</td></tr>
+<tr><td>1</td></tr>
+<tr><td>1</td></tr>
+<tr><td>...</td></tr>
+<tr><td>1</td></tr>
+<tr><td>1</td></tr>
+<tr><td>1</td></tr>
+<tr><td>1</td></tr>
+<tr><td>1</td></tr>
+<tr><td>1</td></tr>
+<tr><td>1</td></tr>
+<tr><td>1</td></tr>
+<tr><td>1</td></tr>
+<tr><td>1</td></tr>
+<tr><td>1</td></tr>
+<tr><td>1</td></tr>
+</table></div></div>
+</div>
+<p>It looks like most of the values are <code class="docutils literal notranslate"><span class="pre">1</span></code>, which is good; that means that for each candidate star we have identified exactly one source in Pan-STARRS that is likely to be the same star.</p>
+<p>To check whether there are any values other than <code class="docutils literal notranslate"><span class="pre">1</span></code>, we can convert this column to a Pandas <code class="docutils literal notranslate"><span class="pre">Series</span></code> and use <code class="docutils literal notranslate"><span class="pre">describe</span></code>, which we saw in in Lesson 3.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="n">multiplicity</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">results1</span><span class="p">[</span><span class="s1">&#39;best_neighbour_multiplicity&#39;</span><span class="p">])</span>
+<span class="n">multiplicity</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>count    3724.0
+mean        1.0
+std         0.0
+min         1.0
+25%         1.0
+50%         1.0
+75%         1.0
+max         1.0
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<p>In fact, <code class="docutils literal notranslate"><span class="pre">1</span></code> is the only value in the <code class="docutils literal notranslate"><span class="pre">Series</span></code>, so every candidate star has a single best match.</p>
+<p>Similarly, <code class="docutils literal notranslate"><span class="pre">number_of_mates</span></code> indicates the number of <em>other</em> stars in Gaia that match with the same star in Pan-STARRS.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mates</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">results1</span><span class="p">[</span><span class="s1">&#39;number_of_mates&#39;</span><span class="p">])</span>
+<span class="n">mates</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>count    3724.0
+mean        0.0
+std         0.0
+min         0.0
+25%         0.0
+50%         0.0
+75%         0.0
+max         0.0
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<p>All values in this column are <code class="docutils literal notranslate"><span class="pre">0</span></code>, which means that for each match we found in Pan-STARRS, there are no other stars in Gaia that also match.</p>
+<p><strong>Detail:</strong> The table also contains <code class="docutils literal notranslate"><span class="pre">number_of_neighbors</span></code> which is the number of stars in Pan-STARRS that match in terms of position, before using other criteria to choose the most likely match.</p>
+</div>
+<div class="section" id="getting-the-photometry-data">
+<h2>Getting the photometry data<a class="headerlink" href="#getting-the-photometry-data" title="Permalink to this headline">¶</a></h2>
+<p>The most important column in <code class="docutils literal notranslate"><span class="pre">results1</span></code> is <code class="docutils literal notranslate"><span class="pre">original_ext_source_id</span></code> which is the <code class="docutils literal notranslate"><span class="pre">obj_id</span></code> we will use to look up the likely matches in Pan-STARRS to get photometry data.</p>
+<p>The process is similar to what we just did to look up the matches.  We will:</p>
+<ol class="simple">
+<li><p>Make a table that contains <code class="docutils literal notranslate"><span class="pre">source_id</span></code> and <code class="docutils literal notranslate"><span class="pre">original_ext_source_id</span></code>.</p></li>
+<li><p>Write the table to an XML VOTable file.</p></li>
+<li><p>Write a query that joins the uploaded table with <code class="docutils literal notranslate"><span class="pre">gaiadr2.panstarrs1_original_valid</span></code> and selects the photometry data we want.</p></li>
+<li><p>Run the query using the uploaded table.</p></li>
+</ol>
+<p>Since we’ve done everything here before, we’ll do these steps as an exercise.</p>
+<div class="section" id="id2">
+<h3>Exercise<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>Select <code class="docutils literal notranslate"><span class="pre">source_id</span></code> and <code class="docutils literal notranslate"><span class="pre">original_ext_source_id</span></code> from <code class="docutils literal notranslate"><span class="pre">results1</span></code> and write the resulting table as a file named <code class="docutils literal notranslate"><span class="pre">external.xml</span></code>.</p>
+<div class="cell tag_hide-cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
+
+<span class="n">table_ext</span> <span class="o">=</span> <span class="n">results1</span><span class="p">[[</span><span class="s1">&#39;source_id&#39;</span><span class="p">,</span> <span class="s1">&#39;original_ext_source_id&#39;</span><span class="p">]]</span>
+<span class="n">table_ext</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;external.xml&#39;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;votable&#39;</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Use <code class="docutils literal notranslate"><span class="pre">!head</span></code> to confirm that the file exists and contains an XML VOTable.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>head external.xml
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;!-- Produced with astropy.io.votable version 4.2
+     http://www.astropy.org/ --&gt;
+&lt;VOTABLE version=&quot;1.4&quot; xmlns=&quot;http://www.ivoa.net/xml/VOTable/v1.4&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xsi:noNamespaceSchemaLocation=&quot;http://www.ivoa.net/xml/VOTable/v1.4&quot;&gt;
+ &lt;RESOURCE type=&quot;results&quot;&gt;
+  &lt;TABLE&gt;
+   &lt;FIELD ID=&quot;source_id&quot; datatype=&quot;long&quot; name=&quot;source_id&quot; ucd=&quot;meta.id;meta.main&quot;&gt;
+    &lt;DESCRIPTION&gt;
+     Unique Gaia source identifier
+    &lt;/DESCRIPTION&gt;
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id3">
+<h3>Exercise<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>Read <a class="reference external" href="https://gea.esac.esa.int/archive/documentation/GDR2/Gaia_archive/chap_datamodel/sec_dm_external_catalogues/ssec_dm_panstarrs1_original_valid.html">the documentation of the Pan-STARRS table</a> and make note of <code class="docutils literal notranslate"><span class="pre">obj_id</span></code>, which contains the object IDs we’ll use to find the rows we want.</p>
+<p>Write a query that uses each value of <code class="docutils literal notranslate"><span class="pre">original_ext_source_id</span></code> from the uploaded table to find a row in <code class="docutils literal notranslate"><span class="pre">gaiadr2.panstarrs1_original_valid</span></code> with the same value in <code class="docutils literal notranslate"><span class="pre">obj_id</span></code>, and select all columns from both tables.</p>
+<p>Suggestion: Develop and test your query incrementally.  For example:</p>
+<ol class="simple">
+<li><p>Write a query that downloads all columns from the uploaded table.  Test to make sure we can read the uploaded table.</p></li>
+<li><p>Write a query that downloads the first 10 rows from <code class="docutils literal notranslate"><span class="pre">gaiadr2.panstarrs1_original_valid</span></code>.  Test to make sure we can access Pan-STARRS data.</p></li>
+<li><p>Write a query that joins the two tables and selects all columns.  Test that the join works as expected.</p></li>
+</ol>
+<p>As a bonus exercise, write a query that joins the two tables and selects just the columns we need:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">source_id</span></code> from the uploaded table</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">g_mean_psf_mag</span></code> from <code class="docutils literal notranslate"><span class="pre">gaiadr2.panstarrs1_original_valid</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">i_mean_psf_mag</span></code> from <code class="docutils literal notranslate"><span class="pre">gaiadr2.panstarrs1_original_valid</span></code></p></li>
+</ul>
+<p>Hint: When you select a column from a join, you have to specify which table the column is in.</p>
+<div class="cell tag_hide-cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
+
+<span class="c1"># First test</span>
+
+<span class="n">query2</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT *</span>
+<span class="s2">FROM tap_upload.external as external</span>
+<span class="s2">&quot;&quot;&quot;</span>
+
+<span class="c1"># Second test</span>
+
+<span class="n">query2</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT TOP 10</span>
+<span class="s2">FROM gaiadr2.panstarrs1_original_valid</span>
+<span class="s2">&quot;&quot;&quot;</span>
+
+<span class="c1"># Third test</span>
+
+<span class="n">query2</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT *</span>
+<span class="s2">FROM gaiadr2.panstarrs1_original_valid as ps</span>
+<span class="s2">JOIN tap_upload.external as external</span>
+<span class="s2">  ON ps.obj_id = external.original_ext_source_id</span>
+<span class="s2">&quot;&quot;&quot;</span>
+
+<span class="c1"># Complete query</span>
+
+<span class="n">query2</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT</span>
+<span class="s2">external.source_id, ps.g_mean_psf_mag, ps.i_mean_psf_mag</span>
+<span class="s2">FROM gaiadr2.panstarrs1_original_valid as ps</span>
+<span class="s2">JOIN tap_upload.external as external</span>
+<span class="s2">  ON ps.obj_id = external.original_ext_source_id</span>
+<span class="s2">&quot;&quot;&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Here’s how we launch the job and get the results.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">job2</span> <span class="o">=</span> <span class="n">Gaia</span><span class="o">.</span><span class="n">launch_job_async</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="n">query2</span><span class="p">,</span> 
+                       <span class="n">upload_resource</span><span class="o">=</span><span class="s1">&#39;external.xml&#39;</span><span class="p">,</span> 
+                       <span class="n">upload_table_name</span><span class="o">=</span><span class="s1">&#39;external&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: Query finished. [astroquery.utils.tap.core]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">results2</span> <span class="o">=</span> <span class="n">job2</span><span class="o">.</span><span class="n">get_results</span><span class="p">()</span>
+<span class="n">results2</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><i>Table length=3724</i>
+<table id="table139832332951360" class="table-striped table-bordered table-condensed">
+<thead><tr><th>source_id</th><th>g_mean_psf_mag</th><th>i_mean_psf_mag</th></tr></thead>
+<thead><tr><th></th><th></th><th>mag</th></tr></thead>
+<thead><tr><th>int64</th><th>float64</th><th>float64</th></tr></thead>
+<tr><td>635860218726658176</td><td>17.8978004455566</td><td>17.5174007415771</td></tr>
+<tr><td>635674126383965568</td><td>19.2873001098633</td><td>17.6781005859375</td></tr>
+<tr><td>635535454774983040</td><td>16.9237995147705</td><td>16.478099822998</td></tr>
+<tr><td>635497276810313600</td><td>19.9242000579834</td><td>18.3339996337891</td></tr>
+<tr><td>635614168640132864</td><td>16.1515998840332</td><td>14.6662998199463</td></tr>
+<tr><td>635598607974369792</td><td>16.5223999023438</td><td>16.1375007629395</td></tr>
+<tr><td>635737661835496576</td><td>14.5032997131348</td><td>13.9849004745483</td></tr>
+<tr><td>635850945892748672</td><td>16.5174999237061</td><td>16.0450000762939</td></tr>
+<tr><td>635600532119713664</td><td>20.4505996704102</td><td>19.5177001953125</td></tr>
+<tr><td>...</td><td>...</td><td>...</td></tr>
+<tr><td>612241781249124608</td><td>20.2343997955322</td><td>18.6518001556396</td></tr>
+<tr><td>612332147361443072</td><td>21.3848991394043</td><td>20.3076000213623</td></tr>
+<tr><td>612426744016802432</td><td>17.8281002044678</td><td>17.4281005859375</td></tr>
+<tr><td>612331739340341760</td><td>21.8656997680664</td><td>19.5223007202148</td></tr>
+<tr><td>612282738058264960</td><td>22.5151996612549</td><td>19.9743995666504</td></tr>
+<tr><td>612386332668697600</td><td>19.3792991638184</td><td>17.9923000335693</td></tr>
+<tr><td>612296172717818624</td><td>17.4944000244141</td><td>16.926700592041</td></tr>
+<tr><td>612250375480101760</td><td>15.3330001831055</td><td>14.6280002593994</td></tr>
+<tr><td>612394926899159168</td><td>16.4414005279541</td><td>15.8212003707886</td></tr>
+<tr><td>612256418500423168</td><td>20.8715991973877</td><td>19.9612007141113</td></tr>
+</table></div></div>
+</div>
+</div>
+<div class="section" id="id4">
+<h3>Exercise<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>Optional Challenge: Do both joins in one query.</p>
+<p>There’s an <a class="reference external" href="https://github.com/smoh/Getting-started-with-Gaia/blob/master/gaia-adql-snippets.md">example here</a> you could start with.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
+
+<span class="n">query3</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT</span>
+<span class="s2">candidate_df.source_id, ps.g_mean_psf_mag, ps.i_mean_psf_mag</span>
+<span class="s2">FROM tap_upload.candidate_df as candidate_df</span>
+<span class="s2">JOIN gaiadr2.panstarrs1_best_neighbour as best</span>
+<span class="s2">  ON best.source_id = candidate_df.source_id</span>
+<span class="s2">JOIN gaiadr2.panstarrs1_original_valid as ps</span>
+<span class="s2">  ON ps.obj_id = best.original_ext_source_id</span>
+<span class="s2">&quot;&quot;&quot;</span>
+
+<span class="c1"># job3 = Gaia.launch_job_async(query=query3, </span>
+<span class="c1">#                       upload_resource=&#39;candidate_df.xml&#39;, </span>
+<span class="c1">#                       upload_table_name=&#39;candidate_df&#39;)</span>
+
+<span class="c1"># results3 = job3.get_results()</span>
+<span class="c1"># results3</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="write-the-data">
+<h2>Write the data<a class="headerlink" href="#write-the-data" title="Permalink to this headline">¶</a></h2>
+<p>Since we have the data in an Astropy <code class="docutils literal notranslate"><span class="pre">Table</span></code>, let’s store it in a FITS file.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;gd1_photo.fits&#39;</span>
+<span class="n">results2</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can check that the file exists, and see how big it is.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>ls -lh gd1_photo.fits
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-rw-rw-r-- 1 downey downey 96K Dec 29 11:51 gd1_photo.fits
+</pre></div>
+</div>
+</div>
+</div>
+<p>At around 175 KB, it is smaller than some of the other files we’ve been working with.</p>
+<p>If you are using Windows, <code class="docutils literal notranslate"><span class="pre">ls</span></code> might not work; in that case, try:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>!dir gd1_photo.fits
+</pre></div>
+</div>
+</div>
+<div class="section" id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
+<p>In this notebook, we used database <code class="docutils literal notranslate"><span class="pre">JOIN</span></code> operations to select photometry data for the stars we’ve identified as candidates to be in GD-1.</p>
+<p>In the next notebook, we’ll use this data for a second round of selection, identifying stars that have photometry data consistent with GD-1.</p>
+</div>
+<div class="section" id="best-practice">
+<h2>Best practice<a class="headerlink" href="#best-practice" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">JOIN</span></code> operations to combine data from multiple tables in a databased, using some kind of identifier to match up records from one table with records from another.</p></li>
+<li><p>This is another example of a practice we saw in the previous notebook, moving the computation to the data.</p></li>
+</ul>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Allen B. Downey<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="_static/js/index.30270b6e4c972e43c488.js"></script>
+
+
+    
+  </body>
+</html>
