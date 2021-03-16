@@ -48,4 +48,3 @@ legend.borderaxespad : 1.1
 
 savefig.pad_inches   : 0
 
-text.usetex        : true
