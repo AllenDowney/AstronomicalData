@@ -119,12 +119,12 @@
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="05_join.html">
-   Joining Tables
+   5. Joining Tables
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="06_photo.html">
-   Photometry
+   6. Photometry
   </a>
  </li>
  <li class="toctree-l1">
@@ -1541,7 +1541,7 @@ Created TAP+ (v1.2.1) - Connection:
 <p>When you are debugging queries like this, you can use <code class="docutils literal notranslate"><span class="pre">TOP</span></code> to limit the size of the results, but then you still don’t know how big the results will be.</p>
 <p>An alternative is to use <code class="docutils literal notranslate"><span class="pre">COUNT</span></code>, which asks for the number of rows that would be selected, but it does not return them.</p>
 <p>In the previous query, replace <code class="docutils literal notranslate"><span class="pre">TOP</span> <span class="pre">10</span> <span class="pre">source_id</span></code> with <code class="docutils literal notranslate"><span class="pre">COUNT(source_id)</span></code> and run the query again.  How many stars has Gaia identified in the cone we searched?</p>
-<div class="cell docutils container">
+<div class="cell tag_hide-cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
 
@@ -1671,7 +1671,7 @@ These are the coordinates shown in the figure from the paper, above.</p>
 <li><p>Transform it to the ICRS frame.</p></li>
 </ol>
 <p>Hint: Because ICRS is built into Astropy, you can specify it by name, <code class="docutils literal notranslate"><span class="pre">icrs</span></code> (as we did with <code class="docutils literal notranslate"><span class="pre">galactic</span></code>).</p>
-<div class="cell docutils container">
+<div class="cell tag_hide-cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
 

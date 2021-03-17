@@ -57,7 +57,7 @@
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Joining Tables" href="05_join.html" />
+    <link rel="next" title="5. Joining Tables" href="05_join.html" />
     <link rel="prev" title="3. Proper Motion" href="03_motion.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -119,12 +119,12 @@
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="05_join.html">
-   Joining Tables
+   5. Joining Tables
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="06_photo.html">
-   Photometry
+   6. Photometry
   </a>
  </li>
  <li class="toctree-l1">
@@ -352,7 +352,6 @@ We’ll also see how to write the results to a CSV file.</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
 <span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;gd1_data.hdf&#39;</span>
-
 <span class="n">centerline_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_hdf</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;centerline_df&#39;</span><span class="p">)</span>
 <span class="n">selected_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_hdf</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;selected_df&#39;</span><span class="p">)</span>
 </pre></div>
@@ -508,7 +507,7 @@ We’ll also see how to write the results to a CSV file.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;scipy.spatial.qhull.ConvexHull at 0x7f712e3b6dc0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;scipy.spatial.qhull.ConvexHull at 0x7fd95de628b0&gt;
 </pre></div>
 </div>
 </div>
@@ -776,8 +775,8 @@ Using <code class="docutils literal notranslate"><span class="pre">flatten</span
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
 
 <span class="n">query6</span> <span class="o">=</span> <span class="n">query6_base</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">columns</span><span class="p">,</span> 
-                          <span class="n">point_list</span><span class="o">=</span><span class="n">point_list</span><span class="p">,</span>
-                          <span class="n">pm_point_list</span><span class="o">=</span><span class="n">pm_point_list</span><span class="p">)</span>
+                            <span class="n">point_list</span><span class="o">=</span><span class="n">point_list</span><span class="p">,</span>
+                            <span class="n">pm_point_list</span><span class="o">=</span><span class="n">pm_point_list</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">query6</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -826,10 +825,10 @@ source_id   int64          Unique source identifier (unique within a particular 
       dec float64      deg                                                        Declination
      pmra float64 mas / yr                         Proper motion in right ascension direction
     pmdec float64 mas / yr                             Proper motion in declination direction
-Jobid: 1615824245107O
+Jobid: 1615933496807O
 Phase: COMPLETED
 Owner: None
-Output file: async_20210315120405.vot
+Output file: async_20210316182456.vot
 Results: None
 </pre></div>
 </div>
@@ -850,6 +849,50 @@ Results: None
 </div>
 </div>
 <p>We call the results <code class="docutils literal notranslate"><span class="pre">candidate_table</span></code> because it contains stars that are good candidates for GD-1.</p>
+<p>For the next lesson, we’ll need <code class="docutils literal notranslate"><span class="pre">point_list</span></code> and <code class="docutils literal notranslate"><span class="pre">pm_point_list</span></code> again, so we should save them in a file.
+There are several ways we could do that, but since we are already storing data in an HDF file, let’s do the same with these variables.</p>
+<p>We’ve seen how to save a <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> in an HDF file.
+We can do the same thing with a Pandas <code class="docutils literal notranslate"><span class="pre">Series</span></code>.
+To make one, we’ll start with a dictionary:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">d</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">point_list</span><span class="o">=</span><span class="n">point_list</span><span class="p">,</span> <span class="n">pm_point_list</span><span class="o">=</span><span class="n">pm_point_list</span><span class="p">)</span>
+<span class="n">d</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;point_list&#39;: &#39;135.306, 8.39862, 126.51, 13.4449, 163.017, 54.2424, 172.933, 46.4726, 135.306, 8.39862&#39;,
+ &#39;pm_point_list&#39;: &#39; -4.05037121,-14.75623261, -3.41981085,-14.72365546, -3.03521988,-14.44357135, -2.26847919,-13.7140236 , -2.61172203,-13.24797471, -2.73471401,-13.09054471, -3.19923146,-12.5942653 , -3.34082546,-12.47611926, -5.67489413,-11.16083338, -5.95159272,-11.10547884, -6.42394023,-11.05981295, -7.09631023,-11.95187806, -7.30641519,-12.24559977, -7.04016696,-12.88580702, -6.00347705,-13.75912098, -4.42442296,-14.74641176&#39;}
+</pre></div>
+</div>
+</div>
+</div>
+<p>And use it to initialize a <code class="docutils literal notranslate"><span class="pre">Series.</span></code></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">point_series</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+<span class="n">point_series</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>point_list       135.306, 8.39862, 126.51, 13.4449, 163.017, 54...
+pm_point_list     -4.05037121,-14.75623261, -3.41981085,-14.723...
+dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now we can save it in the usual way.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;gd1_data.hdf&#39;</span>
+<span class="n">point_series</span><span class="o">.</span><span class="n">to_hdf</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;point_series&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="section" id="plotting-one-more-time">
@@ -867,7 +910,7 @@ Results: None
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/04_select_62_0.png" src="_images/04_select_62_0.png" />
+<img alt="_images/04_select_67_0.png" src="_images/04_select_67_0.png" />
 </div>
 </div>
 <p>Here we can see why it was useful to transform these coordinates.  In ICRS, it is more difficult to identity the stars near the centerline of GD-1.</p>
@@ -927,7 +970,7 @@ Here’s the code we used to transform the coordinates and make a Pandas <code c
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/04_select_68_0.png" src="_images/04_select_68_0.png" />
+<img alt="_images/04_select_73_0.png" src="_images/04_select_73_0.png" />
 </div>
 </div>
 <p>We’re starting to see GD-1 more clearly.
@@ -985,7 +1028,7 @@ We can compare this figure with this panel from Figure 1 from the original paper
     <div class='prev-next-bottom'>
         
     <a class='left-prev' id="prev-link" href="03_motion.html" title="previous page">3. Proper Motion</a>
-    <a class='right-next' id="next-link" href="05_join.html" title="next page">Joining Tables</a>
+    <a class='right-next' id="next-link" href="05_join.html" title="next page">5. Joining Tables</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">

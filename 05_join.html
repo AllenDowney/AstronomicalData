@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Joining Tables &#8212; Astronomical Data in Python</title>
+    <title>5. Joining Tables &#8212; Astronomical Data in Python</title>
     
   <link rel="stylesheet" href="_static/css/index.d431a4ee1c1efae0e38bdfebc22debff.css">
 
@@ -57,7 +57,7 @@
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Photometry" href="06_photo.html" />
+    <link rel="next" title="6. Photometry" href="06_photo.html" />
     <link rel="prev" title="4. Transformation and Selection" href="04_select.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -119,12 +119,12 @@
  </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   Joining Tables
+   5. Joining Tables
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="06_photo.html">
-   Photometry
+   6. Photometry
   </a>
  </li>
  <li class="toctree-l1">
@@ -267,6 +267,11 @@
   <a class="reference internal nav-link" href="#adding-the-best-neighbor-table">
    Adding the best neighbor table
   </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#adding-the-pan-starrs-table">
+   Adding the Pan-STARRS table
+  </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#exercise">
@@ -303,18 +308,18 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#csv">
-   CSV
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#summary">
    Summary
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#best-practice">
-   Best practice
+  <a class="reference internal nav-link" href="#csv">
+   CSV
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#best-practices">
+   Best practices
   </a>
  </li>
 </ul>
@@ -329,7 +334,7 @@
               <div>
                 
   <div class="section" id="joining-tables">
-<h1>Joining Tables<a class="headerlink" href="#joining-tables" title="Permalink to this headline">¶</a></h1>
+<h1>5. Joining Tables<a class="headerlink" href="#joining-tables" title="Permalink to this headline">¶</a></h1>
 <p>This is the fifth in a series of notebooks related to astronomy data.</p>
 <p>As a continuing example, we will replicate part of the analysis in a recent paper, “<a class="reference external" href="https://arxiv.org/abs/1805.00425">Off the beaten path: Gaia reveals GD-1 stars outside of the main stream</a>” by Adrian M. Price-Whelan and Ana Bonaca.</p>
 <p>Picking up where we left off, the next step in the analysis is to select candidate stars based on photometry data.
@@ -380,16 +385,38 @@ We use this variable to select stars with <code class="docutils literal notransl
 Here’s the metadata for <code class="docutils literal notranslate"><span class="pre">panstarrs1_best_neighbour</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">meta</span> <span class="o">=</span> <span class="n">Gaia</span><span class="o">.</span><span class="n">load_table</span><span class="p">(</span><span class="s1">&#39;gaiadr2.panstarrs1_best_neighbour&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">meta</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">astroquery.gaia</span> <span class="kn">import</span> <span class="n">Gaia</span>
+
+<span class="n">meta</span> <span class="o">=</span> <span class="n">Gaia</span><span class="o">.</span><span class="n">load_table</span><span class="p">(</span><span class="s1">&#39;gaiadr2.panstarrs1_best_neighbour&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Retrieving table &#39;gaiadr2.panstarrs1_best_neighbour&#39;
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Created TAP+ (v1.2.1) - Connection:
+	Host: gea.esac.esa.int
+	Use HTTPS: True
+	Port: 443
+	SSL Port: 443
+Created TAP+ (v1.2.1) - Connection:
+	Host: geadata.esac.esa.int
+	Use HTTPS: True
+	Port: 443
+	SSL Port: 443
+Retrieving table &#39;gaiadr2.panstarrs1_best_neighbour&#39;
 Parsing table &#39;gaiadr2.panstarrs1_best_neighbour&#39;...
 Done.
-TAP Table name: gaiadr2.gaiadr2.panstarrs1_best_neighbour
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">meta</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>TAP Table name: gaiadr2.gaiadr2.panstarrs1_best_neighbour
 Description: Pan-STARRS1 BestNeighbour table lists each matched Gaia object with its
 best neighbour in the external catalogue.
 There are 1 327 157 objects in the filtered version of Pan-STARRS1 used
@@ -442,9 +469,7 @@ gaia_astrometric_params
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">astroquery.gaia</span> <span class="kn">import</span> <span class="n">Gaia</span>
-
-<span class="n">job</span> <span class="o">=</span> <span class="n">Gaia</span><span class="o">.</span><span class="n">launch_job_async</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="n">query</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">job</span> <span class="o">=</span> <span class="n">Gaia</span><span class="o">.</span><span class="n">launch_job_async</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="n">query</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -463,7 +488,7 @@ gaia_astrometric_params
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html"><i>Table length=5</i>
-<table id="table140056651686048" class="table-striped table-bordered table-condensed">
+<table id="table140104392580448" class="table-striped table-bordered table-condensed">
 <thead><tr><th>source_id</th><th>number_of_neighbours</th><th>number_of_mates</th><th>original_ext_source_id</th></tr></thead>
 <thead><tr><th>int64</th><th>int32</th><th>int16</th><th>int64</th></tr></thead>
 <tr><td>6745938972433480704</td><td>1</td><td>0</td><td>69742925668851205</td></tr>
@@ -480,7 +505,6 @@ gaia_astrometric_params
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">meta</span> <span class="o">=</span> <span class="n">Gaia</span><span class="o">.</span><span class="n">load_table</span><span class="p">(</span><span class="s1">&#39;gaiadr2.panstarrs1_original_valid&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">meta</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -488,7 +512,18 @@ gaia_astrometric_params
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Retrieving table &#39;gaiadr2.panstarrs1_original_valid&#39;
 Parsing table &#39;gaiadr2.panstarrs1_original_valid&#39;...
 Done.
-TAP Table name: gaiadr2.gaiadr2.panstarrs1_original_valid
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">meta</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>TAP Table name: gaiadr2.gaiadr2.panstarrs1_original_valid
 Description: The Panoramic Survey Telescope and Rapid Response System (Pan-STARRS) is
 a system for wide-field astronomical imaging developed and operated by
 the Institute for Astronomy at the University of Hawaii. Pan-STARRS1
@@ -638,7 +673,7 @@ quality_flag
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html"><i>Table length=5</i>
-<table id="table140056430617648" class="table-striped table-bordered table-condensed">
+<table id="table140104844641184" class="table-striped table-bordered table-condensed">
 <thead><tr><th>obj_id</th><th>g_mean_psf_mag</th><th>i_mean_psf_mag</th></tr></thead>
 <thead><tr><th></th><th></th><th>mag</th></tr></thead>
 <thead><tr><th>int64</th><th>float64</th><th>float64</th></tr></thead>
@@ -700,16 +735,20 @@ As a starting place, let’s go all the way back to the cone search from Lesson 
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><i>Table length=5</i>
-<table id="table140056430283888" class="table-striped table-bordered table-condensed">
-<thead><tr><th>source_id</th><th>ra</th><th>dec</th><th>pmra</th><th>pmdec</th></tr></thead>
-<thead><tr><th></th><th>deg</th><th>deg</th><th>mas / yr</th><th>mas / yr</th></tr></thead>
-<thead><tr><th>int64</th><th>float64</th><th>float64</th><th>float64</th><th>float64</th></tr></thead>
-<tr><td>3322773965056065536</td><td>88.78178020183375</td><td>7.334936530583141</td><td>0.2980633722108194</td><td>-2.5057036964736907</td></tr>
-<tr><td>3322773758899157120</td><td>88.83227057144585</td><td>7.325577341429926</td><td>--</td><td>--</td></tr>
-<tr><td>3322774068134271104</td><td>88.8206092188033</td><td>7.353158142762173</td><td>-1.1065462654445488</td><td>-1.5260889445858044</td></tr>
-<tr><td>3322773930696320512</td><td>88.80843339290348</td><td>7.334853162299928</td><td>2.6074384482375215</td><td>-0.9292104395445717</td></tr>
-<tr><td>3322774377374425728</td><td>88.86806108182265</td><td>7.371287731275939</td><td>3.9555477866915383</td><td>-3.8676624830902435</td></tr>
+<div class="output text_html"><i>Table length=10</i>
+<table id="table140104380877264" class="table-striped table-bordered table-condensed">
+<thead><tr><th>source_id</th></tr></thead>
+<thead><tr><th>int64</th></tr></thead>
+<tr><td>3322773965056065536</td></tr>
+<tr><td>3322773758899157120</td></tr>
+<tr><td>3322774068134271104</td></tr>
+<tr><td>3322773930696320512</td></tr>
+<tr><td>3322774377374425728</td></tr>
+<tr><td>3322773724537891456</td></tr>
+<tr><td>3322773724537891328</td></tr>
+<tr><td>3322773930696321792</td></tr>
+<tr><td>3322773724537890944</td></tr>
+<tr><td>3322773930696322176</td></tr>
 </table></div></div>
 </div>
 <p>Now we can start adding features.
@@ -770,7 +809,7 @@ WHERE 1=CONTAINS(
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html"><i>Table length=594</i>
-<table id="table140056701852160" class="table-striped table-bordered table-condensed">
+<table id="table140104380909264" class="table-striped table-bordered table-condensed">
 <thead><tr><th>source_id</th><th>ra</th><th>dec</th><th>pmra</th><th>pmdec</th></tr></thead>
 <thead><tr><th></th><th>deg</th><th>deg</th><th>mas / yr</th><th>mas / yr</th></tr></thead>
 <thead><tr><th>int64</th><th>float64</th><th>float64</th><th>float64</th><th>float64</th></tr></thead>
@@ -826,7 +865,7 @@ The join operation requires two clauses:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">USING</span><span class="p">(</span><span class="n">source_id</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Now that there’s more than one table involved, we can’t use simple column names any more; we have to use <em>qualified</em> column names.
+<p>Now that there’s more than one table involved, we can’t use simple column names any more; we have to use <strong>qualified column names</strong>.
 In other words, we have to specify which table each column is in.
 Here’s the complete query, including the columns we want from the Gaia and best neighbor tables.</p>
 <div class="cell docutils container">
@@ -848,7 +887,7 @@ Here’s the complete query, including the columns we want from the Gaia and bes
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>SELECT 
-gaia.source_id, gaia.ra, gaia.dec, gaia.pmra, gaia.pmdec
+gaia.source_id, gaia.ra, gaia.dec, gaia.pmra, gaia.pmdec, best.best_neighbour_multiplicity, best.number_of_mates
 FROM gaiadr2.gaia_source AS gaia
 JOIN gaiadr2.panstarrs1_best_neighbour AS best
   ON gaia.source_id = best.source_id
@@ -880,30 +919,30 @@ WHERE 1=CONTAINS(
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html"><i>Table length=490</i>
-<table id="table140056430457136" class="table-striped table-bordered table-condensed">
-<thead><tr><th>source_id</th><th>ra</th><th>dec</th><th>pmra</th><th>pmdec</th></tr></thead>
-<thead><tr><th></th><th>deg</th><th>deg</th><th>mas / yr</th><th>mas / yr</th></tr></thead>
-<thead><tr><th>int64</th><th>float64</th><th>float64</th><th>float64</th><th>float64</th></tr></thead>
-<tr><td>3322773965056065536</td><td>88.78178020183375</td><td>7.334936530583141</td><td>0.2980633722108194</td><td>-2.5057036964736907</td></tr>
-<tr><td>3322774068134271104</td><td>88.8206092188033</td><td>7.353158142762173</td><td>-1.1065462654445488</td><td>-1.5260889445858044</td></tr>
-<tr><td>3322773930696320512</td><td>88.80843339290348</td><td>7.334853162299928</td><td>2.6074384482375215</td><td>-0.9292104395445717</td></tr>
-<tr><td>3322774377374425728</td><td>88.86806108182265</td><td>7.371287731275939</td><td>3.9555477866915383</td><td>-3.8676624830902435</td></tr>
-<tr><td>3322773724537891456</td><td>88.81308602813434</td><td>7.32488574492059</td><td>51.34995462741039</td><td>-33.078133430952086</td></tr>
-<tr><td>3322773724537891328</td><td>88.81570329208743</td><td>7.3223019772324855</td><td>1.9389988498951845</td><td>0.3110526931576576</td></tr>
-<tr><td>3322773930696321792</td><td>88.8050736770331</td><td>7.332371472206583</td><td>2.264014834476311</td><td>1.0772755505138008</td></tr>
-<tr><td>3322773724537890944</td><td>88.81241651540533</td><td>7.327864052479726</td><td>-0.36003627434304625</td><td>-6.393939291541333</td></tr>
-<tr><td>3322773930696322176</td><td>88.80128682574824</td><td>7.334292036448643</td><td>--</td><td>--</td></tr>
-<tr><td>...</td><td>...</td><td>...</td><td>...</td><td>...</td></tr>
-<tr><td>3322962359501481088</td><td>88.85037722908271</td><td>7.402162717053584</td><td>2.058216493648542</td><td>-2.249255322558584</td></tr>
-<tr><td>3322962393861228544</td><td>88.82108234976155</td><td>7.4044425496203</td><td>-0.916760881643629</td><td>-1.1113319053861441</td></tr>
-<tr><td>3322955831151254912</td><td>88.74620347799508</td><td>7.342728619145855</td><td>0.1559833902071379</td><td>-1.750598455959734</td></tr>
-<tr><td>3322962118983356032</td><td>88.76109637722949</td><td>7.380564308268047</td><td>--</td><td>--</td></tr>
-<tr><td>3322963527732585984</td><td>88.78813701704823</td><td>7.456696889759524</td><td>1.1363354614104264</td><td>-2.46251296961979</td></tr>
-<tr><td>3322961775385969024</td><td>88.79723215862369</td><td>7.359756552906535</td><td>2.121021366548921</td><td>-6.605711792572964</td></tr>
-<tr><td>3322962084625312512</td><td>88.78286756313868</td><td>7.384598632215225</td><td>-0.09350717810996487</td><td>1.3495903680571226</td></tr>
-<tr><td>3322962939322692608</td><td>88.73289357818679</td><td>7.407688975612043</td><td>-0.11002934783569704</td><td>1.002126813991455</td></tr>
-<tr><td>3322963459013111808</td><td>88.80348931842845</td><td>7.438699901204871</td><td>0.800833828337078</td><td>-3.3780655466364626</td></tr>
-<tr><td>3322962015904143872</td><td>88.74740822271643</td><td>7.387057037713974</td><td>-0.7201178533250112</td><td>0.5565841272341593</td></tr>
+<table id="table140104380908352" class="table-striped table-bordered table-condensed">
+<thead><tr><th>source_id</th><th>ra</th><th>dec</th><th>pmra</th><th>pmdec</th><th>best_neighbour_multiplicity</th><th>number_of_mates</th></tr></thead>
+<thead><tr><th></th><th>deg</th><th>deg</th><th>mas / yr</th><th>mas / yr</th><th></th><th></th></tr></thead>
+<thead><tr><th>int64</th><th>float64</th><th>float64</th><th>float64</th><th>float64</th><th>int16</th><th>int16</th></tr></thead>
+<tr><td>3322773965056065536</td><td>88.78178020183375</td><td>7.334936530583141</td><td>0.2980633722108194</td><td>-2.5057036964736907</td><td>1</td><td>0</td></tr>
+<tr><td>3322774068134271104</td><td>88.8206092188033</td><td>7.353158142762173</td><td>-1.1065462654445488</td><td>-1.5260889445858044</td><td>1</td><td>0</td></tr>
+<tr><td>3322773930696320512</td><td>88.80843339290348</td><td>7.334853162299928</td><td>2.6074384482375215</td><td>-0.9292104395445717</td><td>1</td><td>0</td></tr>
+<tr><td>3322774377374425728</td><td>88.86806108182265</td><td>7.371287731275939</td><td>3.9555477866915383</td><td>-3.8676624830902435</td><td>1</td><td>0</td></tr>
+<tr><td>3322773724537891456</td><td>88.81308602813434</td><td>7.32488574492059</td><td>51.34995462741039</td><td>-33.078133430952086</td><td>1</td><td>0</td></tr>
+<tr><td>3322773724537891328</td><td>88.81570329208743</td><td>7.3223019772324855</td><td>1.9389988498951845</td><td>0.3110526931576576</td><td>1</td><td>0</td></tr>
+<tr><td>3322773930696321792</td><td>88.8050736770331</td><td>7.332371472206583</td><td>2.264014834476311</td><td>1.0772755505138008</td><td>1</td><td>0</td></tr>
+<tr><td>3322773724537890944</td><td>88.81241651540533</td><td>7.327864052479726</td><td>-0.36003627434304625</td><td>-6.393939291541333</td><td>1</td><td>0</td></tr>
+<tr><td>3322773930696322176</td><td>88.80128682574824</td><td>7.334292036448643</td><td>--</td><td>--</td><td>1</td><td>0</td></tr>
+<tr><td>...</td><td>...</td><td>...</td><td>...</td><td>...</td><td>...</td><td>...</td></tr>
+<tr><td>3322962359501481088</td><td>88.85037722908271</td><td>7.402162717053584</td><td>2.058216493648542</td><td>-2.249255322558584</td><td>1</td><td>0</td></tr>
+<tr><td>3322962393861228544</td><td>88.82108234976155</td><td>7.4044425496203</td><td>-0.916760881643629</td><td>-1.1113319053861441</td><td>1</td><td>0</td></tr>
+<tr><td>3322955831151254912</td><td>88.74620347799508</td><td>7.342728619145855</td><td>0.1559833902071379</td><td>-1.750598455959734</td><td>1</td><td>0</td></tr>
+<tr><td>3322962118983356032</td><td>88.76109637722949</td><td>7.380564308268047</td><td>--</td><td>--</td><td>1</td><td>0</td></tr>
+<tr><td>3322963527732585984</td><td>88.78813701704823</td><td>7.456696889759524</td><td>1.1363354614104264</td><td>-2.46251296961979</td><td>1</td><td>0</td></tr>
+<tr><td>3322961775385969024</td><td>88.79723215862369</td><td>7.359756552906535</td><td>2.121021366548921</td><td>-6.605711792572964</td><td>1</td><td>0</td></tr>
+<tr><td>3322962084625312512</td><td>88.78286756313868</td><td>7.384598632215225</td><td>-0.09350717810996487</td><td>1.3495903680571226</td><td>1</td><td>0</td></tr>
+<tr><td>3322962939322692608</td><td>88.73289357818679</td><td>7.407688975612043</td><td>-0.11002934783569704</td><td>1.002126813991455</td><td>1</td><td>0</td></tr>
+<tr><td>3322963459013111808</td><td>88.80348931842845</td><td>7.438699901204871</td><td>0.800833828337078</td><td>-3.3780655466364626</td><td>1</td><td>0</td></tr>
+<tr><td>3322962015904143872</td><td>88.74740822271643</td><td>7.387057037713974</td><td>-0.7201178533250112</td><td>0.5565841272341593</td><td>1</td><td>0</td></tr>
 </table></div></div>
 </div>
 <p>Notice that this result has fewer rows than the previous result.
@@ -911,12 +950,15 @@ That’s because there are sources in the Gaia table with no corresponding sourc
 <p>By default, the result of the join only includes rows where the same <code class="docutils literal notranslate"><span class="pre">source_id</span></code> appears in both tables.
 This default is called an “inner” join because the results include only the intersection of the two tables.
 <a class="reference external" href="https://www.geeksforgeeks.org/sql-join-set-1-inner-left-right-and-full-joins/">You can read about the other kinds of join here</a>.</p>
+</div>
+<div class="section" id="adding-the-pan-starrs-table">
+<h2>Adding the Pan-STARRS table<a class="headerlink" href="#adding-the-pan-starrs-table" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="exercise">
 <h3>Exercise<a class="headerlink" href="#exercise" title="Permalink to this headline">¶</a></h3>
 <p>Now we’re ready to bring in the Pan-STARRS table.  Starting with the previous query, add a second <code class="docutils literal notranslate"><span class="pre">JOIN</span></code> clause that joins with <code class="docutils literal notranslate"><span class="pre">gaiadr2.panstarrs1_original_valid</span></code>, gives it the abbreviated name <code class="docutils literal notranslate"><span class="pre">ps</span></code>, and matches <code class="docutils literal notranslate"><span class="pre">original_ext_source_id</span></code> from the best neighbor table with <code class="docutils literal notranslate"><span class="pre">obj_id</span></code> from the Pan-STARRS table.</p>
 <p>Add <code class="docutils literal notranslate"><span class="pre">g_mean_psf_mag</span></code> and <code class="docutils literal notranslate"><span class="pre">i_mean_psf_mag</span></code> to the column list, and run the query.
 The result should contain 490 rows and 9 columns.</p>
-<div class="cell docutils container">
+<div class="cell tag_hide-cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
 
@@ -935,7 +977,7 @@ The result should contain 490 rows and 9 columns.</p>
 </div>
 </div>
 </div>
-<div class="cell docutils container">
+<div class="cell tag_hide-cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
 
@@ -947,8 +989,8 @@ The result should contain 490 rows and 9 columns.</p>
                <span class="s1">&#39;best.best_neighbour_multiplicity&#39;</span><span class="p">,</span>
                <span class="s1">&#39;best.number_of_mates&#39;</span><span class="p">,</span>
                <span class="s1">&#39;ps.g_mean_psf_mag&#39;</span><span class="p">,</span>
-               <span class="s1">&#39;ps.i_mean_psf_mag&#39;</span><span class="p">,</span>
-              <span class="p">]</span>
+               <span class="s1">&#39;ps.i_mean_psf_mag&#39;</span><span class="p">]</span>
+
 <span class="n">columns</span> <span class="o">=</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">column_list</span><span class="p">)</span>
 
 <span class="n">query</span> <span class="o">=</span> <span class="n">query_base</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">columns</span><span class="p">)</span>
@@ -971,7 +1013,7 @@ WHERE 1=CONTAINS(
 </div>
 </div>
 </div>
-<div class="cell docutils container">
+<div class="cell tag_hide-cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
 
@@ -985,7 +1027,7 @@ WHERE 1=CONTAINS(
 </div>
 </div>
 </div>
-<div class="cell docutils container">
+<div class="cell tag_hide-cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
 
@@ -996,7 +1038,7 @@ WHERE 1=CONTAINS(
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html"><i>Table length=490</i>
-<table id="table140056700852112" class="table-striped table-bordered table-condensed">
+<table id="table140104380910896" class="table-striped table-bordered table-condensed">
 <thead><tr><th>source_id</th><th>ra</th><th>dec</th><th>pmra</th><th>pmdec</th><th>best_neighbour_multiplicity</th><th>number_of_mates</th><th>g_mean_psf_mag</th><th>i_mean_psf_mag</th></tr></thead>
 <thead><tr><th></th><th>deg</th><th>deg</th><th>mas / yr</th><th>mas / yr</th><th></th><th></th><th></th><th>mag</th></tr></thead>
 <thead><tr><th>int64</th><th>float64</th><th>float64</th><th>float64</th><th>float64</th><th>int16</th><th>int16</th><th>float64</th><th>float64</th></tr></thead>
@@ -1026,21 +1068,66 @@ WHERE 1=CONTAINS(
 </div>
 <div class="section" id="selecting-by-coordinates-and-proper-motion">
 <h2>Selecting by coordinates and proper motion<a class="headerlink" href="#selecting-by-coordinates-and-proper-motion" title="Permalink to this headline">¶</a></h2>
-<p>Now let’s bring in the <code class="docutils literal notranslate"><span class="pre">WHERE</span></code> clause from the previous notebook, which selects sources based on <code class="docutils literal notranslate"><span class="pre">parallax</span></code>, <code class="docutils literal notranslate"><span class="pre">bp_rp</span></code>, sky coordinates, and proper motion.
-Rather than rewrite the code we use to generate the query, we can start with a copy of the complete query:</p>
+<p>Now let’s bring in the <code class="docutils literal notranslate"><span class="pre">WHERE</span></code> clause from the previous lesson, which selects sources based on parallax, BP-RP color, sky coordinates, and proper motion.</p>
+<p>Here’s <code class="docutils literal notranslate"><span class="pre">query6_base</span></code> from the previous lesson.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">query6</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
-<span class="s2">SELECT </span>
-<span class="s2">source_id, ra, dec, pmra, pmdec</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">query6_base</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT </span>
+<span class="si">{columns}</span><span class="s2"></span>
 <span class="s2">FROM gaiadr2.gaia_source</span>
 <span class="s2">WHERE parallax &lt; 1</span>
 <span class="s2">  AND bp_rp BETWEEN -0.75 AND 2 </span>
 <span class="s2">  AND 1 = CONTAINS(POINT(ra, dec), </span>
-<span class="s2">                   POLYGON(135.306, 8.39862, 126.51, 13.4449, 163.017, 54.2424, 172.933, 46.4726, 135.306, 8.39862))</span>
+<span class="s2">                   POLYGON(</span><span class="si">{point_list}</span><span class="s2">))</span>
 <span class="s2">  AND 1 = CONTAINS(POINT(pmra, pmdec),</span>
-<span class="s2">                   POLYGON( -4.05037121,-14.75623261, -3.41981085,-14.72365546, -3.03521988,-14.44357135, -2.26847919,-13.7140236 , -2.61172203,-13.24797471, -2.73471401,-13.09054471, -3.19923146,-12.5942653 , -3.34082546,-12.47611926, -5.67489413,-11.16083338, -5.95159272,-11.10547884, -6.42394023,-11.05981295, -7.09631023,-11.95187806, -7.30641519,-12.24559977, -7.04016696,-12.88580702, -6.00347705,-13.75912098, -4.42442296,-14.74641176))</span>
+<span class="s2">                   POLYGON(</span><span class="si">{pm_point_list}</span><span class="s2">))</span>
 <span class="s2">&quot;&quot;&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s reload the Pandas <code class="docutils literal notranslate"><span class="pre">Series</span></code> that contains <code class="docutils literal notranslate"><span class="pre">point_list</span></code> and <code class="docutils literal notranslate"><span class="pre">pm_point_list</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;gd1_data.hdf&#39;</span>
+<span class="n">point_series</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_hdf</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;point_series&#39;</span><span class="p">)</span>
+<span class="n">point_series</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>point_list       135.306, 8.39862, 126.51, 13.4449, 163.017, 54...
+pm_point_list     -4.05037121,-14.75623261, -3.41981085,-14.723...
+dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now we can assemble the query.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">columns</span> <span class="o">=</span> <span class="s1">&#39;source_id, ra, dec, pmra, pmdec&#39;</span>
+
+<span class="n">query6</span> <span class="o">=</span> <span class="n">query6_base</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">columns</span><span class="p">,</span>
+                            <span class="n">point_list</span><span class="o">=</span><span class="n">point_series</span><span class="p">[</span><span class="s1">&#39;point_list&#39;</span><span class="p">],</span>
+                            <span class="n">pm_point_list</span><span class="o">=</span><span class="n">point_series</span><span class="p">[</span><span class="s1">&#39;pm_point_list&#39;</span><span class="p">])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">query6</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>SELECT 
+source_id, ra, dec, pmra, pmdec
+FROM gaiadr2.gaia_source
+WHERE parallax &lt; 1
+  AND bp_rp BETWEEN -0.75 AND 2 
+  AND 1 = CONTAINS(POINT(ra, dec), 
+                   POLYGON(135.306, 8.39862, 126.51, 13.4449, 163.017, 54.2424, 172.933, 46.4726, 135.306, 8.39862))
+  AND 1 = CONTAINS(POINT(pmra, pmdec),
+                   POLYGON( -4.05037121,-14.75623261, -3.41981085,-14.72365546, -3.03521988,-14.44357135, -2.26847919,-13.7140236 , -2.61172203,-13.24797471, -2.73471401,-13.09054471, -3.19923146,-12.5942653 , -3.34082546,-12.47611926, -5.67489413,-11.16083338, -5.95159272,-11.10547884, -6.42394023,-11.05981295, -7.09631023,-11.95187806, -7.30641519,-12.24559977, -7.04016696,-12.88580702, -6.00347705,-13.75912098, -4.42442296,-14.74641176))
 </pre></div>
 </div>
 </div>
@@ -1067,7 +1154,7 @@ Rather than rewrite the code we use to generate the query, we can start with a c
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html"><i>Table length=7345</i>
-<table id="table140056430282592" class="table-striped table-bordered table-condensed">
+<table id="table140104380909120" class="table-striped table-bordered table-condensed">
 <thead><tr><th>source_id</th><th>ra</th><th>dec</th><th>pmra</th><th>pmdec</th></tr></thead>
 <thead><tr><th></th><th>deg</th><th>deg</th><th>mas / yr</th><th>mas / yr</th></tr></thead>
 <thead><tr><th>int64</th><th>float64</th><th>float64</th><th>float64</th><th>float64</th></tr></thead>
@@ -1096,10 +1183,10 @@ Rather than rewrite the code we use to generate the query, we can start with a c
 <div class="section" id="id2">
 <h3>Exercise<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
 <p>Create a new query base called <code class="docutils literal notranslate"><span class="pre">query7_base</span></code> that combines the <code class="docutils literal notranslate"><span class="pre">WHERE</span></code> clauses from the previous query with the <code class="docutils literal notranslate"><span class="pre">JOIN</span></code> clauses for the best neighbor and Pan-STARRS tables.
-Format the query base using the <code class="docutils literal notranslate"><span class="pre">columns</span></code> from the previous query, and call the result <code class="docutils literal notranslate"><span class="pre">query7</span></code>.</p>
+Format the query base using the column names in <code class="docutils literal notranslate"><span class="pre">column_list</span></code>, and call the result <code class="docutils literal notranslate"><span class="pre">query7</span></code>.</p>
 <p>Hint: Make sure you use qualified column names everywhere!</p>
 <p>Run your query and download the results.  The table you get should have 3725 rows and 9 columns.</p>
-<div class="cell docutils container">
+<div class="cell tag_hide-cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
 
@@ -1114,19 +1201,23 @@ Format the query base using the <code class="docutils literal notranslate"><span
 <span class="s2">WHERE parallax &lt; 1</span>
 <span class="s2">  AND bp_rp BETWEEN -0.75 AND 2 </span>
 <span class="s2">  AND 1 = CONTAINS(POINT(gaia.ra, gaia.dec), </span>
-<span class="s2">                   POLYGON(135.306, 8.39862, 126.51, 13.4449, 163.017, 54.2424, 172.933, 46.4726, 135.306, 8.39862))</span>
+<span class="s2">                   POLYGON(</span><span class="si">{point_list}</span><span class="s2">))</span>
 <span class="s2">  AND 1 = CONTAINS(POINT(gaia.pmra, gaia.pmdec),</span>
-<span class="s2">                   POLYGON( -4.05037121,-14.75623261, -3.41981085,-14.72365546, -3.03521988,-14.44357135, -2.26847919,-13.7140236 , -2.61172203,-13.24797471, -2.73471401,-13.09054471, -3.19923146,-12.5942653 , -3.34082546,-12.47611926, -5.67489413,-11.16083338, -5.95159272,-11.10547884, -6.42394023,-11.05981295, -7.09631023,-11.95187806, -7.30641519,-12.24559977, -7.04016696,-12.88580702, -6.00347705,-13.75912098, -4.42442296,-14.74641176))</span>
+<span class="s2">                   POLYGON(</span><span class="si">{pm_point_list}</span><span class="s2">))</span>
 <span class="s2">&quot;&quot;&quot;</span>
 </pre></div>
 </div>
 </div>
 </div>
-<div class="cell docutils container">
+<div class="cell tag_hide-cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
 
-<span class="n">query7</span> <span class="o">=</span> <span class="n">query7_base</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">columns</span><span class="p">)</span>
+<span class="n">columns</span> <span class="o">=</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">column_list</span><span class="p">)</span>
+
+<span class="n">query7</span> <span class="o">=</span> <span class="n">query7_base</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">columns</span><span class="p">,</span>
+                            <span class="n">point_list</span><span class="o">=</span><span class="n">point_series</span><span class="p">[</span><span class="s1">&#39;point_list&#39;</span><span class="p">],</span>
+                            <span class="n">pm_point_list</span><span class="o">=</span><span class="n">point_series</span><span class="p">[</span><span class="s1">&#39;pm_point_list&#39;</span><span class="p">])</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">query7</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1149,7 +1240,7 @@ WHERE parallax &lt; 1
 </div>
 </div>
 </div>
-<div class="cell docutils container">
+<div class="cell tag_hide-cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
 
@@ -1163,7 +1254,7 @@ WHERE parallax &lt; 1
 </div>
 </div>
 </div>
-<div class="cell docutils container">
+<div class="cell tag_hide-cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
 
@@ -1174,7 +1265,7 @@ WHERE parallax &lt; 1
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html"><i>Table length=3725</i>
-<table id="table140056433090464" class="table-striped table-bordered table-condensed">
+<table id="table140104308204640" class="table-striped table-bordered table-condensed">
 <thead><tr><th>source_id</th><th>ra</th><th>dec</th><th>pmra</th><th>pmdec</th><th>best_neighbour_multiplicity</th><th>number_of_mates</th><th>g_mean_psf_mag</th><th>i_mean_psf_mag</th></tr></thead>
 <thead><tr><th></th><th>deg</th><th>deg</th><th>mas / yr</th><th>mas / yr</th><th></th><th></th><th></th><th>mag</th></tr></thead>
 <thead><tr><th>int64</th><th>float64</th><th>float64</th><th>float64</th><th>float64</th><th>int16</th><th>int16</th><th>float64</th><th>float64</th></tr></thead>
@@ -1294,6 +1385,7 @@ dtype: float64
 </div>
 <div class="section" id="transforming-coordinates">
 <h2>Transforming coordinates<a class="headerlink" href="#transforming-coordinates" title="Permalink to this headline">¶</a></h2>
+<p>Here’s the function we’ve used to transform the results from ICRS to GD-1 coordinates.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">astropy.units</span> <span class="k">as</span> <span class="nn">u</span>
@@ -1330,6 +1422,7 @@ dtype: float64
 </div>
 </div>
 </div>
+<p>Now can transform the result from the last query.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">candidate_df</span> <span class="o">=</span> <span class="n">make_dataframe</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
@@ -1337,9 +1430,12 @@ dtype: float64
 </div>
 </div>
 </div>
+<p>And see how it looks.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">candidate_df</span><span class="p">[</span><span class="s1">&#39;phi1&#39;</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">candidate_df</span><span class="p">[</span><span class="s1">&#39;phi1&#39;</span><span class="p">]</span>
 <span class="n">y</span> <span class="o">=</span> <span class="n">candidate_df</span><span class="p">[</span><span class="s1">&#39;phi2&#39;</span><span class="p">]</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">&#39;ko&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
 
@@ -1349,14 +1445,15 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/05_join_70_0.png" src="_images/05_join_70_0.png" />
+<img alt="_images/05_join_78_0.png" src="_images/05_join_78_0.png" />
 </div>
 </div>
+<p>The result is similar to what we saw in the previous lesson, except that have fewer stars now, because we did not find photometry data for all of the candidate sources.</p>
 </div>
 <div class="section" id="saving-the-dataframe">
 <h2>Saving the DataFrame<a class="headerlink" href="#saving-the-dataframe" title="Permalink to this headline">¶</a></h2>
-<p>Let’s save this <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> so we can pick up where we left off without running this query again.</p>
-<p>The HDF file should already exist, so we’ll add <code class="docutils literal notranslate"><span class="pre">candidate_df</span></code> to it.</p>
+<p>Let’s save this <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> so we can pick up where we left off without running this query again.
+The HDF file should already exist, so we’ll add <code class="docutils literal notranslate"><span class="pre">candidate_df</span></code> to it.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;gd1_data.hdf&#39;</span>
@@ -1377,16 +1474,22 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2.575897216796875
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>5.574869155883789
 </pre></div>
 </div>
 </div>
 </div>
 </div>
+<div class="section" id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
+<p>In this notebook, we used database <code class="docutils literal notranslate"><span class="pre">JOIN</span></code> operations to select photometry data for the stars we’ve identified as candidates to be in GD-1.</p>
+<p>In the next notebook, we’ll use this data for a second round of selection, identifying stars that have photometry data consistent with GD-1.</p>
+<p>But before you go on, you might be interested in another file format, CSV.</p>
+</div>
 <div class="section" id="csv">
 <h2>CSV<a class="headerlink" href="#csv" title="Permalink to this headline">¶</a></h2>
-<p>Pandas can write a variety of other formats, <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/user_guide/io.html">which you can read about here</a>.</p>
-<p>We won’t cover all of them, but one other important one is <a class="reference external" href="https://en.wikipedia.org/wiki/Comma-separated_values">CSV</a>, which stands for “comma-separated values”.</p>
+<p>Pandas can write a variety of other formats, <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/user_guide/io.html">which you can read about here</a>.
+We won’t cover all of them, but one other important one is <a class="reference external" href="https://en.wikipedia.org/wiki/Comma-separated_values">CSV</a>, which stands for “comma-separated values”.</p>
 <p>CSV is a plain-text format that can be read and written by pretty much any tool that works with data.  In that sense, it is the “least common denominator” of data formats.</p>
 <p>However, it has an important limitation: some information about the data gets lost in translation, notably the data types.  If you read a CSV file from someone else, you might need some additional information to make sure you are getting it right.</p>
 <p>Also, CSV files tend to be big, and slow to read and write.</p>
@@ -1406,7 +1509,7 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.238297462463379
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.7606849670410156
 </pre></div>
 </div>
 </div>
@@ -1430,11 +1533,11 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>,source_id,ra,dec,pmra,pmdec,phi1,phi2,pm_phi1,pm_phi2
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>,source_id,ra,dec,pmra,pmdec,best_neighbour_multiplicity,number_of_mates,g_mean_psf_mag,i_mean_psf_mag,phi1,phi2,pm_phi1,pm_phi2
 
-0,635559124339440000,137.58671691646745,19.1965441084838,-3.770521900009566,-12.490481778113859,-59.63048941944402,-1.2164852515042963,-7.361362712597496,-0.592632882064492
+0,635860218726658176,138.5187065217173,19.09233926905897,-5.941679495793577,-11.346409129876392,1,0,17.8978004455566,17.5174007415771,-59.247329893833296,-2.016078400820631,-7.527126084640531,1.7487794924176672
 
-1,635860218726658176,138.5187065217173,19.09233926905897,-5.941679495793577,-11.346409129876392,-59.247329893833296,-2.016078400820631,-7.527126084640531,1.7487794924176672
+1,635674126383965568,138.8428741026386,19.031798198627634,-3.8970011609340207,-12.702779525389634,1,0,19.2873001098633,17.6781005859375,-59.13339098769217,-2.306900745179831,-7.560607655557415,-0.7417999555980248
 </pre></div>
 </div>
 </div>
@@ -1479,6 +1582,10 @@ dtype: float64
       <th>dec</th>
       <th>pmra</th>
       <th>pmdec</th>
+      <th>best_neighbour_multiplicity</th>
+      <th>number_of_mates</th>
+      <th>g_mean_psf_mag</th>
+      <th>i_mean_psf_mag</th>
       <th>phi1</th>
       <th>phi2</th>
       <th>pm_phi1</th>
@@ -1488,39 +1595,51 @@ dtype: float64
   <tbody>
     <tr>
       <th>0</th>
-      <td>635559124339440000</td>
-      <td>137.586717</td>
-      <td>19.196544</td>
-      <td>-3.770522</td>
-      <td>-12.490482</td>
-      <td>-59.630489</td>
-      <td>-1.216485</td>
-      <td>-7.361363</td>
-      <td>-0.592633</td>
-    </tr>
-    <tr>
-      <th>1</th>
       <td>635860218726658176</td>
       <td>138.518707</td>
       <td>19.092339</td>
       <td>-5.941679</td>
       <td>-11.346409</td>
+      <td>1</td>
+      <td>0</td>
+      <td>17.8978</td>
+      <td>17.517401</td>
       <td>-59.247330</td>
       <td>-2.016078</td>
       <td>-7.527126</td>
       <td>1.748779</td>
     </tr>
     <tr>
-      <th>2</th>
+      <th>1</th>
       <td>635674126383965568</td>
       <td>138.842874</td>
       <td>19.031798</td>
       <td>-3.897001</td>
       <td>-12.702780</td>
+      <td>1</td>
+      <td>0</td>
+      <td>19.2873</td>
+      <td>17.678101</td>
       <td>-59.133391</td>
       <td>-2.306901</td>
       <td>-7.560608</td>
       <td>-0.741800</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>635535454774983040</td>
+      <td>137.837752</td>
+      <td>18.864007</td>
+      <td>-4.335041</td>
+      <td>-14.492309</td>
+      <td>1</td>
+      <td>0</td>
+      <td>16.9238</td>
+      <td>16.478100</td>
+      <td>-59.785300</td>
+      <td>-1.594569</td>
+      <td>-9.357536</td>
+      <td>-1.218492</td>
     </tr>
   </tbody>
 </table>
@@ -1557,6 +1676,10 @@ dtype: float64
       <th>dec</th>
       <th>pmra</th>
       <th>pmdec</th>
+      <th>best_neighbour_multiplicity</th>
+      <th>number_of_mates</th>
+      <th>g_mean_psf_mag</th>
+      <th>i_mean_psf_mag</th>
       <th>phi1</th>
       <th>phi2</th>
       <th>pm_phi1</th>
@@ -1567,41 +1690,53 @@ dtype: float64
     <tr>
       <th>0</th>
       <td>0</td>
-      <td>635559124339440000</td>
-      <td>137.586717</td>
-      <td>19.196544</td>
-      <td>-3.770522</td>
-      <td>-12.490482</td>
-      <td>-59.630489</td>
-      <td>-1.216485</td>
-      <td>-7.361363</td>
-      <td>-0.592633</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>1</td>
       <td>635860218726658176</td>
       <td>138.518707</td>
       <td>19.092339</td>
       <td>-5.941679</td>
       <td>-11.346409</td>
+      <td>1</td>
+      <td>0</td>
+      <td>17.8978</td>
+      <td>17.517401</td>
       <td>-59.247330</td>
       <td>-2.016078</td>
       <td>-7.527126</td>
       <td>1.748779</td>
     </tr>
     <tr>
-      <th>2</th>
-      <td>2</td>
+      <th>1</th>
+      <td>1</td>
       <td>635674126383965568</td>
       <td>138.842874</td>
       <td>19.031798</td>
       <td>-3.897001</td>
       <td>-12.702780</td>
+      <td>1</td>
+      <td>0</td>
+      <td>19.2873</td>
+      <td>17.678101</td>
       <td>-59.133391</td>
       <td>-2.306901</td>
       <td>-7.560608</td>
       <td>-0.741800</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2</td>
+      <td>635535454774983040</td>
+      <td>137.837752</td>
+      <td>18.864007</td>
+      <td>-4.335041</td>
+      <td>-14.492309</td>
+      <td>1</td>
+      <td>0</td>
+      <td>16.9238</td>
+      <td>16.478100</td>
+      <td>-59.785300</td>
+      <td>-1.594569</td>
+      <td>-9.357536</td>
+      <td>-1.218492</td>
     </tr>
   </tbody>
 </table>
@@ -1609,13 +1744,8 @@ dtype: float64
 </div>
 <p>Notice that the index in <code class="docutils literal notranslate"><span class="pre">candidate_df</span></code> has become an unnamed column in <code class="docutils literal notranslate"><span class="pre">read_back_csv</span></code>.  The Pandas functions for writing and reading CSV files provide options to avoid that problem, but this is an example of the kind of thing that can go wrong with CSV files.</p>
 </div>
-<div class="section" id="summary">
-<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
-<p>In this notebook, we used database <code class="docutils literal notranslate"><span class="pre">JOIN</span></code> operations to select photometry data for the stars we’ve identified as candidates to be in GD-1.</p>
-<p>In the next notebook, we’ll use this data for a second round of selection, identifying stars that have photometry data consistent with GD-1.</p>
-</div>
-<div class="section" id="best-practice">
-<h2>Best practice<a class="headerlink" href="#best-practice" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="best-practices">
+<h2>Best practices<a class="headerlink" href="#best-practices" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Use <code class="docutils literal notranslate"><span class="pre">JOIN</span></code> operations to combine data from multiple tables in a databased, using some kind of identifier to match up records from one table with records from another.</p></li>
 <li><p>This is another example of a practice we saw in the previous notebook, moving the computation to the data.</p></li>
@@ -1654,7 +1784,7 @@ dtype: float64
     <div class='prev-next-bottom'>
         
     <a class='left-prev' id="prev-link" href="04_select.html" title="previous page">4. Transformation and Selection</a>
-    <a class='right-next' id="next-link" href="06_photo.html" title="next page">Photometry</a>
+    <a class='right-next' id="next-link" href="06_photo.html" title="next page">6. Photometry</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">
