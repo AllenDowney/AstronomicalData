@@ -129,7 +129,7 @@
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="07_plot.html">
-   Visualization
+   7. Visualization
   </a>
  </li>
 </ul>
@@ -241,6 +241,11 @@
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#outline">
    Outline
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#installing-libraries">
+   Installing libraries
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -368,6 +373,24 @@
 <li><p>Save a <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> in an HDF5 file.</p></li>
 </ul>
 </div>
+<div class="section" id="installing-libraries">
+<h2>Installing libraries<a class="headerlink" href="#installing-libraries" title="Permalink to this headline">¶</a></h2>
+<p>If you are running this notebook on Colab, you can run the following cell to install the libraries we’ll use.</p>
+<p>If you are running this notebook on your own computer, you might have to install these libraries yourself.  See the instructions in the preface.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># If we&#39;re running on Colab, install libraries</span>
+
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="n">IN_COLAB</span> <span class="o">=</span> <span class="s1">&#39;google.colab&#39;</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span>
+
+<span class="k">if</span> <span class="n">IN_COLAB</span><span class="p">:</span>
+    <span class="o">!</span>pip install astroquery astro-gala wget
+</pre></div>
+</div>
+</div>
+</div>
+</div>
 <div class="section" id="reload-the-data">
 <h2>Reload the data<a class="headerlink" href="#reload-the-data" title="Permalink to this headline">¶</a></h2>
 <p>In the previous lesson, we ran a query on the Gaia server and downloaded data for roughly 140,000 stars.  We saved the data in a FITS file so that now, picking up where we left off, we can read the data from a local file rather than running the query again.</p>
@@ -409,18 +432,6 @@
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Table length=140339&gt;
-   name    dtype    unit                              description                            
---------- ------- -------- ------------------------------------------------------------------
-source_id   int64          Unique source identifier (unique within a particular Data Release)
-       ra float64      deg                                                    Right ascension
-      dec float64      deg                                                        Declination
-     pmra float64 mas / yr                         Proper motion in right ascension direction
-    pmdec float64 mas / yr                             Proper motion in declination direction
-</pre></div>
-</div>
-</div>
 </div>
 </div>
 <div class="section" id="selecting-rows-and-columns">
@@ -433,11 +444,6 @@ source_id   int64          Unique source identifier (unique within a particular 
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;source_id&#39;, &#39;ra&#39;, &#39;dec&#39;, &#39;pmra&#39;, &#39;pmdec&#39;]
-</pre></div>
-</div>
-</div>
 </div>
 <p>And select an individual column like this:</p>
 <div class="cell docutils container">
@@ -446,45 +452,11 @@ source_id   int64          Unique source identifier (unique within a particular 
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html">&lt;Column name=&apos;ra&apos; dtype=&apos;float64&apos; unit=&apos;deg&apos; description=&apos;Right ascension&apos; length=140339&gt;
-<table>
-<tr><td>142.48301935991023</td></tr>
-<tr><td>142.25452941346344</td></tr>
-<tr><td>142.64528557468074</td></tr>
-<tr><td>142.57739430926034</td></tr>
-<tr><td>142.58913564478618</td></tr>
-<tr><td>141.81762228999614</td></tr>
-<tr><td>143.18339801317677</td></tr>
-<tr><td>142.9347319464589</td></tr>
-<tr><td>142.26769745823267</td></tr>
-<tr><td>142.89551292869012</td></tr>
-<tr><td>142.2780935768316</td></tr>
-<tr><td>142.06138786534987</td></tr>
-<tr><td>...</td></tr>
-<tr><td>143.05456487172972</td></tr>
-<tr><td>144.0436496516182</td></tr>
-<tr><td>144.06566578919313</td></tr>
-<tr><td>144.13177563215973</td></tr>
-<tr><td>143.77696341662764</td></tr>
-<tr><td>142.945956347594</td></tr>
-<tr><td>142.97282480557786</td></tr>
-<tr><td>143.4166017695258</td></tr>
-<tr><td>143.64484588686904</td></tr>
-<tr><td>143.41554585481808</td></tr>
-<tr><td>143.6908739159247</td></tr>
-<tr><td>143.7702681295401</td></tr>
-</table></div></div>
 </div>
 <p>The result is a <code class="docutils literal notranslate"><span class="pre">Column</span></code> object that contains the data, and also the data type, units, and name of the column.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;ra&#39;</span><span class="p">])</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>astropy.table.column.Column
 </pre></div>
 </div>
 </div>
@@ -496,24 +468,11 @@ source_id   int64          Unique source identifier (unique within a particular 
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><i>Row index=0</i>
-<table id="table140559241197024">
-<thead><tr><th>source_id</th><th>ra</th><th>dec</th><th>pmra</th><th>pmdec</th></tr></thead>
-<thead><tr><th></th><th>deg</th><th>deg</th><th>mas / yr</th><th>mas / yr</th></tr></thead>
-<thead><tr><th>int64</th><th>float64</th><th>float64</th><th>float64</th><th>float64</th></tr></thead>
-<tr><td>637987125186749568</td><td>142.48301935991023</td><td>21.75771616932985</td><td>-2.5168384683875766</td><td>2.941813096629439</td></tr>
-</table></div></div>
 </div>
 <p>As you might have guessed, the result is a <code class="docutils literal notranslate"><span class="pre">Row</span></code> object.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>astropy.table.row.Row
 </pre></div>
 </div>
 </div>
@@ -527,21 +486,11 @@ If the expression in brackets is a string, it selects a column; if the expressio
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>142.48301935991023
-</pre></div>
-</div>
-</div>
 </div>
 <p>Or you can select a row and then an element from the row.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">results</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;ra&#39;</span><span class="p">]</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>142.48301935991023
 </pre></div>
 </div>
 </div>
@@ -585,9 +534,6 @@ In that case, you might want to run the following Jupyter <a class="reference ex
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="_images/03_motion_30_0.png" src="_images/03_motion_30_0.png" />
-</div>
 </div>
 <p>The arguments to <code class="docutils literal notranslate"><span class="pre">plt.plot</span></code> are <code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code>, and a string that specifies the style.  In this case, the letters <code class="docutils literal notranslate"><span class="pre">ko</span></code> indicate that we want a black, round marker (<code class="docutils literal notranslate"><span class="pre">k</span></code> is for black because <code class="docutils literal notranslate"><span class="pre">b</span></code> is for blue).
 The functions <code class="docutils literal notranslate"><span class="pre">xlabel</span></code> and <code class="docutils literal notranslate"><span class="pre">ylabel</span></code> put labels on the axes.</p>
@@ -602,14 +548,7 @@ The functions <code class="docutils literal notranslate"><span class="pre">xlabe
 <p>Note: Once you have made these changes, you might notice that the figure shows stripes with lower density of stars.  These stripes are caused by the way Gaia scans the sky, which <a class="reference external" href="https://www.cosmos.esa.int/web/gaia/scanning-law">you can read about here</a>.  The dataset we are using, <a class="reference external" href="https://www.cosmos.esa.int/web/gaia/dr2">Gaia Data Release 2</a>, covers 22 months of observations; during this time, some parts of the sky were scanned more than others.</p>
 <div class="cell tag_hide-cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
-
-<span class="c1"># x = results[&#39;ra&#39;]</span>
-<span class="c1"># y = results[&#39;dec&#39;]</span>
-<span class="c1"># plt.plot(x, y, &#39;ko&#39;, markersize=0.1, alpha=0.1)</span>
-
-<span class="c1"># plt.xlabel(&#39;ra (degree ICRS)&#39;)</span>
-<span class="c1"># plt.ylabel(&#39;dec (degree ICRS)&#39;);</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution goes here</span>
 </pre></div>
 </div>
 </div>
@@ -709,9 +648,6 @@ The coordinates in <code class="docutils literal notranslate"><span class="pre">
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="_images/03_motion_45_0.png" src="_images/03_motion_45_0.png" />
-</div>
 </div>
 <p>Remember that we started with a rectangle in the GD-1 frame.  When transformed to the ICRS frame, it’s a non-rectangular region.  Now, transformed back to the GD-1 frame, it’s a rectangle again.</p>
 </div>
@@ -724,21 +660,11 @@ The coordinates in <code class="docutils literal notranslate"><span class="pre">
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>astropy.table.table.Table
-</pre></div>
-</div>
-</div>
 </div>
 <p>And <code class="docutils literal notranslate"><span class="pre">skycoord_gd1</span></code> is a <code class="docutils literal notranslate"><span class="pre">SkyCoord</span></code> object that contains the transformed coordinates and proper motions.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">skycoord_gd1</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>astropy.coordinates.sky_coordinate.SkyCoord
 </pre></div>
 </div>
 </div>
@@ -767,11 +693,6 @@ The coordinates in <code class="docutils literal notranslate"><span class="pre">
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(140339, 5)
-</pre></div>
-</div>
-</div>
 </div>
 <p>It also provides <code class="docutils literal notranslate"><span class="pre">head</span></code>, which displays the first few rows.  <code class="docutils literal notranslate"><span class="pre">head</span></code> is useful for spot-checking large results as you go along.</p>
 <div class="cell docutils container">
@@ -780,76 +701,6 @@ The coordinates in <code class="docutils literal notranslate"><span class="pre">
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>source_id</th>
-      <th>ra</th>
-      <th>dec</th>
-      <th>pmra</th>
-      <th>pmdec</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>637987125186749568</td>
-      <td>142.483019</td>
-      <td>21.757716</td>
-      <td>-2.516838</td>
-      <td>2.941813</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>638285195917112960</td>
-      <td>142.254529</td>
-      <td>22.476168</td>
-      <td>2.662702</td>
-      <td>-12.165984</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>638073505568978688</td>
-      <td>142.645286</td>
-      <td>22.166932</td>
-      <td>18.306747</td>
-      <td>-7.950660</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>638086386175786752</td>
-      <td>142.577394</td>
-      <td>22.227920</td>
-      <td>0.987786</td>
-      <td>-2.584105</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>638049655615392384</td>
-      <td>142.589136</td>
-      <td>22.110783</td>
-      <td>0.244439</td>
-      <td>-4.941079</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
 </div>
 <p><strong>Python detail:</strong> <code class="docutils literal notranslate"><span class="pre">shape</span></code> is an attribute, so we display its value without calling it as a function; <code class="docutils literal notranslate"><span class="pre">head</span></code> is a function, so we need the parentheses.</p>
 <p>Now we can extract the columns we want from <code class="docutils literal notranslate"><span class="pre">skycoord_gd1</span></code> and add them as columns in the <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>.  <code class="docutils literal notranslate"><span class="pre">phi1</span></code> and <code class="docutils literal notranslate"><span class="pre">phi2</span></code> contain the transformed coordinates.</p>
@@ -861,11 +712,6 @@ The coordinates in <code class="docutils literal notranslate"><span class="pre">
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(140339, 7)
-</pre></div>
-</div>
-</div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">pm_phi1_cosphi2</span></code> and <code class="docutils literal notranslate"><span class="pre">pm_phi2</span></code> contain the components of proper motion in the transformed frame.</p>
 <div class="cell docutils container">
@@ -873,11 +719,6 @@ The coordinates in <code class="docutils literal notranslate"><span class="pre">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">results_df</span><span class="p">[</span><span class="s1">&#39;pm_phi1&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">skycoord_gd1</span><span class="o">.</span><span class="n">pm_phi1_cosphi2</span>
 <span class="n">results_df</span><span class="p">[</span><span class="s1">&#39;pm_phi2&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">skycoord_gd1</span><span class="o">.</span><span class="n">pm_phi2</span>
 <span class="n">results_df</span><span class="o">.</span><span class="n">shape</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(140339, 9)
 </pre></div>
 </div>
 </div>
@@ -895,136 +736,6 @@ One of the most useful of these functions is <code class="docutils literal notra
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>source_id</th>
-      <th>ra</th>
-      <th>dec</th>
-      <th>pmra</th>
-      <th>pmdec</th>
-      <th>phi1</th>
-      <th>phi2</th>
-      <th>pm_phi1</th>
-      <th>pm_phi2</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>count</th>
-      <td>1.403390e+05</td>
-      <td>140339.000000</td>
-      <td>140339.000000</td>
-      <td>140339.000000</td>
-      <td>140339.000000</td>
-      <td>140339.000000</td>
-      <td>140339.000000</td>
-      <td>140339.000000</td>
-      <td>140339.000000</td>
-    </tr>
-    <tr>
-      <th>mean</th>
-      <td>6.792399e+17</td>
-      <td>143.823122</td>
-      <td>26.780285</td>
-      <td>-2.484404</td>
-      <td>-6.100777</td>
-      <td>-50.091158</td>
-      <td>-1.803301</td>
-      <td>-0.868963</td>
-      <td>1.409208</td>
-    </tr>
-    <tr>
-      <th>std</th>
-      <td>3.792177e+16</td>
-      <td>3.697850</td>
-      <td>3.052592</td>
-      <td>5.913939</td>
-      <td>7.202047</td>
-      <td>2.892344</td>
-      <td>3.444398</td>
-      <td>6.657714</td>
-      <td>6.518615</td>
-    </tr>
-    <tr>
-      <th>min</th>
-      <td>6.214900e+17</td>
-      <td>135.425699</td>
-      <td>19.286617</td>
-      <td>-106.755260</td>
-      <td>-138.065163</td>
-      <td>-54.999989</td>
-      <td>-8.029159</td>
-      <td>-115.275637</td>
-      <td>-161.150142</td>
-    </tr>
-    <tr>
-      <th>25%</th>
-      <td>6.443517e+17</td>
-      <td>140.967966</td>
-      <td>24.592490</td>
-      <td>-5.038789</td>
-      <td>-8.341561</td>
-      <td>-52.602952</td>
-      <td>-4.750426</td>
-      <td>-2.948723</td>
-      <td>-1.107128</td>
-    </tr>
-    <tr>
-      <th>50%</th>
-      <td>6.888060e+17</td>
-      <td>143.734409</td>
-      <td>26.746261</td>
-      <td>-1.834943</td>
-      <td>-4.689596</td>
-      <td>-50.147362</td>
-      <td>-1.671502</td>
-      <td>0.585037</td>
-      <td>1.987149</td>
-    </tr>
-    <tr>
-      <th>75%</th>
-      <td>6.976579e+17</td>
-      <td>146.607350</td>
-      <td>28.990500</td>
-      <td>0.452893</td>
-      <td>-1.937809</td>
-      <td>-47.593279</td>
-      <td>1.160514</td>
-      <td>3.001768</td>
-      <td>4.628965</td>
-    </tr>
-    <tr>
-      <th>max</th>
-      <td>7.974418e+17</td>
-      <td>152.777393</td>
-      <td>34.285481</td>
-      <td>104.319923</td>
-      <td>20.981070</td>
-      <td>-44.999985</td>
-      <td>4.014609</td>
-      <td>39.802471</td>
-      <td>79.275199</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
 </div>
 <div class="section" id="id1">
 <h3>Exercise<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
@@ -1035,17 +746,7 @@ One of the most useful of these functions is <code class="docutils literal notra
 </ul>
 <div class="cell tag_hide-cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
-
-<span class="c1"># The most noticeable issue is that some of the</span>
-<span class="c1"># parallax values are negative, which is non-physical.</span>
-
-<span class="c1"># The reason is that parallax measurements are less accurate</span>
-<span class="c1"># for stars that are far away.</span>
-
-<span class="c1"># Fortunately, we don&#39;t use the parallax measurements in</span>
-<span class="c1"># the analysis (one of the reasons we used constant distance</span>
-<span class="c1"># for reflex correction).</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution goes here</span>
 </pre></div>
 </div>
 </div>
@@ -1075,9 +776,6 @@ Then we will use the bounds of the cluster to select stars that are more likely 
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="_images/03_motion_69_0.png" src="_images/03_motion_69_0.png" />
-</div>
 </div>
 <p>Most of the proper motions are near the origin, but there are a few extreme values.
 Following the example in the paper, we’ll use <code class="docutils literal notranslate"><span class="pre">xlim</span></code> and <code class="docutils literal notranslate"><span class="pre">ylim</span></code> to zoom in on the region near the origin.</p>
@@ -1094,9 +792,6 @@ Following the example in the paper, we’ll use <code class="docutils literal no
 <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/03_motion_71_0.png" src="_images/03_motion_71_0.png" />
 </div>
 </div>
 <p>There is a hint of an overdense region near (-7.5, 0), but if you didn’t know where to look, you would miss it.</p>
@@ -1116,11 +811,6 @@ We’ll do that by selecting stars close to the centerline.</p>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>pandas.core.series.Series
-</pre></div>
-</div>
-</div>
 </div>
 <p>The result is a <code class="docutils literal notranslate"><span class="pre">Series</span></code>, which is the structure Pandas uses to represent columns.</p>
 <p>We can use a comparison operator, <code class="docutils literal notranslate"><span class="pre">&gt;</span></code>, to compare the values in a <code class="docutils literal notranslate"><span class="pre">Series</span></code> to a constant.</p>
@@ -1134,26 +824,11 @@ We’ll do that by selecting stars close to the centerline.</p>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>pandas.core.series.Series
-</pre></div>
-</div>
-</div>
 </div>
 <p>The result is a <code class="docutils literal notranslate"><span class="pre">Series</span></code> of Boolean values, that is, <code class="docutils literal notranslate"><span class="pre">True</span></code> and <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mask</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0    False
-1    False
-2    False
-3    False
-4    False
-Name: phi2, dtype: bool
 </pre></div>
 </div>
 </div>
@@ -1176,22 +851,12 @@ The result is true where elements from both Boolean <code class="docutils litera
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>25084
-</pre></div>
-</div>
-</div>
 </div>
 <p>A Boolean <code class="docutils literal notranslate"><span class="pre">Series</span></code> is sometimes called a “mask” because we can use it to mask out some of the rows in a <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> and select the rest, like this:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">centerline_df</span> <span class="o">=</span> <span class="n">results_df</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span>
 <span class="nb">type</span><span class="p">(</span><span class="n">centerline_df</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>pandas.core.frame.DataFrame
 </pre></div>
 </div>
 </div>
@@ -1205,21 +870,11 @@ So it contains the stars near the centerline of GD-1.</p>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>25084
-</pre></div>
-</div>
-</div>
 </div>
 <p>And what fraction of the rows we’ve selected.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">centerline_df</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">results_df</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.1787386257562046
 </pre></div>
 </div>
 </div>
@@ -1255,9 +910,6 @@ So it contains the stars near the centerline of GD-1.</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_proper_motion</span><span class="p">(</span><span class="n">centerline_df</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/03_motion_94_0.png" src="_images/03_motion_94_0.png" />
 </div>
 </div>
 <p>Now we can see more clearly that there is a cluster near (-7.5, 0).</p>
@@ -1309,9 +961,6 @@ So it contains the stars near the centerline of GD-1.</p>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="_images/03_motion_102_0.png" src="_images/03_motion_102_0.png" />
-</div>
 </div>
 <p>Now that we’ve identified the bounds of the cluster in proper motion, we’ll use it to select rows from <code class="docutils literal notranslate"><span class="pre">results_df</span></code>.</p>
 <p>We’ll use the following function, which uses Pandas operators to make a mask that selects rows where <code class="docutils literal notranslate"><span class="pre">series</span></code> falls between <code class="docutils literal notranslate"><span class="pre">low</span></code> and <code class="docutils literal notranslate"><span class="pre">high</span></code>.</p>
@@ -1343,22 +992,12 @@ So it contains the stars near the centerline of GD-1.</p>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1049
-</pre></div>
-</div>
-</div>
 </div>
 <p>Now we can use this mask to select rows from <code class="docutils literal notranslate"><span class="pre">results_df</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">selected_df</span> <span class="o">=</span> <span class="n">results_df</span><span class="p">[</span><span class="n">pm_mask</span><span class="p">]</span>
 <span class="nb">len</span><span class="p">(</span><span class="n">selected_df</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1049
 </pre></div>
 </div>
 </div>
@@ -1375,9 +1014,6 @@ So it contains the stars near the centerline of GD-1.</p>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="_images/03_motion_112_0.png" src="_images/03_motion_112_0.png" />
-</div>
 </div>
 <p>Now that’s starting to look like a tidal stream!</p>
 </div>
@@ -1389,11 +1025,6 @@ So it contains the stars near the centerline of GD-1.</p>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">selected_table</span> <span class="o">=</span> <span class="n">Table</span><span class="o">.</span><span class="n">from_pandas</span><span class="p">(</span><span class="n">selected_df</span><span class="p">)</span>
 <span class="nb">type</span><span class="p">(</span><span class="n">selected_table</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>astropy.table.table.Table
 </pre></div>
 </div>
 </div>
@@ -1424,9 +1055,7 @@ So it contains the stars near the centerline of GD-1.</p>
 <p>Hint: Since the file already exists, you should <em>not</em> use <code class="docutils literal notranslate"><span class="pre">mode='w'</span></code>.</p>
 <div class="cell tag_hide-cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
-
-<span class="n">centerline_df</span><span class="o">.</span><span class="n">to_hdf</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;centerline_df&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution goes here</span>
 </pre></div>
 </div>
 </div>
@@ -1441,22 +1070,12 @@ So it contains the stars near the centerline of GD-1.</p>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2.0090408325195312
-</pre></div>
-</div>
-</div>
 </div>
 <p>If you forget what the names of the Datasets in the file are, you can read them back like this:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">pd</span><span class="o">.</span><span class="n">HDFStore</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span> <span class="k">as</span> <span class="n">hdf</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">hdf</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;/centerline_df&#39;, &#39;/selected_df&#39;]
 </pre></div>
 </div>
 </div>

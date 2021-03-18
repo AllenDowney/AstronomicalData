@@ -57,7 +57,7 @@
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Visualization" href="07_plot.html" />
+    <link rel="next" title="7. Visualization" href="07_plot.html" />
     <link rel="prev" title="5. Joining Tables" href="05_join.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -129,7 +129,7 @@
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="07_plot.html">
-   Visualization
+   7. Visualization
   </a>
  </li>
 </ul>
@@ -244,6 +244,11 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#installing-libraries">
+   Installing libraries
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#reload-the-data">
    Reload the data
   </a>
@@ -327,6 +332,24 @@ The following figure from the paper is a color-magnitude diagram showing the sta
 <li><p>Use Pandas to merge data from multiple <code class="docutils literal notranslate"><span class="pre">DataFrames</span></code>, much like a database <code class="docutils literal notranslate"><span class="pre">JOIN</span></code> operation.</p></li>
 </ul>
 </div>
+<div class="section" id="installing-libraries">
+<h2>Installing libraries<a class="headerlink" href="#installing-libraries" title="Permalink to this headline">¶</a></h2>
+<p>If you are running this notebook on Colab, you can run the following cell to install the libraries we’ll use.</p>
+<p>If you are running this notebook on your own computer, you might have to install these libraries yourself.  See the instructions in the preface.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># If we&#39;re running on Colab, install libraries</span>
+
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="n">IN_COLAB</span> <span class="o">=</span> <span class="s1">&#39;google.colab&#39;</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span>
+
+<span class="k">if</span> <span class="n">IN_COLAB</span><span class="p">:</span>
+    <span class="o">!</span>pip install wget
+</pre></div>
+</div>
+</div>
+</div>
+</div>
 <div class="section" id="reload-the-data">
 <h2>Reload the data<a class="headerlink" href="#reload-the-data" title="Permalink to this headline">¶</a></h2>
 <p>The following cell downloads the photometry data we created in the previous notebook.</p>
@@ -407,9 +430,6 @@ The input can be an Astropy <code class="docutils literal notranslate"><span cla
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="_images/06_photo_13_0.png" src="_images/06_photo_13_0.png" />
-</div>
 </div>
 <p>Our figure does not look exactly like the one in the paper because we are working with a smaller region of the sky, so we don’t have as many stars.  But we can see an overdense region in the lower left that contains stars with the photometry we expect for GD-1.</p>
 <p>In the next section we’ll use an isochrone to specify a polygon that contains this overdense regioin.</p>
@@ -466,21 +486,11 @@ The input can be an Astropy <code class="docutils literal notranslate"><span cla
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Reading in: MIST_iso_5fd2532653c27.iso.cmd
-</pre></div>
-</div>
-</div>
 </div>
 <p>The result is an <code class="docutils literal notranslate"><span class="pre">ISOCMD</span></code> object.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">iso</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>read_mist_models.ISOCMD
 </pre></div>
 </div>
 </div>
@@ -492,21 +502,11 @@ The input can be an Astropy <code class="docutils literal notranslate"><span cla
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>list
-</pre></div>
-</div>
-</div>
 </div>
 <p>We only got one isochrone.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">iso</span><span class="o">.</span><span class="n">isocmds</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1
 </pre></div>
 </div>
 </div>
@@ -526,11 +526,6 @@ The input can be an Astropy <code class="docutils literal notranslate"><span cla
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>numpy.ndarray
-</pre></div>
-</div>
-</div>
 </div>
 <p>But it’s an unusual NumPy array, because it contains names for the columns.</p>
 <div class="cell docutils container">
@@ -539,21 +534,11 @@ The input can be an Astropy <code class="docutils literal notranslate"><span cla
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>dtype([(&#39;EEP&#39;, &#39;&lt;i4&#39;), (&#39;isochrone_age_yr&#39;, &#39;&lt;f8&#39;), (&#39;initial_mass&#39;, &#39;&lt;f8&#39;), (&#39;star_mass&#39;, &#39;&lt;f8&#39;), (&#39;log_Teff&#39;, &#39;&lt;f8&#39;), (&#39;log_g&#39;, &#39;&lt;f8&#39;), (&#39;log_L&#39;, &#39;&lt;f8&#39;), (&#39;[Fe/H]_init&#39;, &#39;&lt;f8&#39;), (&#39;[Fe/H]&#39;, &#39;&lt;f8&#39;), (&#39;PS_g&#39;, &#39;&lt;f8&#39;), (&#39;PS_r&#39;, &#39;&lt;f8&#39;), (&#39;PS_i&#39;, &#39;&lt;f8&#39;), (&#39;PS_z&#39;, &#39;&lt;f8&#39;), (&#39;PS_y&#39;, &#39;&lt;f8&#39;), (&#39;PS_w&#39;, &#39;&lt;f8&#39;), (&#39;PS_open&#39;, &#39;&lt;f8&#39;), (&#39;phase&#39;, &#39;&lt;f8&#39;)])
-</pre></div>
-</div>
-</div>
 </div>
 <p>Which means we can select columns using the bracket operator:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">iso_array</span><span class="p">[</span><span class="s1">&#39;phase&#39;</span><span class="p">]</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0., 0., 0., ..., 6., 6., 6.])
 </pre></div>
 </div>
 </div>
@@ -566,21 +551,11 @@ The input can be an Astropy <code class="docutils literal notranslate"><span cla
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>354
-</pre></div>
-</div>
-</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">main_sequence</span> <span class="o">=</span> <span class="n">iso_array</span><span class="p">[</span><span class="n">phase_mask</span><span class="p">]</span>
 <span class="nb">len</span><span class="p">(</span><span class="n">main_sequence</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>354
 </pre></div>
 </div>
 </div>
@@ -596,11 +571,6 @@ The input can be an Astropy <code class="docutils literal notranslate"><span cla
 <span class="n">distance</span> <span class="o">=</span> <span class="mf">7.8</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">kpc</span>
 <span class="n">distmod</span> <span class="o">=</span> <span class="n">coord</span><span class="o">.</span><span class="n">Distance</span><span class="p">(</span><span class="n">distance</span><span class="p">)</span><span class="o">.</span><span class="n">distmod</span><span class="o">.</span><span class="n">value</span>
 <span class="n">distmod</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>14.4604730134524
 </pre></div>
 </div>
 </div>
@@ -622,9 +592,6 @@ The input can be an Astropy <code class="docutils literal notranslate"><span cla
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="_images/06_photo_43_0.png" src="_images/06_photo_43_0.png" />
-</div>
 </div>
 <p>The theoretical isochrone passes through the overdense region where we expect to find stars in GD-1.</p>
 <p>Let’s save this result so we can reload it later without repeating the steps in this section.</p>
@@ -641,58 +608,6 @@ The input can be an Astropy <code class="docutils literal notranslate"><span cla
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>mag_g</th>
-      <th>color_g_i</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>28.294743</td>
-      <td>2.195021</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>28.189718</td>
-      <td>2.166076</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>28.051761</td>
-      <td>2.129312</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>27.916194</td>
-      <td>2.093721</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>27.780024</td>
-      <td>2.058585</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
 </div>
 <p>And then save it.</p>
 <div class="cell docutils container">
@@ -729,58 +644,6 @@ The input can be an Astropy <code class="docutils literal notranslate"><span cla
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>mag_g</th>
-      <th>color_g_i</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>28.294743</td>
-      <td>2.195021</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>28.189718</td>
-      <td>2.166076</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>28.051761</td>
-      <td>2.129312</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>27.916194</td>
-      <td>2.093721</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>27.780024</td>
-      <td>2.058585</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
 </div>
 <p>Here’s what the isochrone looks like on the color-magnitude diagram.</p>
 <div class="cell docutils container">
@@ -789,9 +652,6 @@ The input can be an Astropy <code class="docutils literal notranslate"><span cla
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">iso_df</span><span class="p">[</span><span class="s1">&#39;color_g_i&#39;</span><span class="p">],</span> <span class="n">iso_df</span><span class="p">[</span><span class="s1">&#39;mag_g&#39;</span><span class="p">]);</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/06_photo_53_0.png" src="_images/06_photo_53_0.png" />
 </div>
 </div>
 <p>In the bottom half of the figure, the isochrone passes through the overdense region where the stars are likely to belong to GD-1.</p>
@@ -807,11 +667,6 @@ The input can be an Astropy <code class="docutils literal notranslate"><span cla
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>117
-</pre></div>
-</div>
-</div>
 </div>
 <p>We can use it to select the corresponding rows in <code class="docutils literal notranslate"><span class="pre">iso_df</span></code>:</p>
 <div class="cell docutils container">
@@ -821,58 +676,6 @@ The input can be an Astropy <code class="docutils literal notranslate"><span cla
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>mag_g</th>
-      <th>color_g_i</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>94</th>
-      <td>21.411746</td>
-      <td>0.692171</td>
-    </tr>
-    <tr>
-      <th>95</th>
-      <td>21.322466</td>
-      <td>0.670238</td>
-    </tr>
-    <tr>
-      <th>96</th>
-      <td>21.233380</td>
-      <td>0.648449</td>
-    </tr>
-    <tr>
-      <th>97</th>
-      <td>21.144427</td>
-      <td>0.626924</td>
-    </tr>
-    <tr>
-      <th>98</th>
-      <td>21.054549</td>
-      <td>0.605461</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
 </div>
 <p>Now, to select the stars in the overdense region, we have to define a polygon that includes stars near the isochrone.</p>
 <p>The original paper uses the following formulas to define the left and right boundaries.</p>
@@ -907,9 +710,6 @@ The input can be an Astropy <code class="docutils literal notranslate"><span cla
 <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/06_photo_63_0.png" src="_images/06_photo_63_0.png" />
 </div>
 </div>
 </div>
@@ -946,22 +746,12 @@ The input can be an Astropy <code class="docutils literal notranslate"><span cla
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(234,)
-</pre></div>
-</div>
-</div>
 </div>
 <p>And a corresponding loop with the elements of <code class="docutils literal notranslate"><span class="pre">g</span></code> in forward and reverse order.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mag_loop</span> <span class="o">=</span> <span class="n">front_to_back</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">g</span><span class="p">)</span>
 <span class="n">mag_loop</span><span class="o">.</span><span class="n">shape</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(234,)
 </pre></div>
 </div>
 </div>
@@ -974,9 +764,6 @@ The input can be an Astropy <code class="docutils literal notranslate"><span cla
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="_images/06_photo_71_0.png" src="_images/06_photo_71_0.png" />
-</div>
 </div>
 <p>To make a <code class="docutils literal notranslate"><span class="pre">Polygon</span></code>, it will be convenient to put <code class="docutils literal notranslate"><span class="pre">color_loop</span></code> and <code class="docutils literal notranslate"><span class="pre">mag_loop</span></code> into a <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>:</p>
 <div class="cell docutils container">
@@ -988,58 +775,6 @@ The input can be an Astropy <code class="docutils literal notranslate"><span cla
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>color_loop</th>
-      <th>mag_loop</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>0.632171</td>
-      <td>21.411746</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>0.610238</td>
-      <td>21.322466</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>0.588449</td>
-      <td>21.233380</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>0.566924</td>
-      <td>21.144427</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>0.545461</td>
-      <td>21.054549</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
 </div>
 <p>Now we can pass <code class="docutils literal notranslate"><span class="pre">loop_df</span></code> to <code class="docutils literal notranslate"><span class="pre">Polygon</span></code>:</p>
 <div class="cell docutils container">
@@ -1048,11 +783,6 @@ The input can be an Astropy <code class="docutils literal notranslate"><span cla
 
 <span class="n">polygon</span> <span class="o">=</span> <span class="n">Polygon</span><span class="p">(</span><span class="n">loop_df</span><span class="p">)</span>
 <span class="n">polygon</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.patches.Polygon at 0x7fd8a96084f0&gt;
 </pre></div>
 </div>
 </div>
@@ -1072,11 +802,6 @@ The input can be an Astropy <code class="docutils literal notranslate"><span cla
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">inside</span> <span class="o">=</span> <span class="n">polygon</span><span class="o">.</span><span class="n">contains_points</span><span class="p">(</span><span class="n">points</span><span class="p">)</span>
 <span class="n">inside</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([ True, False])
 </pre></div>
 </div>
 </div>
@@ -1115,58 +840,6 @@ We’ll put color and magnitude data from <code class="docutils literal notransl
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>color</th>
-      <th>mag</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>0.3804</td>
-      <td>17.8978</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>1.6092</td>
-      <td>19.2873</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>0.4457</td>
-      <td>16.9238</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>1.5902</td>
-      <td>19.9242</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>1.4853</td>
-      <td>16.1516</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
 </div>
 <p>Which we can pass to <code class="docutils literal notranslate"><span class="pre">contains_points</span></code>:</p>
 <div class="cell docutils container">
@@ -1176,21 +849,11 @@ We’ll put color and magnitude data from <code class="docutils literal notransl
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([False, False, False, ..., False, False, False])
-</pre></div>
-</div>
-</div>
 </div>
 <p>The result is a Boolean array.  We can use <code class="docutils literal notranslate"><span class="pre">sum</span></code> to see how many stars fall in the polygon.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">inside</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>454
 </pre></div>
 </div>
 </div>
@@ -1216,9 +879,6 @@ We’ll put color and magnitude data from <code class="docutils literal notransl
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="_images/06_photo_92_0.png" src="_images/06_photo_92_0.png" />
-</div>
 </div>
 <p>It looks like the selected stars are, in fact, inside the polygon, which means they have photometry data consistent with GD-1.</p>
 <p>Finally, we can plot the coordinates of the selected stars:</p>
@@ -1236,9 +896,6 @@ We’ll put color and magnitude data from <code class="docutils literal notransl
 <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/06_photo_94_0.png" src="_images/06_photo_94_0.png" />
 </div>
 </div>
 <p>This example includes two new Matplotlib commands:</p>
@@ -1265,11 +922,6 @@ We’ll put color and magnitude data from <code class="docutils literal notransl
 
 <span class="n">MB</span> <span class="o">=</span> <span class="mi">1024</span> <span class="o">*</span> <span class="mi">1024</span>
 <span class="n">getsize</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span> <span class="o">/</span> <span class="n">MB</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2.512819290161133
 </pre></div>
 </div>
 </div>
@@ -1319,7 +971,7 @@ We used an isochrone to define a polygon and select stars we think are likely to
     <div class='prev-next-bottom'>
         
     <a class='left-prev' id="prev-link" href="05_join.html" title="previous page">5. Joining Tables</a>
-    <a class='right-next' id="next-link" href="07_plot.html" title="next page">Visualization</a>
+    <a class='right-next' id="next-link" href="07_plot.html" title="next page">7. Visualization</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">

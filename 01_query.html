@@ -129,7 +129,7 @@
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="07_plot.html">
-   Visualization
+   7. Visualization
   </a>
  </li>
 </ul>
@@ -251,6 +251,11 @@
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#using-jupyter">
    Using Jupyter
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#installing-libraries">
+   Installing libraries
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -391,6 +396,24 @@ But you might find it easier to learn from <a class="reference external" href="h
 </ul>
 <p>Before you go on, you might want to explore the other menus and the toolbar to see what else you can do.</p>
 </div>
+<div class="section" id="installing-libraries">
+<h2>Installing libraries<a class="headerlink" href="#installing-libraries" title="Permalink to this headline">¶</a></h2>
+<p>If you are running this notebook on Colab, you should run the following cell to install the libraries we’ll need.</p>
+<p>If you are running this notebook on your own computer, you might have to install these libraries yourself.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># If we&#39;re running on Colab, install libraries</span>
+
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="n">IN_COLAB</span> <span class="o">=</span> <span class="s1">&#39;google.colab&#39;</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span>
+
+<span class="k">if</span> <span class="n">IN_COLAB</span><span class="p">:</span>
+    <span class="o">!</span>pip install astroquery
+</pre></div>
+</div>
+</div>
+</div>
+</div>
 <div class="section" id="connecting-to-gaia">
 <h2>Connecting to Gaia<a class="headerlink" href="#connecting-to-gaia" title="Permalink to this headline">¶</a></h2>
 <p>The library we’ll use to get Gaia data is <a class="reference external" href="https://astroquery.readthedocs.io/en/latest/">Astroquery</a>.
@@ -399,20 +422,6 @@ Astroquery provides <code class="docutils literal notranslate"><span class="pre"
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">astroquery.gaia</span> <span class="kn">import</span> <span class="n">Gaia</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Created TAP+ (v1.2.1) - Connection:
-	Host: gea.esac.esa.int
-	Use HTTPS: True
-	Port: 443
-	SSL Port: 443
-Created TAP+ (v1.2.1) - Connection:
-	Host: geadata.esac.esa.int
-	Use HTTPS: True
-	Port: 443
-	SSL Port: 443
 </pre></div>
 </div>
 </div>
@@ -433,157 +442,12 @@ Created TAP+ (v1.2.1) - Connection:
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: Retrieving tables... [astroquery.utils.tap.core]
-INFO: Parsing tables... [astroquery.utils.tap.core]
-INFO: Done. [astroquery.utils.tap.core]
-</pre></div>
-</div>
-</div>
 </div>
 <p>The following <code class="docutils literal notranslate"><span class="pre">for</span></code> loop prints the names of the tables.</p>
-<div class="cell tag_hide-output tag_truncate-output docutils container">
+<div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">table</span> <span class="ow">in</span> <span class="n">tables</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>external.apassdr9
-external.gaiadr2_geometric_distance
-external.gaiaedr3_distance
-external.galex_ais
-external.ravedr5_com
-external.ravedr5_dr5
-external.ravedr5_gra
-external.ravedr5_on
-external.sdssdr13_photoprimary
-external.skymapperdr1_master
-external.skymapperdr2_master
-external.tmass_xsc
-public.hipparcos
-public.hipparcos_newreduction
-public.hubble_sc
-public.igsl_source
-public.igsl_source_catalog_ids
-public.tycho2
-public.dual
-tap_config.coord_sys
-tap_config.properties
-tap_schema.columns
-tap_schema.key_columns
-tap_schema.keys
-tap_schema.schemas
-tap_schema.tables
-gaiaedr3.gaia_source
-gaiaedr3.agn_cross_id
-gaiaedr3.commanded_scan_law
-gaiaedr3.dr2_neighbourhood
-gaiaedr3.frame_rotator_source
-gaiaedr3.allwise_best_neighbour
-gaiaedr3.allwise_neighbourhood
-gaiaedr3.apassdr9_best_neighbour
-gaiaedr3.apassdr9_join
-gaiaedr3.apassdr9_neighbourhood
-gaiaedr3.gsc23_best_neighbour
-gaiaedr3.gsc23_join
-gaiaedr3.gsc23_neighbourhood
-gaiaedr3.hipparcos2_best_neighbour
-gaiaedr3.hipparcos2_neighbourhood
-gaiaedr3.panstarrs1_best_neighbour
-gaiaedr3.panstarrs1_join
-gaiaedr3.panstarrs1_neighbourhood
-gaiaedr3.ravedr5_best_neighbour
-gaiaedr3.ravedr5_join
-gaiaedr3.ravedr5_neighbourhood
-gaiaedr3.sdssdr13_best_neighbour
-gaiaedr3.sdssdr13_join
-gaiaedr3.sdssdr13_neighbourhood
-gaiaedr3.skymapperdr2_best_neighbour
-gaiaedr3.skymapperdr2_join
-gaiaedr3.skymapperdr2_neighbourhood
-gaiaedr3.tmass_psc_xsc_best_neighbour
-gaiaedr3.tmass_psc_xsc_join
-gaiaedr3.tmass_psc_xsc_neighbourhood
-gaiaedr3.tycho2tdsc_merge_best_neighbour
-gaiaedr3.tycho2tdsc_merge_neighbourhood
-gaiaedr3.urat1_best_neighbour
-gaiaedr3.urat1_neighbourhood
-gaiaedr3.gaia_source_simulation
-gaiaedr3.gaia_universe_model
-gaiaedr3.tycho2tdsc_merge
-gaiadr1.aux_qso_icrf2_match
-gaiadr1.ext_phot_zero_point
-gaiadr1.allwise_best_neighbour
-gaiadr1.allwise_neighbourhood
-gaiadr1.gsc23_best_neighbour
-gaiadr1.gsc23_neighbourhood
-gaiadr1.ppmxl_best_neighbour
-gaiadr1.ppmxl_neighbourhood
-gaiadr1.sdss_dr9_best_neighbour
-gaiadr1.sdss_dr9_neighbourhood
-gaiadr1.tmass_best_neighbour
-gaiadr1.tmass_neighbourhood
-gaiadr1.ucac4_best_neighbour
-gaiadr1.ucac4_neighbourhood
-gaiadr1.urat1_best_neighbour
-gaiadr1.urat1_neighbourhood
-gaiadr1.cepheid
-gaiadr1.phot_variable_time_series_gfov
-gaiadr1.phot_variable_time_series_gfov_statistical_parameters
-gaiadr1.rrlyrae
-gaiadr1.variable_summary
-gaiadr1.allwise_original_valid
-gaiadr1.gsc23_original_valid
-gaiadr1.ppmxl_original_valid
-gaiadr1.sdssdr9_original_valid
-gaiadr1.tmass_original_valid
-gaiadr1.ucac4_original_valid
-gaiadr1.urat1_original_valid
-gaiadr1.gaia_source
-gaiadr1.tgas_source
-gaiadr2.aux_allwise_agn_gdr2_cross_id
-gaiadr2.aux_iers_gdr2_cross_id
-gaiadr2.aux_sso_orbit_residuals
-gaiadr2.aux_sso_orbits
-gaiadr2.dr1_neighbourhood
-gaiadr2.allwise_best_neighbour
-gaiadr2.allwise_neighbourhood
-gaiadr2.apassdr9_best_neighbour
-gaiadr2.apassdr9_neighbourhood
-gaiadr2.gsc23_best_neighbour
-gaiadr2.gsc23_neighbourhood
-gaiadr2.hipparcos2_best_neighbour
-gaiadr2.hipparcos2_neighbourhood
-gaiadr2.panstarrs1_best_neighbour
-gaiadr2.panstarrs1_neighbourhood
-gaiadr2.ppmxl_best_neighbour
-gaiadr2.ppmxl_neighbourhood
-gaiadr2.ravedr5_best_neighbour
-gaiadr2.ravedr5_neighbourhood
-gaiadr2.sdssdr9_best_neighbour
-gaiadr2.sdssdr9_neighbourhood
-gaiadr2.tmass_best_neighbour
-gaiadr2.tmass_neighbourhood
-gaiadr2.tycho2_best_neighbour
-gaiadr2.tycho2_neighbourhood
-gaiadr2.urat1_best_neighbour
-gaiadr2.urat1_neighbourhood
-gaiadr2.sso_observation
-gaiadr2.sso_source
-gaiadr2.vari_cepheid
-gaiadr2.vari_classifier_class_definition
-gaiadr2.vari_classifier_definition
-gaiadr2.vari_classifier_result
-gaiadr2.vari_long_period_variable
-gaiadr2.vari_rotation_modulation
-gaiadr2.vari_rrlyrae
-gaiadr2.vari_short_timescale
-gaiadr2.vari_time_series_statistics
-gaiadr2.panstarrs1_original_valid
-gaiadr2.gaia_source
-gaiadr2.ruwe
 </pre></div>
 </div>
 </div>
@@ -602,16 +466,6 @@ gaiadr2.ruwe
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Retrieving table &#39;gaiadr2.gaia_source&#39;
-Parsing table &#39;gaiadr2.gaia_source&#39;...
-Done.
-</pre></div>
-</div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;astroquery.utils.tap.model.taptable.TapTableMeta at 0x7f50edd2aeb0&gt;
-</pre></div>
-</div>
-</div>
 </div>
 <p>Jupyter shows that the result is an object of type <code class="docutils literal notranslate"><span class="pre">TapTableMeta</span></code>, but it does not display the contents.</p>
 <p>To see the metadata, we have to print the object.</p>
@@ -621,126 +475,15 @@ Done.
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>TAP Table name: gaiadr2.gaiadr2.gaia_source
-Description: This table has an entry for every Gaia observed source as listed in the
-Main Database accumulating catalogue version from which the catalogue
-release has been generated. It contains the basic source parameters,
-that is only final data (no epoch data) and no spectra (neither final
-nor epoch).
-Num. columns: 96
-</pre></div>
-</div>
-</div>
 </div>
 </div>
 <div class="section" id="columns">
 <h2>Columns<a class="headerlink" href="#columns" title="Permalink to this headline">¶</a></h2>
 <p>The following loop prints the names of the columns in the table.</p>
-<div class="cell tag_hide-output tag_truncate-output docutils container">
+<div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">meta</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">column</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>solution_id
-designation
-source_id
-random_index
-ref_epoch
-ra
-ra_error
-dec
-dec_error
-parallax
-parallax_error
-parallax_over_error
-pmra
-pmra_error
-pmdec
-pmdec_error
-ra_dec_corr
-ra_parallax_corr
-ra_pmra_corr
-ra_pmdec_corr
-dec_parallax_corr
-dec_pmra_corr
-dec_pmdec_corr
-parallax_pmra_corr
-parallax_pmdec_corr
-pmra_pmdec_corr
-astrometric_n_obs_al
-astrometric_n_obs_ac
-astrometric_n_good_obs_al
-astrometric_n_bad_obs_al
-astrometric_gof_al
-astrometric_chi2_al
-astrometric_excess_noise
-astrometric_excess_noise_sig
-astrometric_params_solved
-astrometric_primary_flag
-astrometric_weight_al
-astrometric_pseudo_colour
-astrometric_pseudo_colour_error
-mean_varpi_factor_al
-astrometric_matched_observations
-visibility_periods_used
-astrometric_sigma5d_max
-frame_rotator_object_type
-matched_observations
-duplicated_source
-phot_g_n_obs
-phot_g_mean_flux
-phot_g_mean_flux_error
-phot_g_mean_flux_over_error
-phot_g_mean_mag
-phot_bp_n_obs
-phot_bp_mean_flux
-phot_bp_mean_flux_error
-phot_bp_mean_flux_over_error
-phot_bp_mean_mag
-phot_rp_n_obs
-phot_rp_mean_flux
-phot_rp_mean_flux_error
-phot_rp_mean_flux_over_error
-phot_rp_mean_mag
-phot_bp_rp_excess_factor
-phot_proc_mode
-bp_rp
-bp_g
-g_rp
-radial_velocity
-radial_velocity_error
-rv_nb_transits
-rv_template_teff
-rv_template_logg
-rv_template_fe_h
-phot_variable_flag
-l
-b
-ecl_lon
-ecl_lat
-priam_flags
-teff_val
-teff_percentile_lower
-teff_percentile_upper
-a_g_val
-a_g_percentile_lower
-a_g_percentile_upper
-e_bp_min_rp_val
-e_bp_min_rp_percentile_lower
-e_bp_min_rp_percentile_upper
-flame_flags
-radius_val
-radius_percentile_lower
-radius_percentile_upper
-lum_val
-lum_percentile_lower
-lum_percentile_upper
-datalink_url
-epoch_photometry_url
 </pre></div>
 </div>
 </div>
@@ -753,113 +496,7 @@ To find out what the columns mean, <a class="reference external" href="https://g
 <p>One of the other tables we’ll use is <code class="docutils literal notranslate"><span class="pre">gaiadr2.panstarrs1_original_valid</span></code>.  Use <code class="docutils literal notranslate"><span class="pre">load_table</span></code> to get the metadata for this table.  How many columns are there and what are their names?</p>
 <div class="cell tag_hide-cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
-
-<span class="n">meta2</span> <span class="o">=</span> <span class="n">Gaia</span><span class="o">.</span><span class="n">load_table</span><span class="p">(</span><span class="s1">&#39;gaiadr2.panstarrs1_original_valid&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">meta2</span><span class="p">)</span>
-
-<span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">meta2</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">column</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Retrieving table &#39;gaiadr2.panstarrs1_original_valid&#39;
-Parsing table &#39;gaiadr2.panstarrs1_original_valid&#39;...
-Done.
-TAP Table name: gaiadr2.gaiadr2.panstarrs1_original_valid
-Description: The Panoramic Survey Telescope and Rapid Response System (Pan-STARRS) is
-a system for wide-field astronomical imaging developed and operated by
-the Institute for Astronomy at the University of Hawaii. Pan-STARRS1
-(PS1) is the first part of Pan-STARRS to be completed and is the basis
-for Data Release 1 (DR1). The PS1 survey used a 1.8 meter telescope and
-its 1.4 Gigapixel camera to image the sky in five broadband filters (g,
-r, i, z, y).
-
-The current table contains a filtered subsample of the 10 723 304 629
-entries listed in the original ObjectThin table.
-We used only ObjectThin and MeanObject tables to extract
-panstarrs1OriginalValid table, this means that objects detected only in
-stack images are not included here. The main reason for us to avoid the
-use of objects detected in stack images is that their astrometry is not
-as good as the mean objects astrometry: “The stack positions (raStack,
-decStack) have considerably larger systematic astrometric errors than
-the mean epoch positions (raMean, decMean).” The astrometry for the
-MeanObject positions uses Gaia DR1 as a reference catalog, while the
-stack positions use 2MASS as a reference catalog.
-
-In details, we filtered out all objects where:
-
--   nDetections = 1
-
--   no good quality data in Pan-STARRS, objInfoFlag 33554432 not set
-
--   mean astrometry could not be measured, objInfoFlag 524288 set
-
--   stack position used for mean astrometry, objInfoFlag 1048576 set
-
--   error on all magnitudes equal to 0 or to -999;
-
--   all magnitudes set to -999;
-
--   error on RA or DEC greater than 1 arcsec.
-
-The number of objects in panstarrs1OriginalValid is 2 264 263 282.
-
-The panstarrs1OriginalValid table contains only a subset of the columns
-available in the combined ObjectThin and MeanObject tables. A
-description of the original ObjectThin and MeanObjects tables can be
-found at:
-https://outerspace.stsci.edu/display/PANSTARRS/PS1+Database+object+and+detection+tables
-
-Download:
-http://mastweb.stsci.edu/ps1casjobs/home.aspx
-Documentation:
-https://outerspace.stsci.edu/display/PANSTARRS
-http://pswww.ifa.hawaii.edu/pswww/
-References:
-The Pan-STARRS1 Surveys, Chambers, K.C., et al. 2016, arXiv:1612.05560
-Pan-STARRS Data Processing System, Magnier, E. A., et al. 2016,
-arXiv:1612.05240
-Pan-STARRS Pixel Processing: Detrending, Warping, Stacking, Waters, C.
-Z., et al. 2016, arXiv:1612.05245
-Pan-STARRS Pixel Analysis: Source Detection and Characterization,
-Magnier, E. A., et al. 2016, arXiv:1612.05244
-Pan-STARRS Photometric and Astrometric Calibration, Magnier, E. A., et
-al. 2016, arXiv:1612.05242
-The Pan-STARRS1 Database and Data Products, Flewelling, H. A., et al.
-2016, arXiv:1612.05243
-
-Catalogue curator:
-SSDC - ASI Space Science Data Center
-https://www.ssdc.asi.it/
-Num. columns: 26
-obj_name
-obj_id
-ra
-dec
-ra_error
-dec_error
-epoch_mean
-g_mean_psf_mag
-g_mean_psf_mag_error
-g_flags
-r_mean_psf_mag
-r_mean_psf_mag_error
-r_flags
-i_mean_psf_mag
-i_mean_psf_mag_error
-i_flags
-z_mean_psf_mag
-z_mean_psf_mag_error
-z_flags
-y_mean_psf_mag
-y_mean_psf_mag_error
-y_flags
-n_detections
-zone_id
-obj_info_flag
-quality_flag
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution goes here</span>
 </pre></div>
 </div>
 </div>
@@ -900,33 +537,12 @@ quality_flag
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;astroquery.utils.tap.model.job.Job at 0x7f50edd2adc0&gt;
-</pre></div>
-</div>
-</div>
 </div>
 <p>The result is an object that represents the job running on a Gaia server.</p>
 <p>If you print it, it displays metadata for the forthcoming results.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">job</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Table length=10&gt;
-   name    dtype  unit                            description                             n_bad
---------- ------- ---- ------------------------------------------------------------------ -----
-source_id   int64      Unique source identifier (unique within a particular Data Release)     0
-       ra float64  deg                                                    Right ascension     0
-      dec float64  deg                                                        Declination     0
- parallax float64  mas                                                           Parallax     2
-Jobid: None
-Phase: COMPLETED
-Owner: None
-Output file: sync_20210315090602.xml.gz
-Results: None
 </pre></div>
 </div>
 </div>
@@ -937,11 +553,6 @@ Results: None
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">results</span> <span class="o">=</span> <span class="n">job</span><span class="o">.</span><span class="n">get_results</span><span class="p">()</span>
 <span class="nb">type</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>astropy.table.table.Table
 </pre></div>
 </div>
 </div>
@@ -960,23 +571,6 @@ Results: None
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><i>Table length=10</i>
-<table id="table139985564118224" class="table-striped table-bordered table-condensed">
-<thead><tr><th>source_id</th><th>ra</th><th>dec</th><th>parallax</th></tr></thead>
-<thead><tr><th></th><th>deg</th><th>deg</th><th>mas</th></tr></thead>
-<thead><tr><th>int64</th><th>float64</th><th>float64</th><th>float64</th></tr></thead>
-<tr><td>5887983246081387776</td><td>227.978818386372</td><td>-53.64996962450103</td><td>1.0493172163332998</td></tr>
-<tr><td>5887971250213117952</td><td>228.32280834041364</td><td>-53.66270726203726</td><td>0.29455652682279093</td></tr>
-<tr><td>5887991866047288704</td><td>228.1582047014091</td><td>-53.454724911639794</td><td>-0.5789179941669236</td></tr>
-<tr><td>5887968673232040832</td><td>228.07420888099884</td><td>-53.8064612895961</td><td>0.41030970779603076</td></tr>
-<tr><td>5887979844465854720</td><td>228.42547805195946</td><td>-53.48882284470035</td><td>-0.23379683441525864</td></tr>
-<tr><td>5887978607515442688</td><td>228.23831627636855</td><td>-53.56328249482688</td><td>-0.9252161956789068</td></tr>
-<tr><td>5887978298278520704</td><td>228.26015640396173</td><td>-53.607284412896476</td><td>--</td></tr>
-<tr><td>5887995581231772928</td><td>228.12871598211902</td><td>-53.373625663608316</td><td>-0.3325818206439385</td></tr>
-<tr><td>5887982043490374016</td><td>227.985260087594</td><td>-53.683444499055575</td><td>0.02878111976456593</td></tr>
-<tr><td>5887982971205433856</td><td>227.89884570686218</td><td>-53.67430215342567</td><td>--</td></tr>
-</table></div></div>
 </div>
 <p>Each column has a name, units, and a data type.</p>
 <p>For example, the units of <code class="docutils literal notranslate"><span class="pre">ra</span></code> and <code class="docutils literal notranslate"><span class="pre">dec</span></code> are degrees, and their data type is <code class="docutils literal notranslate"><span class="pre">float64</span></code>, which is a 64-bit <a class="reference external" href="https://en.wikipedia.org/wiki/Floating-point_arithmetic">floating-point number</a>, used to store measurements with a fraction part.</p>
@@ -986,23 +580,7 @@ Results: None
 <p>Read <a class="reference external" href="https://gea.esac.esa.int/archive/documentation/GDR2/Gaia_archive/chap_datamodel/sec_dm_main_tables/ssec_dm_gaia_source.html">the documentation</a>  of this table and choose a column that looks interesting to you.  Add the column name to the query and run it again.  What are the units of the column you selected?  What is its data type?</p>
 <div class="cell tag_hide-cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
-
-<span class="c1"># Let&#39;s add</span>
-<span class="c1">#</span>
-<span class="c1"># radial_velocity : Radial velocity (double, Velocity[km/s] )</span>
-<span class="c1">#</span>
-<span class="c1"># Spectroscopic radial velocity in the solar barycentric </span>
-<span class="c1"># reference frame.</span>
-<span class="c1">#</span>
-<span class="c1"># The radial velocity provided is the median value of the </span>
-<span class="c1"># radial velocity measurements at all epochs.</span>
-
-<span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT </span>
-<span class="s2">TOP 10</span>
-<span class="s2">source_id, ra, dec, parallax, radial_velocity</span>
-<span class="s2">FROM gaiadr2.gaia_source</span>
-<span class="s2">&quot;&quot;&quot;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution goes here</span>
 </pre></div>
 </div>
 </div>
@@ -1044,14 +622,6 @@ We’ll use this clause to exclude nearby stars that are unlikely to be part of 
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: Query finished. [astroquery.utils.tap.core]
-</pre></div>
-</div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;astroquery.utils.tap.model.job.Job at 0x7f50edd40f40&gt;
-</pre></div>
-</div>
-</div>
 </div>
 <p>And here are the results.</p>
 <div class="cell docutils container">
@@ -1061,23 +631,6 @@ We’ll use this clause to exclude nearby stars that are unlikely to be part of 
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><i>Table length=10</i>
-<table id="table139986226873968" class="table-striped table-bordered table-condensed">
-<thead><tr><th>source_id</th><th>ra</th><th>dec</th><th>parallax</th><th>radial_velocity</th></tr></thead>
-<thead><tr><th></th><th>deg</th><th>deg</th><th>mas</th><th>km / s</th></tr></thead>
-<thead><tr><th>int64</th><th>float64</th><th>float64</th><th>float64</th><th>float64</th></tr></thead>
-<tr><td>5895270396817359872</td><td>213.08433715252883</td><td>-56.64104701005694</td><td>2.041947005434917</td><td>--</td></tr>
-<tr><td>5895272561481374080</td><td>213.2606587905109</td><td>-56.55044401535715</td><td>0.15693467895110133</td><td>--</td></tr>
-<tr><td>5895247410183786368</td><td>213.38479712976664</td><td>-56.97008551185148</td><td>-0.19017525742552605</td><td>--</td></tr>
-<tr><td>5895249226912448000</td><td>213.41587389088238</td><td>-56.849596577635786</td><td>--</td><td>--</td></tr>
-<tr><td>5895261875598904576</td><td>213.5508930114549</td><td>-56.61037780154348</td><td>-0.29471722363529257</td><td>--</td></tr>
-<tr><td>5895258302187834624</td><td>213.87631129557286</td><td>-56.678537259039906</td><td>0.6468437015289753</td><td>--</td></tr>
-<tr><td>5895247444506644992</td><td>213.33215109206796</td><td>-56.975347759380995</td><td>0.390215490234287</td><td>--</td></tr>
-<tr><td>5895259470417635968</td><td>213.78815034206346</td><td>-56.64585047451594</td><td>0.953377710788918</td><td>--</td></tr>
-<tr><td>5895264899260932352</td><td>213.21521027193236</td><td>-56.78420864489118</td><td>--</td><td>--</td></tr>
-<tr><td>5895265925746051584</td><td>213.17082359534547</td><td>-56.74540885107754</td><td>0.2986918215101751</td><td>--</td></tr>
-</table></div></div>
 </div>
 <p>You might notice that some values of <code class="docutils literal notranslate"><span class="pre">parallax</span></code> are negative.  As <a class="reference external" href="https://www.cosmos.esa.int/web/gaia/archive-tips#negative%20parallax">this FAQ explains</a>, “Negative parallaxes are caused by errors in the observations.”  They have “no physical meaning,” but they can be a “useful diagnostic on the quality of the astrometric solution.”</p>
 <div class="section" id="id2">
@@ -1093,16 +646,7 @@ The modified query should fail, but notice that you don’t get much useful debu
 </ul>
 <div class="cell tag_hide-cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
-
-<span class="c1"># In this example, the WHERE clause is in the wrong place</span>
-
-<span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT </span>
-<span class="s2">TOP 3000</span>
-<span class="s2">WHERE parallax &lt; 1</span>
-<span class="s2">source_id, ref_epoch, ra, dec, parallax</span>
-<span class="s2">FROM gaiadr2.gaia_source</span>
-<span class="s2">&quot;&quot;&quot;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution goes here</span>
 </pre></div>
 </div>
 </div>
@@ -1152,27 +696,7 @@ Be careful to keep your Python out of your ADQL!</p>
 <p><a class="reference external" href="https://www.w3schools.com/sql/sql_operators.asp">Read about SQL operators here</a> and then modify the previous query to select rows where <code class="docutils literal notranslate"><span class="pre">bp_rp</span></code> is between <code class="docutils literal notranslate"><span class="pre">-0.75</span></code> and <code class="docutils literal notranslate"><span class="pre">2</span></code>.</p>
 <div class="cell tag_hide-cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
-
-<span class="c1"># Here&#39;s a solution using &gt; and &lt; operators</span>
-
-<span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT </span>
-<span class="s2">TOP 10</span>
-<span class="s2">source_id, ref_epoch, ra, dec, parallax</span>
-<span class="s2">FROM gaiadr2.gaia_source</span>
-<span class="s2">WHERE parallax &lt; 1 </span>
-<span class="s2">  AND bp_rp &gt; -0.75 AND bp_rp &lt; 2</span>
-<span class="s2">&quot;&quot;&quot;</span>
-
-<span class="c1"># And here&#39;s a solution using the BETWEEN operator</span>
-
-<span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT </span>
-<span class="s2">TOP 10</span>
-<span class="s2">source_id, ref_epoch, ra, dec, parallax</span>
-<span class="s2">FROM gaiadr2.gaia_source</span>
-<span class="s2">WHERE parallax &lt; 1 </span>
-<span class="s2">  AND bp_rp BETWEEN -0.75 AND 2</span>
-<span class="s2">&quot;&quot;&quot;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution goes here</span>
 </pre></div>
 </div>
 </div>
@@ -1230,26 +754,11 @@ That’s not required, but it is a common style.</p>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;SELECT \nTOP 10 \nsource_id, ra, dec, pmra, pmdec\nFROM gaiadr2.gaia_source\nWHERE parallax &lt; 1\n  AND bp_rp BETWEEN -0.75 AND 2\n&#39;
-</pre></div>
-</div>
-</div>
 </div>
 <p>But if you print it, the line breaks appear as… line breaks.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">query3</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>SELECT 
-TOP 10 
-source_id, ra, dec, pmra, pmdec
-FROM gaiadr2.gaia_source
-WHERE parallax &lt; 1
-  AND bp_rp BETWEEN -0.75 AND 2
 </pre></div>
 </div>
 </div>
@@ -1263,23 +772,6 @@ WHERE parallax &lt; 1
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Table length=10&gt;
-   name    dtype    unit                              description                            
---------- ------- -------- ------------------------------------------------------------------
-source_id   int64          Unique source identifier (unique within a particular Data Release)
-       ra float64      deg                                                    Right ascension
-      dec float64      deg                                                        Declination
-     pmra float64 mas / yr                         Proper motion in right ascension direction
-    pmdec float64 mas / yr                             Proper motion in declination direction
-Jobid: None
-Phase: COMPLETED
-Owner: None
-Output file: sync_20210315091929.xml.gz
-Results: None
-</pre></div>
-</div>
-</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1288,23 +780,6 @@ Results: None
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><i>Table length=10</i>
-<table id="table139985564118512" class="table-striped table-bordered table-condensed">
-<thead><tr><th>source_id</th><th>ra</th><th>dec</th><th>pmra</th><th>pmdec</th></tr></thead>
-<thead><tr><th></th><th>deg</th><th>deg</th><th>mas / yr</th><th>mas / yr</th></tr></thead>
-<thead><tr><th>int64</th><th>float64</th><th>float64</th><th>float64</th><th>float64</th></tr></thead>
-<tr><td>5895272561481374080</td><td>213.2606587905109</td><td>-56.55044401535715</td><td>0.3894438898301715</td><td>1.2299266281737415</td></tr>
-<tr><td>5895261875598904576</td><td>213.5508930114549</td><td>-56.61037780154348</td><td>0.16203641364393007</td><td>-4.672602679543312</td></tr>
-<tr><td>5895247444506644992</td><td>213.33215109206796</td><td>-56.975347759380995</td><td>-7.474003156859284</td><td>-3.538080792097856</td></tr>
-<tr><td>5895259470417635968</td><td>213.78815034206346</td><td>-56.64585047451594</td><td>-5.287202255231853</td><td>-0.8163762113468646</td></tr>
-<tr><td>5895265925746051584</td><td>213.17082359534547</td><td>-56.74540885107754</td><td>-7.880749306158471</td><td>-4.8585444120179595</td></tr>
-<tr><td>5895260913525974528</td><td>213.66936020541976</td><td>-56.66655190442016</td><td>-4.7820929042428215</td><td>-1.5566420086447643</td></tr>
-<tr><td>5895264212062283008</td><td>213.7755742121852</td><td>-56.51570859067397</td><td>-6.657690998559842</td><td>-1.7616494482071872</td></tr>
-<tr><td>5895253457497979136</td><td>213.30929960610283</td><td>-56.78849448744587</td><td>-5.242106718924749</td><td>-0.18655636353898095</td></tr>
-<tr><td>4143614130253524096</td><td>269.1749117455479</td><td>-18.53415139972117</td><td>2.6164274510804826</td><td>1.3244248889980894</td></tr>
-<tr><td>4065443904433108992</td><td>273.26868565443743</td><td>-24.421651815402857</td><td>-1.663096652191022</td><td>-2.6514745376067683</td></tr>
-</table></div></div>
 </div>
 <p>Good so far.</p>
 <div class="section" id="id4">
@@ -1313,29 +788,7 @@ Results: None
 <p>Modify <code class="docutils literal notranslate"><span class="pre">query3_base</span></code> to replace <code class="docutils literal notranslate"><span class="pre">1</span></code> with a format specifier like <code class="docutils literal notranslate"><span class="pre">{max_parallax}</span></code>.  Now, when you call <code class="docutils literal notranslate"><span class="pre">format</span></code>, add a keyword argument that assigns a value to <code class="docutils literal notranslate"><span class="pre">max_parallax</span></code>, and confirm that the format specifier gets replaced with the value you provide.</p>
 <div class="cell tag_hide-cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
-
-<span class="n">query_base</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT </span>
-<span class="s2">TOP 10</span>
-<span class="si">{columns}</span><span class="s2"></span>
-<span class="s2">FROM gaiadr2.gaia_source</span>
-<span class="s2">WHERE parallax &lt; </span><span class="si">{max_parallax}</span><span class="s2"> AND </span>
-<span class="s2">bp_rp BETWEEN -0.75 AND 2</span>
-<span class="s2">&quot;&quot;&quot;</span>
-
-<span class="n">query</span> <span class="o">=</span> <span class="n">query_base</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">columns</span><span class="p">,</span>
-                          <span class="n">max_parallax</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>SELECT 
-TOP 10
-source_id, ra, dec, pmra, pmdec
-FROM gaiadr2.gaia_source
-WHERE parallax &lt; 0.5 AND 
-bp_rp BETWEEN -0.75 AND 2
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution goes here</span>
 </pre></div>
 </div>
 </div>

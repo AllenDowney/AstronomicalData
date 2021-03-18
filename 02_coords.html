@@ -129,7 +129,7 @@
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="07_plot.html">
-   Visualization
+   7. Visualization
   </a>
  </li>
 </ul>
@@ -244,6 +244,11 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#installing-libraries">
+   Installing libraries
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#working-with-units">
    Working with Units
   </a>
@@ -347,6 +352,26 @@
 <li><p>Download the results of a query and store them in a file.</p></li>
 </ul>
 </div>
+<div class="section" id="installing-libraries">
+<h2>Installing libraries<a class="headerlink" href="#installing-libraries" title="Permalink to this headline">¶</a></h2>
+<p>If you are running this notebook on Colab, you can run the following cell to install the libraries we’ll use.</p>
+<p>If you are running this notebook on your own computer, you might have to install these libraries yourself.  See the instructions in the preface.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># If we&#39;re running on Colab, install libraries</span>
+
+<span class="c1"># TODO: When Colab can install gala, switch from astro-gala</span>
+
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="n">IN_COLAB</span> <span class="o">=</span> <span class="s1">&#39;google.colab&#39;</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span>
+
+<span class="k">if</span> <span class="n">IN_COLAB</span><span class="p">:</span>
+    <span class="o">!</span>pip install astroquery astro-gala
+</pre></div>
+</div>
+</div>
+</div>
+</div>
 <div class="section" id="working-with-units">
 <h2>Working with Units<a class="headerlink" href="#working-with-units" title="Permalink to this headline">¶</a></h2>
 <p>The measurements we will work with are physical quantities, which means that they have two parts, a value and a unit.
@@ -369,1022 +394,12 @@ For example, the coordinate <span class="math notranslate nohighlight">\(30^{\ci
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;A&#39;,
- &#39;AA&#39;,
- &#39;AB&#39;,
- &#39;ABflux&#39;,
- &#39;ABmag&#39;,
- &#39;AU&#39;,
- &#39;Angstrom&#39;,
- &#39;B&#39;,
- &#39;Ba&#39;,
- &#39;Barye&#39;,
- &#39;Bi&#39;,
- &#39;Biot&#39;,
- &#39;Bol&#39;,
- &#39;Bq&#39;,
- &#39;C&#39;,
- &#39;Celsius&#39;,
- &#39;Ci&#39;,
- &#39;CompositeUnit&#39;,
- &#39;D&#39;,
- &#39;Da&#39;,
- &#39;Dalton&#39;,
- &#39;Debye&#39;,
- &#39;Decibel&#39;,
- &#39;DecibelUnit&#39;,
- &#39;Dex&#39;,
- &#39;DexUnit&#39;,
- &#39;EA&#39;,
- &#39;EAU&#39;,
- &#39;EB&#39;,
- &#39;EBa&#39;,
- &#39;EC&#39;,
- &#39;ED&#39;,
- &#39;EF&#39;,
- &#39;EG&#39;,
- &#39;EGal&#39;,
- &#39;EH&#39;,
- &#39;EHz&#39;,
- &#39;EJ&#39;,
- &#39;EJy&#39;,
- &#39;EK&#39;,
- &#39;EL&#39;,
- &#39;EN&#39;,
- &#39;EOhm&#39;,
- &#39;EP&#39;,
- &#39;EPa&#39;,
- &#39;ER&#39;,
- &#39;ERy&#39;,
- &#39;ES&#39;,
- &#39;ESt&#39;,
- &#39;ET&#39;,
- &#39;EV&#39;,
- &#39;EW&#39;,
- &#39;EWb&#39;,
- &#39;Ea&#39;,
- &#39;Eadu&#39;,
- &#39;Earcmin&#39;,
- &#39;Earcsec&#39;,
- &#39;Eau&#39;,
- &#39;Eb&#39;,
- &#39;Ebarn&#39;,
- &#39;Ebeam&#39;,
- &#39;Ebin&#39;,
- &#39;Ebit&#39;,
- &#39;Ebyte&#39;,
- &#39;Ecd&#39;,
- &#39;Echan&#39;,
- &#39;Ecount&#39;,
- &#39;Ect&#39;,
- &#39;Ed&#39;,
- &#39;Edeg&#39;,
- &#39;Edyn&#39;,
- &#39;EeV&#39;,
- &#39;Eerg&#39;,
- &#39;Eg&#39;,
- &#39;Eh&#39;,
- &#39;EiB&#39;,
- &#39;Eib&#39;,
- &#39;Eibit&#39;,
- &#39;Eibyte&#39;,
- &#39;Ek&#39;,
- &#39;El&#39;,
- &#39;Elm&#39;,
- &#39;Elx&#39;,
- &#39;Elyr&#39;,
- &#39;Em&#39;,
- &#39;Emag&#39;,
- &#39;Emin&#39;,
- &#39;Emol&#39;,
- &#39;Eohm&#39;,
- &#39;Epc&#39;,
- &#39;Eph&#39;,
- &#39;Ephoton&#39;,
- &#39;Epix&#39;,
- &#39;Epixel&#39;,
- &#39;Erad&#39;,
- &#39;Es&#39;,
- &#39;Esr&#39;,
- &#39;Eu&#39;,
- &#39;Evox&#39;,
- &#39;Evoxel&#39;,
- &#39;Eyr&#39;,
- &#39;F&#39;,
- &#39;Farad&#39;,
- &#39;Fr&#39;,
- &#39;Franklin&#39;,
- &#39;FunctionQuantity&#39;,
- &#39;FunctionUnitBase&#39;,
- &#39;G&#39;,
- &#39;GA&#39;,
- &#39;GAU&#39;,
- &#39;GB&#39;,
- &#39;GBa&#39;,
- &#39;GC&#39;,
- &#39;GD&#39;,
- &#39;GF&#39;,
- &#39;GG&#39;,
- &#39;GGal&#39;,
- &#39;GH&#39;,
- &#39;GHz&#39;,
- &#39;GJ&#39;,
- &#39;GJy&#39;,
- &#39;GK&#39;,
- &#39;GL&#39;,
- &#39;GN&#39;,
- &#39;GOhm&#39;,
- &#39;GP&#39;,
- &#39;GPa&#39;,
- &#39;GR&#39;,
- &#39;GRy&#39;,
- &#39;GS&#39;,
- &#39;GSt&#39;,
- &#39;GT&#39;,
- &#39;GV&#39;,
- &#39;GW&#39;,
- &#39;GWb&#39;,
- &#39;Ga&#39;,
- &#39;Gadu&#39;,
- &#39;Gal&#39;,
- &#39;Garcmin&#39;,
- &#39;Garcsec&#39;,
- &#39;Gau&#39;,
- &#39;Gauss&#39;,
- &#39;Gb&#39;,
- &#39;Gbarn&#39;,
- &#39;Gbeam&#39;,
- &#39;Gbin&#39;,
- &#39;Gbit&#39;,
- &#39;Gbyte&#39;,
- &#39;Gcd&#39;,
- &#39;Gchan&#39;,
- &#39;Gcount&#39;,
- &#39;Gct&#39;,
- &#39;Gd&#39;,
- &#39;Gdeg&#39;,
- &#39;Gdyn&#39;,
- &#39;GeV&#39;,
- &#39;Gerg&#39;,
- &#39;Gg&#39;,
- &#39;Gh&#39;,
- &#39;GiB&#39;,
- &#39;Gib&#39;,
- &#39;Gibit&#39;,
- &#39;Gibyte&#39;,
- &#39;Gk&#39;,
- &#39;Gl&#39;,
- &#39;Glm&#39;,
- &#39;Glx&#39;,
- &#39;Glyr&#39;,
- &#39;Gm&#39;,
- &#39;Gmag&#39;,
- &#39;Gmin&#39;,
- &#39;Gmol&#39;,
- &#39;Gohm&#39;,
- &#39;Gpc&#39;,
- &#39;Gph&#39;,
- &#39;Gphoton&#39;,
- &#39;Gpix&#39;,
- &#39;Gpixel&#39;,
- &#39;Grad&#39;,
- &#39;Gs&#39;,
- &#39;Gsr&#39;,
- &#39;Gu&#39;,
- &#39;Gvox&#39;,
- &#39;Gvoxel&#39;,
- &#39;Gyr&#39;,
- &#39;H&#39;,
- &#39;Henry&#39;,
- &#39;Hertz&#39;,
- &#39;Hz&#39;,
- &#39;IrreducibleUnit&#39;,
- &#39;J&#39;,
- &#39;Jansky&#39;,
- &#39;Joule&#39;,
- &#39;Jy&#39;,
- &#39;K&#39;,
- &#39;Kayser&#39;,
- &#39;Kelvin&#39;,
- &#39;KiB&#39;,
- &#39;Kib&#39;,
- &#39;Kibit&#39;,
- &#39;Kibyte&#39;,
- &#39;L&#39;,
- &#39;L_bol&#39;,
- &#39;L_sun&#39;,
- &#39;LogQuantity&#39;,
- &#39;LogUnit&#39;,
- &#39;Lsun&#39;,
- &#39;MA&#39;,
- &#39;MAU&#39;,
- &#39;MB&#39;,
- &#39;MBa&#39;,
- &#39;MC&#39;,
- &#39;MD&#39;,
- &#39;MF&#39;,
- &#39;MG&#39;,
- &#39;MGal&#39;,
- &#39;MH&#39;,
- &#39;MHz&#39;,
- &#39;MJ&#39;,
- &#39;MJy&#39;,
- &#39;MK&#39;,
- &#39;ML&#39;,
- &#39;MN&#39;,
- &#39;MOhm&#39;,
- &#39;MP&#39;,
- &#39;MPa&#39;,
- &#39;MR&#39;,
- &#39;MRy&#39;,
- &#39;MS&#39;,
- &#39;MSt&#39;,
- &#39;MT&#39;,
- &#39;MV&#39;,
- &#39;MW&#39;,
- &#39;MWb&#39;,
- &#39;M_bol&#39;,
- &#39;M_e&#39;,
- &#39;M_earth&#39;,
- &#39;M_jup&#39;,
- &#39;M_jupiter&#39;,
- &#39;M_p&#39;,
- &#39;M_sun&#39;,
- &#39;Ma&#39;,
- &#39;Madu&#39;,
- &#39;MagUnit&#39;,
- &#39;Magnitude&#39;,
- &#39;Marcmin&#39;,
- &#39;Marcsec&#39;,
- &#39;Mau&#39;,
- &#39;Mb&#39;,
- &#39;Mbarn&#39;,
- &#39;Mbeam&#39;,
- &#39;Mbin&#39;,
- &#39;Mbit&#39;,
- &#39;Mbyte&#39;,
- &#39;Mcd&#39;,
- &#39;Mchan&#39;,
- &#39;Mcount&#39;,
- &#39;Mct&#39;,
- &#39;Md&#39;,
- &#39;Mdeg&#39;,
- &#39;Mdyn&#39;,
- &#39;MeV&#39;,
- &#39;Mearth&#39;,
- &#39;Merg&#39;,
- &#39;Mg&#39;,
- &#39;Mh&#39;,
- &#39;MiB&#39;,
- &#39;Mib&#39;,
- &#39;Mibit&#39;,
- &#39;Mibyte&#39;,
- &#39;Mjup&#39;,
- &#39;Mjupiter&#39;,
- &#39;Mk&#39;,
- &#39;Ml&#39;,
- &#39;Mlm&#39;,
- &#39;Mlx&#39;,
- &#39;Mlyr&#39;,
- &#39;Mm&#39;,
- &#39;Mmag&#39;,
- &#39;Mmin&#39;,
- &#39;Mmol&#39;,
- &#39;Mohm&#39;,
- &#39;Mpc&#39;,
- &#39;Mph&#39;,
- &#39;Mphoton&#39;,
- &#39;Mpix&#39;,
- &#39;Mpixel&#39;,
- &#39;Mrad&#39;,
- &#39;Ms&#39;,
- &#39;Msr&#39;,
- &#39;Msun&#39;,
- &#39;Mu&#39;,
- &#39;Mvox&#39;,
- &#39;Mvoxel&#39;,
- &#39;Myr&#39;,
- &#39;N&#39;,
- &#39;NamedUnit&#39;,
- &#39;Newton&#39;,
- &#39;Ohm&#39;,
- &#39;P&#39;,
- &#39;PA&#39;,
- &#39;PAU&#39;,
- &#39;PB&#39;,
- &#39;PBa&#39;,
- &#39;PC&#39;,
- &#39;PD&#39;,
- &#39;PF&#39;,
- &#39;PG&#39;,
- &#39;PGal&#39;,
- &#39;PH&#39;,
- &#39;PHz&#39;,
- &#39;PJ&#39;,
- &#39;PJy&#39;,
- &#39;PK&#39;,
- &#39;PL&#39;,
- &#39;PN&#39;,
- &#39;POhm&#39;,
- &#39;PP&#39;,
- &#39;PPa&#39;,
- &#39;PR&#39;,
- &#39;PRy&#39;,
- &#39;PS&#39;,
- &#39;PSt&#39;,
- &#39;PT&#39;,
- &#39;PV&#39;,
- &#39;PW&#39;,
- &#39;PWb&#39;,
- &#39;Pa&#39;,
- &#39;Padu&#39;,
- &#39;Parcmin&#39;,
- &#39;Parcsec&#39;,
- &#39;Pascal&#39;,
- &#39;Pau&#39;,
- &#39;Pb&#39;,
- &#39;Pbarn&#39;,
- &#39;Pbeam&#39;,
- &#39;Pbin&#39;,
- &#39;Pbit&#39;,
- &#39;Pbyte&#39;,
- &#39;Pcd&#39;,
- &#39;Pchan&#39;,
- &#39;Pcount&#39;,
- &#39;Pct&#39;,
- &#39;Pd&#39;,
- &#39;Pdeg&#39;,
- &#39;Pdyn&#39;,
- &#39;PeV&#39;,
- &#39;Perg&#39;,
- &#39;Pg&#39;,
- &#39;Ph&#39;,
- &#39;PiB&#39;,
- &#39;Pib&#39;,
- &#39;Pibit&#39;,
- &#39;Pibyte&#39;,
- &#39;Pk&#39;,
- &#39;Pl&#39;,
- &#39;Plm&#39;,
- &#39;Plx&#39;,
- &#39;Plyr&#39;,
- &#39;Pm&#39;,
- &#39;Pmag&#39;,
- &#39;Pmin&#39;,
- &#39;Pmol&#39;,
- &#39;Pohm&#39;,
- &#39;Ppc&#39;,
- &#39;Pph&#39;,
- &#39;Pphoton&#39;,
- &#39;Ppix&#39;,
- &#39;Ppixel&#39;,
- &#39;Prad&#39;,
- &#39;PrefixUnit&#39;,
- &#39;Ps&#39;,
- &#39;Psr&#39;,
- &#39;Pu&#39;,
- &#39;Pvox&#39;,
- &#39;Pvoxel&#39;,
- &#39;Pyr&#39;,
- &#39;Quantity&#39;,
- &#39;QuantityInfo&#39;,
- &#39;QuantityInfoBase&#39;,
- &#39;R&#39;,
- &#39;R_earth&#39;,
- &#39;R_jup&#39;,
- &#39;R_jupiter&#39;,
- &#39;R_sun&#39;,
- &#39;Rayleigh&#39;,
- &#39;Rearth&#39;,
- &#39;Rjup&#39;,
- &#39;Rjupiter&#39;,
- &#39;Rsun&#39;,
- &#39;Ry&#39;,
- &#39;S&#39;,
- &#39;ST&#39;,
- &#39;STflux&#39;,
- &#39;STmag&#39;,
- &#39;Siemens&#39;,
- &#39;SpecificTypeQuantity&#39;,
- &#39;St&#39;,
- &#39;Sun&#39;,
- &#39;T&#39;,
- &#39;TA&#39;,
- &#39;TAU&#39;,
- &#39;TB&#39;,
- &#39;TBa&#39;,
- &#39;TC&#39;,
- &#39;TD&#39;,
- &#39;TF&#39;,
- &#39;TG&#39;,
- &#39;TGal&#39;,
- &#39;TH&#39;,
- &#39;THz&#39;,
- &#39;TJ&#39;,
- &#39;TJy&#39;,
- &#39;TK&#39;,
- &#39;TL&#39;,
- &#39;TN&#39;,
- &#39;TOhm&#39;,
- &#39;TP&#39;,
- &#39;TPa&#39;,
- &#39;TR&#39;,
- &#39;TRy&#39;,
- &#39;TS&#39;,
- &#39;TSt&#39;,
- &#39;TT&#39;,
- &#39;TV&#39;,
- &#39;TW&#39;,
- &#39;TWb&#39;,
- &#39;Ta&#39;,
- &#39;Tadu&#39;,
- &#39;Tarcmin&#39;,
- &#39;Tarcsec&#39;,
- &#39;Tau&#39;,
- &#39;Tb&#39;,
- &#39;Tbarn&#39;,
- &#39;Tbeam&#39;,
- &#39;Tbin&#39;,
- &#39;Tbit&#39;,
- &#39;Tbyte&#39;,
- &#39;Tcd&#39;,
- &#39;Tchan&#39;,
- &#39;Tcount&#39;,
- &#39;Tct&#39;,
- &#39;Td&#39;,
- &#39;Tdeg&#39;,
- &#39;Tdyn&#39;,
- &#39;TeV&#39;,
- &#39;Terg&#39;,
- &#39;Tesla&#39;,
- &#39;Tg&#39;,
- &#39;Th&#39;,
- &#39;TiB&#39;,
- &#39;Tib&#39;,
- &#39;Tibit&#39;,
- &#39;Tibyte&#39;,
- &#39;Tk&#39;,
- &#39;Tl&#39;,
- &#39;Tlm&#39;,
- &#39;Tlx&#39;,
- &#39;Tlyr&#39;,
- &#39;Tm&#39;,
- &#39;Tmag&#39;,
- &#39;Tmin&#39;,
- &#39;Tmol&#39;,
- &#39;Tohm&#39;,
- &#39;Torr&#39;,
- &#39;Tpc&#39;,
- &#39;Tph&#39;,
- &#39;Tphoton&#39;,
- &#39;Tpix&#39;,
- &#39;Tpixel&#39;,
- &#39;Trad&#39;,
- &#39;Ts&#39;,
- &#39;Tsr&#39;,
- &#39;Tu&#39;,
- &#39;Tvox&#39;,
- &#39;Tvoxel&#39;,
- &#39;Tyr&#39;,
- &#39;Unit&#39;,
- &#39;UnitBase&#39;,
- &#39;UnitConversionError&#39;,
- &#39;UnitTypeError&#39;,
- &#39;UnitsError&#39;,
- &#39;UnitsWarning&#39;,
- &#39;UnrecognizedUnit&#39;,
- &#39;V&#39;,
- &#39;Volt&#39;,
- &#39;W&#39;,
- &#39;Watt&#39;,
- &#39;Wb&#39;,
- &#39;Weber&#39;,
- &#39;YA&#39;,
- &#39;YAU&#39;,
- &#39;YB&#39;,
- &#39;YBa&#39;,
- &#39;YC&#39;,
- &#39;YD&#39;,
- &#39;YF&#39;,
- &#39;YG&#39;,
- &#39;YGal&#39;,
- &#39;YH&#39;,
- &#39;YHz&#39;,
- &#39;YJ&#39;,
- &#39;YJy&#39;,
- &#39;YK&#39;,
- &#39;YL&#39;,
- &#39;YN&#39;,
- &#39;YOhm&#39;,
- &#39;YP&#39;,
- &#39;YPa&#39;,
- &#39;YR&#39;,
- &#39;YRy&#39;,
- &#39;YS&#39;,
- &#39;YSt&#39;,
- &#39;YT&#39;,
- &#39;YV&#39;,
- &#39;YW&#39;,
- &#39;YWb&#39;,
- &#39;Ya&#39;,
- &#39;Yadu&#39;,
- &#39;Yarcmin&#39;,
- &#39;Yarcsec&#39;,
- &#39;Yau&#39;,
- &#39;Yb&#39;,
- &#39;Ybarn&#39;,
- &#39;Ybeam&#39;,
- &#39;Ybin&#39;,
- &#39;Ybit&#39;,
- &#39;Ybyte&#39;,
- &#39;Ycd&#39;,
- &#39;Ychan&#39;,
- &#39;Ycount&#39;,
- &#39;Yct&#39;,
- &#39;Yd&#39;,
- &#39;Ydeg&#39;,
- &#39;Ydyn&#39;,
- &#39;YeV&#39;,
- &#39;Yerg&#39;,
- &#39;Yg&#39;,
- &#39;Yh&#39;,
- &#39;Yk&#39;,
- &#39;Yl&#39;,
- &#39;Ylm&#39;,
- &#39;Ylx&#39;,
- &#39;Ylyr&#39;,
- &#39;Ym&#39;,
- &#39;Ymag&#39;,
- &#39;Ymin&#39;,
- &#39;Ymol&#39;,
- &#39;Yohm&#39;,
- &#39;Ypc&#39;,
- &#39;Yph&#39;,
- &#39;Yphoton&#39;,
- &#39;Ypix&#39;,
- &#39;Ypixel&#39;,
- &#39;Yrad&#39;,
- &#39;Ys&#39;,
- &#39;Ysr&#39;,
- &#39;Yu&#39;,
- &#39;Yvox&#39;,
- &#39;Yvoxel&#39;,
- &#39;Yyr&#39;,
- &#39;ZA&#39;,
- &#39;ZAU&#39;,
- &#39;ZB&#39;,
- &#39;ZBa&#39;,
- &#39;ZC&#39;,
- &#39;ZD&#39;,
- &#39;ZF&#39;,
- &#39;ZG&#39;,
- &#39;ZGal&#39;,
- &#39;ZH&#39;,
- &#39;ZHz&#39;,
- &#39;ZJ&#39;,
- &#39;ZJy&#39;,
- &#39;ZK&#39;,
- &#39;ZL&#39;,
- &#39;ZN&#39;,
- &#39;ZOhm&#39;,
- &#39;ZP&#39;,
- &#39;ZPa&#39;,
- &#39;ZR&#39;,
- &#39;ZRy&#39;,
- &#39;ZS&#39;,
- &#39;ZSt&#39;,
- &#39;ZT&#39;,
- &#39;ZV&#39;,
- &#39;ZW&#39;,
- &#39;ZWb&#39;,
- &#39;Za&#39;,
- &#39;Zadu&#39;,
- &#39;Zarcmin&#39;,
- &#39;Zarcsec&#39;,
- &#39;Zau&#39;,
- &#39;Zb&#39;,
- &#39;Zbarn&#39;,
- &#39;Zbeam&#39;,
- &#39;Zbin&#39;,
- &#39;Zbit&#39;,
- &#39;Zbyte&#39;,
- &#39;Zcd&#39;,
- &#39;Zchan&#39;,
- &#39;Zcount&#39;,
- &#39;Zct&#39;,
- &#39;Zd&#39;,
- &#39;Zdeg&#39;,
- &#39;Zdyn&#39;,
- &#39;ZeV&#39;,
- &#39;Zerg&#39;,
- &#39;Zg&#39;,
- &#39;Zh&#39;,
- &#39;Zk&#39;,
- &#39;Zl&#39;,
- &#39;Zlm&#39;,
- &#39;Zlx&#39;,
- &#39;Zlyr&#39;,
- &#39;Zm&#39;,
- &#39;Zmag&#39;,
- &#39;Zmin&#39;,
- &#39;Zmol&#39;,
- &#39;Zohm&#39;,
- &#39;Zpc&#39;,
- &#39;Zph&#39;,
- &#39;Zphoton&#39;,
- &#39;Zpix&#39;,
- &#39;Zpixel&#39;,
- &#39;Zrad&#39;,
- &#39;Zs&#39;,
- &#39;Zsr&#39;,
- &#39;Zu&#39;,
- &#39;Zvox&#39;,
- &#39;Zvoxel&#39;,
- &#39;Zyr&#39;,
- &#39;__builtins__&#39;,
- &#39;__cached__&#39;,
- &#39;__doc__&#39;,
- &#39;__file__&#39;,
- &#39;__loader__&#39;,
- &#39;__name__&#39;,
- &#39;__package__&#39;,
- &#39;__path__&#39;,
- &#39;__spec__&#39;,
- &#39;a&#39;,
- &#39;aA&#39;,
- &#39;aAU&#39;,
- &#39;aB&#39;,
- &#39;aBa&#39;,
- &#39;aC&#39;,
- &#39;aD&#39;,
- &#39;aF&#39;,
- &#39;aG&#39;,
- &#39;aGal&#39;,
- &#39;aH&#39;,
- &#39;aHz&#39;,
- &#39;aJ&#39;,
- &#39;aJy&#39;,
- &#39;aK&#39;,
- &#39;aL&#39;,
- &#39;aN&#39;,
- &#39;aOhm&#39;,
- &#39;aP&#39;,
- &#39;aPa&#39;,
- &#39;aR&#39;,
- &#39;aRy&#39;,
- &#39;aS&#39;,
- &#39;aSt&#39;,
- &#39;aT&#39;,
- &#39;aV&#39;,
- &#39;aW&#39;,
- &#39;aWb&#39;,
- &#39;aa&#39;,
- &#39;aadu&#39;,
- &#39;aarcmin&#39;,
- &#39;aarcsec&#39;,
- &#39;aau&#39;,
- &#39;ab&#39;,
- &#39;abA&#39;,
- &#39;abC&#39;,
- &#39;abampere&#39;,
- &#39;abarn&#39;,
- &#39;abcoulomb&#39;,
- &#39;abeam&#39;,
- &#39;abin&#39;,
- &#39;abit&#39;,
- &#39;abyte&#39;,
- &#39;acd&#39;,
- &#39;achan&#39;,
- &#39;acount&#39;,
- &#39;act&#39;,
- &#39;ad&#39;,
- &#39;add_enabled_equivalencies&#39;,
- &#39;add_enabled_units&#39;,
- &#39;adeg&#39;,
- &#39;adu&#39;,
- &#39;adyn&#39;,
- &#39;aeV&#39;,
- &#39;aerg&#39;,
- &#39;ag&#39;,
- &#39;ah&#39;,
- &#39;ak&#39;,
- &#39;al&#39;,
- &#39;allclose&#39;,
- &#39;alm&#39;,
- &#39;alx&#39;,
- &#39;alyr&#39;,
- &#39;am&#39;,
- &#39;amag&#39;,
- &#39;amin&#39;,
- &#39;amol&#39;,
- &#39;amp&#39;,
- &#39;ampere&#39;,
- &#39;angstrom&#39;,
- &#39;annum&#39;,
- &#39;aohm&#39;,
- &#39;apc&#39;,
- &#39;aph&#39;,
- &#39;aphoton&#39;,
- &#39;apix&#39;,
- &#39;apixel&#39;,
- &#39;arad&#39;,
- &#39;arcmin&#39;,
- &#39;arcminute&#39;,
- &#39;arcsec&#39;,
- &#39;arcsecond&#39;,
- &#39;asr&#39;,
- &#39;astronomical_unit&#39;,
- &#39;astrophys&#39;,
- &#39;attoBarye&#39;,
- &#39;attoDa&#39;,
- &#39;attoDalton&#39;,
- &#39;attoDebye&#39;,
- &#39;attoFarad&#39;,
- &#39;attoGauss&#39;,
- &#39;attoHenry&#39;,
- &#39;attoHertz&#39;,
- &#39;attoJansky&#39;,
- &#39;attoJoule&#39;,
- &#39;attoKayser&#39;,
- &#39;attoKelvin&#39;,
- &#39;attoNewton&#39;,
- &#39;attoOhm&#39;,
- &#39;attoPascal&#39;,
- &#39;attoRayleigh&#39;,
- &#39;attoSiemens&#39;,
- &#39;attoTesla&#39;,
- &#39;attoVolt&#39;,
- &#39;attoWatt&#39;,
- &#39;attoWeber&#39;,
- &#39;attoamp&#39;,
- &#39;attoampere&#39;,
- &#39;attoannum&#39;,
- &#39;attoarcminute&#39;,
- &#39;attoarcsecond&#39;,
- &#39;attoastronomical_unit&#39;,
- &#39;attobarn&#39;,
- &#39;attobarye&#39;,
- &#39;attobit&#39;,
- &#39;attobyte&#39;,
- &#39;attocandela&#39;,
- &#39;attocoulomb&#39;,
- &#39;attocount&#39;,
- &#39;attoday&#39;,
- &#39;attodebye&#39;,
- &#39;attodegree&#39;,
- &#39;attodyne&#39;,
- &#39;attoelectronvolt&#39;,
- &#39;attofarad&#39;,
- &#39;attogal&#39;,
- &#39;attogauss&#39;,
- &#39;attogram&#39;,
- &#39;attohenry&#39;,
- &#39;attohertz&#39;,
- &#39;attohour&#39;,
- &#39;attohr&#39;,
- &#39;attojansky&#39;,
- &#39;attojoule&#39;,
- &#39;attokayser&#39;,
- &#39;attolightyear&#39;,
- &#39;attoliter&#39;,
- &#39;attolumen&#39;,
- &#39;attolux&#39;,
- &#39;attometer&#39;,
- &#39;attominute&#39;,
- &#39;attomole&#39;,
- &#39;attonewton&#39;,
- &#39;attoparsec&#39;,
- &#39;attopascal&#39;,
- &#39;attophoton&#39;,
- &#39;attopixel&#39;,
- &#39;attopoise&#39;,
- &#39;attoradian&#39;,
- &#39;attorayleigh&#39;,
- &#39;attorydberg&#39;,
- &#39;attosecond&#39;,
- &#39;attosiemens&#39;,
- &#39;attosteradian&#39;,
- &#39;attostokes&#39;,
- &#39;attotesla&#39;,
- &#39;attovolt&#39;,
- &#39;attovoxel&#39;,
- &#39;attowatt&#39;,
- &#39;attoweber&#39;,
- &#39;attoyear&#39;,
- &#39;au&#39;,
- &#39;avox&#39;,
- &#39;avoxel&#39;,
- &#39;ayr&#39;,
- &#39;b&#39;,
- &#39;bar&#39;,
- &#39;barn&#39;,
- &#39;barye&#39;,
- &#39;beam&#39;,
- &#39;beam_angular_area&#39;,
- &#39;becquerel&#39;,
- &#39;bin&#39;,
- &#39;binary_prefixes&#39;,
- &#39;bit&#39;,
- &#39;bol&#39;,
- &#39;brightness_temperature&#39;,
- &#39;byte&#39;,
- &#39;cA&#39;,
- &#39;cAU&#39;,
- &#39;cB&#39;,
- &#39;cBa&#39;,
- &#39;cC&#39;,
- &#39;cD&#39;,
- &#39;cF&#39;,
- &#39;cG&#39;,
- &#39;cGal&#39;,
- &#39;cH&#39;,
- &#39;cHz&#39;,
- &#39;cJ&#39;,
- &#39;cJy&#39;,
- &#39;cK&#39;,
- &#39;cL&#39;,
- &#39;cN&#39;,
- &#39;cOhm&#39;,
- &#39;cP&#39;,
- &#39;cPa&#39;,
- &#39;cR&#39;,
- &#39;cRy&#39;,
- &#39;cS&#39;,
- &#39;cSt&#39;,
- &#39;cT&#39;,
- &#39;cV&#39;,
- &#39;cW&#39;,
- &#39;cWb&#39;,
- &#39;ca&#39;,
- &#39;cadu&#39;,
- &#39;candela&#39;,
- &#39;carcmin&#39;,
- &#39;carcsec&#39;,
- &#39;cau&#39;,
- &#39;cb&#39;,
- &#39;cbarn&#39;,
- &#39;cbeam&#39;,
- &#39;cbin&#39;,
- &#39;cbit&#39;,
- &#39;cbyte&#39;,
- &#39;ccd&#39;,
- &#39;cchan&#39;,
- &#39;ccount&#39;,
- &#39;cct&#39;,
- &#39;cd&#39;,
- &#39;cdeg&#39;,
- &#39;cdyn&#39;,
- &#39;ceV&#39;,
- &#39;centiBarye&#39;,
- &#39;centiDa&#39;,
- &#39;centiDalton&#39;,
- &#39;centiDebye&#39;,
- &#39;centiFarad&#39;,
- &#39;centiGauss&#39;,
- &#39;centiHenry&#39;,
- &#39;centiHertz&#39;,
- &#39;centiJansky&#39;,
- &#39;centiJoule&#39;,
- &#39;centiKayser&#39;,
- &#39;centiKelvin&#39;,
- &#39;centiNewton&#39;,
- &#39;centiOhm&#39;,
- &#39;centiPascal&#39;,
- &#39;centiRayleigh&#39;,
- &#39;centiSiemens&#39;,
- &#39;centiTesla&#39;,
- &#39;centiVolt&#39;,
- &#39;centiWatt&#39;,
- &#39;centiWeber&#39;,
- &#39;centiamp&#39;,
- &#39;centiampere&#39;,
- &#39;centiannum&#39;,
- &#39;centiarcminute&#39;,
- &#39;centiarcsecond&#39;,
- &#39;centiastronomical_unit&#39;,
- &#39;centibarn&#39;,
- &#39;centibarye&#39;,
- &#39;centibit&#39;,
- &#39;centibyte&#39;,
- &#39;centicandela&#39;,
- &#39;centicoulomb&#39;,
- &#39;centicount&#39;,
- &#39;centiday&#39;,
- &#39;centidebye&#39;,
- &#39;centidegree&#39;,
- &#39;centidyne&#39;,
- &#39;centielectronvolt&#39;,
- &#39;centifarad&#39;,
- &#39;centigal&#39;,
- &#39;centigauss&#39;,
- &#39;centigram&#39;,
- &#39;centihenry&#39;,
- &#39;centihertz&#39;,
- &#39;centihour&#39;,
- &#39;centihr&#39;,
- &#39;centijansky&#39;,
- &#39;centijoule&#39;,
- &#39;centikayser&#39;,
- &#39;centilightyear&#39;,
- &#39;centiliter&#39;,
- &#39;centilumen&#39;,
- &#39;centilux&#39;,
- &#39;centimeter&#39;,
- &#39;centiminute&#39;,
- &#39;centimole&#39;,
- &#39;centinewton&#39;,
- &#39;centiparsec&#39;,
- &#39;centipascal&#39;,
- &#39;centiphoton&#39;,
- &#39;centipixel&#39;,
- &#39;centipoise&#39;,
- &#39;centiradian&#39;,
- &#39;centirayleigh&#39;,
- &#39;centirydberg&#39;,
- &#39;centisecond&#39;,
- &#39;centisiemens&#39;,
- &#39;centisteradian&#39;,
- &#39;centistokes&#39;,
- &#39;centitesla&#39;,
- &#39;centivolt&#39;,
- &#39;centivoxel&#39;,
- &#39;centiwatt&#39;,
- &#39;centiweber&#39;,
- &#39;centiyear&#39;,
- &#39;cerg&#39;,
- &#39;cg&#39;,
- &#39;cgs&#39;,
- &#39;ch&#39;,
- &#39;chan&#39;,
- &#39;ck&#39;,
- &#39;cl&#39;,
- &#39;clm&#39;,
- &#39;clx&#39;,
- &#39;clyr&#39;,
- &#39;cm&#39;,
- &#39;cmag&#39;,
- &#39;cmin&#39;,
- &#39;cmol&#39;,
- &#39;cohm&#39;,
- &#39;core&#39;,
- &#39;coulomb&#39;,
- &#39;count&#39;,
- &#39;cpc&#39;,
- &#39;cph&#39;,
- &#39;cphoton&#39;,
- &#39;cpix&#39;,
- &#39;cpixel&#39;,
- &#39;crad&#39;,
- &#39;cs&#39;,
- &#39;csr&#39;,
- &#39;ct&#39;,
- &#39;cu&#39;,
- &#39;curie&#39;,
- &#39;cvox&#39;,
- &#39;cvoxel&#39;,
- &#39;cy&#39;,
- &#39;cycle&#39;,
- &#39;cyr&#39;,
- &#39;d&#39;,
- &#39;dA&#39;,
- &#39;dAU&#39;,
- &#39;dB&#39;,
- &#39;dBa&#39;,
- &#39;dC&#39;,
- &#39;dD&#39;,
- &#39;dF&#39;,
- &#39;dG&#39;,
- &#39;dGal&#39;,
- &#39;dH&#39;,
- &#39;dHz&#39;,
- &#39;dJ&#39;,
- &#39;dJy&#39;,
- &#39;dK&#39;,
- &#39;dL&#39;,
- &#39;dN&#39;,
- &#39;dOhm&#39;,
- &#39;dP&#39;,
- &#39;dPa&#39;,
- &#39;dR&#39;,
- &#39;dRy&#39;,
- &#39;dS&#39;,
- &#39;dSt&#39;,
- ...]
-</pre></div>
-</div>
-</div>
 </div>
 <p>To create a quantity, we multiply a value by a unit.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">angle</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">degree</span>
 <span class="nb">type</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>astropy.units.quantity.Quantity
 </pre></div>
 </div>
 </div>
@@ -1397,10 +412,6 @@ Jupyter knows how to display <code class="docutils literal notranslate"><span cl
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_latex math notranslate nohighlight">
-\[10 \; \mathrm{{}^{\circ}}\]</div>
-</div>
 </div>
 <p>Quantities provide a method called <code class="docutils literal notranslate"><span class="pre">to</span></code> that converts to other units.  For example, we can compute the number of arcminutes in <code class="docutils literal notranslate"><span class="pre">angle</span></code>:</p>
 <div class="cell docutils container">
@@ -1410,10 +421,6 @@ Jupyter knows how to display <code class="docutils literal notranslate"><span cl
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_latex math notranslate nohighlight">
-\[600 \; \mathrm{{}^{\prime}}\]</div>
-</div>
 </div>
 <p>If you add quantities, Astropy converts them to compatible units, if possible:</p>
 <div class="cell docutils container">
@@ -1421,10 +428,6 @@ Jupyter knows how to display <code class="docutils literal notranslate"><span cl
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">angle</span> <span class="o">+</span> <span class="mi">30</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">arcmin</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_latex math notranslate nohighlight">
-\[10.5 \; \mathrm{{}^{\circ}}\]</div>
 </div>
 </div>
 <p>If the units are not compatible, you get an error.
@@ -1447,13 +450,6 @@ For example:</p>
 <span class="n">radius</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">degree</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>5.0 arcmin
-</pre></div>
-</div>
-<div class="output text_latex math notranslate nohighlight">
-\[0.083333333 \; \mathrm{{}^{\circ}}\]</div>
 </div>
 </div>
 </div>
@@ -1494,23 +490,6 @@ Here’s how we run it.</p>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Created TAP+ (v1.2.1) - Connection:
-	Host: gea.esac.esa.int
-	Use HTTPS: True
-	Port: 443
-	SSL Port: 443
-Created TAP+ (v1.2.1) - Connection:
-	Host: geadata.esac.esa.int
-	Use HTTPS: True
-	Port: 443
-	SSL Port: 443
-</pre></div>
-</div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;astroquery.utils.tap.model.job.Job at 0x7f277785fa30&gt;
-</pre></div>
-</div>
-</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1519,22 +498,6 @@ Created TAP+ (v1.2.1) - Connection:
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><i>Table length=10</i>
-<table id="table139807485721280" class="table-striped table-bordered table-condensed">
-<thead><tr><th>source_id</th></tr></thead>
-<thead><tr><th>int64</th></tr></thead>
-<tr><td>3322773965056065536</td></tr>
-<tr><td>3322773758899157120</td></tr>
-<tr><td>3322774068134271104</td></tr>
-<tr><td>3322773930696320512</td></tr>
-<tr><td>3322774377374425728</td></tr>
-<tr><td>3322773724537891456</td></tr>
-<tr><td>3322773724537891328</td></tr>
-<tr><td>3322773930696321792</td></tr>
-<tr><td>3322773724537890944</td></tr>
-<tr><td>3322773930696322176</td></tr>
-</table></div></div>
 </div>
 <div class="section" id="id1">
 <h3>Exercise<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
@@ -1543,29 +506,10 @@ Created TAP+ (v1.2.1) - Connection:
 <p>In the previous query, replace <code class="docutils literal notranslate"><span class="pre">TOP</span> <span class="pre">10</span> <span class="pre">source_id</span></code> with <code class="docutils literal notranslate"><span class="pre">COUNT(source_id)</span></code> and run the query again.  How many stars has Gaia identified in the cone we searched?</p>
 <div class="cell tag_hide-cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
-
-<span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT </span>
-<span class="s2">COUNT(source_id)</span>
-<span class="s2">FROM gaiadr2.gaia_source</span>
-<span class="s2">WHERE 1=CONTAINS(</span>
-<span class="s2">  POINT(ra, dec),</span>
-<span class="s2">  CIRCLE(88.8, 7.4, 0.08333333))</span>
-<span class="s2">&quot;&quot;&quot;</span>
-
-<span class="n">job</span> <span class="o">=</span> <span class="n">Gaia</span><span class="o">.</span><span class="n">launch_job</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
-<span class="n">results</span> <span class="o">=</span> <span class="n">job</span><span class="o">.</span><span class="n">get_results</span><span class="p">()</span>
-<span class="n">results</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution goes here</span>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><i>Table length=1</i>
-<table id="table139808112576400" class="table-striped table-bordered table-condensed">
-<thead><tr><th>count</th></tr></thead>
-<thead><tr><th>int64</th></tr></thead>
-<tr><td>594</td></tr>
-</table></div></div>
 </div>
 </div>
 </div>
@@ -1605,12 +549,6 @@ Created TAP+ (v1.2.1) - Connection:
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;SkyCoord (ICRS): (ra, dec) in deg
-    (88.8, 7.4)&gt;
-</pre></div>
-</div>
-</div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">SkyCoord</span></code> provides a function that transforms to other frames.
 For example, we can transform <code class="docutils literal notranslate"><span class="pre">coords_icrs</span></code> to Galactic coordinates like this:</p>
@@ -1618,12 +556,6 @@ For example, we can transform <code class="docutils literal notranslate"><span c
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">coord_galactic</span> <span class="o">=</span> <span class="n">coord_icrs</span><span class="o">.</span><span class="n">transform_to</span><span class="p">(</span><span class="s1">&#39;galactic&#39;</span><span class="p">)</span>
 <span class="n">coord_galactic</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;SkyCoord (Galactic): (l, b) in deg
-    (199.79693102, -8.95591653)&gt;
 </pre></div>
 </div>
 </div>
@@ -1640,23 +572,12 @@ For example, we can transform <code class="docutils literal notranslate"><span c
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;GD1Koposov10 Frame&gt;
-</pre></div>
-</div>
-</div>
 </div>
 <p>We can use it to find the coordinates of Betelgeuse in the GD-1 frame, like this:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">coord_gd1</span> <span class="o">=</span> <span class="n">coord_icrs</span><span class="o">.</span><span class="n">transform_to</span><span class="p">(</span><span class="n">gd1_frame</span><span class="p">)</span>
 <span class="n">coord_gd1</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;SkyCoord (GD1Koposov10): (phi1, phi2) in deg
-    (-94.97222038, 34.5813813)&gt;
 </pre></div>
 </div>
 </div>
@@ -1673,30 +594,7 @@ These are the coordinates shown in the figure from the paper, above.</p>
 <p>Hint: Because ICRS is built into Astropy, you can specify it by name, <code class="docutils literal notranslate"><span class="pre">icrs</span></code> (as we did with <code class="docutils literal notranslate"><span class="pre">galactic</span></code>).</p>
 <div class="cell tag_hide-cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
-
-<span class="n">origin_gd1</span> <span class="o">=</span> <span class="n">SkyCoord</span><span class="p">(</span><span class="mi">0</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">degree</span><span class="p">,</span> <span class="mi">0</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">degree</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="n">gd1_frame</span><span class="p">)</span>
-
-<span class="c1"># OR</span>
-
-<span class="n">origin_gd1</span> <span class="o">=</span> <span class="n">SkyCoord</span><span class="p">(</span><span class="n">phi1</span><span class="o">=</span><span class="mi">0</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">degree</span><span class="p">,</span> 
-                      <span class="n">phi2</span><span class="o">=</span><span class="mi">0</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">degree</span><span class="p">,</span> 
-                      <span class="n">frame</span><span class="o">=</span><span class="n">gd1_frame</span><span class="p">)</span>
-
-<span class="c1"># Note: because ICRS is built into Astropy, </span>
-<span class="c1"># we can identify it by string name</span>
-<span class="n">origin_gd1</span><span class="o">.</span><span class="n">transform_to</span><span class="p">(</span><span class="s1">&#39;icrs&#39;</span><span class="p">)</span>
-
-<span class="c1"># More formally, we could instantiate it</span>
-<span class="kn">from</span> <span class="nn">astropy.coordinates</span> <span class="kn">import</span> <span class="n">ICRS</span>
-<span class="n">icrs_frame</span> <span class="o">=</span> <span class="n">ICRS</span><span class="p">()</span>
-<span class="n">origin_gd1</span><span class="o">.</span><span class="n">transform_to</span><span class="p">(</span><span class="n">icrs_frame</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;SkyCoord (ICRS): (ra, dec) in deg
-    (200., 59.4504341)&gt;
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution goes here</span>
 </pre></div>
 </div>
 </div>
@@ -1748,26 +646,12 @@ These are the coordinates shown in the figure from the paper, above.</p>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;SkyCoord (GD1Koposov10): (phi1, phi2) in deg
-    [(-55., -8.), (-55.,  4.), (-45.,  4.), (-45., -8.), (-55., -8.)]&gt;
-</pre></div>
-</div>
-</div>
 </div>
 <p>Now we can use <code class="docutils literal notranslate"><span class="pre">transform_to</span></code> to convert to ICRS coordinates.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">corners_icrs</span> <span class="o">=</span> <span class="n">corners</span><span class="o">.</span><span class="n">transform_to</span><span class="p">(</span><span class="s1">&#39;icrs&#39;</span><span class="p">)</span>
 <span class="n">corners_icrs</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;SkyCoord (ICRS): (ra, dec) in deg
-    [(146.27533314, 19.26190982), (135.42163944, 25.87738723),
-     (141.60264825, 34.3048303 ), (152.81671045, 27.13611254),
-     (146.27533314, 19.26190982)]&gt;
 </pre></div>
 </div>
 </div>
@@ -1793,15 +677,6 @@ These are the coordinates shown in the figure from the paper, above.</p>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;146.275 19.2619&#39;,
- &#39;135.422 25.8774&#39;,
- &#39;141.603 34.3048&#39;,
- &#39;152.817 27.1361&#39;,
- &#39;146.275 19.2619&#39;]
-</pre></div>
-</div>
-</div>
 </div>
 <p>We can use the Python string function <code class="docutils literal notranslate"><span class="pre">join</span></code> to join <code class="docutils literal notranslate"><span class="pre">t</span></code> into a single string (with spaces between the pairs):</p>
 <div class="cell docutils container">
@@ -1811,21 +686,11 @@ These are the coordinates shown in the figure from the paper, above.</p>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;146.275 19.2619 135.422 25.8774 141.603 34.3048 152.817 27.1361 146.275 19.2619&#39;
-</pre></div>
-</div>
-</div>
 </div>
 <p>That’s almost what we need, but we have to replace the spaces with commas.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;, &#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;146.275, 19.2619, 135.422, 25.8774, 141.603, 34.3048, 152.817, 27.1361, 146.275, 19.2619&#39;
 </pre></div>
 </div>
 </div>
@@ -1847,11 +712,6 @@ These are the coordinates shown in the figure from the paper, above.</p>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">point_list</span> <span class="o">=</span> <span class="n">skycoord_to_string</span><span class="p">(</span><span class="n">corners_icrs</span><span class="p">)</span>
 <span class="n">point_list</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;146.275, 19.2619, 135.422, 25.8774, 141.603, 34.3048, 152.817, 27.1361, 146.275, 19.2619&#39;
 </pre></div>
 </div>
 </div>
@@ -1908,42 +768,12 @@ We need <code class="docutils literal notranslate"><span class="pre">columns</sp
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>SELECT
-TOP 10
-source_id, ra, dec, pmra, pmdec
-FROM gaiadr2.gaia_source
-WHERE parallax &lt; 1
-  AND bp_rp BETWEEN -0.75 AND 2 
-  AND 1 = CONTAINS(POINT(ra, dec), 
-                   POLYGON(146.275, 19.2619, 135.422, 25.8774, 141.603, 34.3048, 152.817, 27.1361, 146.275, 19.2619))
-</pre></div>
-</div>
-</div>
 </div>
 <p>As always, we should take a minute to proof-read the query before we launch it.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">job</span> <span class="o">=</span> <span class="n">Gaia</span><span class="o">.</span><span class="n">launch_job_async</span><span class="p">(</span><span class="n">query4</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">job</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: Query finished. [astroquery.utils.tap.core]
-&lt;Table length=10&gt;
-   name    dtype    unit                              description                            
---------- ------- -------- ------------------------------------------------------------------
-source_id   int64          Unique source identifier (unique within a particular Data Release)
-       ra float64      deg                                                    Right ascension
-      dec float64      deg                                                        Declination
-     pmra float64 mas / yr                         Proper motion in right ascension direction
-    pmdec float64 mas / yr                             Proper motion in declination direction
-Jobid: 1615815873808O
-Phase: COMPLETED
-Owner: None
-Output file: async_20210315094433.vot
-Results: None
 </pre></div>
 </div>
 </div>
@@ -1956,23 +786,6 @@ Results: None
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><i>Table length=10</i>
-<table id="table139807251332016" class="table-striped table-bordered table-condensed">
-<thead><tr><th>source_id</th><th>ra</th><th>dec</th><th>pmra</th><th>pmdec</th></tr></thead>
-<thead><tr><th></th><th>deg</th><th>deg</th><th>mas / yr</th><th>mas / yr</th></tr></thead>
-<thead><tr><th>int64</th><th>float64</th><th>float64</th><th>float64</th><th>float64</th></tr></thead>
-<tr><td>637987125186749568</td><td>142.48301935991023</td><td>21.75771616932985</td><td>-2.5168384683875766</td><td>2.941813096629439</td></tr>
-<tr><td>638285195917112960</td><td>142.25452941346344</td><td>22.476168171141378</td><td>2.6627020143457996</td><td>-12.165984395577347</td></tr>
-<tr><td>638073505568978688</td><td>142.64528557468074</td><td>22.16693224953078</td><td>18.30674739454163</td><td>-7.950659620550862</td></tr>
-<tr><td>638086386175786752</td><td>142.57739430926034</td><td>22.22791951401365</td><td>0.9877856720147953</td><td>-2.584105480335548</td></tr>
-<tr><td>638049655615392384</td><td>142.58913564478618</td><td>22.110783166677418</td><td>0.24443878227817095</td><td>-4.941079187010136</td></tr>
-<tr><td>638267565075964032</td><td>141.81762228999614</td><td>22.375696125322275</td><td>-3.413174589660796</td><td>1.8838892877285924</td></tr>
-<tr><td>638028902333511168</td><td>143.18339801317677</td><td>22.2512465812369</td><td>7.848511762712128</td><td>-21.391145547787154</td></tr>
-<tr><td>638085767700610432</td><td>142.9347319464589</td><td>22.46244080823965</td><td>-3.6585960944321476</td><td>-12.486419770278376</td></tr>
-<tr><td>638299863230178304</td><td>142.26769745823267</td><td>22.640183776884836</td><td>-1.8168370892218297</td><td>1.0537342990941316</td></tr>
-<tr><td>637973067758974208</td><td>142.89551292869012</td><td>21.612824100339875</td><td>-8.645166256559063</td><td>-44.41164172204947</td></tr>
-</table></div></div>
 </div>
 <p>Finally, we can remove <code class="docutils literal notranslate"><span class="pre">TOP</span> <span class="pre">10</span></code> run the query again.</p>
 <p>The result is bigger than our previous queries, so it will take a little longer.</p>
@@ -1998,17 +811,6 @@ Results: None
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>SELECT
-source_id, ra, dec, pmra, pmdec
-FROM gaiadr2.gaia_source
-WHERE parallax &lt; 1
-  AND bp_rp BETWEEN -0.75 AND 2 
-  AND 1 = CONTAINS(POINT(ra, dec), 
-                   POLYGON(146.275, 19.2619, 135.422, 25.8774, 141.603, 34.3048, 152.817, 27.1361, 146.275, 19.2619))
-</pre></div>
-</div>
-</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2017,34 +819,11 @@ WHERE parallax &lt; 1
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: Query finished. [astroquery.utils.tap.core]
-&lt;Table length=140339&gt;
-   name    dtype    unit                              description                            
---------- ------- -------- ------------------------------------------------------------------
-source_id   int64          Unique source identifier (unique within a particular Data Release)
-       ra float64      deg                                                    Right ascension
-      dec float64      deg                                                        Declination
-     pmra float64 mas / yr                         Proper motion in right ascension direction
-    pmdec float64 mas / yr                             Proper motion in declination direction
-Jobid: 1615815886707O
-Phase: COMPLETED
-Owner: None
-Output file: async_20210315094446.vot
-Results: None
-</pre></div>
-</div>
-</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">results</span> <span class="o">=</span> <span class="n">job</span><span class="o">.</span><span class="n">get_results</span><span class="p">()</span>
 <span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>140339
 </pre></div>
 </div>
 </div>
@@ -2073,11 +852,6 @@ Results: None
 
 <span class="n">MB</span> <span class="o">=</span> <span class="mi">1024</span> <span class="o">*</span> <span class="mi">1024</span>
 <span class="n">getsize</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span> <span class="o">/</span> <span class="n">MB</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>5.36407470703125
 </pre></div>
 </div>
 </div>
