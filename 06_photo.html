@@ -244,11 +244,6 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#installing-libraries">
-   Installing libraries
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#reload-the-data">
    Reload the data
   </a>
@@ -332,45 +327,32 @@ The following figure from the paper is a color-magnitude diagram showing the sta
 <li><p>Use Pandas to merge data from multiple <code class="docutils literal notranslate"><span class="pre">DataFrames</span></code>, much like a database <code class="docutils literal notranslate"><span class="pre">JOIN</span></code> operation.</p></li>
 </ul>
 </div>
-<div class="section" id="installing-libraries">
-<h2>Installing libraries<a class="headerlink" href="#installing-libraries" title="Permalink to this headline">¶</a></h2>
-<p>If you are running this notebook on Colab, you can run the following cell to install the libraries we’ll use.</p>
-<p>If you are running this notebook on your own computer, you might have to install these libraries yourself.  See the instructions in the preface.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># If we&#39;re running on Colab, install libraries</span>
-
-<span class="kn">import</span> <span class="nn">sys</span>
-<span class="n">IN_COLAB</span> <span class="o">=</span> <span class="s1">&#39;google.colab&#39;</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span>
-
-<span class="k">if</span> <span class="n">IN_COLAB</span><span class="p">:</span>
-    <span class="o">!</span>pip install wget
-</pre></div>
-</div>
-</div>
-</div>
-</div>
 <div class="section" id="reload-the-data">
 <h2>Reload the data<a class="headerlink" href="#reload-the-data" title="Permalink to this headline">¶</a></h2>
-<p>The following cell downloads the photometry data we created in the previous notebook.</p>
+<p>You can <a class="reference external" href="https://github.com/AllenDowney/AstronomicalData/raw/main/data/gd1_data.hdf">download the data from the previous lesson</a> or run the following cell, which downloads it if necessary.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">from</span> <span class="nn">wget</span> <span class="kn">import</span> <span class="n">download</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">basename</span><span class="p">,</span> <span class="n">exists</span>
 
-<span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;gd1_data.hdf&#39;</span>
-<span class="n">filepath</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/AllenDowney/AstronomicalData/raw/main/data/&#39;</span>
+<span class="k">def</span> <span class="nf">download</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
+    <span class="n">filename</span> <span class="o">=</span> <span class="n">basename</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">exists</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">urllib.request</span> <span class="kn">import</span> <span class="n">urlretrieve</span>
+        <span class="n">local</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">urlretrieve</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Downloaded &#39;</span> <span class="o">+</span> <span class="n">local</span><span class="p">)</span>
 
-<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">download</span><span class="p">(</span><span class="n">filepath</span><span class="o">+</span><span class="n">filename</span><span class="p">))</span>
+<span class="n">download</span><span class="p">(</span><span class="s1">&#39;https://github.com/AllenDowney/AstronomicalData/raw/main/&#39;</span> <span class="o">+</span>
+         <span class="s1">&#39;data/gd1_data.hdf&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
+<p>Now we can reload <code class="docutils literal notranslate"><span class="pre">candidate_df</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
+<span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;gd1_data.hdf&#39;</span>
 <span class="n">candidate_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_hdf</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;candidate_df&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -449,14 +431,8 @@ The input can be an Astropy <code class="docutils literal notranslate"><span cla
 <p>The following cell downloads the results:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">from</span> <span class="nn">wget</span> <span class="kn">import</span> <span class="n">download</span>
-
-<span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;MIST_iso_5fd2532653c27.iso.cmd&#39;</span>
-<span class="n">filepath</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/AllenDowney/AstronomicalData/raw/main/data/&#39;</span>
-
-<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">download</span><span class="p">(</span><span class="n">filepath</span><span class="o">+</span><span class="n">filename</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">download</span><span class="p">(</span><span class="s1">&#39;https://github.com/AllenDowney/AstronomicalData/raw/main/&#39;</span> <span class="o">+</span>
+         <span class="s1">&#39;data/MIST_iso_5fd2532653c27.iso.cmd&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -464,14 +440,8 @@ The input can be an Astropy <code class="docutils literal notranslate"><span cla
 <p>To read this file we’ll download a Python module <a class="reference external" href="https://github.com/jieunchoi/MIST_codes">from this repository</a>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">from</span> <span class="nn">wget</span> <span class="kn">import</span> <span class="n">download</span>
-
-<span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;read_mist_models.py&#39;</span>
-<span class="n">filepath</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/jieunchoi/MIST_codes/raw/master/scripts/&#39;</span>
-
-<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">download</span><span class="p">(</span><span class="n">filepath</span><span class="o">+</span><span class="n">filename</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">download</span><span class="p">(</span><span class="s1">&#39;https://github.com/jieunchoi/MIST_codes/raw/master/scripts/&#39;</span> <span class="o">+</span>
+         <span class="s1">&#39;read_mist_models.py&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -624,14 +594,8 @@ The input can be an Astropy <code class="docutils literal notranslate"><span cla
 <p>The following cell downloads the isochrone we made in the previous section, if necessary.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">from</span> <span class="nn">wget</span> <span class="kn">import</span> <span class="n">download</span>
-
-<span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;gd1_isochrone.hdf5&#39;</span>
-<span class="n">filepath</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/AllenDowney/AstronomicalData/raw/main/data/&#39;</span>
-
-<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">download</span><span class="p">(</span><span class="n">filepath</span><span class="o">+</span><span class="n">filename</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">download</span><span class="p">(</span><span class="s1">&#39;https://github.com/AllenDowney/AstronomicalData/raw/main/data/&#39;</span> <span class="o">+</span>
+         <span class="s1">&#39;gd1_isochrone.hdf5&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -639,7 +603,8 @@ The input can be an Astropy <code class="docutils literal notranslate"><span cla
 <p>Now we can read it back in.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">iso_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_hdf</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;iso_df&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;gd1_isochrone.hdf5&#39;</span>
+<span class="n">iso_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_hdf</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;iso_df&#39;</span><span class="p">)</span>
 <span class="n">iso_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
