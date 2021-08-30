@@ -406,7 +406,36 @@
 </ol>
 <div class="cell tag_hide-cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution goes here</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
+
+<span class="c1"># Some topics that might come up in this discussion:</span>
+
+<span class="c1"># 1. The primary result is that the multiple stages of selection </span>
+<span class="c1"># make it possible to separate likely candidates from the </span>
+<span class="c1"># background more effectively than in previous work, which makes </span>
+<span class="c1"># it possible to see the structure of GD-1 in &quot;unprecedented detail&quot;.</span>
+
+<span class="c1"># 2. The figure documents the selection process as a sequence of </span>
+<span class="c1"># steps.  Reading right-to-left, top-to-bottom, we see selection </span>
+<span class="c1"># based on proper motion, the results of the first selection, </span>
+<span class="c1"># selection based on color and magnitude, and the results of the </span>
+<span class="c1"># second selection.  So this figure documents the methodology and </span>
+<span class="c1"># presents the primary result.</span>
+
+<span class="c1"># 3. It&#39;s mostly black and white, with minimal use of color, so </span>
+<span class="c1"># it will work well in print.  The annotations in the bottom </span>
+<span class="c1"># left panel guide the reader to the most important results.  </span>
+<span class="c1"># It contains enough technical detail for a professional audience, </span>
+<span class="c1"># but most of it is also comprehensible to a more general audience.  </span>
+<span class="c1"># The two left panels have the same dimensions and their axes are </span>
+<span class="c1"># aligned.</span>
+
+<span class="c1"># 4. Since the panels represent a sequence, it might be better to </span>
+<span class="c1"># arrange them left-to-right.  The placement and size of the axis </span>
+<span class="c1"># labels could be tweaked.  The entire figure could be a little </span>
+<span class="c1"># bigger to match the width and proportion of the caption.  </span>
+<span class="c1"># The top left panel has unnused white space (but that leaves </span>
+<span class="c1"># space for the annotations in the bottom left).</span>
 </pre></div>
 </div>
 </div>
@@ -471,6 +500,9 @@
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="_images/07_plot_13_0.png" src="_images/07_plot_13_0.png" />
+</div>
 </div>
 </div>
 <div class="section" id="annotations">
@@ -492,7 +524,23 @@
 <p>And here is some <a class="reference external" href="https://matplotlib.org/3.3.1/tutorials/text/annotations.html#plotting-guide-annotation">additional information about text and arrows</a>.</p>
 <div class="cell tag_hide-cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution goes here</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
+
+<span class="c1"># plt.axvline(-55, ls=&#39;--&#39;, color=&#39;gray&#39;, </span>
+<span class="c1">#             alpha=0.4, dashes=(6,4), lw=2)</span>
+<span class="c1"># plt.text(-60, 5.5, &#39;Previously\nundetected&#39;, </span>
+<span class="c1">#          fontsize=&#39;small&#39;, ha=&#39;right&#39;, va=&#39;top&#39;);</span>
+
+<span class="c1"># arrowprops=dict(color=&#39;gray&#39;, shrink=0.05, width=1.5, </span>
+<span class="c1">#                 headwidth=6, headlength=8, alpha=0.4)</span>
+
+<span class="c1"># plt.annotate(&#39;Spur&#39;, xy=(-33, 2), xytext=(-35, 5.5),</span>
+<span class="c1">#              arrowprops=arrowprops,</span>
+<span class="c1">#              fontsize=&#39;small&#39;)</span>
+
+<span class="c1"># plt.annotate(&#39;Gap&#39;, xy=(-22, -1), xytext=(-25, -5.5),</span>
+<span class="c1">#              arrowprops=arrowprops,</span>
+<span class="c1">#              fontsize=&#39;small&#39;)</span>
 </pre></div>
 </div>
 </div>
@@ -519,7 +567,9 @@
 <p>Read the documentation of <a class="reference external" href="https://matplotlib.org/3.1.1/api/_as_gen/matplotlib.axes.Axes.tick_params.html"><code class="docutils literal notranslate"><span class="pre">tick_params</span></code></a> and use it to put ticks on the top and right sides of the axes.</p>
 <div class="cell tag_hide-cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution goes here</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
+
+<span class="c1"># plt.gca().tick_params(top=True, right=True)</span>
 </pre></div>
 </div>
 </div>
@@ -533,6 +583,11 @@
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;font.size&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>10.0
 </pre></div>
 </div>
 </div>
@@ -557,6 +612,36 @@
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">available</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;Solarize_Light2&#39;,
+ &#39;_classic_test_patch&#39;,
+ &#39;bmh&#39;,
+ &#39;classic&#39;,
+ &#39;dark_background&#39;,
+ &#39;fast&#39;,
+ &#39;fivethirtyeight&#39;,
+ &#39;ggplot&#39;,
+ &#39;grayscale&#39;,
+ &#39;seaborn&#39;,
+ &#39;seaborn-bright&#39;,
+ &#39;seaborn-colorblind&#39;,
+ &#39;seaborn-dark&#39;,
+ &#39;seaborn-dark-palette&#39;,
+ &#39;seaborn-darkgrid&#39;,
+ &#39;seaborn-deep&#39;,
+ &#39;seaborn-muted&#39;,
+ &#39;seaborn-notebook&#39;,
+ &#39;seaborn-paper&#39;,
+ &#39;seaborn-pastel&#39;,
+ &#39;seaborn-poster&#39;,
+ &#39;seaborn-talk&#39;,
+ &#39;seaborn-ticks&#39;,
+ &#39;seaborn-white&#39;,
+ &#39;seaborn-whitegrid&#39;,
+ &#39;tableau-colorblind10&#39;]
 </pre></div>
 </div>
 </div>
@@ -674,6 +759,14 @@
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[-8.9, -2.2],
+       [-8.9,  1. ],
+       [-6.9,  1. ],
+       [-6.9, -2.2]])
+</pre></div>
+</div>
+</div>
 </div>
 <p>The following function takes a <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> as a parameter, plots the proper motion for each star, and adds a shaded <code class="docutils literal notranslate"><span class="pre">Polygon</span></code> to show the region we selected.</p>
 <div class="cell docutils container">
@@ -706,6 +799,9 @@
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_proper_motion</span><span class="p">(</span><span class="n">centerline_df</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/07_plot_53_0.png" src="_images/07_plot_53_0.png" />
 </div>
 </div>
 </div>
@@ -745,6 +841,9 @@
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="_images/07_plot_59_0.png" src="_images/07_plot_59_0.png" />
+</div>
 </div>
 </div>
 <div class="section" id="lower-right">
@@ -781,6 +880,9 @@
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="_images/07_plot_63_0.png" src="_images/07_plot_63_0.png" />
+</div>
 </div>
 <p>And here’s how we read it back.</p>
 <div class="cell docutils container">
@@ -791,6 +893,58 @@
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>color_loop</th>
+      <th>mag_loop</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.632171</td>
+      <td>21.411746</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0.610238</td>
+      <td>21.322466</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.588449</td>
+      <td>21.233380</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.566924</td>
+      <td>21.144427</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.545461</td>
+      <td>21.054549</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 <div class="section" id="id3">
 <h3>Exercise<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
@@ -798,7 +952,11 @@
 <p>Hint: pass <code class="docutils literal notranslate"><span class="pre">coords</span></code> as an argument to <code class="docutils literal notranslate"><span class="pre">Polygon</span></code> and plot it using <code class="docutils literal notranslate"><span class="pre">add_patch</span></code>.</p>
 <div class="cell tag_hide-cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution goes here</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
+
+<span class="c1"># poly = Polygon(loop_df, closed=True, </span>
+<span class="c1">#                facecolor=&#39;C1&#39;, alpha=0.4)</span>
+<span class="c1"># plt.gca().add_patch(poly)</span>
 </pre></div>
 </div>
 </div>
@@ -837,6 +995,9 @@
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="_images/07_plot_69_0.png" src="_images/07_plot_69_0.png" />
+</div>
 </div>
 <p>We use <a class="reference external" href="https://matplotlib.org/3.3.1/tutorials/intermediate/tight_layout_guide.html"><code class="docutils literal notranslate"><span class="pre">plt.tight_layout</span></code></a> at the end, which adjusts the sizes of the panels to make sure the titles and axis labels don’t overlap.</p>
 <p>As an exercise, see what happens if you leave out <code class="docutils literal notranslate"><span class="pre">tight_layout</span></code>.</p>
@@ -872,6 +1033,9 @@
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="_images/07_plot_72_0.png" src="_images/07_plot_72_0.png" />
+</div>
 </div>
 <p>This is looking more and more like the figure in the paper.</p>
 <div class="section" id="id4">
@@ -879,7 +1043,27 @@
 <p>In this example, the ratio of the widths of the panels is 3:1.  How would you adjust it if you wanted the ratio to be 3:2?</p>
 <div class="cell tag_hide-cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution goes here</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
+
+<span class="c1"># plt.figure(figsize=(9, 4.5))</span>
+
+<span class="c1"># shape = (2, 5)                                   # CHANGED</span>
+<span class="c1"># plt.subplot2grid(shape, (0, 0), colspan=3)</span>
+<span class="c1"># plot_first_selection(candidate_df)</span>
+
+<span class="c1"># plt.subplot2grid(shape, (0, 3), colspan=2)       # CHANGED</span>
+<span class="c1"># plot_proper_motion(centerline_df)</span>
+
+<span class="c1"># plt.subplot2grid(shape, (1, 0), colspan=3)</span>
+<span class="c1"># plot_second_selection(winner_df)</span>
+
+<span class="c1"># plt.subplot2grid(shape, (1, 3), colspan=2)       # CHANGED</span>
+<span class="c1"># plot_cmd(candidate_df)</span>
+<span class="c1"># poly = Polygon(coords, closed=True, </span>
+<span class="c1">#                facecolor=&#39;C1&#39;, alpha=0.4)</span>
+<span class="c1"># plt.gca().add_patch(poly)</span>
+
+<span class="c1"># plt.tight_layout()</span>
 </pre></div>
 </div>
 </div>
