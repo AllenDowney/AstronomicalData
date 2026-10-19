@@ -1,5 +1,9 @@
 # Astronomical Data in Python
 
+
+This is one of [my workshops and tutorials](https://allendowney.github.io/#workshops).
+
+
 *Astronomical Data in Python* is an introduction to tools and practices for working with astronomical data.  Topics covered include:
 
 * Writing queries that select and download data from a database.
