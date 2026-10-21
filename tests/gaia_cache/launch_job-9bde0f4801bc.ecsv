@@ -1,0 +1,52 @@
+# %ECSV 1.0
+# ---
+# datatype:
+# - name: source_id
+#   datatype: int64
+#   description: Unique source identifier (unique within a particular Data Release)
+#   meta: !!omap
+#   - {ucd: meta.id}
+# - name: ra
+#   unit: deg
+#   datatype: float64
+#   description: Right ascension
+#   meta: !!omap
+#   - {ucd: pos.eq.ra;meta.main}
+#   - {utype: Char.SpatialAxis.Coverage.Location.Coord.Position2D.Value2.C1}
+# - name: dec
+#   unit: deg
+#   datatype: float64
+#   description: Declination
+#   meta: !!omap
+#   - {ucd: pos.eq.dec;meta.main}
+#   - {utype: Char.SpatialAxis.Coverage.Location.Coord.Position2D.Value2.C2}
+# - name: pmra
+#   unit: mas / yr
+#   datatype: float64
+#   description: Proper motion in right ascension direction
+#   meta: !!omap
+#   - {ucd: pos.pm;pos.eq.ra}
+# - name: pmdec
+#   unit: mas / yr
+#   datatype: float64
+#   description: Proper motion in declination direction
+#   meta: !!omap
+#   - {ucd: pos.pm;pos.eq.dec}
+# - name: parallax
+#   unit: mas
+#   datatype: float64
+#   description: Parallax
+#   meta: !!omap
+#   - {ucd: pos.parallax}
+# schema: astropy-2.0
+source_id ra dec pmra pmdec parallax
+2021675642089792384 295.4329664157076 25.694747895432833 -3.705910675783222 -8.435028670905961 0.1504022212411833
+4144465530233812608 268.53821863765097 -17.795074200697346 -1.4303474727014598 -9.861545464502035 -0.8908715834864402
+5408471828453194496 151.00917891019682 -46.88423637662744 -4.636817276449457 1.7407696079295116 0.1055206828557775
+5408458531225820288 151.40576479580253 -46.61343588999212 -12.895821811819767 3.1752137760813546 -0.41882170015846476
+5800602892358227072 225.01887329936304 -67.06130408344855 -7.359523052877834 -7.7239324667890905 0.07586289160158002
+6003853178701555840 227.90894692613932 -42.11918047496137 -5.386993898808422 -3.344921684199617 0.4962694722741371
+6725836463927174144 273.590974252965 -39.75280813299349 1.6209277611794106 -0.07351528958704044 -0.06958704663385112
+6680762117861851392 306.6295194762143 -40.201733539217514 3.832406585210509 1.2334373759340376 0.3892922878460933
+2047235542205871744 294.87519569470624 34.46349460671704 -2.4712404805843873 -6.5894371483276455 -0.4509076357438277
+5408473095460125440 151.01578818261012 -46.834780034507226 -6.496627132719485 6.73099295954287 0.5943950825234436

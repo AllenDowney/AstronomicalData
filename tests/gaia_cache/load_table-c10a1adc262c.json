@@ -1,0 +1,13 @@
+{
+ "name": "gaiadr2.panstarrs1_best_neighbour",
+ "text": "TAP Table name: gaiadr2.panstarrs1_best_neighbour\nDescription: Pan-STARRS1 BestNeighbour table lists each matched Gaia object with its\nbest neighbour in the external catalogue.\nThere are 1\u2006327\u2006157 objects in the filtered version of Pan-STARRS1 used\nto compute this cross-match that have too early epochMean.\nSize (bytes): 98462015488\nNum. columns: 7",
+ "columns": [
+  "source_id",
+  "original_ext_source_id",
+  "angular_distance",
+  "number_of_neighbours",
+  "number_of_mates",
+  "best_neighbour_multiplicity",
+  "gaia_astrometric_params"
+ ]
+}

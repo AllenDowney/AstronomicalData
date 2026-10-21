@@ -1,5 +1,7 @@
 # Astronomical Data in Python
 
+[![tests](https://github.com/AllenDowney/AstronomicalData/actions/workflows/tests.yml/badge.svg)](https://github.com/AllenDowney/AstronomicalData/actions/workflows/tests.yml)
+
 
 This is one of [my workshops and tutorials](https://allendowney.github.io/#workshops).
 

@@ -1,0 +1,7 @@
+# %ECSV 1.0
+# ---
+# datatype:
+# - {name: COUNT, datatype: int64}
+# schema: astropy-2.0
+COUNT
+594

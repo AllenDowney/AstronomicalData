@@ -1,0 +1,40 @@
+# %ECSV 1.0
+# ---
+# datatype:
+# - name: source_id
+#   datatype: int64
+#   description: Unique source identifier (unique within a particular Data Release)
+#   meta: !!omap
+#   - {ucd: meta.id}
+# - name: ra
+#   unit: deg
+#   datatype: float64
+#   description: Right ascension
+#   meta: !!omap
+#   - {ucd: pos.eq.ra;meta.main}
+#   - {utype: Char.SpatialAxis.Coverage.Location.Coord.Position2D.Value2.C1}
+# - name: dec
+#   unit: deg
+#   datatype: float64
+#   description: Declination
+#   meta: !!omap
+#   - {ucd: pos.eq.dec;meta.main}
+#   - {utype: Char.SpatialAxis.Coverage.Location.Coord.Position2D.Value2.C2}
+# - name: parallax
+#   unit: mas
+#   datatype: float64
+#   description: Parallax
+#   meta: !!omap
+#   - {ucd: pos.parallax}
+# schema: astropy-2.0
+source_id ra dec parallax
+4464185571489765376 246.0771571149933 15.475361948153898 0.3581981880000272
+2021650318958976512 294.93613682293886 25.320312631163834 0.4482071426928564
+6003882045187270400 229.28259303837524 -42.97826091593811 0.3814393435896097
+6680659523978470144 306.5616715416606 -40.54589081856055 -2.227432561581064
+6680733225618222592 307.6583019373705 -40.00379241243431 2.2595484953413174
+5800583066773602560 224.61633794146624 -67.07005997802717 ""
+5781838313353791232 236.48568321530968 -75.24915473149034 0.12674646527678737
+4144471714989233408 268.5454915814623 -17.682461147100533 0.12228975502535505
+2047220836251855104 294.8298225995674 34.11084352711903 0.22647934974275735
+1872330283344244608 316.13922825318565 39.63583111023358 0.292845031820401

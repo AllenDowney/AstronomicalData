@@ -1,0 +1,46 @@
+name: tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    # monthly, to catch library drift and changes in the Gaia archive
+    # min hour day-of-month month day-of-week
+    - cron: "0 0 1 * *"
+  workflow_dispatch:
+    inputs:
+      live:
+        description: "Query the Gaia archive instead of replaying saved results"
+        type: boolean
+        default: false
+
+jobs:
+  tests:
+    name: Tests (Python 3.13)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - uses: actions/checkout@v5
+
+      # Colab's Python version
+      - name: Set up Python 3.13
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.13"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements-dev.txt
+
+      # The startup file in tests/ipython replays saved Gaia results
+      # (tests/gaia_cache), so the tests don't depend on the Gaia service.
+      # The monthly run, and a manual run with "live", query the archive.
+      - name: Run tests
+        env:
+          IPYTHONDIR: ${{ github.workspace }}/tests/ipython
+          GAIA_REPLAY: ${{ (github.event_name == 'schedule' || inputs.live) && 'record' || 'replay' }}
+        run: |
+          pytest --nbmake --nbmake-timeout=900 soln/0*.ipynb

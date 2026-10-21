@@ -1,0 +1,20 @@
+# %ECSV 1.0
+# ---
+# datatype:
+# - name: source_id
+#   datatype: int64
+#   description: Unique source identifier (unique within a particular Data Release)
+#   meta: !!omap
+#   - {ucd: meta.id}
+# schema: astropy-2.0
+source_id
+3322774652250782080
+3322774686612065024
+3322774617891039744
+3322774480451102080
+3322774068134269184
+3322774446092909184
+3322774102496541440
+3322773892042964224
+3322774446092380800
+3322776194145449728

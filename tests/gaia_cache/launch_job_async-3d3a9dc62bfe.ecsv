@@ -1,0 +1,13 @@
+# %ECSV 1.0
+# ---
+# datatype:
+# - {name: obj_id, datatype: int64, description: Unique Object Identifier}
+# - {name: g_mean_psf_mag, datatype: float64, description: Mean magnitude in g filter}
+# - {name: i_mean_psf_mag, unit: mag, datatype: float64, description: Mean magnitude in i filter}
+# schema: astropy-2.0
+obj_id g_mean_psf_mag i_mean_psf_mag
+67130553357691441 "" 19.5795993804932
+67130494816571356 "" 20.3157997131348
+67132632684301366 20.3448009490967 17.4930000305176
+67130584260971504 "" 20.0562000274658
+67551342658827845 "" 21.5202007293701

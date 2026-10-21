@@ -1,0 +1,30 @@
+# %ECSV 1.0
+# ---
+# datatype:
+# - name: source_id
+#   datatype: int64
+#   description: Unique Gaia source identifier
+#   meta: !!omap
+#   - {ucd: meta.id;meta.main}
+# - name: number_of_neighbours
+#   datatype: int32
+#   description: Number of neighbours in External Catalogue
+#   meta: !!omap
+#   - {ucd: meta.number}
+# - name: number_of_mates
+#   datatype: int16
+#   description: Number of mates in Gaia Catalogue
+#   meta: !!omap
+#   - {ucd: meta.number}
+# - name: original_ext_source_id
+#   datatype: int64
+#   description: Original External Catalogue source identifier
+#   meta: !!omap
+#   - {ucd: meta.id.cross}
+# schema: astropy-2.0
+source_id number_of_neighbours number_of_mates original_ext_source_id
+6026904238158458368 1 2 69742540420101516
+6613257841994975872 1 0 69743313109181287
+6745788545500247168 1 0 69742908623551247
+5463013240179703168 1 0 69741496817881194
+6757938900605663744 1 0 69742889237711205

@@ -31,10 +31,17 @@ Environment: `mamba env create -f environment.yml` (name `AstronomicalData`). Ru
 pytest --nbmake soln/0*.ipynb
 ```
 
-The query notebooks load saved result files when they exist, so tests don't depend on the Gaia service. The target environment is Google Colab's Python (3.13) and libraries.
+Gaia queries are replayed from `tests/gaia_cache` when `IPYTHONDIR` points to `tests/ipython`, so tests don't depend on the Gaia service (CI does this; see `tests/gaia_replay.py`):
+
+```
+IPYTHONDIR=$PWD/tests/ipython pytest --nbmake soln/0*.ipynb
+```
+
+If a notebook's query changes, record again with `GAIA_REPLAY=record` (makes the real queries). The student versions don't run top to bottom (their blanks feed later cells), so they aren't tested. The target environment is Google Colab's Python (3.13) and libraries.
 
 ## Conventions
 
 - Don't change the substance of the text; list content questions under "Content issues" on the board for Allen to decide.
-- Keep student and solution versions in sync (regenerate the student versions from `soln/`).
+- Keep student and solution versions in sync: regenerate the student versions with `cp soln/0*.ipynb .` and `python remove_soln.py` (the root `build.sh` does this but also commits and pushes).
+- Saved outputs in `soln/` come from a live run (`jupyter nbconvert --execute --inplace`), not the replay; strip the `execution` timestamps from cell metadata afterwards.
 - Branch is `main`.

@@ -1,0 +1,52 @@
+# %ECSV 1.0
+# ---
+# datatype:
+# - name: source_id
+#   datatype: int64
+#   description: Unique source identifier (unique within a particular Data Release)
+#   meta: !!omap
+#   - {ucd: meta.id}
+# - name: ra
+#   unit: deg
+#   datatype: float64
+#   description: Right ascension
+#   meta: !!omap
+#   - {ucd: pos.eq.ra;meta.main}
+#   - {utype: Char.SpatialAxis.Coverage.Location.Coord.Position2D.Value2.C1}
+# - name: dec
+#   unit: deg
+#   datatype: float64
+#   description: Declination
+#   meta: !!omap
+#   - {ucd: pos.eq.dec;meta.main}
+#   - {utype: Char.SpatialAxis.Coverage.Location.Coord.Position2D.Value2.C2}
+# - name: pmra
+#   unit: mas / yr
+#   datatype: float64
+#   description: Proper motion in right ascension direction
+#   meta: !!omap
+#   - {ucd: pos.pm;pos.eq.ra}
+# - name: pmdec
+#   unit: mas / yr
+#   datatype: float64
+#   description: Proper motion in declination direction
+#   meta: !!omap
+#   - {ucd: pos.pm;pos.eq.dec}
+# - name: parallax
+#   unit: mas
+#   datatype: float64
+#   description: Parallax
+#   meta: !!omap
+#   - {ucd: pos.parallax}
+# schema: astropy-2.0
+source_id ra dec pmra pmdec parallax
+638285195917112960 142.25452941346344 22.476168171141378 2.6627020143457996 -12.165984395577347 0.4227283465319491
+638298282682188800 142.26172557885886 22.60556441759035 -10.219830117668444 -3.3917156621993474 0.7991274683910636
+638284371283391488 142.27219876512598 22.45813162457535 -2.473133013206235 -2.636295127365714 0.7133339841211638
+638099752114132736 142.62415889380898 22.480110677799427 -3.764051845342056 0.8091999047709665 -0.7052264078372199
+638300653505991168 142.24309288666194 22.651845511552494 2.5441752273244473 -27.608879163660436 -0.41865888120327477
+637988121619155072 142.5683159910364 21.77830885766259 -3.525599842765927 -1.0635452095862867 -0.0015040521181752355
+638044505949803136 142.64238812703144 21.979562874621642 -8.050366336451011 -13.192931754665596 0.3970590279117468
+638329691778262016 141.72264447493743 22.7061782963014 -2.0635440563854743 -7.935732717708952 0.963202007247308
+638322063916348416 141.73690551370493 22.56418234691144 -8.388326722429294 -7.926101422552708 0.491370520762686
+638097827968788608 142.85942347006701 22.49496718388735 -1.3100708804417664 -0.4643472177373664 0.3851589645706743

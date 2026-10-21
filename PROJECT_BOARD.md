@@ -21,18 +21,19 @@ Numbered tasks for tracking work. Each task has a permanent number; add new task
 
 **1. Runs in a current environment**
 - [x] `environment.yml` rewritten (conda-forge, `python=3.13`, pytest, nbmake, Jupyter Book 1; dropped `defaults`/`astropy` channels, `h5py`, `gsl`, `python-wget`, which no notebook imports, only `test_setup.ipynb`), `requirements.txt` (unpinned), `requirements-dev.txt`. gala 1.12.0 has a cp313 manylinux wheel, so `pip install gala` works on Colab
-- [ ] First code cell: `%pip install` what Colab lacks (astroquery, gala; check pytables); download data and helper files if missing
-- [ ] Fix breakage and deprecation warnings (warnings-as-errors scratch runs). First run (2026-10-21, warnings shown, live Gaia): every error in 03–07 traces to three causes: positional `to_hdf` key (TypeError in pandas 3; 03, 05, 06); GD-1 Quantity columns added to the Table before `to_pandas()` (pandas 3 fails in `describe`, `between`, `to_csv`; 03, 04, 05); and a cascade, because 03 left an empty `gd1_data.hdf` that made later `download()` calls skip the real file. Plus SyntaxWarnings for `'$\phi_1$'` labels (07), the 'partition' UserWarning in 05, and ResourceWarnings for unclosed sockets (inside astroquery; not ours). Known from the lesson: `to_hdf(..., key=...)`; raw strings for `$\phi_1$` labels (SyntaxWarning on 3.12+); add GD-1 columns to the DataFrame after `to_pandas()`, not to the Table; `seaborn-*` style names (removed in Matplotlib 3.8; the lesson hasn't fixed this)
-- [ ] gala: keep it and `pip install gala` (Allen, 2026-10-21; the lesson vendored `gd1.py`/`reflex.py` instead). Check it installs on 3.13 and on Colab; drop the `astro-gala` TODO
-- [ ] `np.set_printoptions(legacy='1.25')` in the cell that imports NumPy; re-run the solution notebooks
-- [ ] Data URLs: `data/` on GitHub (works); MIST `read_mist_models.py` from `jieunchoi/MIST_codes` (check); `join.png` from the lesson's `gh-pages` (works 2026-10-21)
+- [x] First code cell: `try: import …` / `except ImportError: %pip install -q …` for astroquery and/or gala, as each notebook imports them (05 was missing gala). Colab has PyTables. Notebooks download data and helper files if missing (05 now downloads `gd1_data.hdf` too)
+- [x] Breakage and deprecation warnings: all seven solutions run with Deprecation/Future/PendingDeprecation/User/Runtime/Syntax warnings as errors (2026-10-21). Fixes: `to_hdf(..., key=...)`; GD-1 columns added with `.value` (03, `make_dataframe` in 04/05; the lesson's wording in 03); centerline bounds `phi2_min = -1.0` without units, since the columns are now plain numbers (the lesson's episode 4 still has `* u.degree`, which fails; its code isn't executed); `results.to_pandas()[...]` instead of `pd.Series(masked_column)` (05, the 'partition' UserWarning); raw strings for mathtext labels (07); `seaborn-v0_8-*` style names in the 07 text. ResourceWarnings for unclosed sockets come from inside astroquery. Gaia archive changes: the row cap (02) and the proper-motion polygon (04/05) (Decisions)
+- [x] gala from pip (`gala` 1.12.0, cp313 wheel); `astro-gala` and its TODO gone
+- [x] `np.set_printoptions(legacy='1.25')` where NumPy is first imported (03, 04, 06, 07; 01, 02 and 05 print no NumPy scalars); solutions re-run live (2026-10-21), outputs refreshed, execution timestamps stripped; student versions regenerated (`cp soln/0*.ipynb .` + `remove_soln.py`)
+- [x] Data URLs: `data/` on GitHub, `read_mist_models.py` from `jieunchoi/MIST_codes`, `join.png` from the lesson's `gh-pages`: all work (2026-10-21)
 - [ ] Replace Anaconda/Binder setup instructions (README, `index.md`, `jb/README.md`) with Colab first, then pip or mamba
+- [x] `test_setup.ipynb`: removed `from wget import download` (python-wget is no longer installed); the rest is content issue 6
 
 **2. Tests and CI**
-- [ ] Load-if-exists in the query notebooks (Allen, 2026-10-21): each big query cell loads its saved file if present, otherwise queries Gaia, so CI doesn't depend on the Gaia service. Notebooks 03, 06, 07 already read saved files
-- [ ] `pytest --nbmake` on the solutions; student versions too if their blanks don't break later cells
-- [ ] `tests.yml` (push, PR, monthly, manual; Python 3.13; pip; timeout). Ask Allen: should the monthly run delete the saved files and query Gaia live?
-- [ ] Badge in the README
+- [x] Replay saved Gaia results in CI (Allen, 2026-10-21; chosen over load-if-exists once the 1-minute time-out made every query unreliable). `tests/gaia_replay.py` patches `GaiaClass.launch_job`, `launch_job_async`, `load_tables`, `load_table`; `tests/ipython/profile_default/startup/` installs it when `IPYTHONDIR=tests/ipython`. `GAIA_REPLAY=record` makes the real calls and saves the results in `tests/gaia_cache` (34 files, 8.2 MB, mostly the 50,000-row capped query; tables as ECSV, printed text and column names as JSON); `replay` (the default) returns them and fails on a call with no saved result. Notebooks unchanged. Recorded 2026-10-21 in the same live run as the saved outputs. Re-record when a query changes: `GAIA_REPLAY=record IPYTHONDIR=$PWD/tests/ipython pytest --nbmake soln/0*.ipynb`
+- [x] `pytest --nbmake soln/0*.ipynb`: 7 passed in 19 s with networking disabled (`unshare -rn`), vs. ~6 min live. Student versions don't run top to bottom: their blanks include the cells that save `centerline_df` etc., so later cells and notebooks fail. Not tested
+- [x] `.github/workflows/tests.yml`: push to `main`, PR, monthly, manual; Python 3.13; pip; 30-minute timeout; replay, except the monthly run and a manual run with `live` checked, which query the archive (so archive changes show up; expect occasional failures from time-outs)
+- [x] Badge in the README (the README itself is rewritten in step 5)
 
 **3. Colab**
 - [ ] House-wording Colab cell after each title (solutions link to the student version); Colab links in the README table
@@ -87,7 +88,7 @@ Every notebook has an `IN_COLAB` `!pip install` cell (astroquery, `astro-gala`) 
 - **gala removed** (2025-12): vendored `gd1.py` (`GD1Koposov10`) and `reflex.py` (`reflex_correct`). **Difference:** we keep gala (Allen, 2026-10-21).
 - **pandas:** `to_hdf(filename, key=...)`; columns added to the DataFrame after `to_pandas()` (2026-05).
 - **Matplotlib:** raw strings for mathtext labels. Both of us still use `seaborn-*` style names (gone in Matplotlib 3.8).
-- **Data:** a figshare zip (`student_download.zip`) with the data files, so learners can skip queries. **Difference:** here, notebooks download from `data/` on GitHub, and the query notebooks load-if-exists.
+- **Data:** a figshare zip (`student_download.zip`) with the data files, so learners can skip queries. **Difference:** here, notebooks download from `data/` on GitHub, and CI replays saved Gaia results.
 - **Testing:** none in CI; episodes are Markdown with pasted outputs. **Difference:** we run the notebooks with nbmake.
 - **Setup:** Miniforge + `environment.yml` (`python>=3.11`, conda-forge). No Colab notes.
 
@@ -96,7 +97,7 @@ Every notebook has an `IN_COLAB` `!pip install` cell (astroquery, `astro-gala`) 
 - Tags `carpentries-2020` and `pre-refresh-2026`, pushed.
 - Local state and leftovers as listed above; `data/` unchanged.
 - gala: `pip install gala`, not the lesson's vendored files.
-- CI: load-if-exists in the query notebooks.
+- CI: replay saved Gaia results (Allen, 2026-10-21; first load-if-exists, changed after the 1-minute time-out showed that every query is unreliable).
 - Stay on Gaia DR2 (as the lesson and the paper do).
 - Keep HDF (pandas + PyTables) for saved DataFrames, with the lesson's `key=` fix (Allen, 2026-10-21; Parquet would mean ~7 files per notebook, rewritten text, and divergence from the lesson).
 - **Proper-motion polygon** (Allen, 2026-10-21): the archive rejects `CONTAINS(POINT(pmra, pmdec), POLYGON(...))` ("Coordinate 0 of POLYGON is out of range": vertices must be sky coordinates, and `pmra` is negative; astroquery shows only "HTTP 500: null"). The lesson hit this in 2022 and replaced the convex hull with a box chosen by eye (PR #135, `7358a73`). **Difference:** we keep the convex hull, query its bounding rectangle with `BETWEEN`, then select the stars inside the hull with `matplotlib.patches.Polygon.contains_points` (the idiom 06 uses). 04 saves the hull vertices as `pm_df`; `point_series` now holds only `point_list`. Counts: 13,052 in the rectangle, 7,350 in the hull (was 7,345; straight edges instead of great circles); 6,680 from the join query, 3,726 after the hull (was 3,725); 454 winners (unchanged).
@@ -112,3 +113,5 @@ Every notebook has an `IN_COLAB` `!pip install` cell (astroquery, `astro-gala`) 
 3. The paper is described as "recent" (2018).
 4. `jb/README.md` and the README have drifted apart; decide which is the landing page text.
 5. Gaia **1-minute anonymous time-out**: the cone-search join in 05 (the 490-row exercise) takes about a minute and failed 3 of 4 tries on 2026-10-21 (HTTP 408/500). Other queries finished in time, but all are at the mercy of server load. Options: make the slow queries cheaper, tell learners to retry, or point to the saved results.
+6. `test_setup.ipynb` was written for the 2020 event: Slack and survey links, "Classic Notebook" advice. Keep it (as a setup check for local installs, rewritten), or delete it now that Colab is the first option?
+7. Learners on the anonymous quota will see occasional time-outs (HTTP 408/500 from astroquery). Add a sentence in 01 ("if a query fails, run the cell again"), or point to registering?

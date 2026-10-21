@@ -1,0 +1,32 @@
+{
+ "name": "gaiadr2.panstarrs1_original_valid",
+ "text": "TAP Table name: gaiadr2.panstarrs1_original_valid\nDescription: The Panoramic Survey Telescope and Rapid Response System (Pan-STARRS) is\na system for wide-field astronomical imaging developed and operated by\nthe Institute for Astronomy at the University of Hawaii. Pan-STARRS1\n(PS1) is the first part of Pan-STARRS to be completed and is the basis\nfor Data Release 1 (DR1). The PS1 survey used a 1.8 meter telescope and\nits 1.4 Gigapixel camera to image the sky in five broadband filters (g,\nr, i, z, y).\n\nThe current table contains a filtered subsample of the 10\u2006723\u2006304\u2006629\nentries listed in the original ObjectThin table.\nWe used only ObjectThin and MeanObject tables to extract\npanstarrs1OriginalValid table, this means that objects detected only in\nstack images are not included here. The main reason for us to avoid the\nuse of objects detected in stack images is that their astrometry is not\nas good as the mean objects astrometry: \u201cThe stack positions (raStack,\ndecStack) have considerably larger systematic astrometric errors than\nthe mean epoch positions (raMean, decMean).\u201d The astrometry for the\nMeanObject positions uses Gaia DR1 as a reference catalog, while the\nstack positions use 2MASS as a reference catalog.\n\nIn details, we filtered out all objects where:\n\n-   nDetections = 1\n\n-   no good quality data in Pan-STARRS, objInfoFlag 33554432 not set\n\n-   mean astrometry could not be measured, objInfoFlag 524288 set\n\n-   stack position used for mean astrometry, objInfoFlag 1048576 set\n\n-   error on all magnitudes equal to 0 or to -999;\n\n-   all magnitudes set to -999;\n\n-   error on RA or DEC greater than 1 arcsec.\n\nThe number of objects in panstarrs1OriginalValid is 2\u2006264\u2006263\u2006282.\n\nThe panstarrs1OriginalValid table contains only a subset of the columns\navailable in the combined ObjectThin and MeanObject tables. A\ndescription of the original ObjectThin and MeanObjects tables can be\nfound at:\nhttps://outerspace.stsci.edu/display/PANSTARRS/PS1+Database+object+and+detection+tables\n\nDownload:\nhttp://mastweb.stsci.edu/ps1casjobs/home.aspx\nDocumentation:\nhttps://outerspace.stsci.edu/display/PANSTARRS\nhttp://pswww.ifa.hawaii.edu/pswww/\nReferences:\nThe Pan-STARRS1 Surveys, Chambers, K.C., et al. 2016, arXiv:1612.05560\nPan-STARRS Data Processing System, Magnier, E. A., et al. 2016,\narXiv:1612.05240\nPan-STARRS Pixel Processing: Detrending, Warping, Stacking, Waters, C.\nZ., et al. 2016, arXiv:1612.05245\nPan-STARRS Pixel Analysis: Source Detection and Characterization,\nMagnier, E. A., et al. 2016, arXiv:1612.05244\nPan-STARRS Photometric and Astrometric Calibration, Magnier, E. A., et\nal. 2016, arXiv:1612.05242\nThe Pan-STARRS1 Database and Data Products, Flewelling, H. A., et al.\n2016, arXiv:1612.05243\n\nCatalogue curator:\nSSDC - ASI Space Science Data Center\nhttps://www.ssdc.asi.it/\nSize (bytes): 933802426368\nNum. columns: 26",
+ "columns": [
+  "obj_name",
+  "obj_id",
+  "ra",
+  "dec",
+  "ra_error",
+  "dec_error",
+  "epoch_mean",
+  "g_mean_psf_mag",
+  "g_mean_psf_mag_error",
+  "g_flags",
+  "r_mean_psf_mag",
+  "r_mean_psf_mag_error",
+  "r_flags",
+  "i_mean_psf_mag",
+  "i_mean_psf_mag_error",
+  "i_flags",
+  "z_mean_psf_mag",
+  "z_mean_psf_mag_error",
+  "z_flags",
+  "y_mean_psf_mag",
+  "y_mean_psf_mag_error",
+  "y_flags",
+  "n_detections",
+  "zone_id",
+  "obj_info_flag",
+  "quality_flag"
+ ]
+}
