@@ -1,0 +1,8 @@
+numpy
+pandas
+tables
+scipy
+matplotlib
+astropy
+astroquery
+gala

@@ -17,12 +17,12 @@ Numbered tasks for tracking work. Each task has a permanent number; add new task
 - [x] `PROJECT_BOARD.md` and `CLAUDE.md`. Pages builds from `gh-pages` (Jupyter Book 1, last published 2021-08-30), so `.md` files on `main` are not published
 - [x] Tags (pushed 2026-10-21): `carpentries-2020` at `094e93c` (2020-11-16 10:18, last commit before the Carpentries test drive, Nov 16–20, 2020; no recording); `pre-refresh-2026` at `1641df8`
 - [x] Inventory (below)
-- [ ] Environment: mamba env `AstronomicalData` from a rewritten `environment.yml`
+- [x] Environment: mamba env `AstronomicalData` (2026-10-21): Python 3.13.16, NumPy 2.5.4, pandas 3.0.6, SciPy 1.18.1, Matplotlib 3.11.2, Astropy 8.0.2, astroquery 0.4.11, gala 1.12.0, PyTables 3.11.1
 
 **1. Runs in a current environment**
-- [ ] `environment.yml` (conda-forge, `python=3.13`, pytest, nbmake, Jupyter Book 1), `requirements.txt`, `requirements-dev.txt`
+- [x] `environment.yml` rewritten (conda-forge, `python=3.13`, pytest, nbmake, Jupyter Book 1; dropped `defaults`/`astropy` channels, `h5py`, `gsl`, `python-wget`, which no notebook imports, only `test_setup.ipynb`), `requirements.txt` (unpinned), `requirements-dev.txt`. gala 1.12.0 has a cp313 manylinux wheel, so `pip install gala` works on Colab
 - [ ] First code cell: `%pip install` what Colab lacks (astroquery, gala; check pytables); download data and helper files if missing
-- [ ] Fix breakage and deprecation warnings (warnings-as-errors scratch runs). Known from the lesson: `to_hdf(..., key=...)`; raw strings for `$\phi_1$` labels (SyntaxWarning on 3.12+); add GD-1 columns to the DataFrame after `to_pandas()`, not to the Table; `seaborn-*` style names (removed in Matplotlib 3.8; the lesson hasn't fixed this)
+- [ ] Fix breakage and deprecation warnings (warnings-as-errors scratch runs). First run (2026-10-21, warnings shown, live Gaia): every error in 03–07 traces to three causes: positional `to_hdf` key (TypeError in pandas 3; 03, 05, 06); GD-1 Quantity columns added to the Table before `to_pandas()` (pandas 3 fails in `describe`, `between`, `to_csv`; 03, 04, 05); and a cascade, because 03 left an empty `gd1_data.hdf` that made later `download()` calls skip the real file. Plus SyntaxWarnings for `'$\phi_1$'` labels (07), the 'partition' UserWarning in 05, and ResourceWarnings for unclosed sockets (inside astroquery; not ours). Known from the lesson: `to_hdf(..., key=...)`; raw strings for `$\phi_1$` labels (SyntaxWarning on 3.12+); add GD-1 columns to the DataFrame after `to_pandas()`, not to the Table; `seaborn-*` style names (removed in Matplotlib 3.8; the lesson hasn't fixed this)
 - [ ] gala: keep it and `pip install gala` (Allen, 2026-10-21; the lesson vendored `gd1.py`/`reflex.py` instead). Check it installs on 3.13 and on Colab; drop the `astro-gala` TODO
 - [ ] `np.set_printoptions(legacy='1.25')` in the cell that imports NumPy; re-run the solution notebooks
 - [ ] Data URLs: `data/` on GitHub (works); MIST `read_mist_models.py` from `jieunchoi/MIST_codes` (check); `join.png` from the lesson's `gh-pages` (works 2026-10-21)
@@ -98,6 +98,10 @@ Every notebook has an `IN_COLAB` `!pip install` cell (astroquery, `astro-gala`) 
 - gala: `pip install gala`, not the lesson's vendored files.
 - CI: load-if-exists in the query notebooks.
 - Stay on Gaia DR2 (as the lesson and the paper do).
+- Keep HDF (pandas + PyTables) for saved DataFrames, with the lesson's `key=` fix (Allen, 2026-10-21; Parquet would mean ~7 files per notebook, rewritten text, and divergence from the lesson).
+- **Proper-motion polygon** (Allen, 2026-10-21): the archive rejects `CONTAINS(POINT(pmra, pmdec), POLYGON(...))` ("Coordinate 0 of POLYGON is out of range": vertices must be sky coordinates, and `pmra` is negative; astroquery shows only "HTTP 500: null"). The lesson hit this in 2022 and replaced the convex hull with a box chosen by eye (PR #135, `7358a73`). **Difference:** we keep the convex hull, query its bounding rectangle with `BETWEEN`, then select the stars inside the hull with `matplotlib.patches.Polygon.contains_points` (the idiom 06 uses). 04 saves the hull vertices as `pm_df`; `point_series` now holds only `point_list`. Counts: 13,052 in the rectangle, 7,350 in the hull (was 7,345; straight edges instead of great circles); 6,680 from the join query, 3,726 after the hull (was 3,725); 454 winners (unchanged).
+- `data/gd1_data.hdf` regenerated in place (2026-10-21) from a full run of 03–06 with these fixes; same filename and keys plus `pm_df`. `centerline_df`/`selected_df` gained `parallax_error` and `radial_velocity` (they come from the saved `gd1_results.fits`, 140,340 rows, 8 columns, Dec 2020). `gd1_isochrone.hdf5` regenerated identical; not replaced.
+- **Gaia row cap** (2026-10-21): since the archive release of 2026-10-14, anonymous queries return at most 50,000 rows (registered users: unlimited) and anonymous async jobs time out after 1 minute ([quotas](https://www.cosmos.esa.int/web/gaia-users/archive/collaborate#GaiaArchiveUserQuotas)). Truncation is silent. Only `02_coords` `query5` (140,339 rows) is affected; the others return under 9,000. Fix: 02 still runs the query and explains the cap (`len(results)` is 50,000), then loads the full saved `data/gd1_results.fits`. The Data Carpentry lesson (last commit 2026-10-02) has the same problem; no issue filed (Allen).
 
 ### Content issues
 
@@ -107,3 +111,4 @@ Every notebook has an `IN_COLAB` `!pip install` cell (astroquery, `astro-gala`) 
 2. `index.md` duplicates the README with old install instructions; the root `_config.yml`/`_toc.yml` duplicate `jb/`. Delete them once the README and `jb/` are updated?
 3. The paper is described as "recent" (2018).
 4. `jb/README.md` and the README have drifted apart; decide which is the landing page text.
+5. Gaia **1-minute anonymous time-out**: the cone-search join in 05 (the 490-row exercise) takes about a minute and failed 3 of 4 tries on 2026-10-21 (HTTP 408/500). Other queries finished in time, but all are at the mercy of server load. Options: make the slow queries cheaper, tell learners to retry, or point to the saved results.
