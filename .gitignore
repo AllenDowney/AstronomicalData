@@ -140,3 +140,6 @@ soln/gd1_*
 soln/MIST_iso_*
 soln/read_mist_models.py
 soln/az-paper-twocol.mplstyle
+
+# The IPython profile that replays saved Gaia results in the tests
+!/tests/ipython/profile_default/

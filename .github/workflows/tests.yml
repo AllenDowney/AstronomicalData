@@ -35,6 +35,10 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements-dev.txt
 
+      # Without the startup file, the notebooks would query Gaia instead
+      - name: Check the replay is installed
+        run: test -f tests/ipython/profile_default/startup/00-gaia-replay.py
+
       # The startup file in tests/ipython replays saved Gaia results
       # (tests/gaia_cache), so the tests don't depend on the Gaia service.
       # The monthly run, and a manual run with "live", query the archive.
