@@ -127,3 +127,16 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Jupyter Book: notebooks copied in by build.sh, and the build
+jb/0*.ipynb
+jb/_build/
+
+# Files the notebooks write or download when run
+/gd1_*
+/MIST_iso_*
+/read_mist_models.py
+soln/gd1_*
+soln/MIST_iso_*
+soln/read_mist_models.py
+soln/az-paper-twocol.mplstyle

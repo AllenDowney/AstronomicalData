@@ -1,0 +1,9 @@
+file: README
+sections:
+- file: 01_query
+- file: 02_coords
+- file: 03_motion
+- file: 04_select
+- file: 05_join
+- file: 06_photo
+- file: 07_plot
