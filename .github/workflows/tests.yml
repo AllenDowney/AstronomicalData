@@ -43,4 +43,4 @@ jobs:
           IPYTHONDIR: ${{ github.workspace }}/tests/ipython
           GAIA_REPLAY: ${{ (github.event_name == 'schedule' || inputs.live) && 'record' || 'replay' }}
         run: |
-          pytest --nbmake --nbmake-timeout=900 soln/0*.ipynb
+          pytest --nbmake --nbmake-timeout=900 --durations=0 soln/0*.ipynb
