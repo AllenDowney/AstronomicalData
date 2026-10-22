@@ -2,11 +2,11 @@
 
 [![tests](https://github.com/AllenDowney/AstronomicalData/actions/workflows/tests.yml/badge.svg)](https://github.com/AllenDowney/AstronomicalData/actions/workflows/tests.yml)
 
+[Allen Downey](https://allendowney.com)
 
-This is one of [my workshops and tutorials](https://allendowney.github.io/#workshops).
+This is self-study material: the workshop is not offered live now, but the notebooks are maintained and run on Colab.
 
-
-*Astronomical Data in Python* is an introduction to tools and practices for working with astronomical data.  Topics covered include:
+*Astronomical Data in Python* is an introduction to tools and practices for working with astronomical data. Topics covered include:
 
 * Writing queries that select and download data from a database.
 
@@ -20,259 +20,82 @@ This is one of [my workshops and tutorials](https://allendowney.github.io/#works
 
 * Visualizing data and preparing publication-quality figures.
 
-As a running example, we will replicate part of the analysis in a recent paper, "[Off the beaten path: Gaia reveals GD-1 stars outside of the main stream](https://arxiv.org/abs/1805.00425)" by Adrian M. Price-Whelan and Ana Bonaca.
+As a running example, we will replicate part of the analysis in a 2018 paper, "[Off the beaten path: Gaia reveals GD-1 stars outside of the main stream](https://arxiv.org/abs/1805.00425)" by Adrian M. Price-Whelan and Ana Bonaca.
 
-This material was developed in collaboration with [The Carpentries](https://carpentries.org/) and the Astronomy Curriculum Development Committee, and supported by funding from the American Institute of Physics through the American Astronomical Society.
+This material was developed in collaboration with [The Carpentries](https://carpentries.org/) and the Astronomy Curriculum Development Committee, and supported by funding from the American Institute of Physics through the American Astronomical Society. It became the Data Carpentry lesson [*Foundations of Astronomical Data Science*](https://datacarpentry.github.io/astronomy-python/), which The Carpentries retired in 2026. The lesson pages remain online, and they include notes for instructors, but these notebooks are the version that is maintained.
 
 I am grateful for contributions from the members of the committee -- Azalee Bostroem, Rodolfo Montez, and Phil Rosenfield -- and from Erin Becker, Brett Morris and Adrian Price-Whelan.
 
-The original format of this material is a series of Jupyter notebooks.  Using the
-links below, you can read the notebooks on NBViewer or run them on Colab.  If you
-want to run the notebooks in your own environment, you can download them from
-this repository and follow the instructions below to set up your environment.
+This is one of [my workshops and tutorials](https://allendowney.github.io/#workshops).
 
-This material is also available in the form of [Carpentries lessons](https://datacarpentry.github.io/astronomy-python), but you should be
-aware that these versions might diverge in the future.
+**Level:** intermediate. This material should be accessible to people familiar with basic Python, but not necessarily the libraries we will use, like Astropy or Pandas. If you are familiar with Python lists and dictionaries, and you know how to write a function that takes parameters and returns a value, that should be enough. We assume that you are familiar with astronomy at the undergraduate level, but we will not assume specialized knowledge of the datasets or analysis methods we'll use.
 
-**Prerequisites**
+**Length:** seven notebooks, about 20 hours in total; it was first taught as five 4-hour sessions.
 
-This material should be accessible to people familiar with basic Python, but not necessarily the libraries we will use, like Astropy or Pandas.  If you are familiar with Python lists and dictionaries, and you know how to write a function that takes parameters and returns a value, that should be enough.
+## Outline
 
-We assume that you are familiar with astronomy at the undergraduate level, but we will not assume specialized knowledge of the datasets or analysis methods we'll use.
+1. **Queries:** connecting to the Gaia archive, exploring the tables it contains, and writing ADQL queries that download the results as an Astropy `Table`.
+2. **Coordinates and units:** `Quantity` objects with units, transforming coordinates between frames, and selecting the stars in a polygonal region of the sky; saving the results in a FITS file.
+3. **Proper motion:** transforming coordinates and proper motion to the GD-1 frame, working with a Pandas `DataFrame`, and selecting stars whose proper motion is consistent with GD-1.
+4. **Transformation and selection:** doing the proper-motion selection as part of the query, so we can search a bigger region of the sky and download less data.
+5. **Joining tables:** using `JOIN` to combine Gaia data with Pan-STARRS photometry.
+6. **Photometry:** a color-magnitude diagram, a polygon around the isochrone we expect for GD-1, and a second round of selection.
+7. **Visualization:** annotations, customization, style sheets, and a figure with multiple panels, like Figure 1 in the paper.
 
-**Notebook 1**
+Each notebook comes in two versions: one with blanks for the exercises, and one with solutions.
 
-This notebook demonstrates the following steps:
+| Notebook | Exercises | Solutions |
+|---|---|---|
+| 1. Queries | [Run on Colab](https://colab.research.google.com/github/AllenDowney/AstronomicalData/blob/main/01_query.ipynb) | [Run on Colab](https://colab.research.google.com/github/AllenDowney/AstronomicalData/blob/main/soln/01_query.ipynb) |
+| 2. Coordinates and units | [Run on Colab](https://colab.research.google.com/github/AllenDowney/AstronomicalData/blob/main/02_coords.ipynb) | [Run on Colab](https://colab.research.google.com/github/AllenDowney/AstronomicalData/blob/main/soln/02_coords.ipynb) |
+| 3. Proper motion | [Run on Colab](https://colab.research.google.com/github/AllenDowney/AstronomicalData/blob/main/03_motion.ipynb) | [Run on Colab](https://colab.research.google.com/github/AllenDowney/AstronomicalData/blob/main/soln/03_motion.ipynb) |
+| 4. Transformation and selection | [Run on Colab](https://colab.research.google.com/github/AllenDowney/AstronomicalData/blob/main/04_select.ipynb) | [Run on Colab](https://colab.research.google.com/github/AllenDowney/AstronomicalData/blob/main/soln/04_select.ipynb) |
+| 5. Joining tables | [Run on Colab](https://colab.research.google.com/github/AllenDowney/AstronomicalData/blob/main/05_join.ipynb) | [Run on Colab](https://colab.research.google.com/github/AllenDowney/AstronomicalData/blob/main/soln/05_join.ipynb) |
+| 6. Photometry | | [Run on Colab](https://colab.research.google.com/github/AllenDowney/AstronomicalData/blob/main/soln/06_photo.ipynb) |
+| 7. Visualization | [Run on Colab](https://colab.research.google.com/github/AllenDowney/AstronomicalData/blob/main/07_plot.ipynb) | [Run on Colab](https://colab.research.google.com/github/AllenDowney/AstronomicalData/blob/main/soln/07_plot.ipynb) |
 
-1. Making a connection to the Gaia server,
+Notebook 6 has no exercises, so it has only one version. You can also [read the notebooks, with solutions, online](https://allendowney.github.io/AstronomicalData/).
 
-2. Exploring information about the database and the tables it contains,
+### The Gaia archive
 
-3. Writing a query and sending it to the server, and finally
+The notebooks query the [Gaia archive](https://gea.esac.esa.int/archive/), which limits what anonymous users can do: a query can run for at most one minute and return at most 50,000 rows ([details here](https://www.cosmos.esa.int/web/gaia-users/archive/collaborate#GaiaArchiveUserQuotas)). When the archive is busy, a query can time out; if that happens, run the cell again. Notebook 1 explains how to register and log in, which raises these limits.
 
-4. Downloading the response from the server as an Astropy `Table`.
+The notebooks save their results, and the later notebooks download saved copies from the `data` folder in this repository, so you can start with any notebook.
 
-[Run Notebook 1 on Colab](https://colab.research.google.com/github/AllenDowney/AstronomicalData/blob/main/01_query.ipynb)
+## Recordings
 
-[or click here to read it on NBViewer](https://nbviewer.jupyter.org/github/AllenDowney/AstronomicalData/blob/main/01_query.ipynb)
+There are no recordings. The material was first taught as a Carpentries "community test drive", online, November 16–20, 2020, by Allen Downey and Azalee Bostroem. The tag [`carpentries-2020`](https://github.com/AllenDowney/AstronomicalData/tree/carpentries-2020) is the version of the code from that workshop.
 
+## Running the notebooks
 
-**Notebook 2**
+The easiest way to run the notebooks is on Colab: click one of the links above. You need a Google account, but you don't have to install anything. Each notebook installs the libraries Colab doesn't have and downloads the files it needs.
 
-This notebook starts with an example that does a "cone search"; that is, it selects stars that appear in a circular region of the sky.
-
-Then, to select stars in the vicinity of GD-1, we:
-
-* Use `Quantity` objects to represent measurements with units.
-
-* Use the `Gala` library to convert coordinates from one frame to another.
-
-* Use the ADQL keywords `POLYGON`, `CONTAINS`, and `POINT` to select stars that fall within a polygonal region.
-
-* Submit a query and download the results.
-
-* Store the results in a FITS file.
-
-[Run Notebook 2 on Colab](https://colab.research.google.com/github/AllenDowney/AstronomicalData/blob/main/02_coords.ipynb)
-
-[or click here to read it on NBViewer](https://nbviewer.jupyter.org/github/AllenDowney/AstronomicalData/blob/main/02_coords.ipynb)
-
-
-**Notebook 3**
-
-Here are the steps in this notebook:
-
-1. We'll read back the results from the previous notebook, which we saved in a FITS file.
-
-2. Then we'll transform the coordinates and proper motion data from ICRS back to the coordinate frame of GD-1.
-
-3. We'll put those results into a Pandas `DataFrame`, which we'll use to select stars near the centerline of GD-1.
-
-4. Plotting the proper motion of those stars, we'll identify a region of proper motion for stars that are likely to be in GD-1.
-
-5. Finally, we'll select and plot the stars whose proper motion is in that region.
-
-[Run Notebook 3 on Colab](https://colab.research.google.com/github/AllenDowney/AstronomicalData/blob/main/03_motion.ipynb)
-
-[or click here to read it on NBViewer](https://nbviewer.jupyter.org/github/AllenDowney/AstronomicalData/blob/main/03_motion.ipynb)
-
-
-**Notebook 4**
-
-Here are the steps in this notebook:
-
-1. Using data from the previous notebook, we'll identify the values of proper motion for stars likely to be in GD-1.
-
-2. Then we'll compose an ADQL query that selects stars based on proper motion, so we can download only the data we need.
-
-3. We'll also see how to write the results to a CSV file.
-
-That will make it possible to search a bigger region of the sky in a single query.
-
-[Run Notebook 4 on Colab](https://colab.research.google.com/github/AllenDowney/AstronomicalData/blob/main/04_select.ipynb)
-
-[or click here to read it on NBViewer](https://nbviewer.jupyter.org/github/AllenDowney/AstronomicalData/blob/main/04_select.ipynb)
-
-
-**Notebook 5**
-
-Here are the steps in this notebook:
-
-1. We'll reload the candidate stars we identified in the previous notebook.
-
-2. Then we'll run a query on the Gaia server that uploads the table of candidates and uses a `JOIN` operation to select photometry data for the candidate stars.
-
-3. We'll write the results to a file for use in the next notebook.
-
-[Run Notebook 5 on Colab](https://colab.research.google.com/github/AllenDowney/AstronomicalData/blob/main/05_join.ipynb)
-
-[or click here to read it on NBViewer](https://nbviewer.jupyter.org/github/AllenDowney/AstronomicalData/blob/main/05_join.ipynb)
-
-
-**Notebook 6**
-
-Here are the steps in this notebook:
-
-1. We'll reload the data from the previous notebook and make a color-magnitude diagram.
-
-2. Then we'll specify a polygon in the diagram that contains stars with the photometry we expect.
-
-3. Then we'll merge the photometry data with the list of candidate stars, storing the result in a Pandas `DataFrame`.
-
-[Run Notebook 6 on Colab](https://colab.research.google.com/github/AllenDowney/AstronomicalData/blob/main/06_photo.ipynb)
-
-[or click here to read it on NBViewer](https://nbviewer.jupyter.org/github/AllenDowney/AstronomicalData/blob/main/06_photo.ipynb)
-
-
-**Notebook 7**
-
-Here are the steps in this notebook:
-
-1. Starting with the figure from the previous notebook, we'll add annotations to present the results more clearly.
-
-2. The we'll see several ways to customize figures to make them more appealing and effective.
-
-3. Finally, we'll see how to make a figure with multiple panels or subplots.
-
-[Run Notebook 7 on Colab](https://colab.research.google.com/github/AllenDowney/AstronomicalData/blob/main/07_plot.ipynb)
-
-[or click here to read it on NBViewer](https://nbviewer.jupyter.org/github/AllenDowney/AstronomicalData/blob/main/07_plot.ipynb)
-
-
-**Installation instructions**
-
-If you plan to run these notebooks on Colab, you don't have to 
-install anything; you can use the links in the
-previous section to open and run them.
-If you want to run the notebooks in your own environment, 
-you might have to do some setup.
-
-You will need to install Python, Jupyter, and some additional 
-libraries.
-If you don't already have Jupyter, we recommend installing 
-Anaconda, which is a Python distribution that 
-contains everything you need to run the workshop code.  
-It is easy to install on Windows, Mac, and Linux, 
-and because it does a user-level install, it will not 
-interfere with other Python installations.
-
-[Information about installing Anaconda is here](https://www.anaconda.com/distribution/).
-
-If you have the choice of Python 2 or 3, choose Python 3.
-
-Now, there are two ways to get the libraries you need:
-
-* Option 1: You can install them in an existing Conda environment.
-
-* Option 2: You can create a new Conda environment.
-
-Installing libraries in an existing environment is simpler, 
-but if you use the same environment for many projects, 
-it will get big, complicated, and prone to package conflicts.
-
-
-**Option 1:** *Installing libraries in an existing Conda 
-environment*
-
-Most of the libraries we need can be installed using Conda, 
-by running the following commands in a Terminal.
-If you are on a Mac or Linux machine, you should be able to 
-use any Terminal.  
-If you are on Windows, you might have to use the Anaconda Prompt, 
-which you can find under the Start menu.
+To run them on your own computer, you need Python 3 with Jupyter, NumPy, Pandas, PyTables, SciPy, Matplotlib, Astropy, astroquery, and Gala. You can [download the code in this zip file](https://github.com/AllenDowney/AstronomicalData/archive/main.zip), or clone the repository:
 
 ```
-conda install jupyter numpy scipy pandas matplotlib seaborn libopenblas
-conda install -c conda-forge astropy astroquery gala python-wget
+git clone https://github.com/AllenDowney/AstronomicalData
+cd AstronomicalData
 ```
 
-
-
-**Option 2:** *Creating a new Conda environment*
-
-To create a new Conda environment, you'll need to download 
-an environment file from our repository.  On Mac or Linux, 
-you can download it using `wget` on the command line: 
+Then install the packages with pip:
 
 ```
-wget https://raw.githubusercontent.com/AllenDowney/AstronomicalData/main/environment.yml
+pip install -r requirements.txt
 ```
 
-Or you can [download it using this link](https://raw.githubusercontent.com/AllenDowney/AstronomicalData/main/environment.yml).
-
-In a Terminal or Jupyter Prompt, make sure you are in folder 
-where `environment.yml` is stored, and run:
+Or, if you use conda or mamba, create an environment:
 
 ```
-conda env create -f environment.yml
+mamba env create -f environment.yml
+mamba activate AstronomicalData
 ```
 
-Then, to activate the environment you just created, run:
+Then run `jupyter lab` and open `test_setup.ipynb`, which checks that you have everything you need.
 
-```
-conda activate AstronomicalData
-```
+## Next steps
 
-**Run Jupyter**
+See [my other workshops](https://allendowney.github.io/#workshops).
 
-If you are not familiar with Jupyter, you can [run a tutorial by clicking here](https://jupyter.org/try).
-Then select "Try Classic Notebook".  It will open a notebook with instructions for getting started.
-Or you can run this [introductory notebook on Colab](https://colab.research.google.com/notebooks/intro.ipynb).
+## License
 
-Before you launch Jupyter, [download this notebook](https://raw.githubusercontent.com/AllenDowney/AstronomicalData/main/test_setup.ipynb), which contains code to test your environment.
-
-Or you can use `wget` to download it on the command line, like this:
-
-```
-wget https://raw.githubusercontent.com/AllenDowney/AstronomicalData/main/test_setup.ipynb
-```
-
-To start Jupyter, run:
-
-```
-jupyter notebook
-```
-
-Jupyter should launch your default browser or open a tab in an existing browser window.
-If not, the Jupyter server should print a URL you can use.  For example, when I launch Jupyter, I get
-
-```
-$ jupyter notebook
-[I 10:03:20.115 NotebookApp] Serving notebooks from local directory: /home/username
-[I 10:03:20.115 NotebookApp] 0 active kernels
-[I 10:03:20.115 NotebookApp] The Jupyter Notebook is running at: http://localhost:8888/
-[I 10:03:20.115 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
-```
-
-In this example, the URL is [http://localhost:8888](http://localhost:8888).  
-When you start your server, you might get a different URL.
-Whatever it is, if you paste it into a browser, you should should see a home page with a list of directories.
-
-Now open the notebook you downloaded and run the cells that contain `import` statements.
-If they work and you get no error messages, **you are all set**.
-
-If you get error messages about missing packages, you can install the packages you need using Conda or `pip`.
-
-If you run into problems with these instructions, let us know and we will make corrections.  Good luck!
-
-
+The code is available under the [MIT License](LICENSE). The text is available under the [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/).

@@ -2,7 +2,7 @@
 
 Allen Downey's "Astronomical Data in Python": seven notebooks that replicate part of Price-Whelan and Bonaca (2018) on the GD-1 stellar stream, using Gaia DR2 and Pan-STARRS queries (astroquery), Astropy, gala, and pandas. Developed with The Carpentries and the Astronomy Curriculum Development Committee; first given as the Carpentries test drive, online, November 16–20, 2020.
 
-**Status:** self-study material. The maintained version is the Data Carpentry lesson ([site](https://datacarpentry.github.io/astronomy-python/), [source](https://github.com/datacarpentry/astronomy-python)). When something breaks here, check whether the lesson already fixed it and follow its fix; note differences on the board.
+**Status:** self-study material, maintained here. It became the Data Carpentry lesson *Foundations of Astronomical Data Science* ([site](https://datacarpentry.github.io/astronomy-python/), [source](https://github.com/datacarpentry/astronomy-python)), which The Carpentries retired on 2026-10-01 (archived). The lesson's fixes up to then are noted on the board; differences from it are listed there too.
 
 **Guide for the 2026 refresh:** the "Refresh checklist" in `~/GreenTeaPress/plans/workshops.md` (self-study variant). Progress goes on `PROJECT_BOARD.md` (Task 1) and in GreenTeaPress Task 24.
 
@@ -45,3 +45,4 @@ If a notebook's query changes, record again with `GAIA_REPLAY=record` (makes the
 - Keep student and solution versions in sync: regenerate the student versions with `cp soln/0*.ipynb .` and `python remove_soln.py` (the root `build.sh` does this but also commits and pushes).
 - Saved outputs in `soln/` come from a live run (`jupyter nbconvert --execute --inplace`), not the replay; strip the `execution` timestamps from cell metadata afterwards.
 - Branch is `main`.
+- Notebook layout: the numbered `#` title alone in the first cell, then the Colab cell, then the intro; copyright and license (code MIT, text CC BY 4.0) in the last cell.

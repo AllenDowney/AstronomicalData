@@ -10,7 +10,7 @@ Numbered tasks for tracking work. Each task has a permanent number; add new task
 
 **Status:** In progress (2026-10-21)
 
-**Context:** AstronomicalData is a **self-study** workshop (GreenTeaPress Task 24): not offered live, but the notebooks are maintained and run on Colab. The guide is the "Refresh checklist" in `~/GreenTeaPress/plans/workshops.md` (self-study variant). The maintained version of this material is the Data Carpentry lesson ([site](https://datacarpentry.github.io/astronomy-python/), [source](https://github.com/datacarpentry/astronomy-python)); the README points to it. Where the lesson already fixed something that broke here, follow its fix and note differences (below). 113 stars; last content change 2021-03-26. No known recordings.
+**Context:** AstronomicalData is a **self-study** workshop (GreenTeaPress Task 24): not offered live, but the notebooks are maintained and run on Colab. The guide is the "Refresh checklist" in `~/GreenTeaPress/plans/workshops.md` (self-study variant). This material became the Data Carpentry lesson *Foundations of Astronomical Data Science* ([site](https://datacarpentry.github.io/astronomy-python/), [source](https://github.com/datacarpentry/astronomy-python)). **The Carpentries retired the lesson on 2026-10-01** (`bc3994d`; repository archived, pages stay online, "no longer actively maintained"), so these notebooks are now the maintained version (Allen, 2026-10-22); the README says so and links the lesson pages. Where the lesson already fixed something that broke here, follow its fix and note differences (below). 113 stars; last content change 2021-03-26. No known recordings.
 
 **0. Set up**
 - [x] `git fetch`/pull (2 commits behind: README venues edit; a stray 2022 `Solar_Flare_Case_Study.ipynb` upload). Local state sorted with Allen (Decisions); discarded files backed up to the session scratchpad
@@ -36,15 +36,18 @@ Numbered tasks for tracking work. Each task has a permanent number; add new task
 - [x] Badge in the README (the README itself is rewritten in step 5)
 
 **3. Colab**
-- [ ] House-wording Colab cell after each title (solutions link to the student version); Colab links in the README table
+- [x] House-wording Colab cell after each title; solutions also link to the version with blanks (except 06, which has no exercises); `remove_soln.py` rewrites the cell in the student versions to link to themselves. Colab links in the README table (2026-10-22)
 - [ ] Allen runs one notebook on Colab end to end
 
 **4. Text**
-- [ ] Typos and broken links only; everything else under Content issues
-- [ ] Notebook layout: one `#` title, Colab cell, copyright and license (code MIT, text CC) at the end; same in student and solution versions
+- [x] Typos (codespell on the cell sources, plus a search for doubled words): "unnused", "coordindates", "the figure we've made have been", "remove `TOP 10` run", "capabilities that (almost) a superset", "identity the stars", "Now can transform", "except that have fewer", "in in Lesson", "the data and and analysis"; "a recent paper" → "a 2018 paper" (Allen). Links: http → https for SIMBAD; MIST → mist.science; NumPy indexing, GeeksforGeeks join and Matplotlib `plot` links moved. Not changed: `ivoa.net` (no response, 2026-10-21), `spiff.rit.edu` (no https); bot-blocked (403/405: Stack Overflow, ADS, STScI) and briefly down (503: Gaia GDR2 docs, IERS) links left as they are. Dead links with no replacement: content issues 8, 9
+- [x] Notebook layout (2026-10-22): Carpentries front-matter raw cells deleted (Allen); the numbered title alone in the first cell (Allen: keep the numbers), then the Colab cell, then the intro; copyright 2020–2026 and license (code MIT, text [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), Allen: to match the Carpentries lesson) in a markdown cell at the end; empty trailing cells removed. Same in student versions (regenerated). `LICENSE` year 2020–2026
+- [x] 01: a "Note about limits" after the first query: the anonymous limits (1 minute, 50,000 rows), "run the cell again" on a time-out, and how to register and `Gaia.login()` (Allen)
+- [x] `test_setup.ipynb` rewritten as a check for local installs (Allen): import checks only, a pointer to the README, copyright cell; the 2020 event material (Jupyter intro, Slack, survey, old pandas check) dropped. Tested in CI
+- [x] Deleted `index.md` and the root `_config.yml`/`_toc.yml` (Allen)
 
 **5. README in the standard shape**
-- [ ] Self-study line at the top; the Data Carpentry lesson as the maintained version; recordings: none (event and tag listed); length (ask Allen); license
+- [x] README rewritten (2026-10-22): badge; author; self-study line; abstract and credits (kept); the lesson's retirement and that these notebooks are maintained; level (intermediate, Allen); length (about 20 hours, five 4-hour sessions, Allen); outline; notebook table with Colab links (exercises and solutions; 06 solutions only); link to the site; Gaia archive limits; recordings: none, with the 2020 event and the `carpentries-2020` tag; running instructions (Colab, then pip or mamba, then `test_setup.ipynb`); next steps (hub; no related book); license (MIT, CC BY 4.0)
 
 **6. Site and visibility**
 - [ ] Rebuild the existing `gh-pages` site from `jb/` (delete `jb/_build/` first) and do the SEO checklist; Allen reviews descriptions
@@ -108,10 +111,13 @@ Every notebook has an `IN_COLAB` `!pip install` cell (astroquery, `astro-gala`) 
 
 (For Allen to decide.)
 
-1. Gaia DR2 vs. DR3: the lesson and these notebooks are DR2. DR3 would change column names, the Pan-STARRS cross-match table, and every count.
-2. `index.md` duplicates the README with old install instructions; the root `_config.yml`/`_toc.yml` duplicate `jb/`. Delete them once the README and `jb/` are updated?
-3. The paper is described as "recent" (2018).
-4. `jb/README.md` and the README have drifted apart; decide which is the landing page text.
-5. Gaia **1-minute anonymous time-out**: the cone-search join in 05 (the 490-row exercise) takes about a minute and failed 3 of 4 tries on 2026-10-21 (HTTP 408/500). Other queries finished in time, but all are at the mercy of server load. Options: make the slow queries cheaper, tell learners to retry, or point to the saved results.
-6. `test_setup.ipynb` was written for the 2020 event: Slack and survey links, "Classic Notebook" advice. Keep it (as a setup check for local installs, rewritten), or delete it now that Colab is the first option?
-7. Learners on the anonymous quota will see occasional time-outs (HTTP 408/500 from astroquery). Add a sentence in 01 ("if a query fails, run the cell again"), or point to registering?
+Resolved 2026-10-22 (Allen): Gaia DR2 kept (DR3 would change column names, the Pan-STARRS cross-match table, and every count; the lesson is DR2 too); `index.md` and the root Jupyter Book config deleted; "a recent paper" → "a 2018 paper"; HDF kept; `test_setup.ipynb` rewritten; the time-out note with registering added to 01.
+
+Open:
+
+1. `jb/README.md` (the site's landing page) has drifted from the README; step 6 should rebuild it from the new README.
+2. The cone-search join in 05 (the 490-row exercise) takes about a minute and often hits the anonymous time-out. Could it be made cheaper (e.g. a smaller cone), or is the retry note enough?
+3. The [gaia.ac.uk ADQL cookbook](https://www.gaia.ac.uk/data/gaia-data-release-1/adql-cookbook) (01) is gone (404); no obvious replacement.
+4. The ESA "archive tips" link about negative parallax (03) now redirects to a general [FAQ page](https://www.cosmos.esa.int/web/gaia/faqs); the anchor is lost.
+5. Several links point to old versioned Matplotlib docs (3.1.0, 3.1.1, 3.3.1); they still work.
+6. GreenTeaPress `plans/workshops.md` still says the lesson is the maintained version; update it there (and the hub entry) to say it was retired.

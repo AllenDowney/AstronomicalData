@@ -7,6 +7,9 @@ notebooks = glob("0*.ipynb")
 text = '# Solution'
 replacement = '# Solution goes here'
 
+colab = '[Click here to run this notebook on Colab]'
+colab_url = 'https://colab.research.google.com/github/AllenDowney/AstronomicalData/blob/main/'
+
 # Search through each notebook
 for ipath in notebooks:
     ntbk = nbf.read(ipath, nbf.NO_CONVERT)
@@ -28,5 +31,9 @@ for ipath in notebooks:
         # remove solutions
         if cell['source'].startswith(text):
             cell['source'] = replacement
+
+        # the Colab link points to this version
+        if cell['source'].startswith(colab):
+            cell['source'] = f'{colab}({colab_url}{ipath}).'
 
     nbf.write(ntbk, ipath)
