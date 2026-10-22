@@ -5,4 +5,4 @@ scipy
 matplotlib
 astropy
 astroquery
-gala<1.12
+gala
