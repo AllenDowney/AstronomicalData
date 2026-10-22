@@ -35,5 +35,10 @@ sphinx:
     sitemap_excludes: [genindex.html, search.html]
     ogp_site_url: https://allendowney.github.io/AstronomicalData/
     ogp_site_name: Astronomical Data in Python
+    # copied to the site root: the GD-1 figure from notebook 7 (the social image),
+    # and README.html, the old landing page, which redirects to index.html
+    html_extra_path: [extra]
+    ogp_image: https://allendowney.github.io/AstronomicalData/gd1_figure.png
+    ogp_image_alt: Positions, proper motions, and colors of GD-1 stars selected from Gaia and Pan-STARRS data
     # the opening text is often boilerplate, so write meta descriptions per page instead
     ogp_enable_meta_description: false
