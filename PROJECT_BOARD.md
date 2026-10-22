@@ -26,7 +26,7 @@ Numbered tasks for tracking work. Each task has a permanent number; add new task
 - [x] gala from pip (`gala` 1.12.0, cp313 wheel); `astro-gala` and its TODO gone
 - [x] `np.set_printoptions(legacy='1.25')` where NumPy is first imported (03, 04, 06, 07; 01, 02 and 05 print no NumPy scalars); solutions re-run live (2026-10-21), outputs refreshed, execution timestamps stripped; student versions regenerated (`cp soln/0*.ipynb .` + `remove_soln.py`)
 - [x] Data URLs: `data/` on GitHub, `read_mist_models.py` from `jieunchoi/MIST_codes`, `join.png` from the lesson's `gh-pages`: all work (2026-10-21)
-- [ ] Replace Anaconda/Binder setup instructions (README, `index.md`, `jb/README.md`) with Colab first, then pip or mamba
+- [x] Anaconda setup instructions replaced: README (Colab, then pip or mamba, then `test_setup.ipynb`); `index.md` deleted; `jb/README.md` replaced by `jb/index.md` (2026-10-22)
 - [x] `test_setup.ipynb`: removed `from wget import download` (python-wget is no longer installed); the rest is content issue 6
 
 **2. Tests and CI**
