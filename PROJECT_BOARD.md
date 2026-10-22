@@ -118,9 +118,6 @@ Every notebook has an `IN_COLAB` `!pip install` cell (astroquery, `astro-gala`) 
 
 Resolved 2026-10-22 (Allen): Gaia DR2 kept (DR3 would change column names, the Pan-STARRS cross-match table, and every count; the lesson is DR2 too); `index.md` and the root Jupyter Book config deleted; "a recent paper" → "a 2018 paper"; HDF kept; `test_setup.ipynb` rewritten; the time-out note with registering added to 01.
 
-Open:
+Resolved 2026-10-22 (Allen): the slow cone-search join in 05 stays as it is (the retry note in 01 is enough); the dead gaia.ac.uk ADQL cookbook link (01) → ESA's [How to write ADQL queries for Gaia data](https://www.cosmos.esa.int/web/gaia-users/archive/writing-queries); the negative-parallax link (03) → the [Gaia FAQ](https://www.cosmos.esa.int/web/gaia/faqs), which still covers it; 14 versioned Matplotlib links (3.1.0–3.3.1, in 03 and 07) → the matching `matplotlib.org/stable` pages (each checked, and the one anchor).
 
-1. The cone-search join in 05 (the 490-row exercise) takes about a minute and often hits the anonymous time-out. Could it be made cheaper (e.g. a smaller cone), or is the retry note enough?
-2. The [gaia.ac.uk ADQL cookbook](https://www.gaia.ac.uk/data/gaia-data-release-1/adql-cookbook) (01) is gone (404); no obvious replacement.
-3. The ESA "archive tips" link about negative parallax (03) now redirects to a general [FAQ page](https://www.cosmos.esa.int/web/gaia/faqs); the anchor is lost.
-4. Several links point to old versioned Matplotlib docs (3.1.0, 3.1.1, 3.3.1); they still work.
+Open: none.
