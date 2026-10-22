@@ -1,336 +1,384 @@
 
 <!DOCTYPE html>
 
-<html>
+
+<html lang="en" data-content_root="./" >
+
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta content="Work with units and celestial coordinates in Astropy, transform them to the GD-1 frame, and select the stars in a polygon of sky with an ADQL query." name="description" />
+<meta property="og:title" content="2. Coordinates and Units" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://allendowney.github.io/AstronomicalData/02_coords.html" />
+<meta property="og:site_name" content="Astronomical Data in Python" />
+<meta property="og:description" content="Work with units and celestial coordinates in Astropy, transform them to the GD-1 frame, and select the stars in a polygon of sky with an ADQL query." />
+<meta property="og:image" content="https://allendowney.github.io/AstronomicalData/gd1_figure.png" />
+<meta property="og:image:alt" content="Positions, proper motions, and colors of GD-1 stars selected from Gaia and Pan-STARRS data" />
+
     <title>2. Coordinates and Units &#8212; Astronomical Data in Python</title>
-    
-  <link rel="stylesheet" href="_static/css/index.d431a4ee1c1efae0e38bdfebc22debff.css">
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
 
-    
-  <link rel="stylesheet"
-    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
-    
-      
-  <link rel="stylesheet"
-    href="_static/vendor/open-sans_all/1.44.1/index.css">
-  <link rel="stylesheet"
-    href="_static/vendor/lato_latin-ext/1.44.1/index.css">
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    
-    <link rel="stylesheet" href="_static/sphinx-book-theme.bfb7730f9caf2ec0b46a44615585038c.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
-    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
-    
-  <link rel="preload" as="script" href="_static/js/index.30270b6e4c972e43c488.js">
-
-    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/language_data.js"></script>
-    <script src="_static/togglebutton.js"></script>
-    <script src="_static/clipboard.min.js"></script>
-    <script src="_static/copybutton.js"></script>
-    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="_static/sphinx-book-theme.be0a4a0c39cd630af62a2fcf693f3f06.js"></script>
-    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
-    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
-    <script >
-        const thebe_selector = ".thebe"
-        const thebe_selector_input = "pre"
-        const thebe_selector_output = ".output"
-    </script>
-    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '02_coords';</script>
+    <link rel="canonical" href="https://allendowney.github.io/AstronomicalData/02_coords.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="3. Proper Motion" href="03_motion.html" />
     <link rel="prev" title="1. Queries" href="01_query.html" />
-
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="en" />
-
-
-
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
-    
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-    <div class="container-xl">
-      <div class="row">
-          
-<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
-    
-        <div class="navbar-brand-box">
-<a class="navbar-brand text-wrap" href="index.html">
   
   
-  <h1 class="site-logo" id="site-title">Astronomical Data in Python</h1>
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
   
-</a>
-</div>
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
-<form class="bd-search d-flex align-items-center" action="search.html" method="get">
-  <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
 </form>
+  </dialog>
 
-<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
-  <ul class="nav sidenav_l1">
- <li class="toctree-l1">
-  <a class="reference internal" href="README.html">
-   Astronomical Data in Python
-  </a>
- </li>
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Astronomical Data in Python</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="index.html">
+                    Astronomical Data in Python: Notebooks
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="01_query.html">1. Queries</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">2. Coordinates and Units</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03_motion.html">3. Proper Motion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04_select.html">4. Transformation and Selection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05_join.html">5. Joining Tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06_photo.html">6. Photometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07_plot.html">7. Visualization</a></li>
 </ul>
-<ul class="current nav sidenav_l1">
- <li class="toctree-l1">
-  <a class="reference internal" href="01_query.html">
-   1. Queries
-  </a>
- </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
-   2. Coordinates and Units
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="03_motion.html">
-   3. Proper Motion
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="04_select.html">
-   4. Transformation and Selection
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="05_join.html">
-   5. Joining Tables
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="06_photo.html">
-   6. Photometry
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="07_plot.html">
-   7. Visualization
-  </a>
- </li>
-</ul>
-
-</nav>
-
- <!-- To handle the deprecated key -->
-
-<div class="navbar_extra_footer">
-  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-</div>
-
-</div>
-
-
-          
-
-
-          
-<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
-    
-    <div class="row topbar fixed-top container-xl">
-    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
-    </div>
-    <div class="col pl-2 topbar-main">
-        
-        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
-            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
-            <i class="fas fa-bars"></i>
-            <i class="fas fa-arrow-left"></i>
-            <i class="fas fa-arrow-up"></i>
-        </button>
-        
-        <div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
-            class="fas fa-download"></i></button>
-
-    
-    <div class="dropdown-buttons">
-        <!-- ipynb file if we had a myst markdown file -->
-        
-        <!-- Download raw file -->
-        <a class="dropdown-buttons" href="_sources/02_coords.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.ipynb</button></a>
-        <!-- Download PDF via print -->
-        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
-    </div>
-    
-</div>
-        <!-- Source interaction buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
-    <div class="dropdown-buttons sourcebuttons">
-        <a class="repository-button"
-            href="https://github.com/AllenDowney/AstronomicalData"><button type="button" class="btn btn-secondary topbarbtn"
-                data-toggle="tooltip" data-placement="left" title="Source repository"><i
-                    class="fab fa-github"></i>repository</button></a>
-        
-        
-    </div>
-</div>
-
-
-        <!-- Full screen (wrap in <a> to have style consistency -->
-        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-                data-placement="bottom" onclick="toggleFullScreen()" title="Fullscreen mode"><i
-                    class="fas fa-expand"></i></button></a>
-
-        <!-- Launch buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
-    <div class="dropdown-buttons">
-        
-        <a class="binder-button" href="https://mybinder.org/v2/gh/AllenDowney/AstronomicalData/master?urlpath=tree/02_coords.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
-                data-placement="left"><img class="binder-button-logo"
-                    src="_static/images/logo_binder.svg"
-                    alt="Interact on binder">Binder</button></a>
-        
-        
-        
-        <a class="colab-button" href="https://colab.research.google.com/github/AllenDowney/AstronomicalData/blob/master/02_coords.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
-                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
-                    src="_static/images/logo_colab.png"
-                    alt="Interact on Colab">Colab</button></a>
-        
-        
-    </div>
-</div>
 
     </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
 
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/AllenDowney/AstronomicalData" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/02_coords.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>2. Coordinates and Units</h1>
     <!-- Table of contents -->
-    <div class="d-none d-md-block col-md-2 bd-toc show">
-        
-        <div class="tocsection onthispage pt-5 pb-3">
-            <i class="fas fa-list"></i> Contents
-        </div>
-        <nav id="bd-toc-nav">
-            <ul class="nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#outline">
-   Outline
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#working-with-units">
-   Working with Units
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#exercise">
-     Exercise
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#selecting-a-region">
-   Selecting a Region
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id1">
-     Exercise
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#getting-gd-1-data">
-   Getting GD-1 Data
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#transforming-coordinates">
-   Transforming coordinates
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id2">
-     Exercise
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#selecting-a-rectangle">
-   Selecting a rectangle
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#defining-a-polygon">
-   Defining a polygon
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#assembling-the-query">
-   Assembling the query
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#saving-results">
-   Saving results
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#summary">
-   Summary
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#best-practices">
-   Best practices
-  </a>
- </li>
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#outline">Outline</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#working-with-units">Working with Units</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise">Exercise</a></li>
 </ul>
-
-        </nav>
-        
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#selecting-a-region">Selecting a Region</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Exercise</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-gd-1-data">Getting GD-1 Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#transforming-coordinates">Transforming coordinates</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Exercise</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#selecting-a-rectangle">Selecting a rectangle</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#defining-a-polygon">Defining a polygon</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#assembling-the-query">Assembling the query</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#saving-results">Saving results</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#best-practices">Best practices</a></li>
+</ul>
+            </nav>
+        </div>
     </div>
 </div>
-    <div id="main-content" class="row">
-        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
-        
-              <div>
+
+              
                 
-  <div class="section" id="coordinates-and-units">
-<h1>2. Coordinates and Units<a class="headerlink" href="#coordinates-and-units" title="Permalink to this headline">¶</a></h1>
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="coordinates-and-units">
+<h1>2. Coordinates and Units<a class="headerlink" href="#coordinates-and-units" title="Link to this heading">#</a></h1>
+<p><a class="reference external" href="https://colab.research.google.com/github/AllenDowney/AstronomicalData/blob/main/soln/02_coords.ipynb">Click here to run this notebook on Colab</a>. For the exercises, use <a class="reference external" href="https://colab.research.google.com/github/AllenDowney/AstronomicalData/blob/main/02_coords.ipynb">the version with blanks</a>.</p>
 <p>In the previous lesson, we wrote ADQL queries and used them to select and download data from the Gaia server.</p>
 <p>In this lesson, we’ll pick up where we left off and write a query to select stars from a particular region of the sky.</p>
-<div class="section" id="outline">
-<h2>Outline<a class="headerlink" href="#outline" title="Permalink to this headline">¶</a></h2>
+<section id="outline">
+<h2>Outline<a class="headerlink" href="#outline" title="Link to this heading">#</a></h2>
 <p>We’ll start with an example that does a “cone search”; that is, it selects stars that appear in a circular region of the sky.</p>
 <p>Then, to select stars in the vicinity of GD-1, we’ll:</p>
 <ul class="simple">
@@ -346,9 +394,9 @@
 <li><p>Work with coordinates and other quantities that have units.</p></li>
 <li><p>Download the results of a query and store them in a file.</p></li>
 </ul>
-</div>
-<div class="section" id="working-with-units">
-<h2>Working with Units<a class="headerlink" href="#working-with-units" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="working-with-units">
+<h2>Working with Units<a class="headerlink" href="#working-with-units" title="Link to this heading">#</a></h2>
 <p>The measurements we will work with are physical quantities, which means that they have two parts, a value and a unit.
 For example, the coordinate <span class="math notranslate nohighlight">\(30^{\circ}\)</span> has value 30 and its units are degrees.</p>
 <p>Until recently, most scientific computation was done with values only; units were left out of the program altogether, <a class="reference external" href="https://en.wikipedia.org/wiki/Mars_Climate_Orbiter#Cause_of_failure">often with catastrophic results</a>.</p>
@@ -356,7 +404,7 @@ For example, the coordinate <span class="math notranslate nohighlight">\(30^{\ci
 <p>To use Astropy units, we import them like this:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">astropy.units</span> <span class="k">as</span> <span class="nn">u</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">astropy.units</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">u</span>
 </pre></div>
 </div>
 </div>
@@ -370,1006 +418,1006 @@ For example, the coordinate <span class="math notranslate nohighlight">\(30^{\ci
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;A&#39;,
- &#39;AA&#39;,
- &#39;AB&#39;,
- &#39;ABflux&#39;,
- &#39;ABmag&#39;,
- &#39;AU&#39;,
- &#39;Angstrom&#39;,
- &#39;B&#39;,
- &#39;Ba&#39;,
- &#39;Barye&#39;,
- &#39;Bi&#39;,
- &#39;Biot&#39;,
- &#39;Bol&#39;,
- &#39;Bq&#39;,
- &#39;C&#39;,
- &#39;Celsius&#39;,
- &#39;Ci&#39;,
- &#39;CompositeUnit&#39;,
- &#39;D&#39;,
- &#39;Da&#39;,
- &#39;Dalton&#39;,
- &#39;Debye&#39;,
- &#39;Decibel&#39;,
- &#39;DecibelUnit&#39;,
- &#39;Dex&#39;,
- &#39;DexUnit&#39;,
- &#39;EA&#39;,
- &#39;EAU&#39;,
- &#39;EB&#39;,
- &#39;EBa&#39;,
- &#39;EC&#39;,
- &#39;ED&#39;,
- &#39;EF&#39;,
- &#39;EG&#39;,
- &#39;EGal&#39;,
- &#39;EH&#39;,
- &#39;EHz&#39;,
- &#39;EJ&#39;,
- &#39;EJy&#39;,
- &#39;EK&#39;,
- &#39;EL&#39;,
- &#39;EN&#39;,
- &#39;EOhm&#39;,
- &#39;EP&#39;,
- &#39;EPa&#39;,
- &#39;ER&#39;,
- &#39;ERy&#39;,
- &#39;ES&#39;,
- &#39;ESt&#39;,
- &#39;ET&#39;,
- &#39;EV&#39;,
- &#39;EW&#39;,
- &#39;EWb&#39;,
- &#39;Ea&#39;,
- &#39;Eadu&#39;,
- &#39;Earcmin&#39;,
- &#39;Earcsec&#39;,
- &#39;Eau&#39;,
- &#39;Eb&#39;,
- &#39;Ebarn&#39;,
- &#39;Ebeam&#39;,
- &#39;Ebin&#39;,
- &#39;Ebit&#39;,
- &#39;Ebyte&#39;,
- &#39;Ecd&#39;,
- &#39;Echan&#39;,
- &#39;Ecount&#39;,
- &#39;Ect&#39;,
- &#39;Ed&#39;,
- &#39;Edeg&#39;,
- &#39;Edyn&#39;,
- &#39;EeV&#39;,
- &#39;Eerg&#39;,
- &#39;Eg&#39;,
- &#39;Eh&#39;,
- &#39;EiB&#39;,
- &#39;Eib&#39;,
- &#39;Eibit&#39;,
- &#39;Eibyte&#39;,
- &#39;Ek&#39;,
- &#39;El&#39;,
- &#39;Elm&#39;,
- &#39;Elx&#39;,
- &#39;Elyr&#39;,
- &#39;Em&#39;,
- &#39;Emag&#39;,
- &#39;Emin&#39;,
- &#39;Emol&#39;,
- &#39;Eohm&#39;,
- &#39;Epc&#39;,
- &#39;Eph&#39;,
- &#39;Ephoton&#39;,
- &#39;Epix&#39;,
- &#39;Epixel&#39;,
- &#39;Erad&#39;,
- &#39;Es&#39;,
- &#39;Esr&#39;,
- &#39;Eu&#39;,
- &#39;Evox&#39;,
- &#39;Evoxel&#39;,
- &#39;Eyr&#39;,
- &#39;F&#39;,
- &#39;Farad&#39;,
- &#39;Fr&#39;,
- &#39;Franklin&#39;,
- &#39;FunctionQuantity&#39;,
- &#39;FunctionUnitBase&#39;,
- &#39;G&#39;,
- &#39;GA&#39;,
- &#39;GAU&#39;,
- &#39;GB&#39;,
- &#39;GBa&#39;,
- &#39;GC&#39;,
- &#39;GD&#39;,
- &#39;GF&#39;,
- &#39;GG&#39;,
- &#39;GGal&#39;,
- &#39;GH&#39;,
- &#39;GHz&#39;,
- &#39;GJ&#39;,
- &#39;GJy&#39;,
- &#39;GK&#39;,
- &#39;GL&#39;,
- &#39;GN&#39;,
- &#39;GOhm&#39;,
- &#39;GP&#39;,
- &#39;GPa&#39;,
- &#39;GR&#39;,
- &#39;GRy&#39;,
- &#39;GS&#39;,
- &#39;GSt&#39;,
- &#39;GT&#39;,
- &#39;GV&#39;,
- &#39;GW&#39;,
- &#39;GWb&#39;,
- &#39;Ga&#39;,
- &#39;Gadu&#39;,
- &#39;Gal&#39;,
- &#39;Garcmin&#39;,
- &#39;Garcsec&#39;,
- &#39;Gau&#39;,
- &#39;Gauss&#39;,
- &#39;Gb&#39;,
- &#39;Gbarn&#39;,
- &#39;Gbeam&#39;,
- &#39;Gbin&#39;,
- &#39;Gbit&#39;,
- &#39;Gbyte&#39;,
- &#39;Gcd&#39;,
- &#39;Gchan&#39;,
- &#39;Gcount&#39;,
- &#39;Gct&#39;,
- &#39;Gd&#39;,
- &#39;Gdeg&#39;,
- &#39;Gdyn&#39;,
- &#39;GeV&#39;,
- &#39;Gerg&#39;,
- &#39;Gg&#39;,
- &#39;Gh&#39;,
- &#39;GiB&#39;,
- &#39;Gib&#39;,
- &#39;Gibit&#39;,
- &#39;Gibyte&#39;,
- &#39;Gk&#39;,
- &#39;Gl&#39;,
- &#39;Glm&#39;,
- &#39;Glx&#39;,
- &#39;Glyr&#39;,
- &#39;Gm&#39;,
- &#39;Gmag&#39;,
- &#39;Gmin&#39;,
- &#39;Gmol&#39;,
- &#39;Gohm&#39;,
- &#39;Gpc&#39;,
- &#39;Gph&#39;,
- &#39;Gphoton&#39;,
- &#39;Gpix&#39;,
- &#39;Gpixel&#39;,
- &#39;Grad&#39;,
- &#39;Gs&#39;,
- &#39;Gsr&#39;,
- &#39;Gu&#39;,
- &#39;Gvox&#39;,
- &#39;Gvoxel&#39;,
- &#39;Gyr&#39;,
- &#39;H&#39;,
- &#39;Henry&#39;,
- &#39;Hertz&#39;,
- &#39;Hz&#39;,
- &#39;IrreducibleUnit&#39;,
- &#39;J&#39;,
- &#39;Jansky&#39;,
- &#39;Joule&#39;,
- &#39;Jy&#39;,
- &#39;K&#39;,
- &#39;Kayser&#39;,
- &#39;Kelvin&#39;,
- &#39;KiB&#39;,
- &#39;Kib&#39;,
- &#39;Kibit&#39;,
- &#39;Kibyte&#39;,
- &#39;L&#39;,
- &#39;L_bol&#39;,
- &#39;L_sun&#39;,
- &#39;LogQuantity&#39;,
- &#39;LogUnit&#39;,
- &#39;Lsun&#39;,
- &#39;MA&#39;,
- &#39;MAU&#39;,
- &#39;MB&#39;,
- &#39;MBa&#39;,
- &#39;MC&#39;,
- &#39;MD&#39;,
- &#39;MF&#39;,
- &#39;MG&#39;,
- &#39;MGal&#39;,
- &#39;MH&#39;,
- &#39;MHz&#39;,
- &#39;MJ&#39;,
- &#39;MJy&#39;,
- &#39;MK&#39;,
- &#39;ML&#39;,
- &#39;MN&#39;,
- &#39;MOhm&#39;,
- &#39;MP&#39;,
- &#39;MPa&#39;,
- &#39;MR&#39;,
- &#39;MRy&#39;,
- &#39;MS&#39;,
- &#39;MSt&#39;,
- &#39;MT&#39;,
- &#39;MV&#39;,
- &#39;MW&#39;,
- &#39;MWb&#39;,
- &#39;M_bol&#39;,
- &#39;M_e&#39;,
- &#39;M_earth&#39;,
- &#39;M_jup&#39;,
- &#39;M_jupiter&#39;,
- &#39;M_p&#39;,
- &#39;M_sun&#39;,
- &#39;Ma&#39;,
- &#39;Madu&#39;,
- &#39;MagUnit&#39;,
- &#39;Magnitude&#39;,
- &#39;Marcmin&#39;,
- &#39;Marcsec&#39;,
- &#39;Mau&#39;,
- &#39;Mb&#39;,
- &#39;Mbarn&#39;,
- &#39;Mbeam&#39;,
- &#39;Mbin&#39;,
- &#39;Mbit&#39;,
- &#39;Mbyte&#39;,
- &#39;Mcd&#39;,
- &#39;Mchan&#39;,
- &#39;Mcount&#39;,
- &#39;Mct&#39;,
- &#39;Md&#39;,
- &#39;Mdeg&#39;,
- &#39;Mdyn&#39;,
- &#39;MeV&#39;,
- &#39;Mearth&#39;,
- &#39;Merg&#39;,
- &#39;Mg&#39;,
- &#39;Mh&#39;,
- &#39;MiB&#39;,
- &#39;Mib&#39;,
- &#39;Mibit&#39;,
- &#39;Mibyte&#39;,
- &#39;Mjup&#39;,
- &#39;Mjupiter&#39;,
- &#39;Mk&#39;,
- &#39;Ml&#39;,
- &#39;Mlm&#39;,
- &#39;Mlx&#39;,
- &#39;Mlyr&#39;,
- &#39;Mm&#39;,
- &#39;Mmag&#39;,
- &#39;Mmin&#39;,
- &#39;Mmol&#39;,
- &#39;Mohm&#39;,
- &#39;Mpc&#39;,
- &#39;Mph&#39;,
- &#39;Mphoton&#39;,
- &#39;Mpix&#39;,
- &#39;Mpixel&#39;,
- &#39;Mrad&#39;,
- &#39;Ms&#39;,
- &#39;Msr&#39;,
- &#39;Msun&#39;,
- &#39;Mu&#39;,
- &#39;Mvox&#39;,
- &#39;Mvoxel&#39;,
- &#39;Myr&#39;,
- &#39;N&#39;,
- &#39;NamedUnit&#39;,
- &#39;Newton&#39;,
- &#39;Ohm&#39;,
- &#39;P&#39;,
- &#39;PA&#39;,
- &#39;PAU&#39;,
- &#39;PB&#39;,
- &#39;PBa&#39;,
- &#39;PC&#39;,
- &#39;PD&#39;,
- &#39;PF&#39;,
- &#39;PG&#39;,
- &#39;PGal&#39;,
- &#39;PH&#39;,
- &#39;PHz&#39;,
- &#39;PJ&#39;,
- &#39;PJy&#39;,
- &#39;PK&#39;,
- &#39;PL&#39;,
- &#39;PN&#39;,
- &#39;POhm&#39;,
- &#39;PP&#39;,
- &#39;PPa&#39;,
- &#39;PR&#39;,
- &#39;PRy&#39;,
- &#39;PS&#39;,
- &#39;PSt&#39;,
- &#39;PT&#39;,
- &#39;PV&#39;,
- &#39;PW&#39;,
- &#39;PWb&#39;,
- &#39;Pa&#39;,
- &#39;Padu&#39;,
- &#39;Parcmin&#39;,
- &#39;Parcsec&#39;,
- &#39;Pascal&#39;,
- &#39;Pau&#39;,
- &#39;Pb&#39;,
- &#39;Pbarn&#39;,
- &#39;Pbeam&#39;,
- &#39;Pbin&#39;,
- &#39;Pbit&#39;,
- &#39;Pbyte&#39;,
- &#39;Pcd&#39;,
- &#39;Pchan&#39;,
- &#39;Pcount&#39;,
- &#39;Pct&#39;,
- &#39;Pd&#39;,
- &#39;Pdeg&#39;,
- &#39;Pdyn&#39;,
- &#39;PeV&#39;,
- &#39;Perg&#39;,
- &#39;Pg&#39;,
- &#39;Ph&#39;,
- &#39;PiB&#39;,
- &#39;Pib&#39;,
- &#39;Pibit&#39;,
- &#39;Pibyte&#39;,
- &#39;Pk&#39;,
- &#39;Pl&#39;,
- &#39;Plm&#39;,
- &#39;Plx&#39;,
- &#39;Plyr&#39;,
- &#39;Pm&#39;,
- &#39;Pmag&#39;,
- &#39;Pmin&#39;,
- &#39;Pmol&#39;,
- &#39;Pohm&#39;,
- &#39;Ppc&#39;,
- &#39;Pph&#39;,
- &#39;Pphoton&#39;,
- &#39;Ppix&#39;,
- &#39;Ppixel&#39;,
- &#39;Prad&#39;,
- &#39;PrefixUnit&#39;,
- &#39;Ps&#39;,
- &#39;Psr&#39;,
- &#39;Pu&#39;,
- &#39;Pvox&#39;,
- &#39;Pvoxel&#39;,
- &#39;Pyr&#39;,
- &#39;Quantity&#39;,
- &#39;QuantityInfo&#39;,
- &#39;QuantityInfoBase&#39;,
- &#39;R&#39;,
- &#39;R_earth&#39;,
- &#39;R_jup&#39;,
- &#39;R_jupiter&#39;,
- &#39;R_sun&#39;,
- &#39;Rayleigh&#39;,
- &#39;Rearth&#39;,
- &#39;Rjup&#39;,
- &#39;Rjupiter&#39;,
- &#39;Rsun&#39;,
- &#39;Ry&#39;,
- &#39;S&#39;,
- &#39;ST&#39;,
- &#39;STflux&#39;,
- &#39;STmag&#39;,
- &#39;Siemens&#39;,
- &#39;SpecificTypeQuantity&#39;,
- &#39;St&#39;,
- &#39;Sun&#39;,
- &#39;T&#39;,
- &#39;TA&#39;,
- &#39;TAU&#39;,
- &#39;TB&#39;,
- &#39;TBa&#39;,
- &#39;TC&#39;,
- &#39;TD&#39;,
- &#39;TF&#39;,
- &#39;TG&#39;,
- &#39;TGal&#39;,
- &#39;TH&#39;,
- &#39;THz&#39;,
- &#39;TJ&#39;,
- &#39;TJy&#39;,
- &#39;TK&#39;,
- &#39;TL&#39;,
- &#39;TN&#39;,
- &#39;TOhm&#39;,
- &#39;TP&#39;,
- &#39;TPa&#39;,
- &#39;TR&#39;,
- &#39;TRy&#39;,
- &#39;TS&#39;,
- &#39;TSt&#39;,
- &#39;TT&#39;,
- &#39;TV&#39;,
- &#39;TW&#39;,
- &#39;TWb&#39;,
- &#39;Ta&#39;,
- &#39;Tadu&#39;,
- &#39;Tarcmin&#39;,
- &#39;Tarcsec&#39;,
- &#39;Tau&#39;,
- &#39;Tb&#39;,
- &#39;Tbarn&#39;,
- &#39;Tbeam&#39;,
- &#39;Tbin&#39;,
- &#39;Tbit&#39;,
- &#39;Tbyte&#39;,
- &#39;Tcd&#39;,
- &#39;Tchan&#39;,
- &#39;Tcount&#39;,
- &#39;Tct&#39;,
- &#39;Td&#39;,
- &#39;Tdeg&#39;,
- &#39;Tdyn&#39;,
- &#39;TeV&#39;,
- &#39;Terg&#39;,
- &#39;Tesla&#39;,
- &#39;Tg&#39;,
- &#39;Th&#39;,
- &#39;TiB&#39;,
- &#39;Tib&#39;,
- &#39;Tibit&#39;,
- &#39;Tibyte&#39;,
- &#39;Tk&#39;,
- &#39;Tl&#39;,
- &#39;Tlm&#39;,
- &#39;Tlx&#39;,
- &#39;Tlyr&#39;,
- &#39;Tm&#39;,
- &#39;Tmag&#39;,
- &#39;Tmin&#39;,
- &#39;Tmol&#39;,
- &#39;Tohm&#39;,
- &#39;Torr&#39;,
- &#39;Tpc&#39;,
- &#39;Tph&#39;,
- &#39;Tphoton&#39;,
- &#39;Tpix&#39;,
- &#39;Tpixel&#39;,
- &#39;Trad&#39;,
- &#39;Ts&#39;,
- &#39;Tsr&#39;,
- &#39;Tu&#39;,
- &#39;Tvox&#39;,
- &#39;Tvoxel&#39;,
- &#39;Tyr&#39;,
- &#39;Unit&#39;,
- &#39;UnitBase&#39;,
- &#39;UnitConversionError&#39;,
- &#39;UnitTypeError&#39;,
- &#39;UnitsError&#39;,
- &#39;UnitsWarning&#39;,
- &#39;UnrecognizedUnit&#39;,
- &#39;V&#39;,
- &#39;Volt&#39;,
- &#39;W&#39;,
- &#39;Watt&#39;,
- &#39;Wb&#39;,
- &#39;Weber&#39;,
- &#39;YA&#39;,
- &#39;YAU&#39;,
- &#39;YB&#39;,
- &#39;YBa&#39;,
- &#39;YC&#39;,
- &#39;YD&#39;,
- &#39;YF&#39;,
- &#39;YG&#39;,
- &#39;YGal&#39;,
- &#39;YH&#39;,
- &#39;YHz&#39;,
- &#39;YJ&#39;,
- &#39;YJy&#39;,
- &#39;YK&#39;,
- &#39;YL&#39;,
- &#39;YN&#39;,
- &#39;YOhm&#39;,
- &#39;YP&#39;,
- &#39;YPa&#39;,
- &#39;YR&#39;,
- &#39;YRy&#39;,
- &#39;YS&#39;,
- &#39;YSt&#39;,
- &#39;YT&#39;,
- &#39;YV&#39;,
- &#39;YW&#39;,
- &#39;YWb&#39;,
- &#39;Ya&#39;,
- &#39;Yadu&#39;,
- &#39;Yarcmin&#39;,
- &#39;Yarcsec&#39;,
- &#39;Yau&#39;,
- &#39;Yb&#39;,
- &#39;Ybarn&#39;,
- &#39;Ybeam&#39;,
- &#39;Ybin&#39;,
- &#39;Ybit&#39;,
- &#39;Ybyte&#39;,
- &#39;Ycd&#39;,
- &#39;Ychan&#39;,
- &#39;Ycount&#39;,
- &#39;Yct&#39;,
- &#39;Yd&#39;,
- &#39;Ydeg&#39;,
- &#39;Ydyn&#39;,
- &#39;YeV&#39;,
- &#39;Yerg&#39;,
- &#39;Yg&#39;,
- &#39;Yh&#39;,
- &#39;Yk&#39;,
- &#39;Yl&#39;,
- &#39;Ylm&#39;,
- &#39;Ylx&#39;,
- &#39;Ylyr&#39;,
- &#39;Ym&#39;,
- &#39;Ymag&#39;,
- &#39;Ymin&#39;,
- &#39;Ymol&#39;,
- &#39;Yohm&#39;,
- &#39;Ypc&#39;,
- &#39;Yph&#39;,
- &#39;Yphoton&#39;,
- &#39;Ypix&#39;,
- &#39;Ypixel&#39;,
- &#39;Yrad&#39;,
- &#39;Ys&#39;,
- &#39;Ysr&#39;,
- &#39;Yu&#39;,
- &#39;Yvox&#39;,
- &#39;Yvoxel&#39;,
- &#39;Yyr&#39;,
- &#39;ZA&#39;,
- &#39;ZAU&#39;,
- &#39;ZB&#39;,
- &#39;ZBa&#39;,
- &#39;ZC&#39;,
- &#39;ZD&#39;,
- &#39;ZF&#39;,
- &#39;ZG&#39;,
- &#39;ZGal&#39;,
- &#39;ZH&#39;,
- &#39;ZHz&#39;,
- &#39;ZJ&#39;,
- &#39;ZJy&#39;,
- &#39;ZK&#39;,
- &#39;ZL&#39;,
- &#39;ZN&#39;,
- &#39;ZOhm&#39;,
- &#39;ZP&#39;,
- &#39;ZPa&#39;,
- &#39;ZR&#39;,
- &#39;ZRy&#39;,
- &#39;ZS&#39;,
- &#39;ZSt&#39;,
- &#39;ZT&#39;,
- &#39;ZV&#39;,
- &#39;ZW&#39;,
- &#39;ZWb&#39;,
- &#39;Za&#39;,
- &#39;Zadu&#39;,
- &#39;Zarcmin&#39;,
- &#39;Zarcsec&#39;,
- &#39;Zau&#39;,
- &#39;Zb&#39;,
- &#39;Zbarn&#39;,
- &#39;Zbeam&#39;,
- &#39;Zbin&#39;,
- &#39;Zbit&#39;,
- &#39;Zbyte&#39;,
- &#39;Zcd&#39;,
- &#39;Zchan&#39;,
- &#39;Zcount&#39;,
- &#39;Zct&#39;,
- &#39;Zd&#39;,
- &#39;Zdeg&#39;,
- &#39;Zdyn&#39;,
- &#39;ZeV&#39;,
- &#39;Zerg&#39;,
- &#39;Zg&#39;,
- &#39;Zh&#39;,
- &#39;Zk&#39;,
- &#39;Zl&#39;,
- &#39;Zlm&#39;,
- &#39;Zlx&#39;,
- &#39;Zlyr&#39;,
- &#39;Zm&#39;,
- &#39;Zmag&#39;,
- &#39;Zmin&#39;,
- &#39;Zmol&#39;,
- &#39;Zohm&#39;,
- &#39;Zpc&#39;,
- &#39;Zph&#39;,
- &#39;Zphoton&#39;,
- &#39;Zpix&#39;,
- &#39;Zpixel&#39;,
- &#39;Zrad&#39;,
- &#39;Zs&#39;,
- &#39;Zsr&#39;,
- &#39;Zu&#39;,
- &#39;Zvox&#39;,
- &#39;Zvoxel&#39;,
- &#39;Zyr&#39;,
- &#39;__builtins__&#39;,
- &#39;__cached__&#39;,
- &#39;__doc__&#39;,
- &#39;__file__&#39;,
- &#39;__loader__&#39;,
- &#39;__name__&#39;,
- &#39;__package__&#39;,
- &#39;__path__&#39;,
- &#39;__spec__&#39;,
- &#39;a&#39;,
- &#39;aA&#39;,
- &#39;aAU&#39;,
- &#39;aB&#39;,
- &#39;aBa&#39;,
- &#39;aC&#39;,
- &#39;aD&#39;,
- &#39;aF&#39;,
- &#39;aG&#39;,
- &#39;aGal&#39;,
- &#39;aH&#39;,
- &#39;aHz&#39;,
- &#39;aJ&#39;,
- &#39;aJy&#39;,
- &#39;aK&#39;,
- &#39;aL&#39;,
- &#39;aN&#39;,
- &#39;aOhm&#39;,
- &#39;aP&#39;,
- &#39;aPa&#39;,
- &#39;aR&#39;,
- &#39;aRy&#39;,
- &#39;aS&#39;,
- &#39;aSt&#39;,
- &#39;aT&#39;,
- &#39;aV&#39;,
- &#39;aW&#39;,
- &#39;aWb&#39;,
- &#39;aa&#39;,
- &#39;aadu&#39;,
- &#39;aarcmin&#39;,
- &#39;aarcsec&#39;,
- &#39;aau&#39;,
- &#39;ab&#39;,
- &#39;abA&#39;,
- &#39;abC&#39;,
- &#39;abampere&#39;,
- &#39;abarn&#39;,
- &#39;abcoulomb&#39;,
- &#39;abeam&#39;,
- &#39;abin&#39;,
- &#39;abit&#39;,
- &#39;abyte&#39;,
- &#39;acd&#39;,
- &#39;achan&#39;,
- &#39;acount&#39;,
- &#39;act&#39;,
- &#39;ad&#39;,
- &#39;add_enabled_equivalencies&#39;,
- &#39;add_enabled_units&#39;,
- &#39;adeg&#39;,
- &#39;adu&#39;,
- &#39;adyn&#39;,
- &#39;aeV&#39;,
- &#39;aerg&#39;,
- &#39;ag&#39;,
- &#39;ah&#39;,
- &#39;ak&#39;,
- &#39;al&#39;,
- &#39;allclose&#39;,
- &#39;alm&#39;,
- &#39;alx&#39;,
- &#39;alyr&#39;,
- &#39;am&#39;,
- &#39;amag&#39;,
- &#39;amin&#39;,
- &#39;amol&#39;,
- &#39;amp&#39;,
- &#39;ampere&#39;,
- &#39;angstrom&#39;,
- &#39;annum&#39;,
- &#39;aohm&#39;,
- &#39;apc&#39;,
- &#39;aph&#39;,
- &#39;aphoton&#39;,
- &#39;apix&#39;,
- &#39;apixel&#39;,
- &#39;arad&#39;,
- &#39;arcmin&#39;,
- &#39;arcminute&#39;,
- &#39;arcsec&#39;,
- &#39;arcsecond&#39;,
- &#39;asr&#39;,
- &#39;astronomical_unit&#39;,
- &#39;astrophys&#39;,
- &#39;attoBarye&#39;,
- &#39;attoDa&#39;,
- &#39;attoDalton&#39;,
- &#39;attoDebye&#39;,
- &#39;attoFarad&#39;,
- &#39;attoGauss&#39;,
- &#39;attoHenry&#39;,
- &#39;attoHertz&#39;,
- &#39;attoJansky&#39;,
- &#39;attoJoule&#39;,
- &#39;attoKayser&#39;,
- &#39;attoKelvin&#39;,
- &#39;attoNewton&#39;,
- &#39;attoOhm&#39;,
- &#39;attoPascal&#39;,
- &#39;attoRayleigh&#39;,
- &#39;attoSiemens&#39;,
- &#39;attoTesla&#39;,
- &#39;attoVolt&#39;,
- &#39;attoWatt&#39;,
- &#39;attoWeber&#39;,
- &#39;attoamp&#39;,
- &#39;attoampere&#39;,
- &#39;attoannum&#39;,
- &#39;attoarcminute&#39;,
- &#39;attoarcsecond&#39;,
- &#39;attoastronomical_unit&#39;,
- &#39;attobarn&#39;,
- &#39;attobarye&#39;,
- &#39;attobit&#39;,
- &#39;attobyte&#39;,
- &#39;attocandela&#39;,
- &#39;attocoulomb&#39;,
- &#39;attocount&#39;,
- &#39;attoday&#39;,
- &#39;attodebye&#39;,
- &#39;attodegree&#39;,
- &#39;attodyne&#39;,
- &#39;attoelectronvolt&#39;,
- &#39;attofarad&#39;,
- &#39;attogal&#39;,
- &#39;attogauss&#39;,
- &#39;attogram&#39;,
- &#39;attohenry&#39;,
- &#39;attohertz&#39;,
- &#39;attohour&#39;,
- &#39;attohr&#39;,
- &#39;attojansky&#39;,
- &#39;attojoule&#39;,
- &#39;attokayser&#39;,
- &#39;attolightyear&#39;,
- &#39;attoliter&#39;,
- &#39;attolumen&#39;,
- &#39;attolux&#39;,
- &#39;attometer&#39;,
- &#39;attominute&#39;,
- &#39;attomole&#39;,
- &#39;attonewton&#39;,
- &#39;attoparsec&#39;,
- &#39;attopascal&#39;,
- &#39;attophoton&#39;,
- &#39;attopixel&#39;,
- &#39;attopoise&#39;,
- &#39;attoradian&#39;,
- &#39;attorayleigh&#39;,
- &#39;attorydberg&#39;,
- &#39;attosecond&#39;,
- &#39;attosiemens&#39;,
- &#39;attosteradian&#39;,
- &#39;attostokes&#39;,
- &#39;attotesla&#39;,
- &#39;attovolt&#39;,
- &#39;attovoxel&#39;,
- &#39;attowatt&#39;,
- &#39;attoweber&#39;,
- &#39;attoyear&#39;,
- &#39;au&#39;,
- &#39;avox&#39;,
- &#39;avoxel&#39;,
- &#39;ayr&#39;,
- &#39;b&#39;,
- &#39;bar&#39;,
- &#39;barn&#39;,
- &#39;barye&#39;,
- &#39;beam&#39;,
- &#39;beam_angular_area&#39;,
- &#39;becquerel&#39;,
- &#39;bin&#39;,
- &#39;binary_prefixes&#39;,
- &#39;bit&#39;,
- &#39;bol&#39;,
- &#39;brightness_temperature&#39;,
- &#39;byte&#39;,
- &#39;cA&#39;,
- &#39;cAU&#39;,
- &#39;cB&#39;,
- &#39;cBa&#39;,
- &#39;cC&#39;,
- &#39;cD&#39;,
- &#39;cF&#39;,
- &#39;cG&#39;,
- &#39;cGal&#39;,
- &#39;cH&#39;,
- &#39;cHz&#39;,
- &#39;cJ&#39;,
- &#39;cJy&#39;,
- &#39;cK&#39;,
- &#39;cL&#39;,
- &#39;cN&#39;,
- &#39;cOhm&#39;,
- &#39;cP&#39;,
- &#39;cPa&#39;,
- &#39;cR&#39;,
- &#39;cRy&#39;,
- &#39;cS&#39;,
- &#39;cSt&#39;,
- &#39;cT&#39;,
- &#39;cV&#39;,
- &#39;cW&#39;,
- &#39;cWb&#39;,
- &#39;ca&#39;,
- &#39;cadu&#39;,
- &#39;candela&#39;,
- &#39;carcmin&#39;,
- &#39;carcsec&#39;,
- &#39;cau&#39;,
- &#39;cb&#39;,
- &#39;cbarn&#39;,
- &#39;cbeam&#39;,
- &#39;cbin&#39;,
- &#39;cbit&#39;,
- &#39;cbyte&#39;,
- &#39;ccd&#39;,
- &#39;cchan&#39;,
- &#39;ccount&#39;,
- &#39;cct&#39;,
- &#39;cd&#39;,
- &#39;cdeg&#39;,
- &#39;cdyn&#39;,
- &#39;ceV&#39;,
- &#39;centiBarye&#39;,
- &#39;centiDa&#39;,
- &#39;centiDalton&#39;,
- &#39;centiDebye&#39;,
- &#39;centiFarad&#39;,
- &#39;centiGauss&#39;,
- &#39;centiHenry&#39;,
- &#39;centiHertz&#39;,
- &#39;centiJansky&#39;,
- &#39;centiJoule&#39;,
- &#39;centiKayser&#39;,
- &#39;centiKelvin&#39;,
- &#39;centiNewton&#39;,
- &#39;centiOhm&#39;,
- &#39;centiPascal&#39;,
- &#39;centiRayleigh&#39;,
- &#39;centiSiemens&#39;,
- &#39;centiTesla&#39;,
- &#39;centiVolt&#39;,
- &#39;centiWatt&#39;,
- &#39;centiWeber&#39;,
- &#39;centiamp&#39;,
- &#39;centiampere&#39;,
- &#39;centiannum&#39;,
- &#39;centiarcminute&#39;,
- &#39;centiarcsecond&#39;,
- &#39;centiastronomical_unit&#39;,
- &#39;centibarn&#39;,
- &#39;centibarye&#39;,
- &#39;centibit&#39;,
- &#39;centibyte&#39;,
- &#39;centicandela&#39;,
- &#39;centicoulomb&#39;,
- &#39;centicount&#39;,
- &#39;centiday&#39;,
- &#39;centidebye&#39;,
- &#39;centidegree&#39;,
- &#39;centidyne&#39;,
- &#39;centielectronvolt&#39;,
- &#39;centifarad&#39;,
- &#39;centigal&#39;,
- &#39;centigauss&#39;,
- &#39;centigram&#39;,
- &#39;centihenry&#39;,
- &#39;centihertz&#39;,
- &#39;centihour&#39;,
- &#39;centihr&#39;,
- &#39;centijansky&#39;,
- &#39;centijoule&#39;,
- &#39;centikayser&#39;,
- &#39;centilightyear&#39;,
- &#39;centiliter&#39;,
- &#39;centilumen&#39;,
- &#39;centilux&#39;,
- &#39;centimeter&#39;,
- &#39;centiminute&#39;,
- &#39;centimole&#39;,
- &#39;centinewton&#39;,
- &#39;centiparsec&#39;,
- &#39;centipascal&#39;,
- &#39;centiphoton&#39;,
- &#39;centipixel&#39;,
- &#39;centipoise&#39;,
- &#39;centiradian&#39;,
- &#39;centirayleigh&#39;,
- &#39;centirydberg&#39;,
- &#39;centisecond&#39;,
- &#39;centisiemens&#39;,
- &#39;centisteradian&#39;,
- &#39;centistokes&#39;,
- &#39;centitesla&#39;,
- &#39;centivolt&#39;,
- &#39;centivoxel&#39;,
- &#39;centiwatt&#39;,
- &#39;centiweber&#39;,
- &#39;centiyear&#39;,
- &#39;cerg&#39;,
- &#39;cg&#39;,
- &#39;cgs&#39;,
- &#39;ch&#39;,
- &#39;chan&#39;,
- &#39;ck&#39;,
- &#39;cl&#39;,
- &#39;clm&#39;,
- &#39;clx&#39;,
- &#39;clyr&#39;,
- &#39;cm&#39;,
- &#39;cmag&#39;,
- &#39;cmin&#39;,
- &#39;cmol&#39;,
- &#39;cohm&#39;,
- &#39;core&#39;,
- &#39;coulomb&#39;,
- &#39;count&#39;,
- &#39;cpc&#39;,
- &#39;cph&#39;,
- &#39;cphoton&#39;,
- &#39;cpix&#39;,
- &#39;cpixel&#39;,
- &#39;crad&#39;,
- &#39;cs&#39;,
- &#39;csr&#39;,
- &#39;ct&#39;,
- &#39;cu&#39;,
- &#39;curie&#39;,
- &#39;cvox&#39;,
- &#39;cvoxel&#39;,
- &#39;cy&#39;,
- &#39;cycle&#39;,
- &#39;cyr&#39;,
- &#39;d&#39;,
- &#39;dA&#39;,
- &#39;dAU&#39;,
- &#39;dB&#39;,
- &#39;dBa&#39;,
- &#39;dC&#39;,
- &#39;dD&#39;,
- &#39;dF&#39;,
- &#39;dG&#39;,
- &#39;dGal&#39;,
- &#39;dH&#39;,
- &#39;dHz&#39;,
- &#39;dJ&#39;,
- &#39;dJy&#39;,
- &#39;dK&#39;,
- &#39;dL&#39;,
- &#39;dN&#39;,
- &#39;dOhm&#39;,
- &#39;dP&#39;,
- &#39;dPa&#39;,
- &#39;dR&#39;,
- &#39;dRy&#39;,
- &#39;dS&#39;,
- &#39;dSt&#39;,
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>['A',
+ 'AA',
+ 'AB',
+ 'ABflux',
+ 'ABmag',
+ 'AU',
+ 'Angstrom',
+ 'B',
+ 'Ba',
+ 'Barye',
+ 'Bethe',
+ 'Bi',
+ 'Biot',
+ 'Bol',
+ 'Bq',
+ 'C',
+ 'Celsius',
+ 'Ci',
+ 'CompositeUnit',
+ 'D',
+ 'DN',
+ 'Da',
+ 'Dalton',
+ 'Debye',
+ 'Decibel',
+ 'DecibelUnit',
+ 'Dex',
+ 'DexUnit',
+ 'EA',
+ 'EAU',
+ 'EB',
+ 'EBa',
+ 'EBq',
+ 'EC',
+ 'ECi',
+ 'ED',
+ 'EF',
+ 'EG',
+ 'EGal',
+ 'EGy',
+ 'EH',
+ 'EHz',
+ 'EJ',
+ 'EJy',
+ 'EK',
+ 'EL',
+ 'EN',
+ 'EOe',
+ 'EOhm',
+ 'EP',
+ 'EPa',
+ 'ER',
+ 'ERy',
+ 'ES',
+ 'ESt',
+ 'ESv',
+ 'ET',
+ 'EV',
+ 'EW',
+ 'EWb',
+ 'Ea',
+ 'Eadu',
+ 'Earcmin',
+ 'Earcsec',
+ 'Eau',
+ 'Eb',
+ 'Ebarn',
+ 'Ebeam',
+ 'Ebin',
+ 'Ebit',
+ 'Ebyte',
+ 'Ecd',
+ 'Echan',
+ 'Ecount',
+ 'Ect',
+ 'Ed',
+ 'Edeg',
+ 'Edyn',
+ 'EeV',
+ 'Eerg',
+ 'Eg',
+ 'Eh',
+ 'EiB',
+ 'Eib',
+ 'Eibit',
+ 'Eibyte',
+ 'Ek',
+ 'Ekat',
+ 'El',
+ 'Elm',
+ 'Elx',
+ 'Elyr',
+ 'Em',
+ 'Emag',
+ 'Emin',
+ 'Emol',
+ 'Eohm',
+ 'Epc',
+ 'Eph',
+ 'Ephoton',
+ 'Epix',
+ 'Epixel',
+ 'Equivalency',
+ 'Erad',
+ 'Es',
+ 'Esr',
+ 'Eu',
+ 'Evox',
+ 'Evoxel',
+ 'Eyr',
+ 'EΩ',
+ 'F',
+ 'Farad',
+ 'Fr',
+ 'Franklin',
+ 'FunctionQuantity',
+ 'FunctionUnitBase',
+ 'G',
+ 'GA',
+ 'GAU',
+ 'GB',
+ 'GBa',
+ 'GBq',
+ 'GC',
+ 'GCi',
+ 'GD',
+ 'GF',
+ 'GG',
+ 'GGal',
+ 'GGy',
+ 'GH',
+ 'GHz',
+ 'GJ',
+ 'GJy',
+ 'GK',
+ 'GL',
+ 'GN',
+ 'GOe',
+ 'GOhm',
+ 'GP',
+ 'GPa',
+ 'GR',
+ 'GRy',
+ 'GS',
+ 'GSt',
+ 'GSv',
+ 'GT',
+ 'GV',
+ 'GW',
+ 'GWb',
+ 'Ga',
+ 'Gadu',
+ 'Gal',
+ 'Garcmin',
+ 'Garcsec',
+ 'Gau',
+ 'Gauss',
+ 'Gb',
+ 'Gbarn',
+ 'Gbeam',
+ 'Gbin',
+ 'Gbit',
+ 'Gbyte',
+ 'Gcd',
+ 'Gchan',
+ 'Gcount',
+ 'Gct',
+ 'Gd',
+ 'Gdeg',
+ 'Gdyn',
+ 'GeV',
+ 'Gerg',
+ 'Gg',
+ 'Gh',
+ 'GiB',
+ 'Gib',
+ 'Gibit',
+ 'Gibyte',
+ 'Gk',
+ 'Gkat',
+ 'Gl',
+ 'Glm',
+ 'Glx',
+ 'Glyr',
+ 'Gm',
+ 'Gmag',
+ 'Gmin',
+ 'Gmol',
+ 'Gohm',
+ 'Gpc',
+ 'Gph',
+ 'Gphoton',
+ 'Gpix',
+ 'Gpixel',
+ 'Grad',
+ 'Gs',
+ 'Gsr',
+ 'Gu',
+ 'Gvox',
+ 'Gvoxel',
+ 'Gy',
+ 'Gyr',
+ 'GΩ',
+ 'H',
+ 'Henry',
+ 'Hertz',
+ 'Hz',
+ 'IrreducibleUnit',
+ 'J',
+ 'Jansky',
+ 'Joule',
+ 'Jy',
+ 'K',
+ 'Kayser',
+ 'Kelvin',
+ 'KiB',
+ 'Kib',
+ 'Kibit',
+ 'Kibyte',
+ 'L',
+ 'L_bol',
+ 'L_sun',
+ 'LogQuantity',
+ 'LogUnit',
+ 'Lsun',
+ 'MA',
+ 'MAU',
+ 'MB',
+ 'MBa',
+ 'MBq',
+ 'MC',
+ 'MCi',
+ 'MD',
+ 'MF',
+ 'MG',
+ 'MGal',
+ 'MGy',
+ 'MH',
+ 'MHz',
+ 'MJ',
+ 'MJy',
+ 'MK',
+ 'ML',
+ 'MN',
+ 'MOe',
+ 'MOhm',
+ 'MP',
+ 'MPa',
+ 'MR',
+ 'MRy',
+ 'MS',
+ 'MSt',
+ 'MSv',
+ 'MT',
+ 'MV',
+ 'MW',
+ 'MWb',
+ 'M_bol',
+ 'M_e',
+ 'M_earth',
+ 'M_jup',
+ 'M_jupiter',
+ 'M_p',
+ 'M_sun',
+ 'Ma',
+ 'Madu',
+ 'MagUnit',
+ 'Magnitude',
+ 'Marcmin',
+ 'Marcsec',
+ 'Mau',
+ 'Maxwell',
+ 'Mb',
+ 'Mbarn',
+ 'Mbeam',
+ 'Mbin',
+ 'Mbit',
+ 'Mbyte',
+ 'Mcd',
+ 'Mchan',
+ 'Mcount',
+ 'Mct',
+ 'Md',
+ 'Mdeg',
+ 'Mdyn',
+ 'MeV',
+ 'Mearth',
+ 'Merg',
+ 'Mg',
+ 'Mh',
+ 'MiB',
+ 'Mib',
+ 'Mibit',
+ 'Mibyte',
+ 'Mjup',
+ 'Mjupiter',
+ 'Mk',
+ 'Mkat',
+ 'Ml',
+ 'Mlm',
+ 'Mlx',
+ 'Mlyr',
+ 'Mm',
+ 'Mmag',
+ 'Mmin',
+ 'Mmol',
+ 'Mohm',
+ 'Mpc',
+ 'Mph',
+ 'Mphoton',
+ 'Mpix',
+ 'Mpixel',
+ 'Mrad',
+ 'Ms',
+ 'Msr',
+ 'Msun',
+ 'Mu',
+ 'Mvox',
+ 'Mvoxel',
+ 'Mx',
+ 'Myr',
+ 'MΩ',
+ 'N',
+ 'NamedUnit',
+ 'Newton',
+ 'Oe',
+ 'Oersted',
+ 'Ohm',
+ 'P',
+ 'PA',
+ 'PAU',
+ 'PB',
+ 'PBa',
+ 'PBq',
+ 'PC',
+ 'PCi',
+ 'PD',
+ 'PF',
+ 'PG',
+ 'PGal',
+ 'PGy',
+ 'PH',
+ 'PHz',
+ 'PJ',
+ 'PJy',
+ 'PK',
+ 'PL',
+ 'PN',
+ 'POe',
+ 'POhm',
+ 'PP',
+ 'PPa',
+ 'PR',
+ 'PRy',
+ 'PS',
+ 'PSt',
+ 'PSv',
+ 'PT',
+ 'PV',
+ 'PW',
+ 'PWb',
+ 'Pa',
+ 'Padu',
+ 'Parcmin',
+ 'Parcsec',
+ 'Pascal',
+ 'Pau',
+ 'Pb',
+ 'Pbarn',
+ 'Pbeam',
+ 'Pbin',
+ 'Pbit',
+ 'Pbyte',
+ 'Pcd',
+ 'Pchan',
+ 'Pcount',
+ 'Pct',
+ 'Pd',
+ 'Pdeg',
+ 'Pdyn',
+ 'PeV',
+ 'Perg',
+ 'Pg',
+ 'Ph',
+ 'PhysicalType',
+ 'PiB',
+ 'Pib',
+ 'Pibit',
+ 'Pibyte',
+ 'Pk',
+ 'Pkat',
+ 'Pl',
+ 'Plm',
+ 'Plx',
+ 'Plyr',
+ 'Pm',
+ 'Pmag',
+ 'Pmin',
+ 'Pmol',
+ 'Pohm',
+ 'Ppc',
+ 'Pph',
+ 'Pphoton',
+ 'Ppix',
+ 'Ppixel',
+ 'Prad',
+ 'PrefixUnit',
+ 'Ps',
+ 'Psr',
+ 'Pu',
+ 'Pvox',
+ 'Pvoxel',
+ 'Pyr',
+ 'PΩ',
+ 'QA',
+ 'QAU',
+ 'QB',
+ 'QBa',
+ 'QBq',
+ 'QC',
+ 'QCi',
+ 'QD',
+ 'QF',
+ 'QG',
+ 'QGal',
+ 'QGy',
+ 'QH',
+ 'QHz',
+ 'QJ',
+ 'QJy',
+ 'QK',
+ 'QL',
+ 'QN',
+ 'QOe',
+ 'QOhm',
+ 'QP',
+ 'QPa',
+ 'QR',
+ 'QRy',
+ 'QS',
+ 'QSt',
+ 'QSv',
+ 'QT',
+ 'QV',
+ 'QW',
+ 'QWb',
+ 'Qa',
+ 'Qadu',
+ 'Qarcmin',
+ 'Qarcsec',
+ 'Qau',
+ 'Qb',
+ 'Qbarn',
+ 'Qbeam',
+ 'Qbin',
+ 'Qbit',
+ 'Qbyte',
+ 'Qcd',
+ 'Qchan',
+ 'Qcount',
+ 'Qct',
+ 'Qd',
+ 'Qdeg',
+ 'Qdyn',
+ 'QeV',
+ 'Qerg',
+ 'Qg',
+ 'Qh',
+ 'Qk',
+ 'Qkat',
+ 'Ql',
+ 'Qlm',
+ 'Qlx',
+ 'Qlyr',
+ 'Qm',
+ 'Qmag',
+ 'Qmin',
+ 'Qmol',
+ 'Qohm',
+ 'Qpc',
+ 'Qph',
+ 'Qphoton',
+ 'Qpix',
+ 'Qpixel',
+ 'Qrad',
+ 'Qs',
+ 'Qsr',
+ 'Qu',
+ 'Quantity',
+ 'QuantityInfo',
+ 'QuantityInfoBase',
+ 'Qvox',
+ 'Qvoxel',
+ 'Qyr',
+ 'QΩ',
+ 'R',
+ 'RA',
+ 'RAU',
+ 'RB',
+ 'RBa',
+ 'RBq',
+ 'RC',
+ 'RCi',
+ 'RD',
+ 'RF',
+ 'RG',
+ 'RGal',
+ 'RGy',
+ 'RH',
+ 'RHz',
+ 'RJ',
+ 'RJy',
+ 'RK',
+ 'RL',
+ 'RN',
+ 'ROe',
+ 'ROhm',
+ 'RP',
+ 'RPa',
+ 'RR',
+ 'RRy',
+ 'RS',
+ 'RSt',
+ 'RSv',
+ 'RT',
+ 'RV',
+ 'RW',
+ 'RWb',
+ 'R_earth',
+ 'R_jup',
+ 'R_jupiter',
+ 'R_sun',
+ 'Ra',
+ 'Radu',
+ 'Rarcmin',
+ 'Rarcsec',
+ 'Rau',
+ 'Rayleigh',
+ 'Rb',
+ 'Rbarn',
+ 'Rbeam',
+ 'Rbin',
+ 'Rbit',
+ 'Rbyte',
+ 'Rcd',
+ 'Rchan',
+ 'Rcount',
+ 'Rct',
+ 'Rd',
+ 'Rdeg',
+ 'Rdyn',
+ 'ReV',
+ 'Rearth',
+ 'Rerg',
+ 'Rg',
+ 'Rh',
+ 'Rjup',
+ 'Rjupiter',
+ 'Rk',
+ 'Rkat',
+ 'Rl',
+ 'Rlm',
+ 'Rlx',
+ 'Rlyr',
+ 'Rm',
+ 'Rmag',
+ 'Rmin',
+ 'Rmol',
+ 'Rohm',
+ 'Rpc',
+ 'Rph',
+ 'Rphoton',
+ 'Rpix',
+ 'Rpixel',
+ 'Rrad',
+ 'Rs',
+ 'Rsr',
+ 'Rsun',
+ 'Ru',
+ 'Rvox',
+ 'Rvoxel',
+ 'Ry',
+ 'Ryr',
+ 'RΩ',
+ 'S',
+ 'ST',
+ 'STflux',
+ 'STmag',
+ 'Siemens',
+ 'SpecificTypeQuantity',
+ 'St',
+ 'StructuredUnit',
+ 'Sun',
+ 'Sv',
+ 'T',
+ 'TA',
+ 'TAU',
+ 'TB',
+ 'TBa',
+ 'TBq',
+ 'TC',
+ 'TCi',
+ 'TD',
+ 'TF',
+ 'TG',
+ 'TGal',
+ 'TGy',
+ 'TH',
+ 'THz',
+ 'TJ',
+ 'TJy',
+ 'TK',
+ 'TL',
+ 'TN',
+ 'TOe',
+ 'TOhm',
+ 'TP',
+ 'TPa',
+ 'TR',
+ 'TRy',
+ 'TS',
+ 'TSt',
+ 'TSv',
+ 'TT',
+ 'TV',
+ 'TW',
+ 'TWb',
+ 'Ta',
+ 'Tadu',
+ 'Tarcmin',
+ 'Tarcsec',
+ 'Tau',
+ 'Tb',
+ 'Tbarn',
+ 'Tbeam',
+ 'Tbin',
+ 'Tbit',
+ 'Tbyte',
+ 'Tcd',
+ 'Tchan',
+ 'Tcount',
+ 'Tct',
+ 'Td',
+ 'Tdeg',
+ 'Tdyn',
+ 'TeV',
+ 'Terg',
+ 'Tesla',
+ 'Tg',
+ 'Th',
+ 'TiB',
+ 'Tib',
+ 'Tibit',
+ 'Tibyte',
+ 'Tk',
+ 'Tkat',
+ 'Tl',
+ 'Tlm',
+ 'Tlx',
+ 'Tlyr',
+ 'Tm',
+ 'Tmag',
+ 'Tmin',
+ 'Tmol',
+ 'Tohm',
+ 'Torr',
+ 'Tpc',
+ 'Tph',
+ 'Tphoton',
+ 'Tpix',
+ 'Tpixel',
+ 'Trad',
+ 'Ts',
+ 'Tsr',
+ 'Tu',
+ 'Tvox',
+ 'Tvoxel',
+ 'Tyr',
+ 'TΩ',
+ 'Unit',
+ 'UnitBase',
+ 'UnitConversionError',
+ 'UnitParserWarning',
+ 'UnitPrefix',
+ 'UnitScaleError',
+ 'UnitTypeError',
+ 'UnitsError',
+ 'UnitsWarning',
+ 'UnrecognizedUnit',
+ 'V',
+ 'Volt',
+ 'W',
+ 'Watt',
+ 'Wb',
+ 'Weber',
+ 'YA',
+ 'YAU',
+ 'YB',
+ 'YBa',
+ 'YBq',
+ 'YC',
+ 'YCi',
+ 'YD',
+ 'YF',
+ 'YG',
+ 'YGal',
+ 'YGy',
+ 'YH',
+ 'YHz',
+ 'YJ',
+ 'YJy',
+ 'YK',
+ 'YL',
+ 'YN',
+ 'YOe',
+ 'YOhm',
+ 'YP',
+ 'YPa',
+ 'YR',
+ 'YRy',
+ 'YS',
+ 'YSt',
+ 'YSv',
+ 'YT',
+ 'YV',
+ 'YW',
+ 'YWb',
+ 'Ya',
+ 'Yadu',
+ 'Yarcmin',
+ 'Yarcsec',
+ 'Yau',
+ 'Yb',
+ 'Ybarn',
+ 'Ybeam',
+ 'Ybin',
+ 'Ybit',
+ 'Ybyte',
+ 'Ycd',
+ 'Ychan',
+ 'Ycount',
+ 'Yct',
+ 'Yd',
+ 'Ydeg',
+ 'Ydyn',
+ 'YeV',
+ 'Yerg',
+ 'Yg',
+ 'Yh',
+ 'YiB',
+ 'Yib',
+ 'Yibit',
+ 'Yibyte',
+ 'Yk',
+ 'Ykat',
+ 'Yl',
+ 'Ylm',
+ 'Ylx',
+ 'Ylyr',
+ 'Ym',
+ 'Ymag',
+ 'Ymin',
+ 'Ymol',
+ 'Yohm',
+ 'Ypc',
+ 'Yph',
+ 'Yphoton',
+ 'Ypix',
+ 'Ypixel',
+ 'Yrad',
+ 'Ys',
+ 'Ysr',
+ 'Yu',
+ 'Yvox',
+ 'Yvoxel',
+ 'Yyr',
+ 'YΩ',
+ 'ZA',
+ 'ZAU',
+ 'ZB',
+ 'ZBa',
+ 'ZBq',
+ 'ZC',
+ 'ZCi',
+ 'ZD',
+ 'ZF',
+ 'ZG',
+ 'ZGal',
+ 'ZGy',
+ 'ZH',
+ 'ZHz',
+ 'ZJ',
+ 'ZJy',
+ 'ZK',
+ 'ZL',
+ 'ZN',
+ 'ZOe',
+ 'ZOhm',
+ 'ZP',
+ 'ZPa',
+ 'ZR',
+ 'ZRy',
+ 'ZS',
+ 'ZSt',
+ 'ZSv',
+ 'ZT',
+ 'ZV',
+ 'ZW',
+ 'ZWb',
+ 'Za',
+ 'Zadu',
+ 'Zarcmin',
+ 'Zarcsec',
+ 'Zau',
+ 'Zb',
+ 'Zbarn',
+ 'Zbeam',
+ 'Zbin',
+ 'Zbit',
+ 'Zbyte',
+ 'Zcd',
+ 'Zchan',
+ 'Zcount',
+ 'Zct',
+ 'Zd',
+ 'Zdeg',
+ 'Zdyn',
+ 'ZeV',
+ 'Zerg',
+ 'Zg',
+ 'Zh',
+ 'ZiB',
+ 'Zib',
+ 'Zibit',
+ 'Zibyte',
+ 'Zk',
+ 'Zkat',
+ 'Zl',
+ 'Zlm',
+ 'Zlx',
+ 'Zlyr',
+ 'Zm',
+ 'Zmag',
+ 'Zmin',
+ 'Zmol',
+ 'Zohm',
+ 'Zpc',
+ 'Zph',
+ 'Zphoton',
+ 'Zpix',
+ 'Zpixel',
+ 'Zrad',
+ 'Zs',
+ 'Zsr',
+ 'Zu',
+ 'Zvox',
+ 'Zvoxel',
+ 'Zyr',
+ 'ZΩ',
+ '__all__',
+ '__builtins__',
+ '__cached__',
+ '__doc__',
+ '__file__',
+ '__loader__',
+ '__name__',
+ '__package__',
+ '__path__',
+ '__spec__',
+ 'a',
+ 'aA',
+ 'aAU',
+ 'aB',
+ 'aBa',
+ 'aBq',
+ 'aC',
+ 'aCi',
+ 'aD',
+ 'aF',
+ 'aG',
+ 'aGal',
+ 'aGy',
+ 'aH',
+ 'aHz',
+ 'aJ',
+ 'aJy',
+ 'aK',
+ 'aL',
+ 'aN',
+ 'aOe',
+ 'aOhm',
+ 'aP',
+ 'aPa',
+ 'aR',
+ 'aRy',
+ 'aS',
+ 'aSt',
+ 'aSv',
+ 'aT',
+ 'aV',
+ 'aW',
+ 'aWb',
+ 'aa',
+ 'aadu',
+ 'aarcmin',
+ 'aarcsec',
+ 'aau',
+ 'ab',
+ 'abA',
+ 'abC',
+ 'abampere',
+ 'abarn',
+ 'abcoulomb',
+ 'abeam',
+ 'abin',
+ 'abit',
+ 'abyte',
+ 'acd',
+ 'achan',
+ 'acount',
+ 'act',
+ 'ad',
+ 'add_enabled_aliases',
+ 'add_enabled_equivalencies',
+ 'add_enabled_units',
+ 'adeg',
+ 'adu',
+ 'adyn',
+ 'aeV',
+ 'aerg',
+ 'ag',
+ 'ah',
+ 'ak',
+ 'akat',
+ 'al',
+ 'allclose',
+ 'alm',
+ 'alx',
+ 'alyr',
+ 'am',
+ 'amag',
+ 'amin',
+ 'amol',
+ 'amp',
+ 'ampere',
+ 'angstrom',
+ 'annum',
+ 'aohm',
+ 'apc',
+ 'aph',
+ 'aphoton',
+ 'apix',
+ 'apixel',
+ 'arad',
+ 'arcmin',
+ 'arcminute',
+ 'arcsec',
+ 'arcsecond',
+ 'asr',
+ 'astronomical_unit',
+ 'astrophys',
+ 'attoBarye',
+ 'attoDa',
+ 'attoDalton',
+ 'attoDebye',
+ 'attoFarad',
+ 'attoGauss',
+ 'attoHenry',
+ 'attoHertz',
+ 'attoJansky',
+ 'attoJoule',
+ 'attoKayser',
+ 'attoKelvin',
+ 'attoNewton',
+ 'attoOersted',
+ 'attoOhm',
+ 'attoPascal',
+ 'attoRayleigh',
+ 'attoSiemens',
+ 'attoTesla',
+ 'attoVolt',
+ 'attoWatt',
+ 'attoWeber',
+ 'attoamp',
+ 'attoampere',
+ 'attoannum',
+ 'attoarcminute',
+ 'attoarcsecond',
+ 'attoastronomical_unit',
+ 'attobarn',
+ 'attobarye',
+ 'attobecquerel',
+ 'attobit',
+ 'attobyte',
+ 'attocandela',
+ 'attocoulomb',
+ 'attocount',
+ 'attocurie',
+ 'attoday',
+ 'attodebye',
  ...]
 </pre></div>
 </div>
@@ -1399,7 +1447,7 @@ Jupyter knows how to display <code class="docutils literal notranslate"><span cl
 </div>
 <div class="cell_output docutils container">
 <div class="output text_latex math notranslate nohighlight">
-\[10 \; \mathrm{{}^{\circ}}\]</div>
+\[10\mathrm{{}^{\circ}}\]</div>
 </div>
 </div>
 <p>Quantities provide a method called <code class="docutils literal notranslate"><span class="pre">to</span></code> that converts to other units.  For example, we can compute the number of arcminutes in <code class="docutils literal notranslate"><span class="pre">angle</span></code>:</p>
@@ -1412,7 +1460,7 @@ Jupyter knows how to display <code class="docutils literal notranslate"><span cl
 </div>
 <div class="cell_output docutils container">
 <div class="output text_latex math notranslate nohighlight">
-\[600 \; \mathrm{{}^{\prime}}\]</div>
+\[600\mathrm{{}^{\prime}}\]</div>
 </div>
 </div>
 <p>If you add quantities, Astropy converts them to compatible units, if possible:</p>
@@ -1424,7 +1472,7 @@ Jupyter knows how to display <code class="docutils literal notranslate"><span cl
 </div>
 <div class="cell_output docutils container">
 <div class="output text_latex math notranslate nohighlight">
-\[10.5 \; \mathrm{{}^{\circ}}\]</div>
+\[10.5\mathrm{{}^{\circ}}\]</div>
 </div>
 </div>
 <p>If the units are not compatible, you get an error.
@@ -1433,11 +1481,16 @@ For example:</p>
 </pre></div>
 </div>
 <p>causes a <code class="docutils literal notranslate"><span class="pre">UnitConversionError</span></code>.</p>
-<div class="section" id="exercise">
-<h3>Exercise<a class="headerlink" href="#exercise" title="Permalink to this headline">¶</a></h3>
+<section id="exercise">
+<h3>Exercise<a class="headerlink" href="#exercise" title="Link to this heading">#</a></h3>
 <p>Create a quantity that represents 5 <a class="reference external" href="https://en.wikipedia.org/wiki/Minute_and_second_of_arc">arcminutes</a> and assign it to a variable called <code class="docutils literal notranslate"><span class="pre">radius</span></code>.</p>
 <p>Then convert it to degrees.</p>
 <div class="cell tag_hide-cell docutils container">
+<details class="admonition hide above-input">
+<summary aria-label="Toggle hidden content">
+<p class="collapsed admonition-title">Show code cell content</p>
+<p class="expanded admonition-title">Hide code cell content</p>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
 
@@ -1453,25 +1506,26 @@ For example:</p>
 </pre></div>
 </div>
 <div class="output text_latex math notranslate nohighlight">
-\[0.083333333 \; \mathrm{{}^{\circ}}\]</div>
+\[0.083333333\mathrm{{}^{\circ}}\]</div>
 </div>
+</details>
 </div>
-</div>
-</div>
-<div class="section" id="selecting-a-region">
-<h2>Selecting a Region<a class="headerlink" href="#selecting-a-region" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="selecting-a-region">
+<h2>Selecting a Region<a class="headerlink" href="#selecting-a-region" title="Link to this heading">#</a></h2>
 <p>One of the most common ways to restrict a query is to select stars in a particular region of the sky.
 For example, here’s a query from the <a class="reference external" href="https://gea.esac.esa.int/archive-help/adql/examples/index.html">Gaia archive documentation</a> that selects objects in a circular region centered at (88.8, 7.4) with a search radius of 5 arcmin (0.08333 deg).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">query_cone</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT </span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">query_cone</span> <span class="o">=</span> <span class="s2">"""SELECT </span>
 <span class="s2">TOP 10 </span>
 <span class="s2">source_id</span>
 <span class="s2">FROM gaiadr2.gaia_source</span>
 <span class="s2">WHERE 1=CONTAINS(</span>
 <span class="s2">  POINT(ra, dec),</span>
 <span class="s2">  CIRCLE(88.8, 7.4, 0.08333333))</span>
-<span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">"""</span>
 </pre></div>
 </div>
 </div>
@@ -1487,7 +1541,7 @@ For example, here’s a query from the <a class="reference external" href="https
 Here’s how we run it.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">astroquery.gaia</span> <span class="kn">import</span> <span class="n">Gaia</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">astroquery.gaia</span><span class="w"> </span><span class="kn">import</span> <span class="n">Gaia</span>
 
 <span class="n">job</span> <span class="o">=</span> <span class="n">Gaia</span><span class="o">.</span><span class="n">launch_job</span><span class="p">(</span><span class="n">query_cone</span><span class="p">)</span>
 <span class="n">job</span>
@@ -1495,19 +1549,13 @@ Here’s how we run it.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Created TAP+ (v1.2.1) - Connection:
-	Host: gea.esac.esa.int
-	Use HTTPS: True
-	Port: 443
-	SSL Port: 443
-Created TAP+ (v1.2.1) - Connection:
-	Host: geadata.esac.esa.int
-	Use HTTPS: True
-	Port: 443
-	SSL Port: 443
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Table length=10&gt;
+   name   dtype                            description                            
+--------- ----- ------------------------------------------------------------------
+source_id int64 Unique source identifier (unique within a particular Data Release)
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;astroquery.utils.tap.model.job.Job at 0x7f277785fa30&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;astroquery.utils.tap.model.job.Job at 0x70df93991400&gt;
 </pre></div>
 </div>
 </div>
@@ -1520,38 +1568,43 @@ Created TAP+ (v1.2.1) - Connection:
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><i>Table length=10</i>
-<table id="table139807485721280" class="table-striped table-bordered table-condensed">
+<div class="output text_html"><div><i>Table length=10</i>
+<table id="table124105562955344" class="table-striped table-bordered table-condensed">
 <thead><tr><th>source_id</th></tr></thead>
 <thead><tr><th>int64</th></tr></thead>
-<tr><td>3322773965056065536</td></tr>
-<tr><td>3322773758899157120</td></tr>
-<tr><td>3322774068134271104</td></tr>
-<tr><td>3322773930696320512</td></tr>
-<tr><td>3322774377374425728</td></tr>
-<tr><td>3322773724537891456</td></tr>
-<tr><td>3322773724537891328</td></tr>
-<tr><td>3322773930696321792</td></tr>
-<tr><td>3322773724537890944</td></tr>
-<tr><td>3322773930696322176</td></tr>
-</table></div></div>
+<tr><td>3322774652250782080</td></tr>
+<tr><td>3322774686612065024</td></tr>
+<tr><td>3322774617891039744</td></tr>
+<tr><td>3322774480451102080</td></tr>
+<tr><td>3322774068134269184</td></tr>
+<tr><td>3322774446092909184</td></tr>
+<tr><td>3322774102496541440</td></tr>
+<tr><td>3322773892042964224</td></tr>
+<tr><td>3322774446092380800</td></tr>
+<tr><td>3322776194145449728</td></tr>
+</table></div></div></div>
 </div>
-<div class="section" id="id1">
-<h3>Exercise<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<section id="id1">
+<h3>Exercise<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
 <p>When you are debugging queries like this, you can use <code class="docutils literal notranslate"><span class="pre">TOP</span></code> to limit the size of the results, but then you still don’t know how big the results will be.</p>
 <p>An alternative is to use <code class="docutils literal notranslate"><span class="pre">COUNT</span></code>, which asks for the number of rows that would be selected, but it does not return them.</p>
 <p>In the previous query, replace <code class="docutils literal notranslate"><span class="pre">TOP</span> <span class="pre">10</span> <span class="pre">source_id</span></code> with <code class="docutils literal notranslate"><span class="pre">COUNT(source_id)</span></code> and run the query again.  How many stars has Gaia identified in the cone we searched?</p>
 <div class="cell tag_hide-cell docutils container">
+<details class="admonition hide above-input">
+<summary aria-label="Toggle hidden content">
+<p class="collapsed admonition-title">Show code cell content</p>
+<p class="expanded admonition-title">Hide code cell content</p>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
 
-<span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT </span>
+<span class="n">query</span> <span class="o">=</span> <span class="s2">"""SELECT </span>
 <span class="s2">COUNT(source_id)</span>
 <span class="s2">FROM gaiadr2.gaia_source</span>
 <span class="s2">WHERE 1=CONTAINS(</span>
 <span class="s2">  POINT(ra, dec),</span>
 <span class="s2">  CIRCLE(88.8, 7.4, 0.08333333))</span>
-<span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">"""</span>
 
 <span class="n">job</span> <span class="o">=</span> <span class="n">Gaia</span><span class="o">.</span><span class="n">launch_job</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
 <span class="n">results</span> <span class="o">=</span> <span class="n">job</span><span class="o">.</span><span class="n">get_results</span><span class="p">()</span>
@@ -1560,20 +1613,26 @@ Created TAP+ (v1.2.1) - Connection:
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><i>Table length=1</i>
-<table id="table139808112576400" class="table-striped table-bordered table-condensed">
-<thead><tr><th>count</th></tr></thead>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Table length=1&gt;
+ name dtype
+----- -----
+COUNT int64
+</pre></div>
+</div>
+<div class="output text_html"><div><i>Table length=1</i>
+<table id="table124105562941888" class="table-striped table-bordered table-condensed">
+<thead><tr><th>COUNT</th></tr></thead>
 <thead><tr><th>int64</th></tr></thead>
 <tr><td>594</td></tr>
-</table></div></div>
+</table></div></div></div>
+</details>
 </div>
-</div>
-</div>
-<div class="section" id="getting-gd-1-data">
-<h2>Getting GD-1 Data<a class="headerlink" href="#getting-gd-1-data" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="getting-gd-1-data">
+<h2>Getting GD-1 Data<a class="headerlink" href="#getting-gd-1-data" title="Link to this heading">#</a></h2>
 <p>From the Price-Whelan and Bonaca paper, we will try to reproduce Figure 1, which includes this representation of stars likely to belong to GD-1:</p>
-<img alt="https://github.com/datacarpentry/astronomy-python/raw/gh-pages/fig/gd1-4.png" src="https://github.com/datacarpentry/astronomy-python/raw/gh-pages/fig/gd1-4.png" />
-<p>The axes of this figure are defined so the x-axis is aligned with the stars in GD-1, and the y-axis is perpendicular.</p>
+<img src="https://github.com/datacarpentry/astronomy-python/raw/gh-pages/fig/gd1-4.png"><p>The axes of this figure are defined so the x-axis is aligned with the stars in GD-1, and the y-axis is perpendicular.</p>
 <ul class="simple">
 <li><p>Along the x-axis (<span class="math notranslate nohighlight">\(\phi_1\)</span>) the figure extends from -100 to 20 degrees.</p></li>
 <li><p>Along the y-axis (<span class="math notranslate nohighlight">\(\phi_2\)</span>) the figure extends from about -8 to 4 degrees.</p></li>
@@ -1586,20 +1645,20 @@ Created TAP+ (v1.2.1) - Connection:
 </ul>
 <p>So we’ll start by selecting stars in a smaller rectangle near the center of GD-1, from -55 to -45 degrees <span class="math notranslate nohighlight">\(\phi_1\)</span> and -8 to 4 degrees <span class="math notranslate nohighlight">\(\phi_2\)</span>.</p>
 <p>But first we let’s see how to represent these coordinates with Astropy.</p>
-</div>
-<div class="section" id="transforming-coordinates">
-<h2>Transforming coordinates<a class="headerlink" href="#transforming-coordinates" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="transforming-coordinates">
+<h2>Transforming coordinates<a class="headerlink" href="#transforming-coordinates" title="Link to this heading">#</a></h2>
 <p>Astropy provides a <code class="docutils literal notranslate"><span class="pre">SkyCoord</span></code> object that represents sky coordinates relative to a specified frame.</p>
-<p>The following example creates a <code class="docutils literal notranslate"><span class="pre">SkyCoord</span></code> object that represents the approximate coordinates of <a class="reference external" href="http://simbad.u-strasbg.fr/simbad/sim-basic?Ident=Betelgeuse">Betelgeuse</a> (alf Ori) in the ICRS frame.</p>
+<p>The following example creates a <code class="docutils literal notranslate"><span class="pre">SkyCoord</span></code> object that represents the approximate coordinates of <a class="reference external" href="https://simbad.u-strasbg.fr/simbad/sim-basic?Ident=Betelgeuse">Betelgeuse</a> (alf Ori) in the ICRS frame.</p>
 <p><a class="reference external" href="https://www.iers.org/IERS/EN/Science/ICRS/ICRS.html">ICRS</a> is the
 “International Celestial Reference System”, adopted in 1997 by the International Astronomical Union.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">astropy.coordinates</span> <span class="kn">import</span> <span class="n">SkyCoord</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">astropy.coordinates</span><span class="w"> </span><span class="kn">import</span> <span class="n">SkyCoord</span>
 
 <span class="n">ra</span> <span class="o">=</span> <span class="mf">88.8</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">degree</span>
 <span class="n">dec</span> <span class="o">=</span> <span class="mf">7.4</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">degree</span>
-<span class="n">coord_icrs</span> <span class="o">=</span> <span class="n">SkyCoord</span><span class="p">(</span><span class="n">ra</span><span class="o">=</span><span class="n">ra</span><span class="p">,</span> <span class="n">dec</span><span class="o">=</span><span class="n">dec</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="s1">&#39;icrs&#39;</span><span class="p">)</span>
+<span class="n">coord_icrs</span> <span class="o">=</span> <span class="n">SkyCoord</span><span class="p">(</span><span class="n">ra</span><span class="o">=</span><span class="n">ra</span><span class="p">,</span> <span class="n">dec</span><span class="o">=</span><span class="n">dec</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="s1">'icrs'</span><span class="p">)</span>
 
 <span class="n">coord_icrs</span>
 </pre></div>
@@ -1616,7 +1675,7 @@ Created TAP+ (v1.2.1) - Connection:
 For example, we can transform <code class="docutils literal notranslate"><span class="pre">coords_icrs</span></code> to Galactic coordinates like this:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">coord_galactic</span> <span class="o">=</span> <span class="n">coord_icrs</span><span class="o">.</span><span class="n">transform_to</span><span class="p">(</span><span class="s1">&#39;galactic&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">coord_galactic</span> <span class="o">=</span> <span class="n">coord_icrs</span><span class="o">.</span><span class="n">transform_to</span><span class="p">(</span><span class="s1">'galactic'</span><span class="p">)</span>
 <span class="n">coord_galactic</span>
 </pre></div>
 </div>
@@ -1633,7 +1692,7 @@ For example, we can transform <code class="docutils literal notranslate"><span c
 <p>Gala provides <a class="reference external" href="https://gala-astro.readthedocs.io/en/latest/_modules/gala/coordinates/gd1.html"><code class="docutils literal notranslate"><span class="pre">GD1Koposov10</span></code></a>, which is “a Heliocentric spherical coordinate system defined by the orbit of the GD-1 stream”.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">gala.coordinates</span> <span class="kn">import</span> <span class="n">GD1Koposov10</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">gala.coordinates</span><span class="w"> </span><span class="kn">import</span> <span class="n">GD1Koposov10</span>
 
 <span class="n">gd1_frame</span> <span class="o">=</span> <span class="n">GD1Koposov10</span><span class="p">()</span>
 <span class="n">gd1_frame</span>
@@ -1663,15 +1722,20 @@ For example, we can transform <code class="docutils literal notranslate"><span c
 </div>
 <p>Notice that the coordinates are called <code class="docutils literal notranslate"><span class="pre">phi1</span></code> and <code class="docutils literal notranslate"><span class="pre">phi2</span></code>.
 These are the coordinates shown in the figure from the paper, above.</p>
-<div class="section" id="id2">
-<h3>Exercise<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<section id="id2">
+<h3>Exercise<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
 <p>Let’s find the location of GD-1 in ICRS coordinates.</p>
-<ol class="simple">
+<ol class="arabic simple">
 <li><p>Create a <code class="docutils literal notranslate"><span class="pre">SkyCoord</span></code> object at 0°, 0° in the GD-1 frame.</p></li>
 <li><p>Transform it to the ICRS frame.</p></li>
 </ol>
 <p>Hint: Because ICRS is built into Astropy, you can specify it by name, <code class="docutils literal notranslate"><span class="pre">icrs</span></code> (as we did with <code class="docutils literal notranslate"><span class="pre">galactic</span></code>).</p>
 <div class="cell tag_hide-cell docutils container">
+<details class="admonition hide above-input">
+<summary aria-label="Toggle hidden content">
+<p class="collapsed admonition-title">Show code cell content</p>
+<p class="expanded admonition-title">Hide code cell content</p>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
 
@@ -1685,10 +1749,10 @@ These are the coordinates shown in the figure from the paper, above.</p>
 
 <span class="c1"># Note: because ICRS is built into Astropy, </span>
 <span class="c1"># we can identify it by string name</span>
-<span class="n">origin_gd1</span><span class="o">.</span><span class="n">transform_to</span><span class="p">(</span><span class="s1">&#39;icrs&#39;</span><span class="p">)</span>
+<span class="n">origin_gd1</span><span class="o">.</span><span class="n">transform_to</span><span class="p">(</span><span class="s1">'icrs'</span><span class="p">)</span>
 
 <span class="c1"># More formally, we could instantiate it</span>
-<span class="kn">from</span> <span class="nn">astropy.coordinates</span> <span class="kn">import</span> <span class="n">ICRS</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">astropy.coordinates</span><span class="w"> </span><span class="kn">import</span> <span class="n">ICRS</span>
 <span class="n">icrs_frame</span> <span class="o">=</span> <span class="n">ICRS</span><span class="p">()</span>
 <span class="n">origin_gd1</span><span class="o">.</span><span class="n">transform_to</span><span class="p">(</span><span class="n">icrs_frame</span><span class="p">)</span>
 </pre></div>
@@ -1700,12 +1764,13 @@ These are the coordinates shown in the figure from the paper, above.</p>
 </pre></div>
 </div>
 </div>
+</details>
 </div>
 <p>Notice that the origin of the GD-1 frame maps to <code class="docutils literal notranslate"><span class="pre">ra=200</span></code>, exactly, in ICRS.  That’s by design.</p>
-</div>
-</div>
-<div class="section" id="selecting-a-rectangle">
-<h2>Selecting a rectangle<a class="headerlink" href="#selecting-a-rectangle" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="selecting-a-rectangle">
+<h2>Selecting a rectangle<a class="headerlink" href="#selecting-a-rectangle" title="Link to this heading">#</a></h2>
 <p>Now we’ll use these coordinate transformations to define a rectangle in the GD-1 frame and transform it to ICRS.</p>
 <p>The following variables define the boundaries of the rectangle in <span class="math notranslate nohighlight">\(\phi_1\)</span> and <span class="math notranslate nohighlight">\(\phi_2\)</span>.</p>
 <div class="cell docutils container">
@@ -1721,8 +1786,8 @@ These are the coordinates shown in the figure from the paper, above.</p>
 <p>To create a rectangle, we’ll use the following function, which takes the lower and upper bounds as parameters.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">make_rectangle</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">y2</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Return the corners of a rectangle.&quot;&quot;&quot;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">make_rectangle</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">y2</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Return the corners of a rectangle."""</span>
     <span class="n">xs</span> <span class="o">=</span> <span class="p">[</span><span class="n">x1</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">x1</span><span class="p">]</span>
     <span class="n">ys</span> <span class="o">=</span> <span class="p">[</span><span class="n">y1</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">y1</span><span class="p">]</span>
     <span class="k">return</span> <span class="n">xs</span><span class="p">,</span> <span class="n">ys</span>
@@ -1758,7 +1823,7 @@ These are the coordinates shown in the figure from the paper, above.</p>
 <p>Now we can use <code class="docutils literal notranslate"><span class="pre">transform_to</span></code> to convert to ICRS coordinates.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">corners_icrs</span> <span class="o">=</span> <span class="n">corners</span><span class="o">.</span><span class="n">transform_to</span><span class="p">(</span><span class="s1">&#39;icrs&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">corners_icrs</span> <span class="o">=</span> <span class="n">corners</span><span class="o">.</span><span class="n">transform_to</span><span class="p">(</span><span class="s1">'icrs'</span><span class="p">)</span>
 <span class="n">corners_icrs</span>
 </pre></div>
 </div>
@@ -1773,16 +1838,16 @@ These are the coordinates shown in the figure from the paper, above.</p>
 </div>
 </div>
 <p>Notice that a rectangle in one coordinate system is not necessarily a rectangle in another.  In this example, the result is a (non-rectangular) polygon.</p>
-</div>
-<div class="section" id="defining-a-polygon">
-<h2>Defining a polygon<a class="headerlink" href="#defining-a-polygon" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="defining-a-polygon">
+<h2>Defining a polygon<a class="headerlink" href="#defining-a-polygon" title="Link to this heading">#</a></h2>
 <p>In order to use this polygon as part of an ADQL query, we have to convert it to a string with a comma-separated list of coordinates, as in this example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="sd">"""</span>
 <span class="sd">POLYGON(143.65, 20.98, </span>
 <span class="sd">        134.46, 26.39, </span>
 <span class="sd">        140.58, 34.85, </span>
 <span class="sd">        150.16, 29.01)</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">SkyCoord</span></code> provides <code class="docutils literal notranslate"><span class="pre">to_string</span></code>, which produces a list of strings.</p>
@@ -1794,11 +1859,11 @@ These are the coordinates shown in the figure from the paper, above.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;146.275 19.2619&#39;,
- &#39;135.422 25.8774&#39;,
- &#39;141.603 34.3048&#39;,
- &#39;152.817 27.1361&#39;,
- &#39;146.275 19.2619&#39;]
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>['146.275 19.2619',
+ '135.422 25.8774',
+ '141.603 34.3048',
+ '152.817 27.1361',
+ '146.275 19.2619']
 </pre></div>
 </div>
 </div>
@@ -1806,13 +1871,13 @@ These are the coordinates shown in the figure from the paper, above.</p>
 <p>We can use the Python string function <code class="docutils literal notranslate"><span class="pre">join</span></code> to join <code class="docutils literal notranslate"><span class="pre">t</span></code> into a single string (with spaces between the pairs):</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="s1">' '</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
 <span class="n">s</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;146.275 19.2619 135.422 25.8774 141.603 34.3048 152.817 27.1361 146.275 19.2619&#39;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>'146.275 19.2619 135.422 25.8774 141.603 34.3048 152.817 27.1361 146.275 19.2619'
 </pre></div>
 </div>
 </div>
@@ -1820,12 +1885,12 @@ These are the coordinates shown in the figure from the paper, above.</p>
 <p>That’s almost what we need, but we have to replace the spaces with commas.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;, &#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">' '</span><span class="p">,</span> <span class="s1">', '</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;146.275, 19.2619, 135.422, 25.8774, 141.603, 34.3048, 152.817, 27.1361, 146.275, 19.2619&#39;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>'146.275, 19.2619, 135.422, 25.8774, 141.603, 34.3048, 152.817, 27.1361, 146.275, 19.2619'
 </pre></div>
 </div>
 </div>
@@ -1833,11 +1898,11 @@ These are the coordinates shown in the figure from the paper, above.</p>
 <p>The following function combines these steps.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">skycoord_to_string</span><span class="p">(</span><span class="n">skycoord</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Convert SkyCoord to string.&quot;&quot;&quot;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">skycoord_to_string</span><span class="p">(</span><span class="n">skycoord</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Convert SkyCoord to string."""</span>
     <span class="n">t</span> <span class="o">=</span> <span class="n">skycoord</span><span class="o">.</span><span class="n">to_string</span><span class="p">()</span>
-    <span class="n">s</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">s</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;, &#39;</span><span class="p">)</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="s1">' '</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">s</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">' '</span><span class="p">,</span> <span class="s1">', '</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1851,19 +1916,19 @@ These are the coordinates shown in the figure from the paper, above.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;146.275, 19.2619, 135.422, 25.8774, 141.603, 34.3048, 152.817, 27.1361, 146.275, 19.2619&#39;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>'146.275, 19.2619, 135.422, 25.8774, 141.603, 34.3048, 152.817, 27.1361, 146.275, 19.2619'
 </pre></div>
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="assembling-the-query">
-<h2>Assembling the query<a class="headerlink" href="#assembling-the-query" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="assembling-the-query">
+<h2>Assembling the query<a class="headerlink" href="#assembling-the-query" title="Link to this heading">#</a></h2>
 <p>Now we’re ready to assemble the query.
 We need <code class="docutils literal notranslate"><span class="pre">columns</span></code> again (as we saw in the previous lesson).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">columns</span> <span class="o">=</span> <span class="s1">&#39;source_id, ra, dec, pmra, pmdec, parallax&#39;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">columns</span> <span class="o">=</span> <span class="s1">'source_id, ra, dec, pmra, pmdec, parallax'</span>
 </pre></div>
 </div>
 </div>
@@ -1871,13 +1936,13 @@ We need <code class="docutils literal notranslate"><span class="pre">columns</sp
 <p>And here’s the query base we used in the previous lesson:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">query3_base</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT </span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">query3_base</span> <span class="o">=</span> <span class="s2">"""SELECT </span>
 <span class="s2">TOP 10 </span>
-<span class="si">{columns}</span><span class="s2"></span>
+<span class="si">{columns}</span>
 <span class="s2">FROM gaiadr2.gaia_source</span>
 <span class="s2">WHERE parallax &lt; 1</span>
 <span class="s2">  AND bp_rp BETWEEN -0.75 AND 2</span>
-<span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">"""</span>
 </pre></div>
 </div>
 </div>
@@ -1885,15 +1950,15 @@ We need <code class="docutils literal notranslate"><span class="pre">columns</sp
 <p>Now we’ll add a <code class="docutils literal notranslate"><span class="pre">WHERE</span></code> clause to select stars in the polygon we defined.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">query4_base</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">query4_base</span> <span class="o">=</span> <span class="s2">"""SELECT</span>
 <span class="s2">TOP 10</span>
-<span class="si">{columns}</span><span class="s2"></span>
+<span class="si">{columns}</span>
 <span class="s2">FROM gaiadr2.gaia_source</span>
 <span class="s2">WHERE parallax &lt; 1</span>
 <span class="s2">  AND bp_rp BETWEEN -0.75 AND 2 </span>
 <span class="s2">  AND 1 = CONTAINS(POINT(ra, dec), </span>
 <span class="s2">                   POLYGON(</span><span class="si">{point_list}</span><span class="s2">))</span>
-<span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">"""</span>
 </pre></div>
 </div>
 </div>
@@ -1911,7 +1976,7 @@ We need <code class="docutils literal notranslate"><span class="pre">columns</sp
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>SELECT
 TOP 10
-source_id, ra, dec, pmra, pmdec
+source_id, ra, dec, pmra, pmdec, parallax
 FROM gaiadr2.gaia_source
 WHERE parallax &lt; 1
   AND bp_rp BETWEEN -0.75 AND 2 
@@ -1939,10 +2004,20 @@ source_id   int64          Unique source identifier (unique within a particular 
       dec float64      deg                                                        Declination
      pmra float64 mas / yr                         Proper motion in right ascension direction
     pmdec float64 mas / yr                             Proper motion in declination direction
-Jobid: 1615815873808O
+ parallax float64      mas                                                           Parallax
+&lt;Table length=10&gt;
+   name    dtype    unit                              description                            
+--------- ------- -------- ------------------------------------------------------------------
+source_id   int64          Unique source identifier (unique within a particular Data Release)
+       ra float64      deg                                                    Right ascension
+      dec float64      deg                                                        Declination
+     pmra float64 mas / yr                         Proper motion in right ascension direction
+    pmdec float64 mas / yr                             Proper motion in declination direction
+ parallax float64      mas                                                           Parallax
+Jobid: 4a24b93f-cd85-11f1-9d98-bc97e148b76b-O
 Phase: COMPLETED
 Owner: None
-Output file: async_20210315094433.vot
+Output file: async_20261021192618.vot
 Results: None
 </pre></div>
 </div>
@@ -1957,35 +2032,35 @@ Results: None
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><i>Table length=10</i>
-<table id="table139807251332016" class="table-striped table-bordered table-condensed">
-<thead><tr><th>source_id</th><th>ra</th><th>dec</th><th>pmra</th><th>pmdec</th></tr></thead>
-<thead><tr><th></th><th>deg</th><th>deg</th><th>mas / yr</th><th>mas / yr</th></tr></thead>
-<thead><tr><th>int64</th><th>float64</th><th>float64</th><th>float64</th><th>float64</th></tr></thead>
-<tr><td>637987125186749568</td><td>142.48301935991023</td><td>21.75771616932985</td><td>-2.5168384683875766</td><td>2.941813096629439</td></tr>
-<tr><td>638285195917112960</td><td>142.25452941346344</td><td>22.476168171141378</td><td>2.6627020143457996</td><td>-12.165984395577347</td></tr>
-<tr><td>638073505568978688</td><td>142.64528557468074</td><td>22.16693224953078</td><td>18.30674739454163</td><td>-7.950659620550862</td></tr>
-<tr><td>638086386175786752</td><td>142.57739430926034</td><td>22.22791951401365</td><td>0.9877856720147953</td><td>-2.584105480335548</td></tr>
-<tr><td>638049655615392384</td><td>142.58913564478618</td><td>22.110783166677418</td><td>0.24443878227817095</td><td>-4.941079187010136</td></tr>
-<tr><td>638267565075964032</td><td>141.81762228999614</td><td>22.375696125322275</td><td>-3.413174589660796</td><td>1.8838892877285924</td></tr>
-<tr><td>638028902333511168</td><td>143.18339801317677</td><td>22.2512465812369</td><td>7.848511762712128</td><td>-21.391145547787154</td></tr>
-<tr><td>638085767700610432</td><td>142.9347319464589</td><td>22.46244080823965</td><td>-3.6585960944321476</td><td>-12.486419770278376</td></tr>
-<tr><td>638299863230178304</td><td>142.26769745823267</td><td>22.640183776884836</td><td>-1.8168370892218297</td><td>1.0537342990941316</td></tr>
-<tr><td>637973067758974208</td><td>142.89551292869012</td><td>21.612824100339875</td><td>-8.645166256559063</td><td>-44.41164172204947</td></tr>
-</table></div></div>
+<div class="output text_html"><div><i>Table length=10</i>
+<table id="table124105556954928" class="table-striped table-bordered table-condensed">
+<thead><tr><th>source_id</th><th>ra</th><th>dec</th><th>pmra</th><th>pmdec</th><th>parallax</th></tr></thead>
+<thead><tr><th></th><th>deg</th><th>deg</th><th>mas / yr</th><th>mas / yr</th><th>mas</th></tr></thead>
+<thead><tr><th>int64</th><th>float64</th><th>float64</th><th>float64</th><th>float64</th><th>float64</th></tr></thead>
+<tr><td>638285195917112960</td><td>142.25452941346344</td><td>22.476168171141378</td><td>2.6627020143457996</td><td>-12.165984395577347</td><td>0.4227283465319491</td></tr>
+<tr><td>638298282682188800</td><td>142.26172557885886</td><td>22.60556441759035</td><td>-10.219830117668444</td><td>-3.3917156621993474</td><td>0.7991274683910636</td></tr>
+<tr><td>638284371283391488</td><td>142.27219876512598</td><td>22.45813162457535</td><td>-2.473133013206235</td><td>-2.636295127365714</td><td>0.7133339841211638</td></tr>
+<tr><td>638099752114132736</td><td>142.62415889380898</td><td>22.480110677799427</td><td>-3.764051845342056</td><td>0.8091999047709665</td><td>-0.7052264078372199</td></tr>
+<tr><td>638300653505991168</td><td>142.24309288666194</td><td>22.651845511552494</td><td>2.5441752273244473</td><td>-27.608879163660436</td><td>-0.41865888120327477</td></tr>
+<tr><td>637988121619155072</td><td>142.5683159910364</td><td>21.77830885766259</td><td>-3.525599842765927</td><td>-1.0635452095862867</td><td>-0.0015040521181752355</td></tr>
+<tr><td>638044505949803136</td><td>142.64238812703144</td><td>21.979562874621642</td><td>-8.050366336451011</td><td>-13.192931754665596</td><td>0.3970590279117468</td></tr>
+<tr><td>638329691778262016</td><td>141.72264447493743</td><td>22.7061782963014</td><td>-2.0635440563854743</td><td>-7.935732717708952</td><td>0.963202007247308</td></tr>
+<tr><td>638322063916348416</td><td>141.73690551370493</td><td>22.56418234691144</td><td>-8.388326722429294</td><td>-7.926101422552708</td><td>0.491370520762686</td></tr>
+<tr><td>638097827968788608</td><td>142.85942347006701</td><td>22.49496718388735</td><td>-1.3100708804417664</td><td>-0.4643472177373664</td><td>0.3851589645706743</td></tr>
+</table></div></div></div>
 </div>
-<p>Finally, we can remove <code class="docutils literal notranslate"><span class="pre">TOP</span> <span class="pre">10</span></code> run the query again.</p>
+<p>Finally, we can remove <code class="docutils literal notranslate"><span class="pre">TOP</span> <span class="pre">10</span></code> and run the query again.</p>
 <p>The result is bigger than our previous queries, so it will take a little longer.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">query5_base</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT</span>
-<span class="si">{columns}</span><span class="s2"></span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">query5_base</span> <span class="o">=</span> <span class="s2">"""SELECT</span>
+<span class="si">{columns}</span>
 <span class="s2">FROM gaiadr2.gaia_source</span>
 <span class="s2">WHERE parallax &lt; 1</span>
 <span class="s2">  AND bp_rp BETWEEN -0.75 AND 2 </span>
 <span class="s2">  AND 1 = CONTAINS(POINT(ra, dec), </span>
 <span class="s2">                   POLYGON(</span><span class="si">{point_list}</span><span class="s2">))</span>
-<span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">"""</span>
 </pre></div>
 </div>
 </div>
@@ -2000,7 +2075,7 @@ Results: None
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>SELECT
-source_id, ra, dec, pmra, pmdec
+source_id, ra, dec, pmra, pmdec, parallax
 FROM gaiadr2.gaia_source
 WHERE parallax &lt; 1
   AND bp_rp BETWEEN -0.75 AND 2 
@@ -2019,7 +2094,9 @@ WHERE parallax &lt; 1
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: Query finished. [astroquery.utils.tap.core]
-&lt;Table length=140339&gt;
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Table length=50000&gt;
    name    dtype    unit                              description                            
 --------- ------- -------- ------------------------------------------------------------------
 source_id   int64          Unique source identifier (unique within a particular Data Release)
@@ -2027,10 +2104,20 @@ source_id   int64          Unique source identifier (unique within a particular 
       dec float64      deg                                                        Declination
      pmra float64 mas / yr                         Proper motion in right ascension direction
     pmdec float64 mas / yr                             Proper motion in declination direction
-Jobid: 1615815886707O
+ parallax float64      mas                                                           Parallax
+&lt;Table length=50000&gt;
+   name    dtype    unit                              description                            
+--------- ------- -------- ------------------------------------------------------------------
+source_id   int64          Unique source identifier (unique within a particular Data Release)
+       ra float64      deg                                                    Right ascension
+      dec float64      deg                                                        Declination
+     pmra float64 mas / yr                         Proper motion in right ascension direction
+    pmdec float64 mas / yr                             Proper motion in declination direction
+ parallax float64      mas                                                           Parallax
+Jobid: 4eb2a5fa-cd85-11f1-9d98-bc97e148b76b-O
 Phase: COMPLETED
 Owner: None
-Output file: async_20210315094446.vot
+Output file: async_20261021192626.vot
 Results: None
 </pre></div>
 </div>
@@ -2044,21 +2131,61 @@ Results: None
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>140339
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>50000
+</pre></div>
+</div>
+</div>
+</div>
+<p>The result has exactly 50,000 rows, which is suspicious. Since October 2026, the Gaia archive returns at most 50,000 rows to anonymous users, and it drops the rest without an error. Registered users don’t have this limit; see the <a class="reference external" href="https://www.cosmos.esa.int/web/gaia-users/archive/collaborate#GaiaArchiveUserQuotas">user quotas</a>.</p>
+<p>So we don’t have to log in, we’ll use a copy of the complete result, which was saved before the limit was in place. The following cell downloads it if necessary.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">os.path</span><span class="w"> </span><span class="kn">import</span> <span class="n">basename</span><span class="p">,</span> <span class="n">exists</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">download</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
+    <span class="n">filename</span> <span class="o">=</span> <span class="n">basename</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">exists</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">urllib.request</span><span class="w"> </span><span class="kn">import</span> <span class="n">urlretrieve</span>
+        <span class="n">local</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">urlretrieve</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">'Downloaded '</span> <span class="o">+</span> <span class="n">local</span><span class="p">)</span>
+
+<span class="n">download</span><span class="p">(</span><span class="s1">'https://github.com/AllenDowney/AstronomicalData/raw/main/'</span> <span class="o">+</span>
+         <span class="s1">'data/gd1_results.fits'</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Downloaded gd1_results.fits
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">astropy.table</span><span class="w"> </span><span class="kn">import</span> <span class="n">Table</span>
+
+<span class="n">results</span> <span class="o">=</span> <span class="n">Table</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s1">'gd1_results.fits'</span><span class="p">)</span>
+<span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>140340
 </pre></div>
 </div>
 </div>
 </div>
 <p>There are more than 100,000 stars in this polygon, but that’s a manageable size to work with.</p>
-</div>
-<div class="section" id="saving-results">
-<h2>Saving results<a class="headerlink" href="#saving-results" title="Permalink to this headline">¶</a></h2>
+<p>The saved table also has two columns we didn’t ask for, <code class="docutils literal notranslate"><span class="pre">parallax_error</span></code> and <code class="docutils literal notranslate"><span class="pre">radial_velocity</span></code>; we won’t use them.</p>
+</section>
+<section id="saving-results">
+<h2>Saving results<a class="headerlink" href="#saving-results" title="Link to this heading">#</a></h2>
 <p>This is the set of stars we’ll work with in the next step.  But since we have a substantial dataset now, this is a good time to save it.</p>
 <p>Storing the data in a file means we can shut down this notebook and pick up where we left off without running the previous query again.</p>
 <p>Astropy <code class="docutils literal notranslate"><span class="pre">Table</span></code> objects provide <code class="docutils literal notranslate"><span class="pre">write</span></code>, which writes the table to disk.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;gd1_results.fits&#39;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">filename</span> <span class="o">=</span> <span class="s1">'gd1_results.fits'</span>
 <span class="n">results</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -2069,7 +2196,7 @@ Results: None
 <p>We can use <code class="docutils literal notranslate"><span class="pre">getsize</span></code> to confirm that the file exists and check the size:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">getsize</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">os.path</span><span class="w"> </span><span class="kn">import</span> <span class="n">getsize</span>
 
 <span class="n">MB</span> <span class="o">=</span> <span class="mi">1024</span> <span class="o">*</span> <span class="mi">1024</span>
 <span class="n">getsize</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span> <span class="o">/</span> <span class="n">MB</span>
@@ -2077,27 +2204,30 @@ Results: None
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>5.36407470703125
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>8.57757568359375
 </pre></div>
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="summary">
-<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Link to this heading">#</a></h2>
 <p>In this notebook, we composed more complex queries to select stars within a polygonal region of the sky.  Then we downloaded the results and saved them in a FITS file.</p>
 <p>In the next notebook, we’ll reload the data from this file and replicate the next step in the analysis, using proper motion to identify stars likely to be in GD-1.</p>
-</div>
-<div class="section" id="best-practices">
-<h2>Best practices<a class="headerlink" href="#best-practices" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="best-practices">
+<h2>Best practices<a class="headerlink" href="#best-practices" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>For measurements with units, use <code class="docutils literal notranslate"><span class="pre">Quantity</span></code> objects that represent units explicitly and check for errors.</p></li>
 <li><p>Use the <code class="docutils literal notranslate"><span class="pre">format</span></code> function to compose queries; code written this way is easier to read and less error-prone.</p></li>
 <li><p>Develop queries incrementally: start with something simple, test it, and add a little bit at a time.</p></li>
 <li><p>Once you have a query working, save the data in a local file.  If you shut down the notebook and come back to it later, you can reload the file; you don’t have to run the query again.</p></li>
 </ul>
-</div>
-</div>
+<p>Copyright 2020–2026 Allen Downey</p>
+<p>Code license: <a class="reference external" href="https://opensource.org/license/MIT">MIT License</a></p>
+<p>Text license: <a class="reference external" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International</a></p>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -2111,7 +2241,7 @@ Results: None
             mode: "python"
         },
         kernelOptions: {
-            kernelName: "python3",
+            name: "python3",
             path: "./."
         },
         predefinedOutput: true
@@ -2119,38 +2249,128 @@ Results: None
     </script>
     <script>kernelName = 'python3'</script>
 
-              </div>
+                </article>
               
-        </div>
-    </div>
-    
-    
-    <div class='prev-next-bottom'>
-        
-    <a class='left-prev' id="prev-link" href="01_query.html" title="previous page">1. Queries</a>
-    <a class='right-next' id="next-link" href="03_motion.html" title="next page">3. Proper Motion</a>
 
-    </div>
-    <footer class="footer mt-5 mt-md-0">
-    <div class="container">
-      <p>
-        
-          By Allen B. Downey<br/>
-        
-            &copy; Copyright 2020.<br/>
-      </p>
-    </div>
-  </footer>
-</main>
-
-
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="01_query.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">1. Queries</p>
       </div>
+    </a>
+    <a class="right-next"
+       href="03_motion.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">3. Proper Motion</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#outline">Outline</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#working-with-units">Working with Units</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise">Exercise</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#selecting-a-region">Selecting a Region</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Exercise</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-gd-1-data">Getting GD-1 Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#transforming-coordinates">Transforming coordinates</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Exercise</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#selecting-a-rectangle">Selecting a rectangle</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#defining-a-polygon">Defining a polygon</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#assembling-the-query">Assembling the query</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#saving-results">Saving results</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#best-practices">Best practices</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Allen B. Downey
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <script>new Image().src="https://greenteapress.com/gh.gif?u="+encodeURIComponent(location.href)+"&r="+encodeURIComponent(document.referrer)</script>
+
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
     </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
 
-    
-  <script src="_static/js/index.30270b6e4c972e43c488.js"></script>
-
-
-    
+  <footer class="bd-footer">
+  </footer>
   </body>
 </html>

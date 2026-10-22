@@ -1,378 +1,396 @@
 
 <!DOCTYPE html>
 
-<html>
+
+<html lang="en" data-content_root="./" >
+
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta content="Make a publication-quality figure with Matplotlib: annotations, rcParams, style sheets, LaTeX labels, and a multi-panel figure like Figure 1 of the paper." name="description" />
+<meta property="og:title" content="7. Visualization" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://allendowney.github.io/AstronomicalData/07_plot.html" />
+<meta property="og:site_name" content="Astronomical Data in Python" />
+<meta property="og:description" content="Make a publication-quality figure with Matplotlib: annotations, rcParams, style sheets, LaTeX labels, and a multi-panel figure like Figure 1 of the paper." />
+<meta property="og:image" content="https://allendowney.github.io/AstronomicalData/gd1_figure.png" />
+<meta property="og:image:alt" content="Positions, proper motions, and colors of GD-1 stars selected from Gaia and Pan-STARRS data" />
+
     <title>7. Visualization &#8212; Astronomical Data in Python</title>
-    
-  <link rel="stylesheet" href="_static/css/index.d431a4ee1c1efae0e38bdfebc22debff.css">
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
 
-    
-  <link rel="stylesheet"
-    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
-    
-      
-  <link rel="stylesheet"
-    href="_static/vendor/open-sans_all/1.44.1/index.css">
-  <link rel="stylesheet"
-    href="_static/vendor/lato_latin-ext/1.44.1/index.css">
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    
-    <link rel="stylesheet" href="_static/sphinx-book-theme.bfb7730f9caf2ec0b46a44615585038c.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
-    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
-    
-  <link rel="preload" as="script" href="_static/js/index.30270b6e4c972e43c488.js">
-
-    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/language_data.js"></script>
-    <script src="_static/togglebutton.js"></script>
-    <script src="_static/clipboard.min.js"></script>
-    <script src="_static/copybutton.js"></script>
-    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="_static/sphinx-book-theme.be0a4a0c39cd630af62a2fcf693f3f06.js"></script>
-    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
-    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
-    <script >
-        const thebe_selector = ".thebe"
-        const thebe_selector_input = "pre"
-        const thebe_selector_output = ".output"
-    </script>
-    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '07_plot';</script>
+    <link rel="canonical" href="https://allendowney.github.io/AstronomicalData/07_plot.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="prev" title="6. Photometry" href="06_photo.html" />
-
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="en" />
-
-
-
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
-    
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-    <div class="container-xl">
-      <div class="row">
-          
-<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
-    
-        <div class="navbar-brand-box">
-<a class="navbar-brand text-wrap" href="index.html">
   
   
-  <h1 class="site-logo" id="site-title">Astronomical Data in Python</h1>
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
   
-</a>
-</div>
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
-<form class="bd-search d-flex align-items-center" action="search.html" method="get">
-  <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
 </form>
+  </dialog>
 
-<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
-  <ul class="nav sidenav_l1">
- <li class="toctree-l1">
-  <a class="reference internal" href="README.html">
-   Astronomical Data in Python
-  </a>
- </li>
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Astronomical Data in Python</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="index.html">
+                    Astronomical Data in Python: Notebooks
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="01_query.html">1. Queries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02_coords.html">2. Coordinates and Units</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03_motion.html">3. Proper Motion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04_select.html">4. Transformation and Selection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05_join.html">5. Joining Tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06_photo.html">6. Photometry</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">7. Visualization</a></li>
 </ul>
-<ul class="current nav sidenav_l1">
- <li class="toctree-l1">
-  <a class="reference internal" href="01_query.html">
-   1. Queries
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="02_coords.html">
-   2. Coordinates and Units
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="03_motion.html">
-   3. Proper Motion
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="04_select.html">
-   4. Transformation and Selection
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="05_join.html">
-   5. Joining Tables
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="06_photo.html">
-   6. Photometry
-  </a>
- </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
-   7. Visualization
-  </a>
- </li>
-</ul>
-
-</nav>
-
- <!-- To handle the deprecated key -->
-
-<div class="navbar_extra_footer">
-  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-</div>
-
-</div>
-
-
-          
-
-
-          
-<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
-    
-    <div class="row topbar fixed-top container-xl">
-    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
-    </div>
-    <div class="col pl-2 topbar-main">
-        
-        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
-            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
-            <i class="fas fa-bars"></i>
-            <i class="fas fa-arrow-left"></i>
-            <i class="fas fa-arrow-up"></i>
-        </button>
-        
-        <div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
-            class="fas fa-download"></i></button>
-
-    
-    <div class="dropdown-buttons">
-        <!-- ipynb file if we had a myst markdown file -->
-        
-        <!-- Download raw file -->
-        <a class="dropdown-buttons" href="_sources/07_plot.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.ipynb</button></a>
-        <!-- Download PDF via print -->
-        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
-    </div>
-    
-</div>
-        <!-- Source interaction buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
-    <div class="dropdown-buttons sourcebuttons">
-        <a class="repository-button"
-            href="https://github.com/AllenDowney/AstronomicalData"><button type="button" class="btn btn-secondary topbarbtn"
-                data-toggle="tooltip" data-placement="left" title="Source repository"><i
-                    class="fab fa-github"></i>repository</button></a>
-        
-        
-    </div>
-</div>
-
-
-        <!-- Full screen (wrap in <a> to have style consistency -->
-        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-                data-placement="bottom" onclick="toggleFullScreen()" title="Fullscreen mode"><i
-                    class="fas fa-expand"></i></button></a>
-
-        <!-- Launch buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
-    <div class="dropdown-buttons">
-        
-        <a class="binder-button" href="https://mybinder.org/v2/gh/AllenDowney/AstronomicalData/master?urlpath=tree/07_plot.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
-                data-placement="left"><img class="binder-button-logo"
-                    src="_static/images/logo_binder.svg"
-                    alt="Interact on binder">Binder</button></a>
-        
-        
-        
-        <a class="colab-button" href="https://colab.research.google.com/github/AllenDowney/AstronomicalData/blob/master/07_plot.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
-                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
-                    src="_static/images/logo_colab.png"
-                    alt="Interact on Colab">Colab</button></a>
-        
-        
-    </div>
-</div>
 
     </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
 
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/AllenDowney/AstronomicalData" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/07_plot.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>7. Visualization</h1>
     <!-- Table of contents -->
-    <div class="d-none d-md-block col-md-2 bd-toc show">
-        
-        <div class="tocsection onthispage pt-5 pb-3">
-            <i class="fas fa-list"></i> Contents
-        </div>
-        <nav id="bd-toc-nav">
-            <ul class="nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#outline">
-   Outline
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#making-figures-that-tell-a-story">
-   Making Figures That Tell a Story
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#exercise">
-     Exercise
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#plotting-gd-1">
-   Plotting GD-1
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#annotations">
-   Annotations
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id1">
-     Exercise
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#customization">
-   Customization
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id2">
-     Exercise
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#rcparams">
-   rcParams
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#style-sheets">
-   Style sheets
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#latex-fonts">
-   LaTeX fonts
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#multiple-panels">
-   Multiple panels
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#upper-right">
-   Upper right
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#upper-left">
-   Upper left
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#lower-right">
-   Lower right
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id3">
-     Exercise
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#subplots">
-   Subplots
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#adjusting-proportions">
-   Adjusting proportions
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id4">
-     Exercise
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#summary">
-   Summary
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#best-practices">
-   Best practices
-  </a>
- </li>
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#outline">Outline</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#making-figures-that-tell-a-story">Making Figures That Tell a Story</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise">Exercise</a></li>
 </ul>
-
-        </nav>
-        
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plotting-gd-1">Plotting GD-1</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#annotations">Annotations</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Exercise</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#customization">Customization</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Exercise</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rcparams">rcParams</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#style-sheets">Style sheets</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#latex-fonts">LaTeX fonts</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multiple-panels">Multiple panels</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#upper-right">Upper right</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#upper-left">Upper left</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lower-right">Lower right</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Exercise</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#subplots">Subplots</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adjusting-proportions">Adjusting proportions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Exercise</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#best-practices">Best practices</a></li>
+</ul>
+            </nav>
+        </div>
     </div>
 </div>
-    <div id="main-content" class="row">
-        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
-        
-              <div>
+
+              
                 
-  <div class="section" id="visualization">
-<h1>7. Visualization<a class="headerlink" href="#visualization" title="Permalink to this headline">¶</a></h1>
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="visualization">
+<h1>7. Visualization<a class="headerlink" href="#visualization" title="Link to this heading">#</a></h1>
+<p><a class="reference external" href="https://colab.research.google.com/github/AllenDowney/AstronomicalData/blob/main/soln/07_plot.ipynb">Click here to run this notebook on Colab</a>. For the exercises, use <a class="reference external" href="https://colab.research.google.com/github/AllenDowney/AstronomicalData/blob/main/07_plot.ipynb">the version with blanks</a>.</p>
 <p>This is the seventh in a series of notebooks related to astronomy data.</p>
-<p>As a continuing example, we will replicate part of the analysis in a recent paper, “<a class="reference external" href="https://arxiv.org/abs/1805.00425">Off the beaten path: Gaia reveals GD-1 stars outside of the main stream</a>” by Adrian M. Price-Whelan and Ana Bonaca.</p>
+<p>As a continuing example, we will replicate part of the analysis in a 2018 paper, “<a class="reference external" href="https://arxiv.org/abs/1805.00425">Off the beaten path: Gaia reveals GD-1 stars outside of the main stream</a>” by Adrian M. Price-Whelan and Ana Bonaca.</p>
 <p>In the previous notebook we selected photometry data from Pan-STARRS and used it to identify stars we think are likely to be in GD-1</p>
 <p>In this notebook, we’ll take the results from previous lessons and use them to make a figure that tells a compelling scientific story.</p>
-<div class="section" id="outline">
-<h2>Outline<a class="headerlink" href="#outline" title="Permalink to this headline">¶</a></h2>
+<section id="outline">
+<h2>Outline<a class="headerlink" href="#outline" title="Link to this heading">#</a></h2>
 <p>Here are the steps in this notebook:</p>
-<ol class="simple">
+<ol class="arabic simple">
 <li><p>Starting with the figure from the previous notebook, we’ll add annotations to present the results more clearly.</p></li>
 <li><p>The we’ll see several ways to customize figures to make them more appealing and effective.</p></li>
 <li><p>Finally, we’ll see how to make a figure with multiple panels or subplots.</p></li>
@@ -383,28 +401,32 @@
 <li><p>Use Matplotlib features to customize the appearance of figures.</p></li>
 <li><p>Generate a figure with multiple subplots.</p></li>
 </ul>
-</div>
-<div class="section" id="making-figures-that-tell-a-story">
-<h2>Making Figures That Tell a Story<a class="headerlink" href="#making-figures-that-tell-a-story" title="Permalink to this headline">¶</a></h2>
-<p>So far the figure we’ve made have been “quick and dirty”.  Mostly we have used Matplotlib’s default style, although we have adjusted a few parameters, like <code class="docutils literal notranslate"><span class="pre">markersize</span></code> and <code class="docutils literal notranslate"><span class="pre">alpha</span></code>, to improve legibility.</p>
+</section>
+<section id="making-figures-that-tell-a-story">
+<h2>Making Figures That Tell a Story<a class="headerlink" href="#making-figures-that-tell-a-story" title="Link to this heading">#</a></h2>
+<p>So far the figures we’ve made have been “quick and dirty”.  Mostly we have used Matplotlib’s default style, although we have adjusted a few parameters, like <code class="docutils literal notranslate"><span class="pre">markersize</span></code> and <code class="docutils literal notranslate"><span class="pre">alpha</span></code>, to improve legibility.</p>
 <p>Now that the analysis is done, it’s time to think more about:</p>
-<ol class="simple">
+<ol class="arabic simple">
 <li><p>Making professional-looking figures that are ready for publication, and</p></li>
 <li><p>Making figures that communicate a scientific result clearly and compellingly.</p></li>
 </ol>
 <p>Not necessarily in that order.</p>
 <p>Let’s start by reviewing Figure 1 from the original paper.  We’ve seen the individual panels, but now let’s look at the whole thing, along with the caption:</p>
-<a class="reference internal image-reference" href="https://github.com/datacarpentry/astronomy-python/raw/gh-pages/fig/gd1-5.png"><img alt="https://github.com/datacarpentry/astronomy-python/raw/gh-pages/fig/gd1-5.png" src="https://github.com/datacarpentry/astronomy-python/raw/gh-pages/fig/gd1-5.png" style="width: 500px;" /></a>
-<div class="section" id="exercise">
-<h3>Exercise<a class="headerlink" href="#exercise" title="Permalink to this headline">¶</a></h3>
+<img width="500" src="https://github.com/datacarpentry/astronomy-python/raw/gh-pages/fig/gd1-5.png"><section id="exercise">
+<h3>Exercise<a class="headerlink" href="#exercise" title="Link to this heading">#</a></h3>
 <p>Think about the following questions:</p>
-<ol class="simple">
+<ol class="arabic simple">
 <li><p>What is the primary scientific result of this work?</p></li>
 <li><p>What story is this figure telling?</p></li>
 <li><p>In the design of this figure, can you identify 1-2 choices the authors made that you think are effective?  Think about big-picture elements, like the number of panels and how they are arranged, as well as details like the choice of typeface.</p></li>
 <li><p>Can you identify 1-2 elements that could be improved, or that you might have done differently?</p></li>
 </ol>
 <div class="cell tag_hide-cell docutils container">
+<details class="admonition hide above-input">
+<summary aria-label="Toggle hidden content">
+<p class="collapsed admonition-title">Show code cell content</p>
+<p class="expanded admonition-title">Hide code cell content</p>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
 
@@ -413,7 +435,7 @@
 <span class="c1"># 1. The primary result is that the multiple stages of selection </span>
 <span class="c1"># make it possible to separate likely candidates from the </span>
 <span class="c1"># background more effectively than in previous work, which makes </span>
-<span class="c1"># it possible to see the structure of GD-1 in &quot;unprecedented detail&quot;.</span>
+<span class="c1"># it possible to see the structure of GD-1 in "unprecedented detail".</span>
 
 <span class="c1"># 2. The figure documents the selection process as a sequence of </span>
 <span class="c1"># steps.  Reading right-to-left, top-to-bottom, we see selection </span>
@@ -422,7 +444,7 @@
 <span class="c1"># second selection.  So this figure documents the methodology and </span>
 <span class="c1"># presents the primary result.</span>
 
-<span class="c1"># 3. It&#39;s mostly black and white, with minimal use of color, so </span>
+<span class="c1"># 3. It's mostly black and white, with minimal use of color, so </span>
 <span class="c1"># it will work well in print.  The annotations in the bottom </span>
 <span class="c1"># left panel guide the reader to the most important results.  </span>
 <span class="c1"># It contains enough technical detail for a professional audience, </span>
@@ -434,30 +456,31 @@
 <span class="c1"># arrange them left-to-right.  The placement and size of the axis </span>
 <span class="c1"># labels could be tweaked.  The entire figure could be a little </span>
 <span class="c1"># bigger to match the width and proportion of the caption.  </span>
-<span class="c1"># The top left panel has unnused white space (but that leaves </span>
+<span class="c1"># The top left panel has unused white space (but that leaves </span>
 <span class="c1"># space for the annotations in the bottom left).</span>
 </pre></div>
 </div>
 </div>
+</details>
 </div>
-</div>
-</div>
-<div class="section" id="plotting-gd-1">
-<h2>Plotting GD-1<a class="headerlink" href="#plotting-gd-1" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="plotting-gd-1">
+<h2>Plotting GD-1<a class="headerlink" href="#plotting-gd-1" title="Link to this heading">#</a></h2>
 <p>Let’s start with the panel in the lower left.  You can <a class="reference external" href="https://github.com/AllenDowney/AstronomicalData/raw/main/data/gd1_data.hdf">download the data from the previous lesson</a> or run the following cell, which downloads it if necessary.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">basename</span><span class="p">,</span> <span class="n">exists</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">os.path</span><span class="w"> </span><span class="kn">import</span> <span class="n">basename</span><span class="p">,</span> <span class="n">exists</span>
 
-<span class="k">def</span> <span class="nf">download</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">download</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
     <span class="n">filename</span> <span class="o">=</span> <span class="n">basename</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">exists</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
-        <span class="kn">from</span> <span class="nn">urllib.request</span> <span class="kn">import</span> <span class="n">urlretrieve</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">urllib.request</span><span class="w"> </span><span class="kn">import</span> <span class="n">urlretrieve</span>
         <span class="n">local</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">urlretrieve</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Downloaded &#39;</span> <span class="o">+</span> <span class="n">local</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">'Downloaded '</span> <span class="o">+</span> <span class="n">local</span><span class="p">)</span>
 
-<span class="n">download</span><span class="p">(</span><span class="s1">&#39;https://github.com/AllenDowney/AstronomicalData/raw/main/&#39;</span> <span class="o">+</span>
-         <span class="s1">&#39;data/gd1_data.hdf&#39;</span><span class="p">)</span>
+<span class="n">download</span><span class="p">(</span><span class="s1">'https://github.com/AllenDowney/AstronomicalData/raw/main/'</span> <span class="o">+</span>
+         <span class="s1">'data/gd1_data.hdf'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -465,29 +488,29 @@
 <p>Now we can reload <code class="docutils literal notranslate"><span class="pre">winner_df</span></code></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 
-<span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;gd1_data.hdf&#39;</span>
-<span class="n">winner_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_hdf</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;winner_df&#39;</span><span class="p">)</span>
+<span class="n">filename</span> <span class="o">=</span> <span class="s1">'gd1_data.hdf'</span>
+<span class="n">winner_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_hdf</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">'winner_df'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 
-<span class="k">def</span> <span class="nf">plot_second_selection</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
-    <span class="n">x</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;phi1&#39;</span><span class="p">]</span>
-    <span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;phi2&#39;</span><span class="p">]</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_second_selection</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">'phi1'</span><span class="p">]</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">'phi2'</span><span class="p">]</span>
 
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">&#39;ko&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">'ko'</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>
 
-    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$\phi_1$ [deg]&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$\phi_2$ [deg]&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Proper motion + photometry selection&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="s1">&#39;medium&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">'$\phi_1$ [deg]'</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">'$\phi_2$ [deg]'</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Proper motion + photometry selection'</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="s1">'medium'</span><span class="p">)</span>
 
-    <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">'equal'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -501,54 +524,60 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/07_plot_13_0.png" src="_images/07_plot_13_0.png" />
+<img alt="_images/d6a9955a4867c202cbc90ea3031a2c88be5d2a165627e2e6a6911664ead07cd1.png" src="_images/d6a9955a4867c202cbc90ea3031a2c88be5d2a165627e2e6a6911664ead07cd1.png" />
 </div>
 </div>
-</div>
-<div class="section" id="annotations">
-<h2>Annotations<a class="headerlink" href="#annotations" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="annotations">
+<h2>Annotations<a class="headerlink" href="#annotations" title="Link to this heading">#</a></h2>
 <p>The figure in the paper uses three other features to present the results more clearly and compellingly:</p>
 <ul class="simple">
 <li><p>A vertical dashed line to distinguish the previously undetected region of GD-1,</p></li>
 <li><p>A label that identifies the new region, and</p></li>
 <li><p>Several annotations that combine text and arrows to identify features of GD-1.</p></li>
 </ul>
-<div class="section" id="id1">
-<h3>Exercise<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<section id="id1">
+<h3>Exercise<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
 <p>Choose any or all of these features and add them to the figure:</p>
 <ul class="simple">
 <li><p>To draw vertical lines, see <a class="reference external" href="https://matplotlib.org/3.3.1/api/_as_gen/matplotlib.pyplot.vlines.html"><code class="docutils literal notranslate"><span class="pre">plt.vlines</span></code></a> and <a class="reference external" href="https://matplotlib.org/3.3.1/api/_as_gen/matplotlib.pyplot.axvline.html#matplotlib.pyplot.axvline"><code class="docutils literal notranslate"><span class="pre">plt.axvline</span></code></a>.</p></li>
 <li><p>To add text, see <a class="reference external" href="https://matplotlib.org/3.3.1/api/_as_gen/matplotlib.pyplot.text.html"><code class="docutils literal notranslate"><span class="pre">plt.text</span></code></a>.</p></li>
-<li><p>To add an annotation with text and an arrow, see <span class="xref myst">plt.annotate</span>.</p></li>
+<li><p>To add an annotation with text and an arrow, see <a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.annotate.html">plt.annotate</a>.</p></li>
 </ul>
 <p>And here is some <a class="reference external" href="https://matplotlib.org/3.3.1/tutorials/text/annotations.html#plotting-guide-annotation">additional information about text and arrows</a>.</p>
 <div class="cell tag_hide-cell docutils container">
+<details class="admonition hide above-input">
+<summary aria-label="Toggle hidden content">
+<p class="collapsed admonition-title">Show code cell content</p>
+<p class="expanded admonition-title">Hide code cell content</p>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
 
-<span class="c1"># plt.axvline(-55, ls=&#39;--&#39;, color=&#39;gray&#39;, </span>
+<span class="c1"># plt.axvline(-55, ls='--', color='gray', </span>
 <span class="c1">#             alpha=0.4, dashes=(6,4), lw=2)</span>
-<span class="c1"># plt.text(-60, 5.5, &#39;Previously\nundetected&#39;, </span>
-<span class="c1">#          fontsize=&#39;small&#39;, ha=&#39;right&#39;, va=&#39;top&#39;);</span>
+<span class="c1"># plt.text(-60, 5.5, 'Previously\nundetected', </span>
+<span class="c1">#          fontsize='small', ha='right', va='top');</span>
 
-<span class="c1"># arrowprops=dict(color=&#39;gray&#39;, shrink=0.05, width=1.5, </span>
+<span class="c1"># arrowprops=dict(color='gray', shrink=0.05, width=1.5, </span>
 <span class="c1">#                 headwidth=6, headlength=8, alpha=0.4)</span>
 
-<span class="c1"># plt.annotate(&#39;Spur&#39;, xy=(-33, 2), xytext=(-35, 5.5),</span>
+<span class="c1"># plt.annotate('Spur', xy=(-33, 2), xytext=(-35, 5.5),</span>
 <span class="c1">#              arrowprops=arrowprops,</span>
-<span class="c1">#              fontsize=&#39;small&#39;)</span>
+<span class="c1">#              fontsize='small')</span>
 
-<span class="c1"># plt.annotate(&#39;Gap&#39;, xy=(-22, -1), xytext=(-25, -5.5),</span>
+<span class="c1"># plt.annotate('Gap', xy=(-22, -1), xytext=(-25, -5.5),</span>
 <span class="c1">#              arrowprops=arrowprops,</span>
-<span class="c1">#              fontsize=&#39;small&#39;)</span>
+<span class="c1">#              fontsize='small')</span>
 </pre></div>
 </div>
 </div>
+</details>
 </div>
-</div>
-</div>
-<div class="section" id="customization">
-<h2>Customization<a class="headerlink" href="#customization" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="customization">
+<h2>Customization<a class="headerlink" href="#customization" title="Link to this heading">#</a></h2>
 <p>Matplotlib provides a default style that determines things like the colors of lines, the placement of labels and ticks on the axes, and many other properties.</p>
 <p>There are several ways to override these defaults and customize your figures:</p>
 <ul class="simple">
@@ -559,13 +588,18 @@
 <p>As a simple example, notice that Matplotlib puts ticks on the outside of the figures by default, and only on the left and bottom sides of the axes.</p>
 <p>To change this behavior, you can use <code class="docutils literal notranslate"><span class="pre">gca()</span></code> to get the current axes and <code class="docutils literal notranslate"><span class="pre">tick_params</span></code> to change the settings.</p>
 <p>Here’s how you can put the ticks on the inside of the figure:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">direction</span><span class="o">=</span><span class="s1">&#39;in&#39;</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">direction</span><span class="o">=</span><span class="s1">'in'</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="section" id="id2">
-<h3>Exercise<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<section id="id2">
+<h3>Exercise<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
 <p>Read the documentation of <a class="reference external" href="https://matplotlib.org/3.1.1/api/_as_gen/matplotlib.axes.Axes.tick_params.html"><code class="docutils literal notranslate"><span class="pre">tick_params</span></code></a> and use it to put ticks on the top and right sides of the axes.</p>
 <div class="cell tag_hide-cell docutils container">
+<details class="admonition hide above-input">
+<summary aria-label="Toggle hidden content">
+<p class="collapsed admonition-title">Show code cell content</p>
+<p class="expanded admonition-title">Hide code cell content</p>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
 
@@ -573,16 +607,17 @@
 </pre></div>
 </div>
 </div>
+</details>
 </div>
-</div>
-</div>
-<div class="section" id="rcparams">
-<h2>rcParams<a class="headerlink" href="#rcparams" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="rcparams">
+<h2>rcParams<a class="headerlink" href="#rcparams" title="Link to this heading">#</a></h2>
 <p>If you want to make a customization that applies to all figures in a notebook, you can use <code class="docutils literal notranslate"><span class="pre">rcParams</span></code>.</p>
 <p>Here’s an example that reads the current font size from <code class="docutils literal notranslate"><span class="pre">rcParams</span></code>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;font.size&#39;</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">'font.size'</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
@@ -595,16 +630,16 @@
 <p>And sets it to a new value:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;font.size&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">14</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">'font.size'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">14</span>
 </pre></div>
 </div>
 </div>
 </div>
 <p>As an exercise, plot the previous figure again, and see what font sizes have changed.  Look up any other element of <code class="docutils literal notranslate"><span class="pre">rcParams</span></code>, change its value, and check the effect on the figure.</p>
 <p>If you find yourself making the same customizations in several notebooks, you can put changes to <code class="docutils literal notranslate"><span class="pre">rcParams</span></code> in a <code class="docutils literal notranslate"><span class="pre">matplotlibrc</span></code> file, <a class="reference external" href="https://matplotlib.org/3.3.1/tutorials/introductory/customizing.html#customizing-with-matplotlibrc-files">which you can read about here</a>.</p>
-</div>
-<div class="section" id="style-sheets">
-<h2>Style sheets<a class="headerlink" href="#style-sheets" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="style-sheets">
+<h2>Style sheets<a class="headerlink" href="#style-sheets" title="Link to this heading">#</a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">matplotlibrc</span></code> file is read when you import Matplotlib, so it is not easy to switch from one set of options to another.</p>
 <p>The solution to this problem is style sheets, <a class="reference external" href="https://matplotlib.org/3.1.1/tutorials/introductory/customizing.html">which you can read about here</a>.</p>
 <p>Matplotlib provides a set of predefined style sheets, or you can make your own.</p>
@@ -616,39 +651,42 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;Solarize_Light2&#39;,
- &#39;_classic_test_patch&#39;,
- &#39;bmh&#39;,
- &#39;classic&#39;,
- &#39;dark_background&#39;,
- &#39;fast&#39;,
- &#39;fivethirtyeight&#39;,
- &#39;ggplot&#39;,
- &#39;grayscale&#39;,
- &#39;seaborn&#39;,
- &#39;seaborn-bright&#39;,
- &#39;seaborn-colorblind&#39;,
- &#39;seaborn-dark&#39;,
- &#39;seaborn-dark-palette&#39;,
- &#39;seaborn-darkgrid&#39;,
- &#39;seaborn-deep&#39;,
- &#39;seaborn-muted&#39;,
- &#39;seaborn-notebook&#39;,
- &#39;seaborn-paper&#39;,
- &#39;seaborn-pastel&#39;,
- &#39;seaborn-poster&#39;,
- &#39;seaborn-talk&#39;,
- &#39;seaborn-ticks&#39;,
- &#39;seaborn-white&#39;,
- &#39;seaborn-whitegrid&#39;,
- &#39;tableau-colorblind10&#39;]
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>['Solarize_Light2',
+ 'bmh',
+ 'classic',
+ 'dark_background',
+ 'fast',
+ 'fivethirtyeight',
+ 'ggplot',
+ 'grayscale',
+ 'petroff10',
+ 'petroff6',
+ 'petroff8',
+ 'seaborn-v0_8',
+ 'seaborn-v0_8-bright',
+ 'seaborn-v0_8-colorblind',
+ 'seaborn-v0_8-dark',
+ 'seaborn-v0_8-dark-palette',
+ 'seaborn-v0_8-darkgrid',
+ 'seaborn-v0_8-deep',
+ 'seaborn-v0_8-muted',
+ 'seaborn-v0_8-notebook',
+ 'seaborn-v0_8-paper',
+ 'seaborn-v0_8-pastel',
+ 'seaborn-v0_8-poster',
+ 'seaborn-v0_8-talk',
+ 'seaborn-v0_8-ticks',
+ 'seaborn-v0_8-white',
+ 'seaborn-v0_8-whitegrid',
+ 'tableau-colorblind10',
+ 'traffic']
 </pre></div>
 </div>
 </div>
 </div>
-<p>Note that <code class="docutils literal notranslate"><span class="pre">seaborn-paper</span></code>, <code class="docutils literal notranslate"><span class="pre">seaborn-talk</span></code> and <code class="docutils literal notranslate"><span class="pre">seaborn-poster</span></code> are particularly intended to prepare versions of a figure with text sizes and other features that work well in papers, talks, and posters.</p>
+<p>Note that <code class="docutils literal notranslate"><span class="pre">seaborn-v0_8-paper</span></code>, <code class="docutils literal notranslate"><span class="pre">seaborn-v0_8-talk</span></code> and <code class="docutils literal notranslate"><span class="pre">seaborn-v0_8-poster</span></code> are particularly intended to prepare versions of a figure with text sizes and other features that work well in papers, talks, and posters.</p>
 <p>To use any of these style sheets, run <code class="docutils literal notranslate"><span class="pre">plt.style.use</span></code> like this:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;fivethirtyeight&#39;</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">'fivethirtyeight'</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>The style sheet you choose will affect the appearance of all figures you plot after calling <code class="docutils literal notranslate"><span class="pre">use</span></code>, unless you override any of the options or call <code class="docutils literal notranslate"><span class="pre">use</span></code> again.</p>
@@ -657,26 +695,31 @@
 <p>You can <a class="reference external" href="https://github.com/AllenDowney/AstronomicalData/raw/main/az-paper-twocol.mplstyle">download the style sheet</a> or run the following cell, which downloads it if necessary.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">download</span><span class="p">(</span><span class="s1">&#39;https://github.com/AllenDowney/AstronomicalData/raw/main/&#39;</span> <span class="o">+</span>
-         <span class="s1">&#39;az-paper-twocol.mplstyle&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">download</span><span class="p">(</span><span class="s1">'https://github.com/AllenDowney/AstronomicalData/raw/main/'</span> <span class="o">+</span>
+         <span class="s1">'az-paper-twocol.mplstyle'</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Downloaded az-paper-twocol.mplstyle
 </pre></div>
 </div>
 </div>
 </div>
 <p>You can use it like this:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;./az-paper-twocol.mplstyle&#39;</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">'./az-paper-twocol.mplstyle'</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>The prefix <code class="docutils literal notranslate"><span class="pre">./</span></code> tells Matplotlib to look for the file in the current directory.</p>
 <p>As an alternative, you can install a style sheet for your own use by putting it in your configuration directory.  To find out where that is, you can run the following command:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mpl</span>
 
 <span class="n">mpl</span><span class="o">.</span><span class="n">get_configdir</span><span class="p">()</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="latex-fonts">
-<h2>LaTeX fonts<a class="headerlink" href="#latex-fonts" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="latex-fonts">
+<h2>LaTeX fonts<a class="headerlink" href="#latex-fonts" title="Link to this heading">#</a></h2>
 <p>When you include mathematical expressions in titles, labels, and annotations, Matplotlib uses <a class="reference external" href="https://matplotlib.org/3.1.0/tutorials/text/mathtext.html"><code class="docutils literal notranslate"><span class="pre">mathtext</span></code></a> to typeset them.  <code class="docutils literal notranslate"><span class="pre">mathtext</span></code> uses the same syntax as LaTeX, but it provides only a subset of its features.</p>
 <p>If you need features that are not provided by <code class="docutils literal notranslate"><span class="pre">mathtext</span></code>, or you prefer the way LaTeX typesets mathematical expressions, you can customize Matplotlib to use LaTeX.</p>
 <p>In <code class="docutils literal notranslate"><span class="pre">matplotlibrc</span></code> or in a style sheet, you can add the following line:</p>
@@ -684,19 +727,19 @@
 </pre></div>
 </div>
 <p>Or in a notebook you can run the following code.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;text.usetex&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">'text.usetex'</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
 </pre></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;text.usetex&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">'text.usetex'</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
 </pre></div>
 </div>
 </div>
 </div>
 <p>If you go back and draw the figure again, you should see the difference.</p>
 <p>If you get an error message like</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>LaTeX Error: File `type1cm.sty&#39; not found.
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>LaTeX Error: File `type1cm.sty' not found.
 </pre></div>
 </div>
 <p>You might have to install a package that contains the fonts LaTeX needs.  On some systems, the packages <code class="docutils literal notranslate"><span class="pre">texlive-latex-extra</span></code> or <code class="docutils literal notranslate"><span class="pre">cm-super</span></code> might be what you need.  <a class="reference external" href="https://stackoverflow.com/questions/11354149/python-unable-to-render-tex-in-matplotlib">See here for more help with this</a>.</p>
@@ -704,15 +747,15 @@
 <p>Before we go on, let’s put things back where we found them.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;text.usetex&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;default&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">'text.usetex'</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">'default'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="multiple-panels">
-<h2>Multiple panels<a class="headerlink" href="#multiple-panels" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="multiple-panels">
+<h2>Multiple panels<a class="headerlink" href="#multiple-panels" title="Link to this heading">#</a></h2>
 <p>So far we’ve been working with one figure at a time, but the figure we are replicating contains multiple panels, also known as “subplots”.</p>
 <p>Confusingly, Matplotlib provides <em>three</em> functions for making figures like this: <code class="docutils literal notranslate"><span class="pre">subplot</span></code>, <code class="docutils literal notranslate"><span class="pre">subplots</span></code>, and <code class="docutils literal notranslate"><span class="pre">subplot2grid</span></code>.</p>
 <ul class="simple">
@@ -722,14 +765,14 @@
 </ul>
 <p>So we’ll use <code class="docutils literal notranslate"><span class="pre">subplot2grid</span></code>.</p>
 <p>All of these functions are easier to use if we put the code that generates each panel in a function.</p>
-</div>
-<div class="section" id="upper-right">
-<h2>Upper right<a class="headerlink" href="#upper-right" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="upper-right">
+<h2>Upper right<a class="headerlink" href="#upper-right" title="Link to this heading">#</a></h2>
 <p>To make the panel in the upper right, we have to reload <code class="docutils literal notranslate"><span class="pre">centerline_df</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;gd1_data.hdf&#39;</span>
-<span class="n">centerline_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_hdf</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;centerline_df&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">filename</span> <span class="o">=</span> <span class="s1">'gd1_data.hdf'</span>
+<span class="n">centerline_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_hdf</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">'centerline_df'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -752,7 +795,9 @@
 <p>To create a <code class="docutils literal notranslate"><span class="pre">Polygon</span></code>, we have to put the coordinates in an array with <code class="docutils literal notranslate"><span class="pre">x</span></code> values in the first column and <code class="docutils literal notranslate"><span class="pre">y</span></code> values in the second column.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">legacy</span><span class="o">=</span><span class="s1">'1.25'</span><span class="p">)</span>
 
 <span class="n">vertices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">([</span><span class="n">pm1_rect</span><span class="p">,</span> <span class="n">pm2_rect</span><span class="p">])</span>
 <span class="n">vertices</span>
@@ -771,20 +816,20 @@
 <p>The following function takes a <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> as a parameter, plots the proper motion for each star, and adds a shaded <code class="docutils literal notranslate"><span class="pre">Polygon</span></code> to show the region we selected.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">matplotlib.patches</span> <span class="kn">import</span> <span class="n">Polygon</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib.patches</span><span class="w"> </span><span class="kn">import</span> <span class="n">Polygon</span>
 
-<span class="k">def</span> <span class="nf">plot_proper_motion</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
-    <span class="n">pm1</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;pm_phi1&#39;</span><span class="p">]</span>
-    <span class="n">pm2</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;pm_phi2&#39;</span><span class="p">]</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_proper_motion</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
+    <span class="n">pm1</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">'pm_phi1'</span><span class="p">]</span>
+    <span class="n">pm2</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">'pm_phi2'</span><span class="p">]</span>
 
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">pm1</span><span class="p">,</span> <span class="n">pm2</span><span class="p">,</span> <span class="s1">&#39;ko&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">pm1</span><span class="p">,</span> <span class="n">pm2</span><span class="p">,</span> <span class="s1">'ko'</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
     
     <span class="n">poly</span> <span class="o">=</span> <span class="n">Polygon</span><span class="p">(</span><span class="n">vertices</span><span class="p">,</span> <span class="n">closed</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> 
-                   <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;C1&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
+                   <span class="n">facecolor</span><span class="o">=</span><span class="s1">'C1'</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">poly</span><span class="p">)</span>
     
-    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$\mu_{\phi_1} [\mathrm{mas~yr}^{-1}]$&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$\mu_{\phi_2} [\mathrm{mas~yr}^{-1}]$&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">'$\mu_{\phi_1} [\mathrm{mas~yr}^{-1}]$'</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">'$\mu_{\phi_2} [\mathrm{mas~yr}^{-1}]$'</span><span class="p">)</span>
 
     <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
@@ -801,35 +846,35 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/07_plot_53_0.png" src="_images/07_plot_53_0.png" />
+<img alt="_images/cad4caa2d4325202fb6ca078435b8c5e1a478f3cbb397833a985c7715c98f2b3.png" src="_images/cad4caa2d4325202fb6ca078435b8c5e1a478f3cbb397833a985c7715c98f2b3.png" />
 </div>
 </div>
-</div>
-<div class="section" id="upper-left">
-<h2>Upper left<a class="headerlink" href="#upper-left" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="upper-left">
+<h2>Upper left<a class="headerlink" href="#upper-left" title="Link to this heading">#</a></h2>
 <p>Now let’s work on the panel in the upper left. We have to reload <code class="docutils literal notranslate"><span class="pre">candidates</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;gd1_data.hdf&#39;</span>
-<span class="n">candidate_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_hdf</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;candidate_df&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">filename</span> <span class="o">=</span> <span class="s1">'gd1_data.hdf'</span>
+<span class="n">candidate_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_hdf</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">'candidate_df'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
-<p>Here’s a function that takes a <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> of candidate stars and plots their positions in GD-1 coordindates.</p>
+<p>Here’s a function that takes a <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> of candidate stars and plots their positions in GD-1 coordinates.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_first_selection</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
-    <span class="n">x</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;phi1&#39;</span><span class="p">]</span>
-    <span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;phi2&#39;</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">plot_first_selection</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">'phi1'</span><span class="p">]</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">'phi2'</span><span class="p">]</span>
 
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">&#39;ko&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">'ko'</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
 
-    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$\phi_1$ [deg]&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$\phi_2$ [deg]&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Proper motion selection&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="s1">&#39;medium&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">'$\phi_1$ [deg]'</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">'$\phi_2$ [deg]'</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Proper motion selection'</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="s1">'medium'</span><span class="p">)</span>
 
-    <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">'equal'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -842,33 +887,33 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/07_plot_59_0.png" src="_images/07_plot_59_0.png" />
+<img alt="_images/743f03bb2ca9a801844b04e70aa74f13f6db70be3fc73983805345040f5734fb.png" src="_images/743f03bb2ca9a801844b04e70aa74f13f6db70be3fc73983805345040f5734fb.png" />
 </div>
 </div>
-</div>
-<div class="section" id="lower-right">
-<h2>Lower right<a class="headerlink" href="#lower-right" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="lower-right">
+<h2>Lower right<a class="headerlink" href="#lower-right" title="Link to this heading">#</a></h2>
 <p>For the figure in the lower right, we’ll use this function to plots the color-magnitude diagram.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 
-<span class="k">def</span> <span class="nf">plot_cmd</span><span class="p">(</span><span class="n">table</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Plot a color magnitude diagram.</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_cmd</span><span class="p">(</span><span class="n">table</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Plot a color magnitude diagram.</span>
 <span class="sd">    </span>
 <span class="sd">    table: Table or DataFrame with photometry data</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">y</span> <span class="o">=</span> <span class="n">table</span><span class="p">[</span><span class="s1">&#39;g_mean_psf_mag&#39;</span><span class="p">]</span>
-    <span class="n">x</span> <span class="o">=</span> <span class="n">table</span><span class="p">[</span><span class="s1">&#39;g_mean_psf_mag&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">table</span><span class="p">[</span><span class="s1">&#39;i_mean_psf_mag&#39;</span><span class="p">]</span>
+<span class="sd">    """</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">table</span><span class="p">[</span><span class="s1">'g_mean_psf_mag'</span><span class="p">]</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">table</span><span class="p">[</span><span class="s1">'g_mean_psf_mag'</span><span class="p">]</span> <span class="o">-</span> <span class="n">table</span><span class="p">[</span><span class="s1">'i_mean_psf_mag'</span><span class="p">]</span>
 
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">&#39;ko&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">'ko'</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
 
     <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">])</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">([</span><span class="mi">14</span><span class="p">,</span> <span class="mi">22</span><span class="p">])</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">invert_yaxis</span><span class="p">()</span>
 
-    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$Magnitude (g)$&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$Color (g-i)$&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'$Magnitude (g)$'</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'$Color (g-i)$'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -881,14 +926,14 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/07_plot_63_0.png" src="_images/07_plot_63_0.png" />
+<img alt="_images/64f747fd3eb0d36f6d2d2d499da6a4574ecf23081138f4a89240e0b493a4f19f.png" src="_images/64f747fd3eb0d36f6d2d2d499da6a4574ecf23081138f4a89240e0b493a4f19f.png" />
 </div>
 </div>
 <p>And here’s how we read it back.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;gd1_data.hdf&#39;</span>
-<span class="n">loop_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_hdf</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;loop_df&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">filename</span> <span class="o">=</span> <span class="s1">'gd1_data.hdf'</span>
+<span class="n">loop_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_hdf</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">'loop_df'</span><span class="p">)</span>
 <span class="n">loop_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -946,25 +991,31 @@
 </table>
 </div></div></div>
 </div>
-<div class="section" id="id3">
-<h3>Exercise<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<section id="id3">
+<h3>Exercise<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
 <p>Add a few lines to <code class="docutils literal notranslate"><span class="pre">plot_cmd</span></code> to show the polygon we selected as a shaded area.</p>
 <p>Hint: pass <code class="docutils literal notranslate"><span class="pre">coords</span></code> as an argument to <code class="docutils literal notranslate"><span class="pre">Polygon</span></code> and plot it using <code class="docutils literal notranslate"><span class="pre">add_patch</span></code>.</p>
 <div class="cell tag_hide-cell docutils container">
+<details class="admonition hide above-input">
+<summary aria-label="Toggle hidden content">
+<p class="collapsed admonition-title">Show code cell content</p>
+<p class="expanded admonition-title">Hide code cell content</p>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
 
 <span class="c1"># poly = Polygon(loop_df, closed=True, </span>
-<span class="c1">#                facecolor=&#39;C1&#39;, alpha=0.4)</span>
+<span class="c1">#                facecolor='C1', alpha=0.4)</span>
 <span class="c1"># plt.gca().add_patch(poly)</span>
 </pre></div>
 </div>
 </div>
+</details>
 </div>
-</div>
-</div>
-<div class="section" id="subplots">
-<h2>Subplots<a class="headerlink" href="#subplots" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="subplots">
+<h2>Subplots<a class="headerlink" href="#subplots" title="Link to this heading">#</a></h2>
 <p>Now we’re ready to put it all together.  To make a figure with four subplots, we’ll use <code class="docutils literal notranslate"><span class="pre">subplot2grid</span></code>, <a class="reference external" href="https://matplotlib.org/3.3.1/api/_as_gen/matplotlib.pyplot.subplot2grid.html">which requires two arguments</a>:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">shape</span></code>, which is a tuple with the number of rows and columns in the grid, and</p></li>
@@ -988,7 +1039,7 @@
 <span class="n">plt</span><span class="o">.</span><span class="n">subplot2grid</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
 <span class="n">plot_cmd</span><span class="p">(</span><span class="n">candidate_df</span><span class="p">)</span>
 <span class="n">poly</span> <span class="o">=</span> <span class="n">Polygon</span><span class="p">(</span><span class="n">loop_df</span><span class="p">,</span> <span class="n">closed</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> 
-               <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;C1&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
+               <span class="n">facecolor</span><span class="o">=</span><span class="s1">'C1'</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">poly</span><span class="p">)</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
@@ -996,14 +1047,14 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/07_plot_69_0.png" src="_images/07_plot_69_0.png" />
+<img alt="_images/f98e89620a6b71d5e570941a6465b4f18aa50f7fcebd1bdb35fabb41e0abb7d7.png" src="_images/f98e89620a6b71d5e570941a6465b4f18aa50f7fcebd1bdb35fabb41e0abb7d7.png" />
 </div>
 </div>
 <p>We use <a class="reference external" href="https://matplotlib.org/3.3.1/tutorials/intermediate/tight_layout_guide.html"><code class="docutils literal notranslate"><span class="pre">plt.tight_layout</span></code></a> at the end, which adjusts the sizes of the panels to make sure the titles and axis labels don’t overlap.</p>
 <p>As an exercise, see what happens if you leave out <code class="docutils literal notranslate"><span class="pre">tight_layout</span></code>.</p>
-</div>
-<div class="section" id="adjusting-proportions">
-<h2>Adjusting proportions<a class="headerlink" href="#adjusting-proportions" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="adjusting-proportions">
+<h2>Adjusting proportions<a class="headerlink" href="#adjusting-proportions" title="Link to this heading">#</a></h2>
 <p>In the previous figure, the panels are all the same size.  To get a better view of GD-1, we’d like to stretch the panels on the left and compress the ones on the right.</p>
 <p>To do that, we’ll use the <code class="docutils literal notranslate"><span class="pre">colspan</span></code> argument to make a panel that spans multiple columns in the grid.</p>
 <p>In the following example, <code class="docutils literal notranslate"><span class="pre">shape</span></code> is <code class="docutils literal notranslate"><span class="pre">(2,</span> <span class="pre">4)</span></code>, which means 2 rows and 4 columns.</p>
@@ -1026,7 +1077,7 @@
 <span class="n">plt</span><span class="o">.</span><span class="n">subplot2grid</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
 <span class="n">plot_cmd</span><span class="p">(</span><span class="n">candidate_df</span><span class="p">)</span>
 <span class="n">poly</span> <span class="o">=</span> <span class="n">Polygon</span><span class="p">(</span><span class="n">loop_df</span><span class="p">,</span> <span class="n">closed</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> 
-               <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;C1&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
+               <span class="n">facecolor</span><span class="o">=</span><span class="s1">'C1'</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">poly</span><span class="p">)</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
@@ -1034,14 +1085,19 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/07_plot_72_0.png" src="_images/07_plot_72_0.png" />
+<img alt="_images/4b6db2c5ad82a975e65392cde1030684a83cf799b84c88f0d11ddfb22b656567.png" src="_images/4b6db2c5ad82a975e65392cde1030684a83cf799b84c88f0d11ddfb22b656567.png" />
 </div>
 </div>
 <p>This is looking more and more like the figure in the paper.</p>
-<div class="section" id="id4">
-<h3>Exercise<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<section id="id4">
+<h3>Exercise<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
 <p>In this example, the ratio of the widths of the panels is 3:1.  How would you adjust it if you wanted the ratio to be 3:2?</p>
 <div class="cell tag_hide-cell docutils container">
+<details class="admonition hide above-input">
+<summary aria-label="Toggle hidden content">
+<p class="collapsed admonition-title">Show code cell content</p>
+<p class="expanded admonition-title">Hide code cell content</p>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
 
@@ -1060,31 +1116,35 @@
 <span class="c1"># plt.subplot2grid(shape, (1, 3), colspan=2)       # CHANGED</span>
 <span class="c1"># plot_cmd(candidate_df)</span>
 <span class="c1"># poly = Polygon(coords, closed=True, </span>
-<span class="c1">#                facecolor=&#39;C1&#39;, alpha=0.4)</span>
+<span class="c1">#                facecolor='C1', alpha=0.4)</span>
 <span class="c1"># plt.gca().add_patch(poly)</span>
 
 <span class="c1"># plt.tight_layout()</span>
 </pre></div>
 </div>
 </div>
+</details>
 </div>
-</div>
-</div>
-<div class="section" id="summary">
-<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Link to this heading">#</a></h2>
 <p>In this notebook, we reverse-engineered the figure we’ve been replicating, identifying elements that seem effective and others that could be improved.</p>
 <p>We explored features Matplotlib provides for adding annotations to figures – including text, lines, arrows, and polygons – and several ways to customize the appearance of figures.  And we learned how to create figures that contain multiple panels.</p>
-</div>
-<div class="section" id="best-practices">
-<h2>Best practices<a class="headerlink" href="#best-practices" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="best-practices">
+<h2>Best practices<a class="headerlink" href="#best-practices" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>The most effective figures focus on telling a single story clearly and compellingly.</p></li>
 <li><p>Consider using annotations to guide the reader’s attention to the most important elements of a figure.</p></li>
 <li><p>The default Matplotlib style generates good quality figures, but there are several ways you can override the defaults.</p></li>
 <li><p>If you find yourself making the same customizations on several projects, you might want to create your own style sheet.</p></li>
 </ul>
-</div>
-</div>
+<p>Copyright 2020–2026 Allen Downey</p>
+<p>Code license: <a class="reference external" href="https://opensource.org/license/MIT">MIT License</a></p>
+<p>Text license: <a class="reference external" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International</a></p>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -1098,7 +1158,7 @@
             mode: "python"
         },
         kernelOptions: {
-            kernelName: "python3",
+            name: "python3",
             path: "./."
         },
         predefinedOutput: true
@@ -1106,37 +1166,130 @@
     </script>
     <script>kernelName = 'python3'</script>
 
-              </div>
+                </article>
               
-        </div>
-    </div>
-    
-    
-    <div class='prev-next-bottom'>
-        
-    <a class='left-prev' id="prev-link" href="06_photo.html" title="previous page">6. Photometry</a>
 
-    </div>
-    <footer class="footer mt-5 mt-md-0">
-    <div class="container">
-      <p>
-        
-          By Allen B. Downey<br/>
-        
-            &copy; Copyright 2020.<br/>
-      </p>
-    </div>
-  </footer>
-</main>
-
-
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="06_photo.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">6. Photometry</p>
       </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#outline">Outline</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#making-figures-that-tell-a-story">Making Figures That Tell a Story</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise">Exercise</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plotting-gd-1">Plotting GD-1</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#annotations">Annotations</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Exercise</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#customization">Customization</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Exercise</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rcparams">rcParams</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#style-sheets">Style sheets</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#latex-fonts">LaTeX fonts</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multiple-panels">Multiple panels</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#upper-right">Upper right</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#upper-left">Upper left</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lower-right">Lower right</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Exercise</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#subplots">Subplots</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adjusting-proportions">Adjusting proportions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Exercise</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#best-practices">Best practices</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Allen B. Downey
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <script>new Image().src="https://greenteapress.com/gh.gif?u="+encodeURIComponent(location.href)+"&r="+encodeURIComponent(document.referrer)</script>
+
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
     </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
 
-    
-  <script src="_static/js/index.30270b6e4c972e43c488.js"></script>
-
-
-    
+  <footer class="bd-footer">
+  </footer>
   </body>
 </html>

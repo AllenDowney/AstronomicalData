@@ -1,323 +1,381 @@
 
 <!DOCTYPE html>
 
-<html>
+
+<html lang="en" data-content_root="./" >
+
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta content="Select GD-1 stars by photometry: a color-magnitude diagram, a MIST isochrone, and a polygon around it that picks out stars of the right age and metallicity." name="description" />
+<meta property="og:title" content="6. Photometry" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://allendowney.github.io/AstronomicalData/06_photo.html" />
+<meta property="og:site_name" content="Astronomical Data in Python" />
+<meta property="og:description" content="Select GD-1 stars by photometry: a color-magnitude diagram, a MIST isochrone, and a polygon around it that picks out stars of the right age and metallicity." />
+<meta property="og:image" content="https://allendowney.github.io/AstronomicalData/gd1_figure.png" />
+<meta property="og:image:alt" content="Positions, proper motions, and colors of GD-1 stars selected from Gaia and Pan-STARRS data" />
+
     <title>6. Photometry &#8212; Astronomical Data in Python</title>
-    
-  <link rel="stylesheet" href="_static/css/index.d431a4ee1c1efae0e38bdfebc22debff.css">
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
 
-    
-  <link rel="stylesheet"
-    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
-    
-      
-  <link rel="stylesheet"
-    href="_static/vendor/open-sans_all/1.44.1/index.css">
-  <link rel="stylesheet"
-    href="_static/vendor/lato_latin-ext/1.44.1/index.css">
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    
-    <link rel="stylesheet" href="_static/sphinx-book-theme.bfb7730f9caf2ec0b46a44615585038c.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
-    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
-    
-  <link rel="preload" as="script" href="_static/js/index.30270b6e4c972e43c488.js">
-
-    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/language_data.js"></script>
-    <script src="_static/togglebutton.js"></script>
-    <script src="_static/clipboard.min.js"></script>
-    <script src="_static/copybutton.js"></script>
-    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="_static/sphinx-book-theme.be0a4a0c39cd630af62a2fcf693f3f06.js"></script>
-    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
-    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
-    <script >
-        const thebe_selector = ".thebe"
-        const thebe_selector_input = "pre"
-        const thebe_selector_output = ".output"
-    </script>
-    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '06_photo';</script>
+    <link rel="canonical" href="https://allendowney.github.io/AstronomicalData/06_photo.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="7. Visualization" href="07_plot.html" />
     <link rel="prev" title="5. Joining Tables" href="05_join.html" />
-
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="en" />
-
-
-
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
-    
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-    <div class="container-xl">
-      <div class="row">
-          
-<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
-    
-        <div class="navbar-brand-box">
-<a class="navbar-brand text-wrap" href="index.html">
   
   
-  <h1 class="site-logo" id="site-title">Astronomical Data in Python</h1>
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
   
-</a>
-</div>
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
-<form class="bd-search d-flex align-items-center" action="search.html" method="get">
-  <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
 </form>
+  </dialog>
 
-<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
-  <ul class="nav sidenav_l1">
- <li class="toctree-l1">
-  <a class="reference internal" href="README.html">
-   Astronomical Data in Python
-  </a>
- </li>
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Astronomical Data in Python</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="index.html">
+                    Astronomical Data in Python: Notebooks
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="01_query.html">1. Queries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02_coords.html">2. Coordinates and Units</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03_motion.html">3. Proper Motion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04_select.html">4. Transformation and Selection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05_join.html">5. Joining Tables</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">6. Photometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07_plot.html">7. Visualization</a></li>
 </ul>
-<ul class="current nav sidenav_l1">
- <li class="toctree-l1">
-  <a class="reference internal" href="01_query.html">
-   1. Queries
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="02_coords.html">
-   2. Coordinates and Units
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="03_motion.html">
-   3. Proper Motion
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="04_select.html">
-   4. Transformation and Selection
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="05_join.html">
-   5. Joining Tables
-  </a>
- </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
-   6. Photometry
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="07_plot.html">
-   7. Visualization
-  </a>
- </li>
-</ul>
-
-</nav>
-
- <!-- To handle the deprecated key -->
-
-<div class="navbar_extra_footer">
-  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-</div>
-
-</div>
-
-
-          
-
-
-          
-<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
-    
-    <div class="row topbar fixed-top container-xl">
-    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
-    </div>
-    <div class="col pl-2 topbar-main">
-        
-        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
-            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
-            <i class="fas fa-bars"></i>
-            <i class="fas fa-arrow-left"></i>
-            <i class="fas fa-arrow-up"></i>
-        </button>
-        
-        <div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
-            class="fas fa-download"></i></button>
-
-    
-    <div class="dropdown-buttons">
-        <!-- ipynb file if we had a myst markdown file -->
-        
-        <!-- Download raw file -->
-        <a class="dropdown-buttons" href="_sources/06_photo.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.ipynb</button></a>
-        <!-- Download PDF via print -->
-        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
-    </div>
-    
-</div>
-        <!-- Source interaction buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
-    <div class="dropdown-buttons sourcebuttons">
-        <a class="repository-button"
-            href="https://github.com/AllenDowney/AstronomicalData"><button type="button" class="btn btn-secondary topbarbtn"
-                data-toggle="tooltip" data-placement="left" title="Source repository"><i
-                    class="fab fa-github"></i>repository</button></a>
-        
-        
-    </div>
-</div>
-
-
-        <!-- Full screen (wrap in <a> to have style consistency -->
-        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-                data-placement="bottom" onclick="toggleFullScreen()" title="Fullscreen mode"><i
-                    class="fas fa-expand"></i></button></a>
-
-        <!-- Launch buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
-    <div class="dropdown-buttons">
-        
-        <a class="binder-button" href="https://mybinder.org/v2/gh/AllenDowney/AstronomicalData/master?urlpath=tree/06_photo.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
-                data-placement="left"><img class="binder-button-logo"
-                    src="_static/images/logo_binder.svg"
-                    alt="Interact on binder">Binder</button></a>
-        
-        
-        
-        <a class="colab-button" href="https://colab.research.google.com/github/AllenDowney/AstronomicalData/blob/master/06_photo.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
-                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
-                    src="_static/images/logo_colab.png"
-                    alt="Interact on Colab">Colab</button></a>
-        
-        
-    </div>
-</div>
 
     </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
 
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/AllenDowney/AstronomicalData" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/06_photo.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>6. Photometry</h1>
     <!-- Table of contents -->
-    <div class="d-none d-md-block col-md-2 bd-toc show">
-        
-        <div class="tocsection onthispage pt-5 pb-3">
-            <i class="fas fa-list"></i> Contents
-        </div>
-        <nav id="bd-toc-nav">
-            <ul class="nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#outline">
-   Outline
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#reload-the-data">
-   Reload the data
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#plotting-photometry-data">
-   Plotting photometry data
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#isochrone">
-   Isochrone
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#making-a-polygon">
-   Making a polygon
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#which-points-are-in-the-polygon">
-   Which points are in the polygon?
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#save-the-polygon">
-   Save the polygon
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#selecting-based-on-photometry">
-   Selecting based on photometry
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#write-the-data">
-   Write the data
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#summary">
-   Summary
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#best-practices">
-   Best practices
-  </a>
- </li>
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#outline">Outline</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reload-the-data">Reload the data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plotting-photometry-data">Plotting photometry data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#isochrone">Isochrone</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#making-a-polygon">Making a polygon</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#which-points-are-in-the-polygon">Which points are in the polygon?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#save-the-polygon">Save the polygon</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#selecting-based-on-photometry">Selecting based on photometry</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#write-the-data">Write the data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#best-practices">Best practices</a></li>
 </ul>
-
-        </nav>
-        
+            </nav>
+        </div>
     </div>
 </div>
-    <div id="main-content" class="row">
-        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
-        
-              <div>
+
+              
                 
-  <div class="section" id="photometry">
-<h1>6. Photometry<a class="headerlink" href="#photometry" title="Permalink to this headline">¶</a></h1>
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="photometry">
+<h1>6. Photometry<a class="headerlink" href="#photometry" title="Link to this heading">#</a></h1>
+<p><a class="reference external" href="https://colab.research.google.com/github/AllenDowney/AstronomicalData/blob/main/soln/06_photo.ipynb">Click here to run this notebook on Colab</a>.</p>
 <p>This is the sixth in a series of notebooks related to astronomy data.</p>
-<p>As a continuing example, we will replicate part of the analysis in a recent paper, “<a class="reference external" href="https://arxiv.org/abs/1805.00425">Off the beaten path: Gaia reveals GD-1 stars outside of the main stream</a>” by Adrian M. Price-Whelan and Ana Bonaca.</p>
+<p>As a continuing example, we will replicate part of the analysis in a 2018 paper, “<a class="reference external" href="https://arxiv.org/abs/1805.00425">Off the beaten path: Gaia reveals GD-1 stars outside of the main stream</a>” by Adrian M. Price-Whelan and Ana Bonaca.</p>
 <p>In the previous lesson we downloaded photometry data from Pan-STARRS, which is available from the same server we’ve been using to get Gaia data.</p>
 <p>The next step in the analysis is to select candidate stars based on the photometry data.<br />
 The following figure from the paper is a color-magnitude diagram showing the stars we previously selected based on proper motion:</p>
-<a class="reference internal image-reference" href="https://github.com/datacarpentry/astronomy-python/raw/gh-pages/fig/gd1-3.png"><img alt="https://github.com/datacarpentry/astronomy-python/raw/gh-pages/fig/gd1-3.png" src="https://github.com/datacarpentry/astronomy-python/raw/gh-pages/fig/gd1-3.png" style="width: 300px;" /></a>
+<img width="300" src="https://github.com/datacarpentry/astronomy-python/raw/gh-pages/fig/gd1-3.png">
 <p>In red is a theoretical isochrone, showing where we expect the stars in GD-1 to fall based on the metallicity and age of their original globular cluster.</p>
 <p>By selecting stars in the shaded area, we can further distinguish the main sequence of GD-1 from mostly younger background stars.</p>
-<div class="section" id="outline">
-<h2>Outline<a class="headerlink" href="#outline" title="Permalink to this headline">¶</a></h2>
+<section id="outline">
+<h2>Outline<a class="headerlink" href="#outline" title="Link to this heading">#</a></h2>
 <p>Here are the steps in this notebook:</p>
-<ol class="simple">
+<ol class="arabic simple">
 <li><p>We’ll reload the data from the previous notebook and make a color-magnitude diagram.</p></li>
 <li><p>We’ll use an isochrone computed by MIST to specify a polygonal region in the color-magnitude diagram and select the stars inside it.</p></li>
 </ol>
@@ -326,23 +384,23 @@ The following figure from the paper is a color-magnitude diagram showing the sta
 <li><p>Use Matplotlib to specify a <code class="docutils literal notranslate"><span class="pre">Polygon</span></code> and determine which points fall inside it.</p></li>
 <li><p>Use Pandas to merge data from multiple <code class="docutils literal notranslate"><span class="pre">DataFrames</span></code>, much like a database <code class="docutils literal notranslate"><span class="pre">JOIN</span></code> operation.</p></li>
 </ul>
-</div>
-<div class="section" id="reload-the-data">
-<h2>Reload the data<a class="headerlink" href="#reload-the-data" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="reload-the-data">
+<h2>Reload the data<a class="headerlink" href="#reload-the-data" title="Link to this heading">#</a></h2>
 <p>You can <a class="reference external" href="https://github.com/AllenDowney/AstronomicalData/raw/main/data/gd1_data.hdf">download the data from the previous lesson</a> or run the following cell, which downloads it if necessary.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">basename</span><span class="p">,</span> <span class="n">exists</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">os.path</span><span class="w"> </span><span class="kn">import</span> <span class="n">basename</span><span class="p">,</span> <span class="n">exists</span>
 
-<span class="k">def</span> <span class="nf">download</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">download</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
     <span class="n">filename</span> <span class="o">=</span> <span class="n">basename</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">exists</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
-        <span class="kn">from</span> <span class="nn">urllib.request</span> <span class="kn">import</span> <span class="n">urlretrieve</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">urllib.request</span><span class="w"> </span><span class="kn">import</span> <span class="n">urlretrieve</span>
         <span class="n">local</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">urlretrieve</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Downloaded &#39;</span> <span class="o">+</span> <span class="n">local</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">'Downloaded '</span> <span class="o">+</span> <span class="n">local</span><span class="p">)</span>
 
-<span class="n">download</span><span class="p">(</span><span class="s1">&#39;https://github.com/AllenDowney/AstronomicalData/raw/main/&#39;</span> <span class="o">+</span>
-         <span class="s1">&#39;data/gd1_data.hdf&#39;</span><span class="p">)</span>
+<span class="n">download</span><span class="p">(</span><span class="s1">'https://github.com/AllenDowney/AstronomicalData/raw/main/'</span> <span class="o">+</span>
+         <span class="s1">'data/gd1_data.hdf'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -350,19 +408,22 @@ The following figure from the paper is a color-magnitude diagram showing the sta
 <p>Now we can reload <code class="docutils literal notranslate"><span class="pre">candidate_df</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 
-<span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;gd1_data.hdf&#39;</span>
-<span class="n">candidate_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_hdf</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;candidate_df&#39;</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">legacy</span><span class="o">=</span><span class="s1">'1.25'</span><span class="p">)</span>
+
+<span class="n">filename</span> <span class="o">=</span> <span class="s1">'gd1_data.hdf'</span>
+<span class="n">candidate_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_hdf</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">'candidate_df'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="plotting-photometry-data">
-<h2>Plotting photometry data<a class="headerlink" href="#plotting-photometry-data" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="plotting-photometry-data">
+<h2>Plotting photometry data<a class="headerlink" href="#plotting-photometry-data" title="Link to this heading">#</a></h2>
 <p>Now that we have photometry data from Pan-STARRS, we can replicate the <a class="reference external" href="https://en.wikipedia.org/wiki/Galaxy_color%E2%80%93magnitude_diagram">color-magnitude diagram</a> from the original paper:</p>
-<a class="reference internal image-reference" href="https://github.com/datacarpentry/astronomy-python/raw/gh-pages/fig/gd1-3.png"><img alt="https://github.com/datacarpentry/astronomy-python/raw/gh-pages/fig/gd1-3.png" src="https://github.com/datacarpentry/astronomy-python/raw/gh-pages/fig/gd1-3.png" style="width: 300px;" /></a>
+<img width="300" src="https://github.com/datacarpentry/astronomy-python/raw/gh-pages/fig/gd1-3.png">
 <p>The y-axis shows the apparent magnitude of each source with the <a class="reference external" href="https://en.wikipedia.org/wiki/Photometric_system">g filter</a>.</p>
 <p>The x-axis shows the difference in apparent magnitude between the g and i filters, which indicates color.</p>
 <p>Stars with lower values of (g-i) are brighter in g-band than in i-band, compared to other stars, which means they are bluer.</p>
@@ -372,31 +433,31 @@ The following figure from the paper is a color-magnitude diagram showing the sta
 The input can be an Astropy <code class="docutils literal notranslate"><span class="pre">Table</span></code> or Pandas <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>, as long as it has columns named <code class="docutils literal notranslate"><span class="pre">g_mean_psf_mag</span></code> and <code class="docutils literal notranslate"><span class="pre">i_mean_psf_mag</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 
-<span class="k">def</span> <span class="nf">plot_cmd</span><span class="p">(</span><span class="n">table</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Plot a color magnitude diagram.</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_cmd</span><span class="p">(</span><span class="n">table</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Plot a color magnitude diagram.</span>
 <span class="sd">    </span>
 <span class="sd">    table: Table or DataFrame with photometry data</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">y</span> <span class="o">=</span> <span class="n">table</span><span class="p">[</span><span class="s1">&#39;g_mean_psf_mag&#39;</span><span class="p">]</span>
-    <span class="n">x</span> <span class="o">=</span> <span class="n">table</span><span class="p">[</span><span class="s1">&#39;g_mean_psf_mag&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">table</span><span class="p">[</span><span class="s1">&#39;i_mean_psf_mag&#39;</span><span class="p">]</span>
+<span class="sd">    """</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">table</span><span class="p">[</span><span class="s1">'g_mean_psf_mag'</span><span class="p">]</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">table</span><span class="p">[</span><span class="s1">'g_mean_psf_mag'</span><span class="p">]</span> <span class="o">-</span> <span class="n">table</span><span class="p">[</span><span class="s1">'i_mean_psf_mag'</span><span class="p">]</span>
 
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">&#39;ko&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">'ko'</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
 
     <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">])</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">([</span><span class="mi">14</span><span class="p">,</span> <span class="mi">22</span><span class="p">])</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">invert_yaxis</span><span class="p">()</span>
 
-    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$Magnitude (g)$&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$Color (g-i)$&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'$Magnitude (g)$'</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'$Color (g-i)$'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">plot_cmd</span></code> uses a new function, <code class="docutils literal notranslate"><span class="pre">invert_yaxis</span></code>, to invert the <code class="docutils literal notranslate"><span class="pre">y</span></code> axis, which is conventional when plotting magnitudes, since lower magnitude indicates higher brightness.</p>
 <p><code class="docutils literal notranslate"><span class="pre">invert_yaxis</span></code> is a little different from the other functions we’ve used.  You can’t call it like this:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">invert_yaxis</span><span class="p">()</span>          <span class="c1"># doesn&#39;t work</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">invert_yaxis</span><span class="p">()</span>          <span class="c1"># doesn't work</span>
 </pre></div>
 </div>
 <p>You have to call it like this:</p>
@@ -413,17 +474,17 @@ The input can be an Astropy <code class="docutils literal notranslate"><span cla
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/06_photo_12_0.png" src="_images/06_photo_12_0.png" />
+<img alt="_images/64f747fd3eb0d36f6d2d2d499da6a4574ecf23081138f4a89240e0b493a4f19f.png" src="_images/64f747fd3eb0d36f6d2d2d499da6a4574ecf23081138f4a89240e0b493a4f19f.png" />
 </div>
 </div>
 <p>Our figure does not look exactly like the one in the paper because we are working with a smaller region of the sky, so we don’t have as many stars.  But we can see an overdense region in the lower left that contains stars with the photometry we expect for GD-1.</p>
 <p>In the next section we’ll use an isochrone to specify a polygon that contains this overdense regioin.</p>
-</div>
-<div class="section" id="isochrone">
-<h2>Isochrone<a class="headerlink" href="#isochrone" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="isochrone">
+<h2>Isochrone<a class="headerlink" href="#isochrone" title="Link to this heading">#</a></h2>
 <p>Based on our best estimates for the ages of the stars in GD-1 and their metallicity, we can compute a <a class="reference external" href="https://en.wikipedia.org/wiki/Stellar_isochrone">stellar isochrone</a> that predicts the relationship between their magnitude and color.</p>
-<p>In fact, we can use <a class="reference external" href="http://waps.cfa.harvard.edu/MIST/">MESA Isochrones &amp; Stellar Tracks</a> (MIST) to compute it for us.</p>
-<p>Using the <a class="reference external" href="http://waps.cfa.harvard.edu/MIST/interp_isos.html">MIST Version 1.2 web interface</a>, we computed an isochrone with the following parameters:</p>
+<p>In fact, we can use <a class="reference external" href="https://mist.science/">MESA Isochrones &amp; Stellar Tracks</a> (MIST) to compute it for us.</p>
+<p>Using the <a class="reference external" href="https://mist.science/interp_isos.html">MIST Version 1.2 web interface</a>, we computed an isochrone with the following parameters:</p>
 <ul class="simple">
 <li><p>Rotation initial v/v_crit = 0.4</p></li>
 <li><p>Single age, linear scale = 12e9</p></li>
@@ -434,8 +495,13 @@ The input can be an Astropy <code class="docutils literal notranslate"><span cla
 <p>The following cell downloads the results:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">download</span><span class="p">(</span><span class="s1">&#39;https://github.com/AllenDowney/AstronomicalData/raw/main/&#39;</span> <span class="o">+</span>
-         <span class="s1">&#39;data/MIST_iso_5fd2532653c27.iso.cmd&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">download</span><span class="p">(</span><span class="s1">'https://github.com/AllenDowney/AstronomicalData/raw/main/'</span> <span class="o">+</span>
+         <span class="s1">'data/MIST_iso_5fd2532653c27.iso.cmd'</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Downloaded MIST_iso_5fd2532653c27.iso.cmd
 </pre></div>
 </div>
 </div>
@@ -443,8 +509,13 @@ The input can be an Astropy <code class="docutils literal notranslate"><span cla
 <p>To read this file we’ll download a Python module <a class="reference external" href="https://github.com/jieunchoi/MIST_codes">from this repository</a>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">download</span><span class="p">(</span><span class="s1">&#39;https://github.com/jieunchoi/MIST_codes/raw/master/scripts/&#39;</span> <span class="o">+</span>
-         <span class="s1">&#39;read_mist_models.py&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">download</span><span class="p">(</span><span class="s1">'https://github.com/jieunchoi/MIST_codes/raw/master/scripts/'</span> <span class="o">+</span>
+         <span class="s1">'read_mist_models.py'</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Downloaded read_mist_models.py
 </pre></div>
 </div>
 </div>
@@ -452,9 +523,9 @@ The input can be an Astropy <code class="docutils literal notranslate"><span cla
 <p>Now we can read the file:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">read_mist_models</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">read_mist_models</span>
 
-<span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;MIST_iso_5fd2532653c27.iso.cmd&#39;</span>
+<span class="n">filename</span> <span class="o">=</span> <span class="s1">'MIST_iso_5fd2532653c27.iso.cmd'</span>
 <span class="n">iso</span> <span class="o">=</span> <span class="n">read_mist_models</span><span class="o">.</span><span class="n">ISOCMD</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -533,7 +604,7 @@ The input can be an Astropy <code class="docutils literal notranslate"><span cla
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>dtype([(&#39;EEP&#39;, &#39;&lt;i4&#39;), (&#39;isochrone_age_yr&#39;, &#39;&lt;f8&#39;), (&#39;initial_mass&#39;, &#39;&lt;f8&#39;), (&#39;star_mass&#39;, &#39;&lt;f8&#39;), (&#39;log_Teff&#39;, &#39;&lt;f8&#39;), (&#39;log_g&#39;, &#39;&lt;f8&#39;), (&#39;log_L&#39;, &#39;&lt;f8&#39;), (&#39;[Fe/H]_init&#39;, &#39;&lt;f8&#39;), (&#39;[Fe/H]&#39;, &#39;&lt;f8&#39;), (&#39;PS_g&#39;, &#39;&lt;f8&#39;), (&#39;PS_r&#39;, &#39;&lt;f8&#39;), (&#39;PS_i&#39;, &#39;&lt;f8&#39;), (&#39;PS_z&#39;, &#39;&lt;f8&#39;), (&#39;PS_y&#39;, &#39;&lt;f8&#39;), (&#39;PS_w&#39;, &#39;&lt;f8&#39;), (&#39;PS_open&#39;, &#39;&lt;f8&#39;), (&#39;phase&#39;, &#39;&lt;f8&#39;)])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>dtype([('EEP', '&lt;i4'), ('isochrone_age_yr', '&lt;f8'), ('initial_mass', '&lt;f8'), ('star_mass', '&lt;f8'), ('log_Teff', '&lt;f8'), ('log_g', '&lt;f8'), ('log_L', '&lt;f8'), ('[Fe/H]_init', '&lt;f8'), ('[Fe/H]', '&lt;f8'), ('PS_g', '&lt;f8'), ('PS_r', '&lt;f8'), ('PS_i', '&lt;f8'), ('PS_z', '&lt;f8'), ('PS_y', '&lt;f8'), ('PS_w', '&lt;f8'), ('PS_open', '&lt;f8'), ('phase', '&lt;f8')])
 </pre></div>
 </div>
 </div>
@@ -541,7 +612,7 @@ The input can be an Astropy <code class="docutils literal notranslate"><span cla
 <p>Which means we can select columns using the bracket operator:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">iso_array</span><span class="p">[</span><span class="s1">&#39;phase&#39;</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">iso_array</span><span class="p">[</span><span class="s1">'phase'</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
@@ -554,7 +625,7 @@ The input can be an Astropy <code class="docutils literal notranslate"><span cla
 <p>We can use <code class="docutils literal notranslate"><span class="pre">phase</span></code> to select the part of the isochrone for stars in the main sequence and red giant phases.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">phase_mask</span> <span class="o">=</span> <span class="p">(</span><span class="n">iso_array</span><span class="p">[</span><span class="s1">&#39;phase&#39;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">iso_array</span><span class="p">[</span><span class="s1">&#39;phase&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">phase_mask</span> <span class="o">=</span> <span class="p">(</span><span class="n">iso_array</span><span class="p">[</span><span class="s1">'phase'</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">iso_array</span><span class="p">[</span><span class="s1">'phase'</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">)</span>
 <span class="n">phase_mask</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -583,8 +654,8 @@ The input can be an Astropy <code class="docutils literal notranslate"><span cla
 <p>We can use the <code class="docutils literal notranslate"><span class="pre">Distance</span></code> object from Astropy to compute the distance modulus.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">astropy.coordinates</span> <span class="k">as</span> <span class="nn">coord</span>
-<span class="kn">import</span> <span class="nn">astropy.units</span> <span class="k">as</span> <span class="nn">u</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">astropy.coordinates</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">coord</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">astropy.units</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">u</span>
 
 <span class="n">distance</span> <span class="o">=</span> <span class="mf">7.8</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">kpc</span>
 <span class="n">distmod</span> <span class="o">=</span> <span class="n">coord</span><span class="o">.</span><span class="n">Distance</span><span class="p">(</span><span class="n">distance</span><span class="p">)</span><span class="o">.</span><span class="n">distmod</span><span class="o">.</span><span class="n">value</span>
@@ -601,8 +672,8 @@ The input can be an Astropy <code class="docutils literal notranslate"><span cla
 <p>Now we can compute the scaled magnitude and color of the isochrone.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mag_g</span> <span class="o">=</span> <span class="n">main_sequence</span><span class="p">[</span><span class="s1">&#39;PS_g&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">distmod</span>
-<span class="n">color_g_i</span> <span class="o">=</span> <span class="n">main_sequence</span><span class="p">[</span><span class="s1">&#39;PS_g&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">main_sequence</span><span class="p">[</span><span class="s1">&#39;PS_i&#39;</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mag_g</span> <span class="o">=</span> <span class="n">main_sequence</span><span class="p">[</span><span class="s1">'PS_g'</span><span class="p">]</span> <span class="o">+</span> <span class="n">distmod</span>
+<span class="n">color_g_i</span> <span class="o">=</span> <span class="n">main_sequence</span><span class="p">[</span><span class="s1">'PS_g'</span><span class="p">]</span> <span class="o">-</span> <span class="n">main_sequence</span><span class="p">[</span><span class="s1">'PS_i'</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
@@ -616,7 +687,7 @@ The input can be an Astropy <code class="docutils literal notranslate"><span cla
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/06_photo_42_0.png" src="_images/06_photo_42_0.png" />
+<img alt="_images/4d0cabc696b089b3cdd4189e5e2f8c29e8b535e9c93e8b522f3c3b22dc59b6a7.png" src="_images/4d0cabc696b089b3cdd4189e5e2f8c29e8b535e9c93e8b522f3c3b22dc59b6a7.png" />
 </div>
 </div>
 <p>The theoretical isochrone passes through the overdense region where we expect to find stars in GD-1.</p>
@@ -624,11 +695,11 @@ The input can be an Astropy <code class="docutils literal notranslate"><span cla
 <p>So we can save the data in an HDF5 file, we’ll put it in a Pandas <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> first:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 
 <span class="n">iso_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
-<span class="n">iso_df</span><span class="p">[</span><span class="s1">&#39;mag_g&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">mag_g</span>
-<span class="n">iso_df</span><span class="p">[</span><span class="s1">&#39;color_g_i&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">color_g_i</span>
+<span class="n">iso_df</span><span class="p">[</span><span class="s1">'mag_g'</span><span class="p">]</span> <span class="o">=</span> <span class="n">mag_g</span>
+<span class="n">iso_df</span><span class="p">[</span><span class="s1">'color_g_i'</span><span class="p">]</span> <span class="o">=</span> <span class="n">color_g_i</span>
 
 <span class="n">iso_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
@@ -690,20 +761,20 @@ The input can be an Astropy <code class="docutils literal notranslate"><span cla
 <p>And then save it.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;gd1_isochrone.hdf5&#39;</span>
-<span class="n">iso_df</span><span class="o">.</span><span class="n">to_hdf</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;iso_df&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">filename</span> <span class="o">=</span> <span class="s1">'gd1_isochrone.hdf5'</span>
+<span class="n">iso_df</span><span class="o">.</span><span class="n">to_hdf</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="s1">'iso_df'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="making-a-polygon">
-<h2>Making a polygon<a class="headerlink" href="#making-a-polygon" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="making-a-polygon">
+<h2>Making a polygon<a class="headerlink" href="#making-a-polygon" title="Link to this heading">#</a></h2>
 <p>The following cell downloads the isochrone we made in the previous section, if necessary.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">download</span><span class="p">(</span><span class="s1">&#39;https://github.com/AllenDowney/AstronomicalData/raw/main/data/&#39;</span> <span class="o">+</span>
-         <span class="s1">&#39;gd1_isochrone.hdf5&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">download</span><span class="p">(</span><span class="s1">'https://github.com/AllenDowney/AstronomicalData/raw/main/data/'</span> <span class="o">+</span>
+         <span class="s1">'gd1_isochrone.hdf5'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -711,8 +782,8 @@ The input can be an Astropy <code class="docutils literal notranslate"><span cla
 <p>Now we can read it back in.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;gd1_isochrone.hdf5&#39;</span>
-<span class="n">iso_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_hdf</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;iso_df&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">filename</span> <span class="o">=</span> <span class="s1">'gd1_isochrone.hdf5'</span>
+<span class="n">iso_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_hdf</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">'iso_df'</span><span class="p">)</span>
 <span class="n">iso_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -774,12 +845,12 @@ The input can be an Astropy <code class="docutils literal notranslate"><span cla
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_cmd</span><span class="p">(</span><span class="n">candidate_df</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">iso_df</span><span class="p">[</span><span class="s1">&#39;color_g_i&#39;</span><span class="p">],</span> <span class="n">iso_df</span><span class="p">[</span><span class="s1">&#39;mag_g&#39;</span><span class="p">]);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">iso_df</span><span class="p">[</span><span class="s1">'color_g_i'</span><span class="p">],</span> <span class="n">iso_df</span><span class="p">[</span><span class="s1">'mag_g'</span><span class="p">]);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/06_photo_52_0.png" src="_images/06_photo_52_0.png" />
+<img alt="_images/4d0cabc696b089b3cdd4189e5e2f8c29e8b535e9c93e8b522f3c3b22dc59b6a7.png" src="_images/4d0cabc696b089b3cdd4189e5e2f8c29e8b535e9c93e8b522f3c3b22dc59b6a7.png" />
 </div>
 </div>
 <p>In the bottom half of the figure, the isochrone passes through the overdense region where the stars are likely to belong to GD-1.</p>
@@ -788,7 +859,7 @@ The input can be an Astropy <code class="docutils literal notranslate"><span cla
 <p><code class="docutils literal notranslate"><span class="pre">g_mask</span></code> is a Boolean Series that is <code class="docutils literal notranslate"><span class="pre">True</span></code> where <code class="docutils literal notranslate"><span class="pre">g</span></code> is between 18.0 and 21.5.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">g</span> <span class="o">=</span> <span class="n">iso_df</span><span class="p">[</span><span class="s1">&#39;mag_g&#39;</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">g</span> <span class="o">=</span> <span class="n">iso_df</span><span class="p">[</span><span class="s1">'mag_g'</span><span class="p">]</span>
 
 <span class="n">g_mask</span> <span class="o">=</span> <span class="p">(</span><span class="n">g</span> <span class="o">&gt;</span> <span class="mf">18.0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">g</span> <span class="o">&lt;</span> <span class="mf">21.5</span><span class="p">)</span>
 <span class="n">g_mask</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
@@ -866,9 +937,9 @@ The input can be an Astropy <code class="docutils literal notranslate"><span cla
 <p>The original paper uses the following formulas to define the left and right boundaries.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">g</span> <span class="o">=</span> <span class="n">iso_masked</span><span class="p">[</span><span class="s1">&#39;mag_g&#39;</span><span class="p">]</span>
-<span class="n">left_color</span> <span class="o">=</span> <span class="n">iso_masked</span><span class="p">[</span><span class="s1">&#39;color_g_i&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="mf">0.4</span> <span class="o">*</span> <span class="p">(</span><span class="n">g</span><span class="o">/</span><span class="mi">28</span><span class="p">)</span><span class="o">**</span><span class="mi">5</span>
-<span class="n">right_color</span> <span class="o">=</span> <span class="n">iso_masked</span><span class="p">[</span><span class="s1">&#39;color_g_i&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="mf">0.8</span> <span class="o">*</span> <span class="p">(</span><span class="n">g</span><span class="o">/</span><span class="mi">28</span><span class="p">)</span><span class="o">**</span><span class="mi">5</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">g</span> <span class="o">=</span> <span class="n">iso_masked</span><span class="p">[</span><span class="s1">'mag_g'</span><span class="p">]</span>
+<span class="n">left_color</span> <span class="o">=</span> <span class="n">iso_masked</span><span class="p">[</span><span class="s1">'color_g_i'</span><span class="p">]</span> <span class="o">-</span> <span class="mf">0.4</span> <span class="o">*</span> <span class="p">(</span><span class="n">g</span><span class="o">/</span><span class="mi">28</span><span class="p">)</span><span class="o">**</span><span class="mi">5</span>
+<span class="n">right_color</span> <span class="o">=</span> <span class="n">iso_masked</span><span class="p">[</span><span class="s1">'color_g_i'</span><span class="p">]</span> <span class="o">+</span> <span class="mf">0.8</span> <span class="o">*</span> <span class="p">(</span><span class="n">g</span><span class="o">/</span><span class="mi">28</span><span class="p">)</span><span class="o">**</span><span class="mi">5</span>
 </pre></div>
 </div>
 </div>
@@ -877,9 +948,9 @@ The input can be an Astropy <code class="docutils literal notranslate"><span cla
 <p>But we can do about as well with a simpler formula:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">g</span> <span class="o">=</span> <span class="n">iso_masked</span><span class="p">[</span><span class="s1">&#39;mag_g&#39;</span><span class="p">]</span>
-<span class="n">left_color</span> <span class="o">=</span> <span class="n">iso_masked</span><span class="p">[</span><span class="s1">&#39;color_g_i&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="mf">0.06</span>
-<span class="n">right_color</span> <span class="o">=</span> <span class="n">iso_masked</span><span class="p">[</span><span class="s1">&#39;color_g_i&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="mf">0.12</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">g</span> <span class="o">=</span> <span class="n">iso_masked</span><span class="p">[</span><span class="s1">'mag_g'</span><span class="p">]</span>
+<span class="n">left_color</span> <span class="o">=</span> <span class="n">iso_masked</span><span class="p">[</span><span class="s1">'color_g_i'</span><span class="p">]</span> <span class="o">-</span> <span class="mf">0.06</span>
+<span class="n">right_color</span> <span class="o">=</span> <span class="n">iso_masked</span><span class="p">[</span><span class="s1">'color_g_i'</span><span class="p">]</span> <span class="o">+</span> <span class="mf">0.12</span>
 </pre></div>
 </div>
 </div>
@@ -889,36 +960,36 @@ The input can be an Astropy <code class="docutils literal notranslate"><span cla
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_cmd</span><span class="p">(</span><span class="n">candidate_df</span><span class="p">)</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">left_color</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;left color&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">right_color</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;right color&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">left_color</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'left color'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">right_color</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'right color'</span><span class="p">)</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/06_photo_62_0.png" src="_images/06_photo_62_0.png" />
+<img alt="_images/7eb0520bd3942f5ed6f4fdf58febd429c60bd0b3822d203f8efea3d781e0cc68.png" src="_images/7eb0520bd3942f5ed6f4fdf58febd429c60bd0b3822d203f8efea3d781e0cc68.png" />
 </div>
 </div>
-</div>
-<div class="section" id="which-points-are-in-the-polygon">
-<h2>Which points are in the polygon?<a class="headerlink" href="#which-points-are-in-the-polygon" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="which-points-are-in-the-polygon">
+<h2>Which points are in the polygon?<a class="headerlink" href="#which-points-are-in-the-polygon" title="Link to this heading">#</a></h2>
 <p>Matplotlib provides a <code class="docutils literal notranslate"><span class="pre">Polygon</span></code> object that we can use to check which points fall in the polygon we just constructed.</p>
 <p>To make a <code class="docutils literal notranslate"><span class="pre">Polygon</span></code>, we need to assemble <code class="docutils literal notranslate"><span class="pre">g</span></code>, <code class="docutils literal notranslate"><span class="pre">left_color</span></code>, and <code class="docutils literal notranslate"><span class="pre">right_color</span></code> into a loop, so the points in <code class="docutils literal notranslate"><span class="pre">left_color</span></code> are connected to the points of <code class="docutils literal notranslate"><span class="pre">right_color</span></code> in reverse order.</p>
 <p>We’ll use the following function, which takes two arrays and joins them front-to-back:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
-<span class="k">def</span> <span class="nf">front_to_back</span><span class="p">(</span><span class="n">first</span><span class="p">,</span> <span class="n">second</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Join two arrays front to back.&quot;&quot;&quot;</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">front_to_back</span><span class="p">(</span><span class="n">first</span><span class="p">,</span> <span class="n">second</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Join two arrays front to back."""</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">first</span><span class="p">,</span> <span class="n">second</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">front_to_back</span></code> uses a “slice index” to reverse the elements of <code class="docutils literal notranslate"><span class="pre">second</span></code>.</p>
-<p>As explained in the <a class="reference external" href="https://numpy.org/doc/stable/reference/arrays.indexing.html">NumPy documentation</a>, a slice index has three parts separated by colons:</p>
+<p>As explained in the <a class="reference external" href="https://numpy.org/doc/stable/user/basics.indexing.html">NumPy documentation</a>, a slice index has three parts separated by colons:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">start</span></code>: The index of the element where the slice starts.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">stop</span></code>: The index of the element where the slice ends.</p></li>
@@ -963,15 +1034,15 @@ The input can be an Astropy <code class="docutils literal notranslate"><span cla
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/06_photo_70_0.png" src="_images/06_photo_70_0.png" />
+<img alt="_images/dea1b47d45335319235f5b8fcb84106041ee9ef42fca80e41f1a62ff41903cc7.png" src="_images/dea1b47d45335319235f5b8fcb84106041ee9ef42fca80e41f1a62ff41903cc7.png" />
 </div>
 </div>
 <p>To make a <code class="docutils literal notranslate"><span class="pre">Polygon</span></code>, it will be convenient to put <code class="docutils literal notranslate"><span class="pre">color_loop</span></code> and <code class="docutils literal notranslate"><span class="pre">mag_loop</span></code> into a <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">loop_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
-<span class="n">loop_df</span><span class="p">[</span><span class="s1">&#39;color_loop&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">color_loop</span>
-<span class="n">loop_df</span><span class="p">[</span><span class="s1">&#39;mag_loop&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">mag_loop</span>
+<span class="n">loop_df</span><span class="p">[</span><span class="s1">'color_loop'</span><span class="p">]</span> <span class="o">=</span> <span class="n">color_loop</span>
+<span class="n">loop_df</span><span class="p">[</span><span class="s1">'mag_loop'</span><span class="p">]</span> <span class="o">=</span> <span class="n">mag_loop</span>
 <span class="n">loop_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -1032,7 +1103,7 @@ The input can be an Astropy <code class="docutils literal notranslate"><span cla
 <p>Now we can pass <code class="docutils literal notranslate"><span class="pre">loop_df</span></code> to <code class="docutils literal notranslate"><span class="pre">Polygon</span></code>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">matplotlib.patches</span> <span class="kn">import</span> <span class="n">Polygon</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib.patches</span><span class="w"> </span><span class="kn">import</span> <span class="n">Polygon</span>
 
 <span class="n">polygon</span> <span class="o">=</span> <span class="n">Polygon</span><span class="p">(</span><span class="n">loop_df</span><span class="p">)</span>
 <span class="n">polygon</span>
@@ -1040,7 +1111,7 @@ The input can be an Astropy <code class="docutils literal notranslate"><span cla
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.patches.Polygon at 0x7f439d33fdf0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.patches.Polygon at 0x7513ab812ba0&gt;
 </pre></div>
 </div>
 </div>
@@ -1071,33 +1142,33 @@ The input can be an Astropy <code class="docutils literal notranslate"><span cla
 </div>
 <p>The result is an array of Boolean values.</p>
 <p>We are almost ready to select stars whose photometry data falls in this polygon.  But first we need to do some data cleaning.</p>
-</div>
-<div class="section" id="save-the-polygon">
-<h2>Save the polygon<a class="headerlink" href="#save-the-polygon" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="save-the-polygon">
+<h2>Save the polygon<a class="headerlink" href="#save-the-polygon" title="Link to this heading">#</a></h2>
 <p><a class="reference external" href="https://en.wikipedia.org/wiki/Reproducibility#Reproducible_research">Reproducibile research</a> is “the idea that … the full computational environment used to produce the results in the paper such as the code, data, etc. can be used to reproduce the results and create new work based on the research.”</p>
-<p>This Jupyter notebook is an example of reproducible research because it contains all of the code needed to reproduce the results, including the database queries that download the data and and analysis.</p>
+<p>This Jupyter notebook is an example of reproducible research because it contains all of the code needed to reproduce the results, including the database queries that download the data and the analysis.</p>
 <p>In this lesson we used an isochrone to derive a polygon, which we used to select stars based on photometry.
 So it is important to record the polygon as part of the data analysis pipeline.</p>
 <p>Here’s how we can save it in an HDF file.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;gd1_data.hdf&#39;</span>
-<span class="n">loop_df</span><span class="o">.</span><span class="n">to_hdf</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;loop_df&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">filename</span> <span class="o">=</span> <span class="s1">'gd1_data.hdf'</span>
+<span class="n">loop_df</span><span class="o">.</span><span class="n">to_hdf</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="s1">'loop_df'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="selecting-based-on-photometry">
-<h2>Selecting based on photometry<a class="headerlink" href="#selecting-based-on-photometry" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="selecting-based-on-photometry">
+<h2>Selecting based on photometry<a class="headerlink" href="#selecting-based-on-photometry" title="Link to this heading">#</a></h2>
 <p>Now let’s see how many of the candidate stars are inside the polygon we chose.
 We’ll put color and magnitude data from <code class="docutils literal notranslate"><span class="pre">candidate_df</span></code> into a new <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">points</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
 
-<span class="n">points</span><span class="p">[</span><span class="s1">&#39;color&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">candidate_df</span><span class="p">[</span><span class="s1">&#39;g_mean_psf_mag&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">candidate_df</span><span class="p">[</span><span class="s1">&#39;i_mean_psf_mag&#39;</span><span class="p">]</span>
-<span class="n">points</span><span class="p">[</span><span class="s1">&#39;mag&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">candidate_df</span><span class="p">[</span><span class="s1">&#39;g_mean_psf_mag&#39;</span><span class="p">]</span>
+<span class="n">points</span><span class="p">[</span><span class="s1">'color'</span><span class="p">]</span> <span class="o">=</span> <span class="n">candidate_df</span><span class="p">[</span><span class="s1">'g_mean_psf_mag'</span><span class="p">]</span> <span class="o">-</span> <span class="n">candidate_df</span><span class="p">[</span><span class="s1">'i_mean_psf_mag'</span><span class="p">]</span>
+<span class="n">points</span><span class="p">[</span><span class="s1">'mag'</span><span class="p">]</span> <span class="o">=</span> <span class="n">candidate_df</span><span class="p">[</span><span class="s1">'g_mean_psf_mag'</span><span class="p">]</span>
 
 <span class="n">points</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
@@ -1129,28 +1200,28 @@ We’ll put color and magnitude data from <code class="docutils literal notransl
   <tbody>
     <tr>
       <th>0</th>
-      <td>0.3804</td>
-      <td>17.8978</td>
+      <td>0.483500</td>
+      <td>17.124599</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>1.6092</td>
-      <td>19.2873</td>
+      <td>0.443998</td>
+      <td>20.268999</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>0.4457</td>
-      <td>16.9238</td>
+      <td>0.443501</td>
+      <td>20.253401</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>1.5902</td>
-      <td>19.9242</td>
+      <td>0.435101</td>
+      <td>18.262600</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>1.4853</td>
-      <td>16.1516</td>
+      <td>1.216900</td>
+      <td>17.963400</td>
     </tr>
   </tbody>
 </table>
@@ -1165,7 +1236,7 @@ We’ll put color and magnitude data from <code class="docutils literal notransl
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([False, False, False, ..., False, False, False])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([False,  True,  True, ..., False, False, False])
 </pre></div>
 </div>
 </div>
@@ -1198,14 +1269,14 @@ We’ll put color and magnitude data from <code class="docutils literal notransl
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">color_g_i</span><span class="p">,</span> <span class="n">mag_g</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">color_loop</span><span class="p">,</span> <span class="n">mag_loop</span><span class="p">)</span>
 
-<span class="n">x</span> <span class="o">=</span> <span class="n">winner_df</span><span class="p">[</span><span class="s1">&#39;g_mean_psf_mag&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">winner_df</span><span class="p">[</span><span class="s1">&#39;i_mean_psf_mag&#39;</span><span class="p">]</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">winner_df</span><span class="p">[</span><span class="s1">&#39;g_mean_psf_mag&#39;</span><span class="p">]</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">&#39;go&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">);</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">winner_df</span><span class="p">[</span><span class="s1">'g_mean_psf_mag'</span><span class="p">]</span> <span class="o">-</span> <span class="n">winner_df</span><span class="p">[</span><span class="s1">'i_mean_psf_mag'</span><span class="p">]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">winner_df</span><span class="p">[</span><span class="s1">'g_mean_psf_mag'</span><span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">'go'</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/06_photo_91_0.png" src="_images/06_photo_91_0.png" />
+<img alt="_images/122e52afafe2a86c6a16201a3d90a2ae780d10870cefa618eb7a4e6f5003db94.png" src="_images/122e52afafe2a86c6a16201a3d90a2ae780d10870cefa618eb7a4e6f5003db94.png" />
 </div>
 </div>
 <p>It looks like the selected stars are, in fact, inside the polygon, which means they have photometry data consistent with GD-1.</p>
@@ -1214,19 +1285,19 @@ We’ll put color and magnitude data from <code class="docutils literal notransl
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mf">2.5</span><span class="p">))</span>
 
-<span class="n">x</span> <span class="o">=</span> <span class="n">winner_df</span><span class="p">[</span><span class="s1">&#39;phi1&#39;</span><span class="p">]</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">winner_df</span><span class="p">[</span><span class="s1">&#39;phi2&#39;</span><span class="p">]</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">&#39;ko&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">winner_df</span><span class="p">[</span><span class="s1">'phi1'</span><span class="p">]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">winner_df</span><span class="p">[</span><span class="s1">'phi2'</span><span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">'ko'</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;ra (degree GD1)&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;dec (degree GD1)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'ra (degree GD1)'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'dec (degree GD1)'</span><span class="p">)</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">'equal'</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/06_photo_93_0.png" src="_images/06_photo_93_0.png" />
+<img alt="_images/fb32cfc0b9272473a5084b37f52ebe28f4061c354cb36739f803c9ac82d92dcf.png" src="_images/fb32cfc0b9272473a5084b37f52ebe28f4061c354cb36739f803c9ac82d92dcf.png" />
 </div>
 </div>
 <p>This example includes two new Matplotlib commands:</p>
@@ -1235,21 +1306,21 @@ We’ll put color and magnitude data from <code class="docutils literal notransl
 <li><p><code class="docutils literal notranslate"><span class="pre">axis</span></code> with the parameter <code class="docutils literal notranslate"><span class="pre">equal</span></code> sets up the axes so a unit is the same size along the <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> axes.</p></li>
 </ul>
 <p>In an example like this, where <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> represent coordinates in space, equal axes ensures that the distance between points is represented accurately.</p>
-</div>
-<div class="section" id="write-the-data">
-<h2>Write the data<a class="headerlink" href="#write-the-data" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="write-the-data">
+<h2>Write the data<a class="headerlink" href="#write-the-data" title="Link to this heading">#</a></h2>
 <p>Finally, let’s write the selected stars to a file.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;gd1_data.hdf&#39;</span>
-<span class="n">winner_df</span><span class="o">.</span><span class="n">to_hdf</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;winner_df&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">filename</span> <span class="o">=</span> <span class="s1">'gd1_data.hdf'</span>
+<span class="n">winner_df</span><span class="o">.</span><span class="n">to_hdf</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="s1">'winner_df'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">getsize</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">os.path</span><span class="w"> </span><span class="kn">import</span> <span class="n">getsize</span>
 
 <span class="n">MB</span> <span class="o">=</span> <span class="mi">1024</span> <span class="o">*</span> <span class="mi">1024</span>
 <span class="n">getsize</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span> <span class="o">/</span> <span class="n">MB</span>
@@ -1257,26 +1328,29 @@ We’ll put color and magnitude data from <code class="docutils literal notransl
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3.6441001892089844
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4.048393249511719
 </pre></div>
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="summary">
-<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Link to this heading">#</a></h2>
 <p>In this lesson, we used photometry data from Pan-STARRS to draw a color-magnitude diagram.
 We used an isochrone to define a polygon and select stars we think are likely to be in GD-1.  Plotting the results, we have a clearer picture of GD-1, similar to Figure 1 in the original paper.</p>
-</div>
-<div class="section" id="best-practices">
-<h2>Best practices<a class="headerlink" href="#best-practices" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="best-practices">
+<h2>Best practices<a class="headerlink" href="#best-practices" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Matplotlib provides operations for working with points, polygons, and other geometric entities, so it’s not just for making figures.</p></li>
 <li><p>Use Matplotlib options to control the size and aspect ratio of figures to make them easier to interpret.  In this example, we scaled the axes so the size of a degree is equal along both axes.</p></li>
 <li><p>Record every element of the data analysis pipeline that would be needed to replicate the results.</p></li>
 </ul>
-</div>
-</div>
+<p>Copyright 2020–2026 Allen Downey</p>
+<p>Code license: <a class="reference external" href="https://opensource.org/license/MIT">MIT License</a></p>
+<p>Text license: <a class="reference external" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International</a></p>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -1290,7 +1364,7 @@ We used an isochrone to define a polygon and select stars we think are likely to
             mode: "python"
         },
         kernelOptions: {
-            kernelName: "python3",
+            name: "python3",
             path: "./."
         },
         predefinedOutput: true
@@ -1298,38 +1372,119 @@ We used an isochrone to define a polygon and select stars we think are likely to
     </script>
     <script>kernelName = 'python3'</script>
 
-              </div>
+                </article>
               
-        </div>
-    </div>
-    
-    
-    <div class='prev-next-bottom'>
-        
-    <a class='left-prev' id="prev-link" href="05_join.html" title="previous page">5. Joining Tables</a>
-    <a class='right-next' id="next-link" href="07_plot.html" title="next page">7. Visualization</a>
 
-    </div>
-    <footer class="footer mt-5 mt-md-0">
-    <div class="container">
-      <p>
-        
-          By Allen B. Downey<br/>
-        
-            &copy; Copyright 2020.<br/>
-      </p>
-    </div>
-  </footer>
-</main>
-
-
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="05_join.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">5. Joining Tables</p>
       </div>
+    </a>
+    <a class="right-next"
+       href="07_plot.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">7. Visualization</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#outline">Outline</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reload-the-data">Reload the data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plotting-photometry-data">Plotting photometry data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#isochrone">Isochrone</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#making-a-polygon">Making a polygon</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#which-points-are-in-the-polygon">Which points are in the polygon?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#save-the-polygon">Save the polygon</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#selecting-based-on-photometry">Selecting based on photometry</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#write-the-data">Write the data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#best-practices">Best practices</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Allen B. Downey
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <script>new Image().src="https://greenteapress.com/gh.gif?u="+encodeURIComponent(location.href)+"&r="+encodeURIComponent(document.referrer)</script>
+
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
     </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
 
-    
-  <script src="_static/js/index.30270b6e4c972e43c488.js"></script>
-
-
-    
+  <footer class="bd-footer">
+  </footer>
   </body>
 </html>
