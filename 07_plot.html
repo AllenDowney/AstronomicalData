@@ -540,11 +540,11 @@
 <h3>Exercise<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
 <p>Choose any or all of these features and add them to the figure:</p>
 <ul class="simple">
-<li><p>To draw vertical lines, see <a class="reference external" href="https://matplotlib.org/3.3.1/api/_as_gen/matplotlib.pyplot.vlines.html"><code class="docutils literal notranslate"><span class="pre">plt.vlines</span></code></a> and <a class="reference external" href="https://matplotlib.org/3.3.1/api/_as_gen/matplotlib.pyplot.axvline.html#matplotlib.pyplot.axvline"><code class="docutils literal notranslate"><span class="pre">plt.axvline</span></code></a>.</p></li>
-<li><p>To add text, see <a class="reference external" href="https://matplotlib.org/3.3.1/api/_as_gen/matplotlib.pyplot.text.html"><code class="docutils literal notranslate"><span class="pre">plt.text</span></code></a>.</p></li>
+<li><p>To draw vertical lines, see <a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.vlines.html"><code class="docutils literal notranslate"><span class="pre">plt.vlines</span></code></a> and <a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.axvline.html"><code class="docutils literal notranslate"><span class="pre">plt.axvline</span></code></a>.</p></li>
+<li><p>To add text, see <a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.text.html"><code class="docutils literal notranslate"><span class="pre">plt.text</span></code></a>.</p></li>
 <li><p>To add an annotation with text and an arrow, see <a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.annotate.html">plt.annotate</a>.</p></li>
 </ul>
-<p>And here is some <a class="reference external" href="https://matplotlib.org/3.3.1/tutorials/text/annotations.html#plotting-guide-annotation">additional information about text and arrows</a>.</p>
+<p>And here is some <a class="reference external" href="https://matplotlib.org/stable/users/explain/text/annotations.html">additional information about text and arrows</a>.</p>
 <div class="cell tag_hide-cell docutils container">
 <details class="admonition hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -593,7 +593,7 @@
 </div>
 <section id="id2">
 <h3>Exercise<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
-<p>Read the documentation of <a class="reference external" href="https://matplotlib.org/3.1.1/api/_as_gen/matplotlib.axes.Axes.tick_params.html"><code class="docutils literal notranslate"><span class="pre">tick_params</span></code></a> and use it to put ticks on the top and right sides of the axes.</p>
+<p>Read the documentation of <a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.tick_params.html"><code class="docutils literal notranslate"><span class="pre">tick_params</span></code></a> and use it to put ticks on the top and right sides of the axes.</p>
 <div class="cell tag_hide-cell docutils container">
 <details class="admonition hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -636,12 +636,12 @@
 </div>
 </div>
 <p>As an exercise, plot the previous figure again, and see what font sizes have changed.  Look up any other element of <code class="docutils literal notranslate"><span class="pre">rcParams</span></code>, change its value, and check the effect on the figure.</p>
-<p>If you find yourself making the same customizations in several notebooks, you can put changes to <code class="docutils literal notranslate"><span class="pre">rcParams</span></code> in a <code class="docutils literal notranslate"><span class="pre">matplotlibrc</span></code> file, <a class="reference external" href="https://matplotlib.org/3.3.1/tutorials/introductory/customizing.html#customizing-with-matplotlibrc-files">which you can read about here</a>.</p>
+<p>If you find yourself making the same customizations in several notebooks, you can put changes to <code class="docutils literal notranslate"><span class="pre">rcParams</span></code> in a <code class="docutils literal notranslate"><span class="pre">matplotlibrc</span></code> file, <a class="reference external" href="https://matplotlib.org/stable/users/explain/customizing.html#customizing-with-matplotlibrc-files">which you can read about here</a>.</p>
 </section>
 <section id="style-sheets">
 <h2>Style sheets<a class="headerlink" href="#style-sheets" title="Link to this heading">#</a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">matplotlibrc</span></code> file is read when you import Matplotlib, so it is not easy to switch from one set of options to another.</p>
-<p>The solution to this problem is style sheets, <a class="reference external" href="https://matplotlib.org/3.1.1/tutorials/introductory/customizing.html">which you can read about here</a>.</p>
+<p>The solution to this problem is style sheets, <a class="reference external" href="https://matplotlib.org/stable/users/explain/customizing.html">which you can read about here</a>.</p>
 <p>Matplotlib provides a set of predefined style sheets, or you can make your own.</p>
 <p>The following cell displays a list of style sheets installed on your system.</p>
 <div class="cell docutils container">
@@ -720,7 +720,7 @@
 </section>
 <section id="latex-fonts">
 <h2>LaTeX fonts<a class="headerlink" href="#latex-fonts" title="Link to this heading">#</a></h2>
-<p>When you include mathematical expressions in titles, labels, and annotations, Matplotlib uses <a class="reference external" href="https://matplotlib.org/3.1.0/tutorials/text/mathtext.html"><code class="docutils literal notranslate"><span class="pre">mathtext</span></code></a> to typeset them.  <code class="docutils literal notranslate"><span class="pre">mathtext</span></code> uses the same syntax as LaTeX, but it provides only a subset of its features.</p>
+<p>When you include mathematical expressions in titles, labels, and annotations, Matplotlib uses <a class="reference external" href="https://matplotlib.org/stable/users/explain/text/mathtext.html"><code class="docutils literal notranslate"><span class="pre">mathtext</span></code></a> to typeset them.  <code class="docutils literal notranslate"><span class="pre">mathtext</span></code> uses the same syntax as LaTeX, but it provides only a subset of its features.</p>
 <p>If you need features that are not provided by <code class="docutils literal notranslate"><span class="pre">mathtext</span></code>, or you prefer the way LaTeX typesets mathematical expressions, you can customize Matplotlib to use LaTeX.</p>
 <p>In <code class="docutils literal notranslate"><span class="pre">matplotlibrc</span></code> or in a style sheet, you can add the following line:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">text</span><span class="o">.</span><span class="n">usetex</span>        <span class="p">:</span> <span class="n">true</span>
@@ -759,9 +759,9 @@
 <p>So far we’ve been working with one figure at a time, but the figure we are replicating contains multiple panels, also known as “subplots”.</p>
 <p>Confusingly, Matplotlib provides <em>three</em> functions for making figures like this: <code class="docutils literal notranslate"><span class="pre">subplot</span></code>, <code class="docutils literal notranslate"><span class="pre">subplots</span></code>, and <code class="docutils literal notranslate"><span class="pre">subplot2grid</span></code>.</p>
 <ul class="simple">
-<li><p><a class="reference external" href="https://matplotlib.org/3.3.1/api/_as_gen/matplotlib.pyplot.subplot.html"><code class="docutils literal notranslate"><span class="pre">subplot</span></code></a> is simple and similar to MATLAB, so if you are familiar with that interface, you might like <code class="docutils literal notranslate"><span class="pre">subplot</span></code></p></li>
-<li><p><a class="reference external" href="https://matplotlib.org/3.3.1/api/_as_gen/matplotlib.pyplot.subplots.html"><code class="docutils literal notranslate"><span class="pre">subplots</span></code></a> is more object-oriented, which some people prefer.</p></li>
-<li><p><a class="reference external" href="https://matplotlib.org/3.3.1/api/_as_gen/matplotlib.pyplot.subplot2grid.html"><code class="docutils literal notranslate"><span class="pre">subplot2grid</span></code></a> is most convenient if you want to control the relative sizes of the subplots.</p></li>
+<li><p><a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.subplot.html"><code class="docutils literal notranslate"><span class="pre">subplot</span></code></a> is simple and similar to MATLAB, so if you are familiar with that interface, you might like <code class="docutils literal notranslate"><span class="pre">subplot</span></code></p></li>
+<li><p><a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.subplots.html"><code class="docutils literal notranslate"><span class="pre">subplots</span></code></a> is more object-oriented, which some people prefer.</p></li>
+<li><p><a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.subplot2grid.html"><code class="docutils literal notranslate"><span class="pre">subplot2grid</span></code></a> is most convenient if you want to control the relative sizes of the subplots.</p></li>
 </ul>
 <p>So we’ll use <code class="docutils literal notranslate"><span class="pre">subplot2grid</span></code>.</p>
 <p>All of these functions are easier to use if we put the code that generates each panel in a function.</p>
@@ -1016,7 +1016,7 @@
 </section>
 <section id="subplots">
 <h2>Subplots<a class="headerlink" href="#subplots" title="Link to this heading">#</a></h2>
-<p>Now we’re ready to put it all together.  To make a figure with four subplots, we’ll use <code class="docutils literal notranslate"><span class="pre">subplot2grid</span></code>, <a class="reference external" href="https://matplotlib.org/3.3.1/api/_as_gen/matplotlib.pyplot.subplot2grid.html">which requires two arguments</a>:</p>
+<p>Now we’re ready to put it all together.  To make a figure with four subplots, we’ll use <code class="docutils literal notranslate"><span class="pre">subplot2grid</span></code>, <a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.subplot2grid.html">which requires two arguments</a>:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">shape</span></code>, which is a tuple with the number of rows and columns in the grid, and</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">loc</span></code>, which is a tuple identifying the location in the grid we’re about to fill.</p></li>
@@ -1050,7 +1050,7 @@
 <img alt="_images/f98e89620a6b71d5e570941a6465b4f18aa50f7fcebd1bdb35fabb41e0abb7d7.png" src="_images/f98e89620a6b71d5e570941a6465b4f18aa50f7fcebd1bdb35fabb41e0abb7d7.png" />
 </div>
 </div>
-<p>We use <a class="reference external" href="https://matplotlib.org/3.3.1/tutorials/intermediate/tight_layout_guide.html"><code class="docutils literal notranslate"><span class="pre">plt.tight_layout</span></code></a> at the end, which adjusts the sizes of the panels to make sure the titles and axis labels don’t overlap.</p>
+<p>We use <a class="reference external" href="https://matplotlib.org/stable/users/explain/axes/tight_layout_guide.html"><code class="docutils literal notranslate"><span class="pre">plt.tight_layout</span></code></a> at the end, which adjusts the sizes of the panels to make sure the titles and axis labels don’t overlap.</p>
 <p>As an exercise, see what happens if you leave out <code class="docutils literal notranslate"><span class="pre">tight_layout</span></code>.</p>
 </section>
 <section id="adjusting-proportions">
