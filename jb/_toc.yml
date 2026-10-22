@@ -1,5 +1,6 @@
-file: README
-sections:
+format: jb-book
+root: index
+chapters:
 - file: 01_query
 - file: 02_coords
 - file: 03_motion

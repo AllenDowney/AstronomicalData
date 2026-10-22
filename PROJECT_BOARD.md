@@ -45,12 +45,16 @@ Numbered tasks for tracking work. Each task has a permanent number; add new task
 - [x] 01: a "Note about limits" after the first query: the anonymous limits (1 minute, 50,000 rows), "run the cell again" on a time-out, and how to register and `Gaia.login()` (Allen)
 - [x] `test_setup.ipynb` rewritten as a check for local installs (Allen): import checks only, a pointer to the README, copyright cell; the 2020 event material (Jupyter intro, Slack, survey, old pandas check) dropped. Tested in CI
 - [x] Deleted `index.md` and the root `_config.yml`/`_toc.yml` (Allen)
+- [x] Found by the site build: two empty links filled as the lesson had them (05: Pan-STARRS `original_valid` docs; 07: `plt.annotate`), and "`g_mean_psf_mag` … from the `i` filter" → `g` filter (05; the lesson's fix)
 
 **5. README in the standard shape**
 - [x] README rewritten (2026-10-22): badge; author; self-study line; abstract and credits (kept); the lesson's retirement and that these notebooks are maintained; level (intermediate, Allen); length (about 20 hours, five 4-hour sessions, Allen); outline; notebook table with Colab links (exercises and solutions; 06 solutions only); link to the site; Gaia archive limits; recordings: none, with the 2020 event and the `carpentries-2020` tag; running instructions (Colab, then pip or mamba, then `test_setup.ipynb`); next steps (hub; no related book); license (MIT, CC BY 4.0)
 
 **6. Site and visibility**
-- [ ] Rebuild the existing `gh-pages` site from `jb/` (delete `jb/_build/` first) and do the SEO checklist; Allen reviews descriptions
+- [x] `jb/` rebuilt from the BayesMadeSimple template (2026-10-22): `index.md` landing page (from the new README; replaces `jb/README.md`), `_toc.yml`, `_config.yml` (sitemap, OpenGraph, canonical, page-view counter; `execute_notebooks: 'off'`, since running would query Gaia; the saved outputs are from the 2026-10-21 live run), `prep_notebooks.py` (copies `../soln/0*.ipynb`, adds `hide-cell` to solutions, writes the descriptions), `build.sh [publish]` (deletes `_build` first). The notebooks have distinct numbered H1s, so no heading changes
+- [x] Test build in a scratch copy: no warnings (after filling two empty links, below); sitemap lists exactly the 8 pages; each page has one description, one `og:description`, `rel="canonical"` and the counter; landing title "Astronomical Data in Python: Notebooks — Astronomical Data in Python"
+- [ ] Allen reviews the 8 descriptions (`jb/index.md` front matter, `jb/prep_notebooks.py`) and the social image (none yet: no related book cover)
+- [ ] Publish: `cd jb && ./build.sh publish` (Pages already serves `gh-pages`); request a Pages build if needed and check the live site; `Sitemap:` line in `~/AllenDowney.github.io/robots.txt`; Allen submits the sitemap in Search Console; tick in GreenTeaPress Task 22
 - [ ] Hub entry, repo description and topics
 
 **7. Close**

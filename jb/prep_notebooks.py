@@ -1,34 +1,44 @@
-import nbformat as nbf
-from glob import glob
+"""Copy the solution notebooks into jb/ and prepare them for the book.
+
+For each ../soln/NN_name.ipynb, writes NN_name.ipynb here:
+- code cells that start with "# Solution" get the hide-cell tag;
+- the page description goes in the notebook metadata (see GreenTeaPress plans/seo.md).
+"""
+
+import nbformat
+
+DESCRIPTIONS = {
+    '01_query': "Query the Gaia archive from Python: use astroquery to list tables, read their metadata, "
+                "and write ADQL queries that download stars as an Astropy Table.",
+    '02_coords': "Work with units and celestial coordinates in Astropy, transform them to the GD-1 frame, "
+                 "and select the stars in a polygon of sky with an ADQL query.",
+    '03_motion': "Transform Gaia positions and proper motions to the GD-1 frame, correct for the Sun's "
+                 "reflex motion, and select candidate GD-1 stars with pandas.",
+    '04_select': "Select GD-1 candidates by proper motion in the Gaia query: a convex hull, "
+                 "a bounding box with BETWEEN, and a polygon test with Matplotlib.",
+    '05_join': "Join Gaia data with Pan-STARRS photometry in ADQL, using the best-neighbour "
+               "cross-match table, and save the candidate stars with pandas.",
+    '06_photo': "Select GD-1 stars by photometry: a color-magnitude diagram, a MIST isochrone, "
+                "and a polygon around it that picks out stars of the right age and metallicity.",
+    '07_plot': "Make a publication-quality figure with Matplotlib: annotations, rcParams, style sheets, "
+               "LaTeX labels, and a multi-panel figure like Figure 1 of the paper.",
+}
 
 
-def process_cell(cell):
-    cell_tags = cell.get('metadata', {}).get('tags', [])
+def prepare(name, description):
+    nb = nbformat.read(f'../soln/{name}.ipynb', 4)
 
-    # add hide-cell tag to solutions
-    if cell['cell_type'] == 'code':
-        source = cell['source']
-        if source.startswith('# Solution'):
-            tag = 'hide-cell'
-            if tag not in cell_tags:
-                cell_tags.append('hide-cell')
+    for cell in nb.cells:
+        if cell.cell_type == 'code' and cell.source.startswith('# Solution'):
+            tags = cell.metadata.setdefault('tags', [])
+            if 'hide-cell' not in tags:
+                tags.append('hide-cell')
 
-    if len(cell_tags) > 0:
-        cell['metadata']['tags'] = cell_tags
-
-
-def process_notebook(path):
-    ntbk = nbf.read(path, nbf.NO_CONVERT)
-
-    for cell in ntbk.cells:
-        process_cell(cell)
-
-    nbf.write(ntbk, path)
+    nb.metadata['myst'] = {'html_meta': {'description': description}}
+    nb.metadata['og:description'] = description
+    nbformat.write(nb, f'{name}.ipynb')
+    print(f'{name} ({len(description)} characters)')
 
 
-# Collect a list of the notebooks in the content folder
-paths = glob("0*.ipynb")
-
-for path in sorted(paths):
-    print('prepping', path)
-    process_notebook(path)
+for name, description in DESCRIPTIONS.items():
+    prepare(name, description)
