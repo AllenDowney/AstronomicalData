@@ -8,7 +8,7 @@ Numbered tasks for tracking work. Each task has a permanent number; add new task
 
 ## Task 1: Refresh
 
-**Status:** In progress (2026-10-22): steps 0–6 done; waiting for Allen's Colab run (step 3) and the Search Console submission, then step 7
+**Status:** In progress (2026-10-22): steps 0–6 done; waiting for Allen's Colab run (step 3), then step 7
 
 **Context:** AstronomicalData is a **self-study** workshop (GreenTeaPress Task 24): not offered live, but the notebooks are maintained and run on Colab. The guide is the "Refresh checklist" in `~/GreenTeaPress/plans/workshops.md` (self-study variant). This material became the Data Carpentry lesson *Foundations of Astronomical Data Science* ([site](https://datacarpentry.github.io/astronomy-python/), [source](https://github.com/datacarpentry/astronomy-python)). **The Carpentries retired the lesson on 2026-10-01** (`bc3994d`; repository archived, pages stay online, "no longer actively maintained"), so these notebooks are now the maintained version (Allen, 2026-10-22); the README says so and links the lesson pages. Where the lesson already fixed something that broke here, follow its fix and note differences (below). 113 stars; last content change 2021-03-26. No known recordings.
 
@@ -55,7 +55,7 @@ Numbered tasks for tracking work. Each task has a permanent number; add new task
 - [x] Test build in a scratch copy: no warnings (after filling two empty links, below); sitemap lists exactly the 8 pages; each page has one description, one `og:description`, `rel="canonical"` and the counter; landing title "Astronomical Data in Python: Notebooks — Astronomical Data in Python"
 - [x] Allen approved the 8 descriptions (2026-10-22). Social image (Allen): the multi-panel GD-1 figure from 07 (`jb/extra/gd1_figure.png`, extracted from the saved output, copied to the site root by `html_extra_path`)
 - [x] Published 2026-10-22 (`./build.sh publish`; Pages already served `gh-pages`, build started by the push). Live site checked: landing page, descriptions, sitemap, image. The old site's landing page was `README.html` (its `index.html` redirected there), so `jb/extra/README.html` now redirects to the new landing page (canonical, `noindex`); the old `05_join_old.html` is gone. `Sitemap:` line in `~/AllenDowney.github.io/robots.txt` (pushed, `ac773ac`); ticked in GreenTeaPress Task 22 (committed locally, not pushed)
-- [ ] Allen submits `https://allendowney.github.io/AstronomicalData/sitemap.xml` in Search Console
+- [x] Allen submitted `https://allendowney.github.io/AstronomicalData/sitemap.xml` in Search Console (2026-10-22)
 - [x] Hub entry (`AllenDowney.github.io` `index.html`, pushed): "it became a Data Carpentry lesson (retired in 2026)". Repo topics: added `astropy`, `astroquery`, `jupyter-book` (`scripts/repo_about.sh` updated; description and website unchanged). GreenTeaPress `plans/workshops.md` updated for the lesson's retirement (content issue 6; committed locally)
 
 **7. Close**
